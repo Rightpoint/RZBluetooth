@@ -6,13 +6,13 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-#import "RZCentralManager+Private.h"
+#import "RZBCentralManager+Private.h"
 #import "CBCharacteristic+RZBExtension.h"
 #import "RZBCommandDispatch.h"
 #import "RZBCommand.h"
 #import "RZBUUIDPath.h"
 
-@implementation RZCentralManager
+@implementation RZBCentralManager
 
 + (Class)coreBluetoothCentralManagerClass
 {

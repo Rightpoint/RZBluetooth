@@ -6,8 +6,9 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
-@interface RZMockBluetooth : NSObject
-
-@end
+#import <CoreBluetooth/CoreBluetooth.h>
+#import "RZBMockCentralManager.h"
+#import "RZBMockPeripheral.h"
+#import "RZBMockService.h"
+#import "RZBMockCharacteristic.h"
+#import "NSError+RZBMock.h"

@@ -8,8 +8,8 @@
 
 #import <XCTest/XCTest.h>
 #import <Foundation/Foundation.h>
-#import "CBCharacteristic+RZBExtension.h"
 #import "RZBUUIDPath.h"
+
 @class RZBCommandDispatch;
 
 @interface XCTestCase (Helpers)

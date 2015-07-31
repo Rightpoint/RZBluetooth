@@ -6,11 +6,11 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-#import "RZCentralManager.h"
+#import "RZBCentralManager.h"
 #import "RZBCommandDispatch.h"
 
 
-@interface RZCentralManager () <CBCentralManagerDelegate, CBPeripheralDelegate, RZBCommandDispatchDelegate>
+@interface RZBCentralManager () <CBCentralManagerDelegate, CBPeripheralDelegate, RZBCommandDispatchDelegate>
 
 /**
  * Provide an over-ride point for tests to provide an Core-Bluetooth compatible

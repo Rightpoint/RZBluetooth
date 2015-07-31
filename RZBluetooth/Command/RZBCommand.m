@@ -10,7 +10,7 @@
 #import "CBCharacteristic+RZBExtension.h"
 #import "RZBUUIDPath.h"
 #import "RZBErrors.h"
-#import "RZCentralManager+Private.h"
+#import "RZBCentralManager+Private.h"
 
 #define RZBoolString(value) (value ? @"YES" : @"NO")
 
@@ -45,7 +45,7 @@
     }]];
 }
 
-- (BOOL)executeCommandWithContext:(RZCentralManager *)context
+- (BOOL)executeCommandWithContext:(RZBCentralManager *)context
 {
     return YES;
 }
@@ -128,7 +128,7 @@
 
 @implementation RZBConnectCommand
 
-- (BOOL)executeCommandWithContext:(RZCentralManager *)context
+- (BOOL)executeCommandWithContext:(RZBCentralManager *)context
 {
     CBPeripheral *peripheral = [context peripheralForUUID:self.peripheralUUID];
     NSAssert(peripheral.state != CBPeripheralStateConnected, @"Should not execute connect on connected peripheral");
@@ -141,7 +141,7 @@
 
 @implementation RZBCancelConnectionCommand
 
-- (BOOL)executeCommandWithContext:(RZCentralManager *)context
+- (BOOL)executeCommandWithContext:(RZBCentralManager *)context
 {
     CBPeripheral *peripheral = [context peripheralForUUID:self.peripheralUUID];
     NSAssert(peripheral.state == CBPeripheralStateConnected, @"Should only execute connect on connected peripheral");
@@ -169,7 +169,7 @@
     }
 }
 
-- (BOOL)executeCommandWithContext:(RZCentralManager *)context
+- (BOOL)executeCommandWithContext:(RZBCentralManager *)context
 {
     CBPeripheral *peripheral = [context connectedPeripheralForUUID:self.peripheralUUID
                                                 triggeredByCommand:self];
@@ -216,7 +216,7 @@
     }
 }
 
-- (BOOL)executeCommandWithContext:(RZCentralManager *)context
+- (BOOL)executeCommandWithContext:(RZBCentralManager *)context
 {
     CBPeripheral *peripheral = [context connectedPeripheralForUUID:self.peripheralUUID
                                                 triggeredByCommand:self];
@@ -255,7 +255,7 @@
 
 @implementation RZBReadCharacteristicCommand
 
-- (BOOL)executeCommandWithContext:(RZCentralManager *)context
+- (BOOL)executeCommandWithContext:(RZBCentralManager *)context
 {
     CBPeripheral *peripheral = [context connectedPeripheralForUUID:self.peripheralUUID
                                                 triggeredByCommand:self];
@@ -277,7 +277,7 @@
 
 @implementation RZBNotifyCharacteristicCommand
 
-- (BOOL)executeCommandWithContext:(RZCentralManager *)context
+- (BOOL)executeCommandWithContext:(RZBCentralManager *)context
 {
     CBPeripheral *peripheral = [context connectedPeripheralForUUID:self.peripheralUUID
                                                 triggeredByCommand:self];
@@ -304,7 +304,7 @@
     return CBCharacteristicWriteWithoutResponse;
 }
 
-- (BOOL)executeCommandWithContext:(RZCentralManager *)context
+- (BOOL)executeCommandWithContext:(RZBCentralManager *)context
 {
     CBPeripheral *peripheral = [context connectedPeripheralForUUID:self.peripheralUUID
                                                 triggeredByCommand:self];
@@ -340,7 +340,7 @@
 
 @implementation RZBScanCommand
 
-- (BOOL)executeCommandWithContext:(RZCentralManager *)context
+- (BOOL)executeCommandWithContext:(RZBCentralManager *)context
 {
     [context.centralManager scanForPeripheralsWithServices:self.serviceUUIDs
                                                    options:self.scanOptions];

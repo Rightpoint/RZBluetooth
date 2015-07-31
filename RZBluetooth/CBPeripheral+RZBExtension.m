@@ -8,16 +8,16 @@
 
 #import "CBPeripheral+RZBExtension.h"
 #import "CBCharacteristic+RZBExtension.h"
-#import "RZCentralManager+Private.h"
+#import "RZBCentralManager+Private.h"
 #import "RZBUUIDPath.h"
 #import "RZBCommand.h"
 
 @implementation CBPeripheral (RZBExtension)
 
-- (RZCentralManager *)centralManager
+- (RZBCentralManager *)centralManager
 {
-    RZCentralManager *centralManager = (id)self.delegate;
-    NSAssert([centralManager isKindOfClass:[RZCentralManager class]], @"CBPeripheral is not properly configured.  The delegate property must be configured to the RZCentralManager that owns it.");
+    RZBCentralManager *centralManager = (id)self.delegate;
+    NSAssert([centralManager isKindOfClass:[RZBCentralManager class]], @"CBPeripheral is not properly configured.  The delegate property must be configured to the RZCentralManager that owns it.");
     return centralManager;
 }
 

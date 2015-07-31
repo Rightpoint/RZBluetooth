@@ -10,7 +10,6 @@
 #import "RZBMockPeripheral.h"
 #import "RZBMockService.h"
 #import "RZBMockCharacteristic.h"
-#import "RZBInvocationLog.h"
 
 @implementation RZBMockCentralManager
 

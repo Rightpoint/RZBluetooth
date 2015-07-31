@@ -7,7 +7,6 @@
 //
 
 #import "RZBMockCentralTestCase.h"
-#import "CBPeripheral+RZBExtension.h"
 
 static NSString *const RZBTestString = @"StringValue";
 

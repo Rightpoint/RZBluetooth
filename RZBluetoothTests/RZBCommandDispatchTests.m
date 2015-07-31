@@ -8,7 +8,6 @@
 
 #import <XCTest/XCTest.h>
 #import "RZBCommandDispatch.h"
-#import "RZBMockCentralManager.h"
 #import "RZTestCommands.h"
 #import "XCTestCase+Helpers.h"
 

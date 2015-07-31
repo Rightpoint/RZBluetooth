@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-#import "RZCentralManager.h"
+#import "RZBCentralManager.h"
 
-@interface RZBTestCentralManager : RZCentralManager
+@interface RZBTestCentralManager : RZBCentralManager
 
 @end

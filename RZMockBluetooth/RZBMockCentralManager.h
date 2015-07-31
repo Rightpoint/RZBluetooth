@@ -8,7 +8,6 @@
 
 #import <CoreBluetooth/CoreBluetooth.h>
 @class RZBMockPeripheral;
-@class RZBInvocationLog;
 @protocol RZBMockCentralManagerDelegate;
 
 @interface RZBMockCentralManager : NSObject

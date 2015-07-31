@@ -7,17 +7,12 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "XCTestCase+Helpers.h"
+#import "RZBluetooth.h"
+#import "RZMockBluetooth.h"
 
-#import "RZCentralManager+Private.h"
 #import "RZBCommand.h"
-#import "RZBErrors.h"
-
-#import "RZBMockCentralManager.h"
-#import "RZBMockPeripheral.h"
-#import "RZBMockService.h"
-#import "RZBMockCharacteristic.h"
-#import "NSError+RZBMock.h"
+#import "XCTestCase+Helpers.h"
+#import "RZBCentralManager+Private.h"
 #import "RZBInvocationLog.h"
 
 #define RZBAssertHasCommand(cmdClass, UUIDPath, isExec) RZBAssertHasCommands(cmdClass, UUIDPath, isExec, 1)
@@ -31,7 +26,7 @@ XCTAssert(cmds.count == c, @"Did not find an %@ command of class %@\n%@\n", isEx
 
 @interface RZBMockCentralTestCase : XCTestCase <RZBMockCentralManagerDelegate, RZBMockPeripheralDelegate>
 
-@property (strong, nonatomic) RZCentralManager *centralManager;
+@property (strong, nonatomic) RZBCentralManager *centralManager;
 @property (strong, nonatomic, readonly) RZBMockCentralManager *mockCentralManager;
 @property (strong, nonatomic) RZBInvocationLog *invocationLog;
 

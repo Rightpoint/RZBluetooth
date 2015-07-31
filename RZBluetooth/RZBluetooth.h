@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <CoreBluetooth/CoreBluetooth.h>
+#import "RZBCentralManager.h"
+#import "CBPeripheral+RZBExtension.h"
+#import "RZBErrors.h"
 
-@interface RZBluetooth : NSObject
-
-@end

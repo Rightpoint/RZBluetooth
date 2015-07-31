@@ -15,7 +15,7 @@
  * Core Bluetooth to become available, and even re-submit any commands if the 
  * CoreBluetooth process crashes.
  */
-@interface RZCentralManager : NSObject
+@interface RZBCentralManager : NSObject
 
 /**
  * Create a new central manager on the main dispatch queue, with a default identifier.
