@@ -5,7 +5,7 @@ RZBluetooth is a Core Bluetooth helper with 3 primary goals:
  - Simplify and encourage testing - including unit tests, automated integration tests, and manual tests.
 
 ## Delegate Management
-Core Bluetooth has many intermediary callbacks that need to be handled before the desired data can be read, written or observed. RZBluetooth provides a CBCentralManager wrapper that extends CBPeripheral will block based API's for interacting with characteristics. All connection and discovery operations are performed behind the scenes relaying any intermediary errors up to the user exposed operations.
+Core Bluetooth has many intermediary callbacks that need to be handled before the desired data can be read, written or observed. RZBluetooth provides a CBCentralManager wrapper that extends CBPeripheral with block based API's for interacting with characteristics. All connection and discovery operations are performed behind the scenes relaying any intermediary errors up to the user exposed blocks.
 
 ```
 - (void)initiateRead

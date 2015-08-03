@@ -7,16 +7,25 @@
 //
 
 #import <CoreBluetooth/CoreBluetooth.h>
+#import "RZBMockPeripheral.h"
+
+@class RZBMockCentralManager;
+@class RZBSimulatedDevice;
 
 
-@interface RZBSimulatedDevice : NSObject
+typedef void(^RZBMockCentralManagerBlock)(RZBSimulatedDevice *device, RZBMockCentralManager *central);
+typedef void(^RZBMockPeripheralBlock)(RZBSimulatedDevice *device, RZBMockPeripheral *peripheral);
+
+@interface RZBSimulatedDevice : NSObject <RZBMockPeripheralDelegate>
 
 @property (strong, nonatomic, readonly) NSUUID *identifier;
+@property (copy, nonatomic) NSDictionary *advInfo;
 @property (strong, nonatomic) NSNumber *RSSI;
-@property (strong, nonatomic) NSDictionary *advInfo;
 
-@property (assign, nonatomic) BOOL connectable;
-@property (assign, nonatomic) BOOL discoverable;
+@property (copy, nonatomic) RZBMockCentralManagerBlock onScan;
+@property (copy, nonatomic) RZBMockCentralManagerBlock onConnect;
+@property (copy, nonatomic) RZBMockCentralManagerBlock onCancelConnection;
+
 
 @property (strong, nonatomic) NSArray *services;
 

@@ -14,12 +14,21 @@ typedef void(^RZBNotifyAction)(BOOL isNotifying);
 
 @interface RZBSimulatedCallback : NSObject
 
-@property (strong, nonatomic) CBUUID *serviceUUID;
-@property (strong, nonatomic) CBUUID *characteristicUUID;
++ (void)setDefaultDelay:(NSTimeInterval)delay;
+
++ (RZBSimulatedCallback *)defaultCallback;
++ (RZBSimulatedCallback *)callbackForConnectionError;
+
+@property (assign, nonatomic) NSTimeInterval delay;
+@property (strong, nonatomic) NSError *error;
 
 @end
 
+
 @interface RZBReadCallback : RZBSimulatedCallback
+
+@property (strong, nonatomic) CBUUID *serviceUUID;
+@property (strong, nonatomic) CBUUID *characteristicUUID;
 
 @property (copy, nonatomic) RZBReadAction callback;
 
