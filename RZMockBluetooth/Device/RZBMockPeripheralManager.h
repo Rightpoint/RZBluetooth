@@ -10,14 +10,14 @@
 #import "RZBMockPeripheral.h"
 
 @class RZBMockCentralManager;
-@class RZBSimulatedDevice;
+@class RZBMockPeripheralManager;
 @class RZBSimulatedCallback;
 
 typedef NSData*(^RZBReadAction)(void);
 typedef void(^RZBWriteAction)(NSData *data);
 typedef void(^RZBNotifyAction)(BOOL isNotifying);
 
-@interface RZBSimulatedDevice : NSObject <RZBMockPeripheralDelegate>
+@interface RZBMockPeripheralManager : NSObject
 
 @property (strong, nonatomic) RZBMockPeripheral *peripheral;
 @property (strong, nonatomic, readonly) NSUUID *identifier;
@@ -31,18 +31,10 @@ typedef void(^RZBNotifyAction)(BOOL isNotifying);
 @property (strong, nonatomic) NSMutableArray *readRequests;
 @property (strong, nonatomic) NSMutableArray *writeRequests;
 
-@property (strong, nonatomic) RZBSimulatedCallback *scanCallback;
-@property (strong, nonatomic) RZBSimulatedCallback *connectCallback;
-@property (strong, nonatomic) RZBSimulatedCallback *cancelConncetionCallback;
-@property (strong, nonatomic) RZBSimulatedCallback *discoverServiceCallback;
-@property (strong, nonatomic) RZBSimulatedCallback *discoverCharacteristicCallback;
-
-@property (strong, nonatomic) RZBSimulatedCallback *readCharacteristicCallback;
-@property (strong, nonatomic) RZBSimulatedCallback *writeCharacteristicCallback;
-@property (strong, nonatomic) RZBSimulatedCallback *notifyCharacteristicCallback;
-
-
 - (void)respondToRequest:(CBATTRequest *)request withResult:(CBATTError)result;
 - (BOOL)updateValue:(NSData *)value forCharacteristic:(CBMutableCharacteristic *)characteristic onSubscribedCentrals:(NSArray *)centrals;
 
+- (void)fakeReadRequest:(CBATTRequest *)request;
+- (void)fakeWriteRequest:(CBATTRequest *)request type:(CBCharacteristicWriteType)type;
+- (void)fakeNotifyState:(BOOL)enabled central:(CBCentral *)central characteristic:(CBMutableCharacteristic *)characteristic;
 @end

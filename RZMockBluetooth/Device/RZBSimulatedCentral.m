@@ -7,11 +7,13 @@
 //
 
 #import "RZBSimulatedCentral.h"
-#import "RZBSimulatedDevice.h"
+#import "RZBMockPeripheralManager.h"
 #import "RZBMockPeripheral.h"
 #import "RZBSimulatedCallback.h"
+#import "RZBMockService.h"
+#import "RZBMockCharacteristic.h"
 
-@interface RZBSimulatedCentral ()
+@interface RZBSimulatedCentral () <RZBMockPeripheralDelegate>
 
 @property (strong, nonatomic) NSMutableArray *devices;
 
@@ -34,11 +36,19 @@
     self = [super init];
     if (self) {
         self.devices = [NSMutableArray array];
+        self.scanCallback = [RZBSimulatedCallback callback];
+        self.connectCallback = [RZBSimulatedCallback callback];
+        self.cancelConncetionCallback = [RZBSimulatedCallback callback];
+        self.discoverServiceCallback = [RZBSimulatedCallback callback];
+        self.discoverCharacteristicCallback = [RZBSimulatedCallback callback];
+        self.readCharacteristicCallback = [RZBSimulatedCallback callback];
+        self.writeCharacteristicCallback = [RZBSimulatedCallback callback];
+        self.notifyCharacteristicCallback = [RZBSimulatedCallback callback];
     }
     return self;
 }
 
-- (BOOL)isDevice:(RZBSimulatedDevice *)device discoverableWithServices:(NSArray *)services
+- (BOOL)isDevice:(RZBMockPeripheralManager *)device discoverableWithServices:(NSArray *)services
 {
     BOOL discoverable = (services == nil);
     for (CBService *service in device.services) {
@@ -49,9 +59,9 @@
     return discoverable;
 }
 
-- (RZBSimulatedDevice *)deviceWithIdentifier:(NSUUID *)identifier
+- (RZBMockPeripheralManager *)peripheralManagerWithIdentifier:(NSUUID *)identifier
 {
-    for (RZBSimulatedDevice *device in self.devices) {
+    for (RZBMockPeripheralManager *device in self.devices) {
         if ([device.identifier isEqual:identifier]) {
             return device;
         }
@@ -59,14 +69,22 @@
     return nil;
 }
 
-- (void)addSimulatedDevice:(RZBSimulatedDevice *)device;
+- (void)addSimulatedDevice:(RZBMockPeripheralManager *)device;
 {
     [self.devices addObject:device];
 }
 
-- (void)removeSimulatedDevice:(RZBSimulatedDevice *)device
+- (void)removeSimulatedDevice:(RZBMockPeripheralManager *)device
 {
     [self.devices removeObject:device];
+}
+
+- (CBATTRequest *)requestForCharacteristic:(RZBMockCharacteristic *)characteristic
+{
+    CBATTRequest *request = [[CBATTRequest alloc] init];
+    [request setValue:characteristic forKey:@"characteristic"];
+    [request setValue:self forKey:@"central"];
+    return request;
 }
 
 - (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager retrievePeripheralsWithIdentifiers:(NSArray *)identifiers
@@ -76,9 +94,9 @@
 
 - (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager scanForPeripheralsWithServices:(NSArray *)services options:(NSDictionary *)options
 {
-    for (__weak RZBSimulatedDevice *device in self.devices) {
+    for (__weak RZBMockPeripheralManager *device in self.devices) {
         if ([self isDevice:device discoverableWithServices:services]) {
-            [device.scanCallback dispatch:^(NSError *injectedError) {
+            [self.scanCallback dispatch:^(NSError *injectedError) {
                 NSAssert(injectedError == nil, @"Can not inject errors into scans");
                 [mockCentralManager fakeScanPeripheralWithUUID:device.identifier
                                                        advInfo:device.advInfo
@@ -95,20 +113,95 @@
 
 - (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager connectPeripheral:(RZBMockPeripheral *)peripheral options:(NSDictionary *)options
 {
-    RZBSimulatedDevice *device = [self deviceWithIdentifier:peripheral.identifier];
-    peripheral.mockDelegate = device;
-    [device.connectCallback dispatch:^(NSError *injectedError) {
+    peripheral.mockDelegate = self;
+    [self.connectCallback dispatch:^(NSError *injectedError) {
         [mockCentralManager fakeConnectPeripheralWithUUID:peripheral.identifier error:injectedError];
     }];
 }
 
 - (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager cancelPeripheralConnection:(RZBMockPeripheral *)peripheral
 {
-    RZBSimulatedDevice *device = [self deviceWithIdentifier:peripheral.identifier];
-    [device.cancelConncetionCallback dispatch:^(NSError *injectedError) {
+    [self.cancelConncetionCallback dispatch:^(NSError *injectedError) {
         [mockCentralManager fakeDisconnectPeripheralWithUUID:peripheral.identifier
                                                        error:injectedError];
     }];
+}
+
+#pragma mark - RZBMockPeripheralDelegate
+
+- (void)mockPeripheral:(RZBMockPeripheral *)peripheral discoverServices:(NSArray *)serviceUUIDs
+{
+    RZBMockPeripheralManager *device = [self peripheralManagerWithIdentifier:peripheral.identifier];
+    NSMutableArray *services = [NSMutableArray array];
+    for (RZBMockService *service in device.services) {
+        if ([serviceUUIDs containsObject:service.UUID]) {
+            [services addObject:service];
+        }
+    }
+    [self.discoverServiceCallback dispatch:^(NSError *injectedError) {
+        [peripheral fakeDiscoverService:services error:injectedError];
+    }];
+}
+
+- (void)mockPeripheral:(RZBMockPeripheral *)peripheral discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(RZBMockService *)service
+{
+    NSMutableArray *characteristics = [NSMutableArray array];
+    for (RZBMockCharacteristic *characteristic in service.characteristics) {
+        if ([characteristicUUIDs containsObject:characteristic.UUID]) {
+            [characteristics addObject:characteristic];
+        }
+    }
+    [self.discoverCharacteristicCallback dispatch:^(NSError *injectedError) {
+        [peripheral fakeDiscoverCharacteristics:characteristics forService:service error:injectedError];
+    }];
+}
+
+- (void)mockPeripheral:(RZBMockPeripheral *)peripheral readValueForCharacteristic:(RZBMockCharacteristic *)characteristic
+{
+    RZBMockPeripheralManager *peripheralManager = [self peripheralManagerWithIdentifier:peripheral.identifier];
+    [self.readCharacteristicCallback dispatch:^(NSError *injectedError) {
+        if (injectedError == nil) {
+            CBATTRequest *readRequest = [self requestForCharacteristic:characteristic];
+            [peripheralManager fakeReadRequest:readRequest];
+        }
+        else {
+            [peripheral fakeCharacteristic:characteristic updateValue:characteristic.value error:injectedError];
+        }
+    }];
+}
+
+- (void)mockPeripheral:(RZBMockPeripheral *)peripheral writeValue:(NSData *)data forCharacteristic:(RZBMockCharacteristic *)characteristic type:(CBCharacteristicWriteType)type
+{
+    RZBMockPeripheralManager *peripheralManager = [self peripheralManagerWithIdentifier:peripheral.identifier];
+    [self.writeCharacteristicCallback dispatch:^(NSError *injectedError) {
+        if (injectedError == nil) {
+            // FEATURE: The inbound data could be broken up into an array of write requests based on maximumUpdateValueLength.
+            CBATTRequest *writeRequest = [self requestForCharacteristic:characteristic];
+            writeRequest.value = data;
+            [peripheralManager fakeWriteRequest:writeRequest type:type];
+        }
+        else if (type == CBCharacteristicWriteWithResponse) {
+            [peripheral fakeCharacteristic:characteristic writeResponseWithError:injectedError];
+        }
+    }];
+}
+
+- (void)mockPeripheral:(RZBMockPeripheral *)peripheral setNotifyValue:(BOOL)enabled forCharacteristic:(RZBMockCharacteristic *)characteristic
+{
+    RZBMockPeripheralManager *peripheralManager = [self peripheralManagerWithIdentifier:peripheral.identifier];
+    [self.notifyCharacteristicCallback dispatch:^(NSError *injectedError) {
+        if (injectedError == nil) {
+            [peripheralManager fakeNotifyState:enabled central:(id)self characteristic:(id)characteristic];
+        }
+        else {
+            [peripheral fakeCharacteristic:characteristic notify:enabled error:injectedError];
+        }
+    }];
+}
+
+- (void)mockPeripheralReadRSSI:(RZBMockPeripheral *)peripheral
+{
+
 }
 
 @end

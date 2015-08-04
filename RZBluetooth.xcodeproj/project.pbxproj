@@ -25,7 +25,7 @@
 		AB45C4E41B6BF8AB00CC0166 /* RZTestCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = AB45C4DC1B6BF8AB00CC0166 /* RZTestCommands.m */; };
 		AB45C5081B6BF8D300CC0166 /* RZMockBluetooth.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB45C5071B6BF8D300CC0166 /* RZMockBluetooth.h */; };
 		AB45C53C1B6C064F00CC0166 /* RZBSimulatedCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = AB45C4E81B6BF8BA00CC0166 /* RZBSimulatedCallback.m */; };
-		AB45C53D1B6C064F00CC0166 /* RZBSimulatedDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = AB45C4EA1B6BF8BA00CC0166 /* RZBSimulatedDevice.m */; };
+		AB45C53D1B6C064F00CC0166 /* RZBMockPeripheralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AB45C4EA1B6BF8BA00CC0166 /* RZBMockPeripheralManager.m */; };
 		AB45C53E1B6C064F00CC0166 /* NSError+RZBMock.m in Sources */ = {isa = PBXBuildFile; fileRef = AB45C4EC1B6BF8BA00CC0166 /* NSError+RZBMock.m */; };
 		AB45C5401B6C064F00CC0166 /* RZBMockCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AB45C4F11B6BF8BA00CC0166 /* RZBMockCentralManager.m */; };
 		AB45C5411B6C064F00CC0166 /* RZBMockCharacteristic.m in Sources */ = {isa = PBXBuildFile; fileRef = AB45C4F31B6BF8BA00CC0166 /* RZBMockCharacteristic.m */; };
@@ -110,8 +110,8 @@
 		AB45C4DC1B6BF8AB00CC0166 /* RZTestCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZTestCommands.m; sourceTree = "<group>"; };
 		AB45C4E71B6BF8BA00CC0166 /* RZBSimulatedCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZBSimulatedCallback.h; sourceTree = "<group>"; };
 		AB45C4E81B6BF8BA00CC0166 /* RZBSimulatedCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBSimulatedCallback.m; sourceTree = "<group>"; };
-		AB45C4E91B6BF8BA00CC0166 /* RZBSimulatedDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZBSimulatedDevice.h; sourceTree = "<group>"; };
-		AB45C4EA1B6BF8BA00CC0166 /* RZBSimulatedDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBSimulatedDevice.m; sourceTree = "<group>"; };
+		AB45C4E91B6BF8BA00CC0166 /* RZBMockPeripheralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZBMockPeripheralManager.h; sourceTree = "<group>"; };
+		AB45C4EA1B6BF8BA00CC0166 /* RZBMockPeripheralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBMockPeripheralManager.m; sourceTree = "<group>"; };
 		AB45C4EB1B6BF8BA00CC0166 /* NSError+RZBMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+RZBMock.h"; sourceTree = "<group>"; };
 		AB45C4EC1B6BF8BA00CC0166 /* NSError+RZBMock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+RZBMock.m"; sourceTree = "<group>"; };
 		AB45C4ED1B6BF8BA00CC0166 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -283,8 +283,8 @@
 			children = (
 				AB45C4E71B6BF8BA00CC0166 /* RZBSimulatedCallback.h */,
 				AB45C4E81B6BF8BA00CC0166 /* RZBSimulatedCallback.m */,
-				AB45C4E91B6BF8BA00CC0166 /* RZBSimulatedDevice.h */,
-				AB45C4EA1B6BF8BA00CC0166 /* RZBSimulatedDevice.m */,
+				AB45C4E91B6BF8BA00CC0166 /* RZBMockPeripheralManager.h */,
+				AB45C4EA1B6BF8BA00CC0166 /* RZBMockPeripheralManager.m */,
 				AB45C5491B6C20B100CC0166 /* RZBSimulatedCentral.h */,
 				AB45C54A1B6C20B100CC0166 /* RZBSimulatedCentral.m */,
 			);
@@ -437,7 +437,7 @@
 				AB45C5411B6C064F00CC0166 /* RZBMockCharacteristic.m in Sources */,
 				AB45C5431B6C064F00CC0166 /* RZBMockService.m in Sources */,
 				AB45C53E1B6C064F00CC0166 /* NSError+RZBMock.m in Sources */,
-				AB45C53D1B6C064F00CC0166 /* RZBSimulatedDevice.m in Sources */,
+				AB45C53D1B6C064F00CC0166 /* RZBMockPeripheralManager.m in Sources */,
 				AB45C54B1B6C20B100CC0166 /* RZBSimulatedCentral.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
