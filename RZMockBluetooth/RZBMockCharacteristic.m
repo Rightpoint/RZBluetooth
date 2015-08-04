@@ -25,30 +25,4 @@
     return self;
 }
 
-- (void)fakeUpdateValue:(NSData *)value error:(NSError *)error
-{
-    RZBMockPeripheral *peripheral = self.service.peripheral;
-    dispatch_async(peripheral.mockCentralManager.queue, ^{
-        self.value = value;
-        [peripheral.delegate peripheral:(id)peripheral didUpdateValueForCharacteristic:(id)self error:error];
-    });
-}
-
-- (void)fakeWriteResponseWithError:(NSError *)error
-{
-    RZBMockPeripheral *peripheral = self.service.peripheral;
-    dispatch_async(peripheral.mockCentralManager.queue, ^{
-        [peripheral.delegate peripheral:(id)peripheral didWriteValueForCharacteristic:(id)self error:error];
-    });
-}
-
-- (void)fakeNotify:(BOOL)notifyState error:(NSError *)error
-{
-    RZBMockPeripheral *peripheral = self.service.peripheral;
-    self.isNotifying = notifyState;
-    dispatch_async(peripheral.mockCentralManager.queue, ^{
-        [peripheral.delegate peripheral:(id)peripheral didUpdateNotificationStateForCharacteristic:(id)self error:error];
-    });
-}
-
 @end

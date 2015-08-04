@@ -49,6 +49,12 @@
 - (void)fakeDiscoverService:(NSArray *)services error:(NSError *)error;
 - (void)fakeDiscoverServicesWithUUIDs:(NSArray *)serviceUUIDs error:(NSError *)error;
 - (void)fakeUpdateName:(NSString *)name;
+- (void)fakeDiscoverCharacteristics:(NSArray *)services forService:(RZBMockService *)service error:(NSError *)error;
+- (void)fakeDiscoverCharacteristicsWithUUIDs:(NSArray *)serviceUUIDs forService:(RZBMockService *)service error:(NSError *)error;
+
+- (void)fakeCharacteristic:(RZBMockCharacteristic *)characteristic updateValue:(NSData *)value error:(NSError *)error;
+- (void)fakeCharacteristic:(RZBMockCharacteristic *)characteristic writeResponseWithError:(NSError *)error;
+- (void)fakeCharacteristic:(RZBMockCharacteristic *)characteristic notify:(BOOL)notifyState error:(NSError *)error;
 
 @end
 

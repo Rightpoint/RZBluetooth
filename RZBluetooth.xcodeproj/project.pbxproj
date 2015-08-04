@@ -643,6 +643,7 @@
 				AB45C4AF1B6BF70B00CC0166 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AB45C4B01B6BF70B00CC0166 /* Build configuration list for PBXNativeTarget "RZBluetoothTests" */ = {
 			isa = XCConfigurationList;
@@ -651,6 +652,7 @@
 				AB45C4B21B6BF70B00CC0166 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AB45C5161B6BF8D300CC0166 /* Build configuration list for PBXNativeTarget "RZMockBluetooth" */ = {
 			isa = XCConfigurationList;
@@ -659,6 +661,7 @@
 				AB45C5181B6BF8D300CC0166 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

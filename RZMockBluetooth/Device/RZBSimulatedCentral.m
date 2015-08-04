@@ -9,10 +9,11 @@
 #import "RZBSimulatedCentral.h"
 #import "RZBSimulatedDevice.h"
 #import "RZBMockPeripheral.h"
+#import "RZBSimulatedCallback.h"
 
 @interface RZBSimulatedCentral ()
 
-@property (strong, nonatomic) NSArray *devices;
+@property (strong, nonatomic) NSMutableArray *devices;
 
 @end
 
@@ -26,6 +27,15 @@
         shared = [[RZBSimulatedCentral alloc] init];
     });
     return shared;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.devices = [NSMutableArray array];
+    }
+    return self;
 }
 
 - (BOOL)isDevice:(RZBSimulatedDevice *)device discoverableWithServices:(NSArray *)services
@@ -51,7 +61,12 @@
 
 - (void)addSimulatedDevice:(RZBSimulatedDevice *)device;
 {
-    self.devices = [self.devices ?:@[] arrayByAddingObject:device];
+    [self.devices addObject:device];
+}
+
+- (void)removeSimulatedDevice:(RZBSimulatedDevice *)device
+{
+    [self.devices removeObject:device];
 }
 
 - (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager retrievePeripheralsWithIdentifiers:(NSArray *)identifiers
@@ -61,16 +76,14 @@
 
 - (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager scanForPeripheralsWithServices:(NSArray *)services options:(NSDictionary *)options
 {
-    for (RZBSimulatedDevice *device in self.devices) {
+    for (__weak RZBSimulatedDevice *device in self.devices) {
         if ([self isDevice:device discoverableWithServices:services]) {
-            if (device.onScan) {
-                device.onScan(device, mockCentralManager);
-            }
-            else {
+            [device.scanCallback dispatch:^(NSError *injectedError) {
+                NSAssert(injectedError == nil, @"Can not inject errors into scans");
                 [mockCentralManager fakeScanPeripheralWithUUID:device.identifier
                                                        advInfo:device.advInfo
                                                           RSSI:device.RSSI];
-            }
+            }];
         }
     }
 }
@@ -84,23 +97,18 @@
 {
     RZBSimulatedDevice *device = [self deviceWithIdentifier:peripheral.identifier];
     peripheral.mockDelegate = device;
-    if (device.onConnect) {
-        device.onConnect(device, mockCentralManager);
-    }
-    else {
-        [mockCentralManager fakeConnectPeripheralWithUUID:peripheral.identifier error:nil];
-    }
+    [device.connectCallback dispatch:^(NSError *injectedError) {
+        [mockCentralManager fakeConnectPeripheralWithUUID:peripheral.identifier error:injectedError];
+    }];
 }
 
 - (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager cancelPeripheralConnection:(RZBMockPeripheral *)peripheral
 {
     RZBSimulatedDevice *device = [self deviceWithIdentifier:peripheral.identifier];
-    if (device.onCancelConnection) {
-        device.onCancelConnection(device, mockCentralManager);
-    }
-    else {
-        [mockCentralManager fakeDisconnectPeripheralWithUUID:peripheral.identifier error:nil];
-    }
+    [device.cancelConncetionCallback dispatch:^(NSError *injectedError) {
+        [mockCentralManager fakeDisconnectPeripheralWithUUID:peripheral.identifier
+                                                       error:injectedError];
+    }];
 }
 
 @end

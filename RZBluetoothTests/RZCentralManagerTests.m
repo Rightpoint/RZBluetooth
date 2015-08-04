@@ -71,7 +71,7 @@ static NSString *const RZBTestString = @"StringValue";
     RZBMockCharacteristic *c = [s characteristicForUUID:self.class.cUUID];
     XCTAssertEqualObjects([self.invocationLog argumentAtIndex:0 forSelector:@selector(readValueForCharacteristic:)], c);
 
-    [c fakeUpdateValue:[RZBTestString dataUsingEncoding:NSUTF8StringEncoding] error:nil];
+    [p fakeCharacteristic:c updateValue:[RZBTestString dataUsingEncoding:NSUTF8StringEncoding] error:nil];
     [self waitForQueueFlush];
     XCTAssertEqualObjects(RZBTestString, value);
 }
@@ -121,7 +121,7 @@ characteristicUUID:self.class.cUUID
     XCTAssertEqualObjects([self.invocationLog argumentAtIndex:1 forSelector:@selector(writeValue:forCharacteristic:type:)], c);
     XCTAssertEqualObjects([self.invocationLog argumentAtIndex:2 forSelector:@selector(writeValue:forCharacteristic:type:)], @(CBCharacteristicWriteWithResponse));
 
-    [c fakeWriteResponseWithError:nil];
+    [p fakeCharacteristic:c writeResponseWithError:nil];
     [self waitForQueueFlush];
 
     XCTAssertTrue(completed);
@@ -172,14 +172,14 @@ characteristicUUID:self.class.cUUID
     XCTAssertEqualObjects([self.invocationLog argumentAtIndex:0 forSelector:@selector(setNotifyValue:forCharacteristic:)], @(YES));
     XCTAssertEqualObjects([self.invocationLog argumentAtIndex:1 forSelector:@selector(setNotifyValue:forCharacteristic:)], c);
 
-    [c fakeNotify:YES error:nil];
+    [p fakeCharacteristic:c notify:YES error:nil];
     [self waitForQueueFlush];
 
     XCTAssertTrue(completed);
 
     NSArray *updateValues = @[@"One", @"Two", @"Three"];
     for (NSString *value in updateValues) {
-        [c fakeUpdateValue:[value dataUsingEncoding:NSUTF8StringEncoding] error:nil];
+        [p fakeCharacteristic:c updateValue:[value dataUsingEncoding:NSUTF8StringEncoding] error:nil];
     }
     [self waitForQueueFlush];
 
@@ -278,17 +278,17 @@ characteristicUUID:self.class.cUUID
     RZBMockService *s = [p serviceForUUID:self.class.sUUID];
     RZBMockService *s2 = [p serviceForUUID:self.class.s2UUID];
 
-    [s fakeDiscoverCharacteristicsWithUUIDs:@[self.class.cUUID] error:nil];
+    [p fakeDiscoverCharacteristicsWithUUIDs:@[self.class.cUUID] forService:s error:nil];
     [self waitForQueueFlush];
 
-    [s2 fakeDiscoverCharacteristicsWithUUIDs:@[self.class.c2UUID] error:nil];
+    [p fakeDiscoverCharacteristicsWithUUIDs:@[self.class.c2UUID] forService:s2 error:nil];
     [self waitForQueueFlush];
 
     RZBMockCharacteristic *c = [s characteristicForUUID:self.class.cUUID];
     RZBMockCharacteristic *c2 = [s2 characteristicForUUID:self.class.c2UUID];
 
-    [c fakeUpdateValue:[RZBTestString dataUsingEncoding:NSUTF8StringEncoding] error:nil];
-    [c2 fakeUpdateValue:[RZBTestString dataUsingEncoding:NSUTF8StringEncoding] error:nil];
+    [p fakeCharacteristic:c updateValue:[RZBTestString dataUsingEncoding:NSUTF8StringEncoding] error:nil];
+    [p fakeCharacteristic:c2 updateValue:[RZBTestString dataUsingEncoding:NSUTF8StringEncoding] error:nil];
     [self waitForQueueFlush];
 
     XCTAssertEqualObjects(values, (@[RZBTestString, RZBTestString]));
@@ -331,19 +331,19 @@ characteristicUUID:self.class.cUUID
     [self.invocationLog removeAllLogs];
 
     // Complete the discovery
-    [s fakeDiscoverCharacteristicsWithUUIDs:@[self.class.cUUID] error:nil];
+    [p fakeDiscoverCharacteristicsWithUUIDs:@[self.class.cUUID] forService:s error:nil];
     [self waitForQueueFlush];
     RZBAssertHasCommands(RZBDiscoverCharacteristicCommand, self.class.sUUIDPath, YES, 1);
 
-    [s fakeDiscoverCharacteristicsWithUUIDs:@[self.class.c2UUID] error:nil];
+    [p fakeDiscoverCharacteristicsWithUUIDs:@[self.class.c2UUID] forService:s error:nil];
     [self waitForQueueFlush];
     RZBAssertHasCommands(RZBDiscoverCharacteristicCommand, self.class.sUUIDPath, YES, 0);
 
     RZBMockCharacteristic *c = [s characteristicForUUID:self.class.cUUID];
     RZBMockCharacteristic *c2 = [s characteristicForUUID:self.class.c2UUID];
 
-    [c fakeUpdateValue:[RZBTestString dataUsingEncoding:NSUTF8StringEncoding] error:nil];
-    [c2 fakeUpdateValue:[RZBTestString dataUsingEncoding:NSUTF8StringEncoding] error:nil];
+    [p fakeCharacteristic:c updateValue:[RZBTestString dataUsingEncoding:NSUTF8StringEncoding] error:nil];
+    [p fakeCharacteristic:c2 updateValue:[RZBTestString dataUsingEncoding:NSUTF8StringEncoding] error:nil];
     [self waitForQueueFlush];
 
     XCTAssertEqualObjects(values, (@[RZBTestString, RZBTestString]));
@@ -400,7 +400,7 @@ characteristicUUID:self.class.cUUID
     [self ensureAndCompleteDiscoveryOfService:self.class.sUUID peripheralUUID:self.class.pUUID];
 
     RZBMockService *s = [p serviceForUUID:self.class.sUUID];
-    [s fakeDiscoverCharacteristics:@[] error:nil];
+    [p fakeDiscoverCharacteristics:@[] forService:s error:nil];
     [self waitForQueueFlush];
 
     XCTAssertTrue(errors.count == 2);

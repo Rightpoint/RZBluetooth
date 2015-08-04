@@ -80,7 +80,7 @@
     XCTAssertEqualObjects([self.invocationLog argumentAtIndex:0 forSelector:@selector(discoverCharacteristics:forService:)], @[characteristicUUID]);
     XCTAssertEqualObjects([self.invocationLog argumentAtIndex:1 forSelector:@selector(discoverCharacteristics:forService:)], s);
 
-    [s fakeDiscoverCharacteristicsWithUUIDs:@[characteristicUUID] error:nil];
+    [p fakeDiscoverCharacteristicsWithUUIDs:@[characteristicUUID] forService:s error:nil];
 
     [self waitForQueueFlush];
 }

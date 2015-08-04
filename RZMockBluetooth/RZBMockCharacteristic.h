@@ -13,7 +13,7 @@ typedef void(^RZBMockCharacteristicCallback)(CBCharacteristic *characteristic, N
 
 @interface RZBMockCharacteristic : NSObject
 
-- (instancetype)initWithType:(CBUUID *)UUID properties:(CBCharacteristicProperties)properties value:(NSData *)value permissions:(CBAttributePermissions)permissions;
+- (instancetype)initWithType:(CBUUID *)UUID properties:(CBCharacteristicProperties)properties value:(NSData *)value permissions:(CBAttributePermissions)permissions NS_DESIGNATED_INITIALIZER;
 
 @property(nonatomic) CBUUID *UUID;
 @property(weak, nonatomic) RZBMockService *service;
@@ -22,9 +22,5 @@ typedef void(^RZBMockCharacteristicCallback)(CBCharacteristic *characteristic, N
 @property(strong) NSData *value;
 @property(assign) BOOL isNotifying;
 @property(copy) RZBMockCharacteristicCallback notificationBlock;
-
-- (void)fakeUpdateValue:(NSData *)value error:(NSError *)error;
-- (void)fakeWriteResponseWithError:(NSError *)error;
-- (void)fakeNotify:(BOOL)notifyState error:(NSError *)error;
 
 @end

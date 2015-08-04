@@ -16,5 +16,6 @@
 + (RZBSimulatedCentral *)shared;
 
 - (void)addSimulatedDevice:(RZBSimulatedDevice *)device;
+- (void)removeSimulatedDevice:(RZBSimulatedDevice *)device;
 
 @end

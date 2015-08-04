@@ -20,7 +20,4 @@
 - (RZBMockCharacteristic *)newCharacteristicForUUID:(CBUUID *)characteristicUUIUD;
 - (RZBMockCharacteristic *)characteristicForUUID:(CBUUID *)characteristicUUIUD;
 
-- (void)fakeDiscoverCharacteristics:(NSArray *)services error:(NSError *)error;
-- (void)fakeDiscoverCharacteristicsWithUUIDs:(NSArray *)serviceUUIDs error:(NSError *)error;
-
 @end

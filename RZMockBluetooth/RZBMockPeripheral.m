@@ -120,4 +120,48 @@
     });
 }
 
+- (void)fakeDiscoverCharacteristicsWithUUIDs:(NSArray *)characteristicUUIDs forService:(RZBMockService *)service error:(NSError *)error
+{
+    NSMutableArray *characteristics = [NSMutableArray array];
+    for (CBUUID *characteristicUUID in characteristicUUIDs) {
+        [characteristics addObject:[service newCharacteristicForUUID:characteristicUUID]];
+    }
+    [self fakeDiscoverCharacteristics:characteristics forService:service error:error];
+}
+
+- (void)fakeDiscoverCharacteristics:(NSArray *)services forService:(RZBMockService *)service error:(NSError *)error
+{
+    NSMutableSet *existing = service.characteristics ? [NSMutableSet setWithArray:service.characteristics] : [NSMutableSet set];
+    if (services) {
+        [existing addObjectsFromArray:services];
+    }
+    service.characteristics = [existing allObjects];
+    dispatch_async(self.mockCentralManager.queue, ^{
+        [self.delegate peripheral:(id)self didDiscoverCharacteristicsForService:(id)service error:error];
+    });
+}
+
+- (void)fakeCharacteristic:(RZBMockCharacteristic *)characteristic updateValue:(NSData *)value error:(NSError *)error
+{
+    dispatch_async(self.mockCentralManager.queue, ^{
+        characteristic.value = value;
+        [self.delegate peripheral:(id)self didUpdateValueForCharacteristic:(id)characteristic error:error];
+    });
+}
+
+- (void)fakeCharacteristic:(RZBMockCharacteristic *)characteristic writeResponseWithError:(NSError *)error;
+{
+    dispatch_async(self.mockCentralManager.queue, ^{
+        [self.delegate peripheral:(id)self didWriteValueForCharacteristic:(id)characteristic error:error];
+    });
+}
+
+- (void)fakeCharacteristic:(RZBMockCharacteristic *)characteristic notify:(BOOL)notifyState error:(NSError *)error
+{
+    dispatch_async(self.mockCentralManager.queue, ^{
+        characteristic.isNotifying = notifyState;
+        [self.delegate peripheral:(id)self didUpdateNotificationStateForCharacteristic:(id)characteristic error:error];
+    });
+}
+
 @end
