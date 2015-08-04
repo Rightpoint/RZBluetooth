@@ -10,8 +10,6 @@
 #import "RZBMockPeripheralManager.h"
 #import "RZBMockPeripheral.h"
 #import "RZBSimulatedCallback.h"
-#import "RZBMockService.h"
-#import "RZBMockCharacteristic.h"
 
 @interface RZBSimulatedCentral () <RZBMockPeripheralDelegate>
 
@@ -79,7 +77,7 @@
     [self.devices removeObject:device];
 }
 
-- (CBATTRequest *)requestForCharacteristic:(RZBMockCharacteristic *)characteristic
+- (CBATTRequest *)requestForCharacteristic:(CBCharacteristic *)characteristic
 {
     CBATTRequest *request = [[CBATTRequest alloc] init];
     [request setValue:characteristic forKey:@"characteristic"];
@@ -133,7 +131,7 @@
 {
     RZBMockPeripheralManager *device = [self peripheralManagerWithIdentifier:peripheral.identifier];
     NSMutableArray *services = [NSMutableArray array];
-    for (RZBMockService *service in device.services) {
+    for (CBMutableService *service in device.services) {
         if ([serviceUUIDs containsObject:service.UUID]) {
             [services addObject:service];
         }
@@ -143,21 +141,26 @@
     }];
 }
 
-- (void)mockPeripheral:(RZBMockPeripheral *)peripheral discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(RZBMockService *)service
+- (void)mockPeripheral:(RZBMockPeripheral *)peripheral discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(CBMutableService *)service
 {
+    NSAssert([service isKindOfClass:[CBMutableService class]], @"");
     NSMutableArray *characteristics = [NSMutableArray array];
-    for (RZBMockCharacteristic *characteristic in service.characteristics) {
+    for (CBMutableCharacteristic *characteristic in service.characteristics) {
+        NSAssert([characteristic isKindOfClass:[CBMutableCharacteristic class]], @"");
         if ([characteristicUUIDs containsObject:characteristic.UUID]) {
             [characteristics addObject:characteristic];
         }
     }
     [self.discoverCharacteristicCallback dispatch:^(NSError *injectedError) {
+
         [peripheral fakeDiscoverCharacteristics:characteristics forService:service error:injectedError];
     }];
 }
 
-- (void)mockPeripheral:(RZBMockPeripheral *)peripheral readValueForCharacteristic:(RZBMockCharacteristic *)characteristic
+- (void)mockPeripheral:(RZBMockPeripheral *)peripheral readValueForCharacteristic:(CBMutableCharacteristic *)characteristic
 {
+    NSAssert([characteristic isKindOfClass:[CBMutableCharacteristic class]], @"");
+
     RZBMockPeripheralManager *peripheralManager = [self peripheralManagerWithIdentifier:peripheral.identifier];
     [self.readCharacteristicCallback dispatch:^(NSError *injectedError) {
         if (injectedError == nil) {
@@ -170,8 +173,10 @@
     }];
 }
 
-- (void)mockPeripheral:(RZBMockPeripheral *)peripheral writeValue:(NSData *)data forCharacteristic:(RZBMockCharacteristic *)characteristic type:(CBCharacteristicWriteType)type
+- (void)mockPeripheral:(RZBMockPeripheral *)peripheral writeValue:(NSData *)data forCharacteristic:(CBMutableCharacteristic *)characteristic type:(CBCharacteristicWriteType)type
 {
+    NSAssert([characteristic isKindOfClass:[CBMutableCharacteristic class]], @"");
+
     RZBMockPeripheralManager *peripheralManager = [self peripheralManagerWithIdentifier:peripheral.identifier];
     [self.writeCharacteristicCallback dispatch:^(NSError *injectedError) {
         if (injectedError == nil) {
@@ -186,8 +191,10 @@
     }];
 }
 
-- (void)mockPeripheral:(RZBMockPeripheral *)peripheral setNotifyValue:(BOOL)enabled forCharacteristic:(RZBMockCharacteristic *)characteristic
+- (void)mockPeripheral:(RZBMockPeripheral *)peripheral setNotifyValue:(BOOL)enabled forCharacteristic:(CBMutableCharacteristic *)characteristic
 {
+    NSAssert([characteristic isKindOfClass:[CBMutableCharacteristic class]], @"");
+
     RZBMockPeripheralManager *peripheralManager = [self peripheralManagerWithIdentifier:peripheral.identifier];
     [self.notifyCharacteristicCallback dispatch:^(NSError *injectedError) {
         if (injectedError == nil) {

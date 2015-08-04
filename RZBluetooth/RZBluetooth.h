@@ -9,5 +9,6 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "RZBCentralManager.h"
 #import "CBPeripheral+RZBExtension.h"
+#import "CBService+RZBExtension.h"
 #import "RZBErrors.h"
 

@@ -67,8 +67,8 @@ static NSString *const RZBTestString = @"StringValue";
     [self ensureAndCompleteDiscoveryOfCharacteristic:self.class.cUUID serviceUUID:self.class.sUUID peripheralUUID:self.class.pUUID];
     RZBAssertHasCommand(RZBReadCharacteristicCommand, self.class.cUUIDPath, YES);
 
-    RZBMockService *s = [p serviceForUUID:self.class.sUUID];
-    RZBMockCharacteristic *c = [s characteristicForUUID:self.class.cUUID];
+    CBMutableService *s = [p serviceForUUID:self.class.sUUID];
+    CBMutableCharacteristic *c = [s characteristicForUUID:self.class.cUUID];
     XCTAssertEqualObjects([self.invocationLog argumentAtIndex:0 forSelector:@selector(readValueForCharacteristic:)], c);
 
     [p fakeCharacteristic:c updateValue:[RZBTestString dataUsingEncoding:NSUTF8StringEncoding] error:nil];
@@ -90,8 +90,8 @@ characteristicUUID:self.class.cUUID
     [self ensureAndCompleteDiscoveryOfService:self.class.sUUID peripheralUUID:self.class.pUUID];
     [self ensureAndCompleteDiscoveryOfCharacteristic:self.class.cUUID serviceUUID:self.class.sUUID peripheralUUID:self.class.pUUID];
 
-    RZBMockService *s = [p serviceForUUID:self.class.sUUID];
-    RZBMockCharacteristic *c = [s characteristicForUUID:self.class.cUUID];
+    CBMutableService *s = [p serviceForUUID:self.class.sUUID];
+    CBMutableCharacteristic *c = [s characteristicForUUID:self.class.cUUID];
     XCTAssertEqualObjects([self.invocationLog argumentAtIndex:0 forSelector:@selector(writeValue:forCharacteristic:type:)], writeValue);
     XCTAssertEqualObjects([self.invocationLog argumentAtIndex:1 forSelector:@selector(writeValue:forCharacteristic:type:)], c);
     XCTAssertEqualObjects([self.invocationLog argumentAtIndex:2 forSelector:@selector(writeValue:forCharacteristic:type:)], @(CBCharacteristicWriteWithoutResponse));
@@ -115,8 +115,8 @@ characteristicUUID:self.class.cUUID
     [self ensureAndCompleteDiscoveryOfService:self.class.sUUID peripheralUUID:self.class.pUUID];
     [self ensureAndCompleteDiscoveryOfCharacteristic:self.class.cUUID serviceUUID:self.class.sUUID peripheralUUID:self.class.pUUID];
 
-    RZBMockService *s = [p serviceForUUID:self.class.sUUID];
-    RZBMockCharacteristic *c = [s characteristicForUUID:self.class.cUUID];
+    CBMutableService *s = [p serviceForUUID:self.class.sUUID];
+    CBMutableCharacteristic *c = [s characteristicForUUID:self.class.cUUID];
     XCTAssertEqualObjects([self.invocationLog argumentAtIndex:0 forSelector:@selector(writeValue:forCharacteristic:type:)], writeValue);
     XCTAssertEqualObjects([self.invocationLog argumentAtIndex:1 forSelector:@selector(writeValue:forCharacteristic:type:)], c);
     XCTAssertEqualObjects([self.invocationLog argumentAtIndex:2 forSelector:@selector(writeValue:forCharacteristic:type:)], @(CBCharacteristicWriteWithResponse));
@@ -167,8 +167,8 @@ characteristicUUID:self.class.cUUID
     [self ensureAndCompleteDiscoveryOfService:self.class.sUUID peripheralUUID:self.class.pUUID];
     [self ensureAndCompleteDiscoveryOfCharacteristic:self.class.cUUID serviceUUID:self.class.sUUID peripheralUUID:self.class.pUUID];
 
-    RZBMockService *s = [p serviceForUUID:self.class.sUUID];
-    RZBMockCharacteristic *c = [s characteristicForUUID:self.class.cUUID];
+    CBMutableService *s = [p serviceForUUID:self.class.sUUID];
+    CBMutableCharacteristic *c = [s characteristicForUUID:self.class.cUUID];
     XCTAssertEqualObjects([self.invocationLog argumentAtIndex:0 forSelector:@selector(setNotifyValue:forCharacteristic:)], @(YES));
     XCTAssertEqualObjects([self.invocationLog argumentAtIndex:1 forSelector:@selector(setNotifyValue:forCharacteristic:)], c);
 
@@ -275,8 +275,8 @@ characteristicUUID:self.class.cUUID
     [p fakeDiscoverServicesWithUUIDs:@[self.class.s2UUID] error:nil];
     [self waitForQueueFlush];
 
-    RZBMockService *s = [p serviceForUUID:self.class.sUUID];
-    RZBMockService *s2 = [p serviceForUUID:self.class.s2UUID];
+    CBMutableService *s = [p serviceForUUID:self.class.sUUID];
+    CBMutableService *s2 = [p serviceForUUID:self.class.s2UUID];
 
     [p fakeDiscoverCharacteristicsWithUUIDs:@[self.class.cUUID] forService:s error:nil];
     [self waitForQueueFlush];
@@ -284,8 +284,8 @@ characteristicUUID:self.class.cUUID
     [p fakeDiscoverCharacteristicsWithUUIDs:@[self.class.c2UUID] forService:s2 error:nil];
     [self waitForQueueFlush];
 
-    RZBMockCharacteristic *c = [s characteristicForUUID:self.class.cUUID];
-    RZBMockCharacteristic *c2 = [s2 characteristicForUUID:self.class.c2UUID];
+    CBMutableCharacteristic *c = [s characteristicForUUID:self.class.cUUID];
+    CBMutableCharacteristic *c2 = [s2 characteristicForUUID:self.class.c2UUID];
 
     [p fakeCharacteristic:c updateValue:[RZBTestString dataUsingEncoding:NSUTF8StringEncoding] error:nil];
     [p fakeCharacteristic:c2 updateValue:[RZBTestString dataUsingEncoding:NSUTF8StringEncoding] error:nil];
@@ -308,7 +308,7 @@ characteristicUUID:self.class.cUUID
 
     [p fakeDiscoverServicesWithUUIDs:@[self.class.sUUID] error:nil];
     [self waitForQueueFlush];
-    RZBMockService *s = [p serviceForUUID:self.class.sUUID];
+    CBMutableService *s = [p serviceForUUID:self.class.sUUID];
 
     // Make sure the first characteristic command has been dispatched
     RZBAssertHasCommand(RZBDiscoverCharacteristicCommand, self.class.sUUIDPath, YES);
@@ -339,8 +339,8 @@ characteristicUUID:self.class.cUUID
     [self waitForQueueFlush];
     RZBAssertHasCommands(RZBDiscoverCharacteristicCommand, self.class.sUUIDPath, YES, 0);
 
-    RZBMockCharacteristic *c = [s characteristicForUUID:self.class.cUUID];
-    RZBMockCharacteristic *c2 = [s characteristicForUUID:self.class.c2UUID];
+    CBMutableCharacteristic *c = [s characteristicForUUID:self.class.cUUID];
+    CBMutableCharacteristic *c2 = [s characteristicForUUID:self.class.c2UUID];
 
     [p fakeCharacteristic:c updateValue:[RZBTestString dataUsingEncoding:NSUTF8StringEncoding] error:nil];
     [p fakeCharacteristic:c2 updateValue:[RZBTestString dataUsingEncoding:NSUTF8StringEncoding] error:nil];
@@ -399,7 +399,7 @@ characteristicUUID:self.class.cUUID
     [self ensureAndCompleteConnectionTo:self.class.pUUID];
     [self ensureAndCompleteDiscoveryOfService:self.class.sUUID peripheralUUID:self.class.pUUID];
 
-    RZBMockService *s = [p serviceForUUID:self.class.sUUID];
+    CBMutableService *s = [p serviceForUUID:self.class.sUUID];
     [p fakeDiscoverCharacteristics:@[] forService:s error:nil];
     [self waitForQueueFlush];
 

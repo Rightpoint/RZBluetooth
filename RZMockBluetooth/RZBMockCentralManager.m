@@ -8,8 +8,6 @@
 
 #import "RZBMockCentralManager.h"
 #import "RZBMockPeripheral.h"
-#import "RZBMockService.h"
-#import "RZBMockCharacteristic.h"
 
 @implementation RZBMockCentralManager
 

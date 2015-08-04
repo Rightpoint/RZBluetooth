@@ -8,8 +8,6 @@
 
 #import "RZBMockCentralManager.h"
 #import "RZBMockPeripheral.h"
-#import "RZBMockService.h"
-#import "RZBMockCharacteristic.h"
 #import "CBPeripheral+RZBExtension.h"
 
 @import ObjectiveC.runtime;
@@ -46,37 +44,44 @@
     [self.mockDelegate mockPeripheral:self discoverServices:serviceUUIDs];
 }
 
-- (void)discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(RZBMockService *)service
+- (void)discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(CBService *)service
 {
     [self.mockDelegate mockPeripheral:self discoverCharacteristics:characteristicUUIDs forService:service];
 }
 
-- (void)readValueForCharacteristic:(RZBMockCharacteristic *)characteristic
+- (void)readValueForCharacteristic:(CBCharacteristic *)characteristic
 {
     [self.mockDelegate mockPeripheral:self readValueForCharacteristic:characteristic];
 }
 
-- (void)writeValue:(NSData *)data forCharacteristic:(RZBMockCharacteristic *)characteristic type:(CBCharacteristicWriteType)type
+- (void)writeValue:(NSData *)data forCharacteristic:(CBCharacteristic *)characteristic type:(CBCharacteristicWriteType)type
 {
     [self.mockDelegate mockPeripheral:self writeValue:data forCharacteristic:characteristic type:type];
 }
 
-- (void)setNotifyValue:(BOOL)enabled forCharacteristic:(RZBMockCharacteristic *)characteristic
+- (void)setNotifyValue:(BOOL)enabled forCharacteristic:(CBCharacteristic *)characteristic
 {
     [self.mockDelegate mockPeripheral:self setNotifyValue:enabled forCharacteristic:characteristic];
 }
 
-- (RZBMockService *)newServiceForUUID:(CBUUID *)serviceUUID
+- (CBMutableService *)newServiceForUUID:(CBUUID *)serviceUUID
 {
-    RZBMockService *service = [[RZBMockService alloc] init];
-    service.UUID = serviceUUID;
-    service.peripheral = (id)self;
+    CBMutableService *service = [[CBMutableService alloc] initWithType:serviceUUID primary:YES];
     return service;
 }
 
-- (RZBMockService *)serviceForUUID:(CBUUID *)serviceUUID
+- (CBMutableCharacteristic *)newCharacteristicForUUID:(CBUUID *)serviceUUID
 {
-    for (RZBMockService *service in self.services) {
+    CBMutableCharacteristic *characteristic = [[CBMutableCharacteristic alloc] initWithType:serviceUUID
+                                                                                 properties:CBCharacteristicPropertyRead | CBCharacteristicPropertyWrite | CBCharacteristicPropertyNotify
+                                                                                      value:nil
+                                                                                permissions:CBAttributePermissionsReadable | CBAttributePermissionsWriteable];
+    return characteristic;
+}
+
+- (CBMutableService *)serviceForUUID:(CBUUID *)serviceUUID
+{
+    for (CBMutableService *service in self.services) {
         if ([service.UUID isEqual:serviceUUID]) {
             return service;
         }
@@ -98,6 +103,9 @@
         [existing addObjectsFromArray:services];
     }
     self.services = [existing allObjects];
+    for (CBMutableService *service in self.services) {
+        [service setValue:self forKey:@"peripheral"];
+    }
     dispatch_async(self.mockCentralManager.queue, ^{
         [self.delegate peripheral:(id)self didDiscoverServices:error];
     });
@@ -120,16 +128,16 @@
     });
 }
 
-- (void)fakeDiscoverCharacteristicsWithUUIDs:(NSArray *)characteristicUUIDs forService:(RZBMockService *)service error:(NSError *)error
+- (void)fakeDiscoverCharacteristicsWithUUIDs:(NSArray *)characteristicUUIDs forService:(CBMutableService *)service error:(NSError *)error
 {
     NSMutableArray *characteristics = [NSMutableArray array];
     for (CBUUID *characteristicUUID in characteristicUUIDs) {
-        [characteristics addObject:[service newCharacteristicForUUID:characteristicUUID]];
+        [characteristics addObject:[self newCharacteristicForUUID:characteristicUUID]];
     }
     [self fakeDiscoverCharacteristics:characteristics forService:service error:error];
 }
 
-- (void)fakeDiscoverCharacteristics:(NSArray *)services forService:(RZBMockService *)service error:(NSError *)error
+- (void)fakeDiscoverCharacteristics:(NSArray *)services forService:(CBMutableService *)service error:(NSError *)error
 {
     NSMutableSet *existing = service.characteristics ? [NSMutableSet setWithArray:service.characteristics] : [NSMutableSet set];
     if (services) {
@@ -141,7 +149,7 @@
     });
 }
 
-- (void)fakeCharacteristic:(RZBMockCharacteristic *)characteristic updateValue:(NSData *)value error:(NSError *)error
+- (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic updateValue:(NSData *)value error:(NSError *)error
 {
     dispatch_async(self.mockCentralManager.queue, ^{
         characteristic.value = value;
@@ -149,17 +157,17 @@
     });
 }
 
-- (void)fakeCharacteristic:(RZBMockCharacteristic *)characteristic writeResponseWithError:(NSError *)error;
+- (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic writeResponseWithError:(NSError *)error;
 {
     dispatch_async(self.mockCentralManager.queue, ^{
         [self.delegate peripheral:(id)self didWriteValueForCharacteristic:(id)characteristic error:error];
     });
 }
 
-- (void)fakeCharacteristic:(RZBMockCharacteristic *)characteristic notify:(BOOL)notifyState error:(NSError *)error
+- (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic notify:(BOOL)notifyState error:(NSError *)error
 {
     dispatch_async(self.mockCentralManager.queue, ^{
-        characteristic.isNotifying = notifyState;
+        [characteristic setValue:@(notifyState) forKey:@"isNotifying"];
         [self.delegate peripheral:(id)self didUpdateNotificationStateForCharacteristic:(id)characteristic error:error];
     });
 }

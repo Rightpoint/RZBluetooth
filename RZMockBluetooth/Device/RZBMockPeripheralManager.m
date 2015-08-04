@@ -9,9 +9,6 @@
 #import "RZBMockPeripheralManager.h"
 #import "RZBSimulatedCallback.h"
 
-#import "RZBMockService.h"
-#import "RZBMockCharacteristic.h"
-
 @implementation RZBMockPeripheralManager
 
 - (instancetype)init

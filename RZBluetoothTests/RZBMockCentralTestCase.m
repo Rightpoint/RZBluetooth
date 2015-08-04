@@ -76,7 +76,7 @@
     RZBAssertHasCommand(RZBDiscoverCharacteristicCommand, RZBUUIDP(peripheralUUID, serviceUUID), YES);
 
     RZBMockPeripheral *p = [self.mockCentralManager peripheralForUUID:peripheralUUID];
-    RZBMockService *s = [p serviceForUUID:serviceUUID];
+    CBMutableService *s = [p serviceForUUID:serviceUUID];
     XCTAssertEqualObjects([self.invocationLog argumentAtIndex:0 forSelector:@selector(discoverCharacteristics:forService:)], @[characteristicUUID]);
     XCTAssertEqualObjects([self.invocationLog argumentAtIndex:1 forSelector:@selector(discoverCharacteristics:forService:)], s);
 
@@ -155,22 +155,22 @@
     [self.invocationLog logSelector:P_CMD arguments:serviceUUIDs];
 }
 
-- (void)mockPeripheral:(RZBMockPeripheral *)peripheral discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(RZBMockService *)service
+- (void)mockPeripheral:(RZBMockPeripheral *)peripheral discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(CBService *)service
 {
     [self.invocationLog logSelector:P_CMD arguments:characteristicUUIDs, service];
 }
 
-- (void)mockPeripheral:(RZBMockPeripheral *)peripheral readValueForCharacteristic:(RZBMockCharacteristic *)characteristic
+- (void)mockPeripheral:(RZBMockPeripheral *)peripheral readValueForCharacteristic:(CBCharacteristic *)characteristic
 {
     [self.invocationLog logSelector:P_CMD arguments:characteristic];
 }
 
-- (void)mockPeripheral:(RZBMockPeripheral *)peripheral writeValue:(NSData *)data forCharacteristic:(RZBMockCharacteristic *)characteristic type:(CBCharacteristicWriteType)type
+- (void)mockPeripheral:(RZBMockPeripheral *)peripheral writeValue:(NSData *)data forCharacteristic:(CBCharacteristic *)characteristic type:(CBCharacteristicWriteType)type
 {
     [self.invocationLog logSelector:P_CMD arguments:data, characteristic, @(type)];
 }
 
-- (void)mockPeripheral:(RZBMockPeripheral *)peripheral setNotifyValue:(BOOL)enabled forCharacteristic:(RZBMockCharacteristic *)characteristic
+- (void)mockPeripheral:(RZBMockPeripheral *)peripheral setNotifyValue:(BOOL)enabled forCharacteristic:(CBCharacteristic *)characteristic
 {
     [self.invocationLog logSelector:P_CMD arguments:@(enabled), characteristic];
 }

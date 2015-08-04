@@ -195,6 +195,7 @@
     CBCharacteristic *characteristic = [self characteristicForUUID:characteristicUUID onService:service];
     if (characteristic == nil) {
         CBPeripheral *peripheral = service.peripheral;
+        NSParameterAssert(peripheral);
         RZBDiscoverCharacteristicCommand *cmd = [self.dispatch commandOfClass:[RZBDiscoverCharacteristicCommand class]
                                                              matchingUUIDPath:RZBUUIDP(peripheral.identifier, service.UUID)
                                                                    isExecuted:NO

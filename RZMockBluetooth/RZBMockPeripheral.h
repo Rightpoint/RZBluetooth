@@ -9,8 +9,6 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "RZBDefines.h"
 @class RZBMockCentralManager;
-@class RZBMockService;
-@class RZBMockCharacteristic;
 @protocol RZBMockPeripheralDelegate;
 
 /**
@@ -34,27 +32,27 @@
 
 - (void)readRSSI;
 - (void)discoverServices:(NSArray *)serviceUUIDs;
-- (void)discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(RZBMockService *)service;
-- (void)readValueForCharacteristic:(RZBMockCharacteristic *)characteristic;
-- (void)writeValue:(NSData *)data forCharacteristic:(RZBMockCharacteristic *)characteristic type:(CBCharacteristicWriteType)type;
-- (void)setNotifyValue:(BOOL)enabled forCharacteristic:(RZBMockCharacteristic *)characteristic;
+- (void)discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(CBService *)service;
+- (void)readValueForCharacteristic:(CBCharacteristic *)characteristic;
+- (void)writeValue:(NSData *)data forCharacteristic:(CBCharacteristic *)characteristic type:(CBCharacteristicWriteType)type;
+- (void)setNotifyValue:(BOOL)enabled forCharacteristic:(CBCharacteristic *)characteristic;
 
 
 
-- (RZBMockService *)serviceForUUID:(CBUUID *)serviceUUID;
+- (CBMutableService *)serviceForUUID:(CBUUID *)serviceUUID;
 
-- (RZBMockService *)newServiceForUUID:(CBUUID *)serviceUUID;
+- (CBMutableCharacteristic *)newServiceForUUID:(CBUUID *)serviceUUID;
 
 - (void)fakeRSSI:(NSNumber *)RSSI error:(NSError *)error;
 - (void)fakeDiscoverService:(NSArray *)services error:(NSError *)error;
 - (void)fakeDiscoverServicesWithUUIDs:(NSArray *)serviceUUIDs error:(NSError *)error;
 - (void)fakeUpdateName:(NSString *)name;
-- (void)fakeDiscoverCharacteristics:(NSArray *)services forService:(RZBMockService *)service error:(NSError *)error;
-- (void)fakeDiscoverCharacteristicsWithUUIDs:(NSArray *)serviceUUIDs forService:(RZBMockService *)service error:(NSError *)error;
+- (void)fakeDiscoverCharacteristics:(NSArray *)services forService:(CBMutableService *)service error:(NSError *)error;
+- (void)fakeDiscoverCharacteristicsWithUUIDs:(NSArray *)serviceUUIDs forService:(CBMutableService *)service error:(NSError *)error;
 
-- (void)fakeCharacteristic:(RZBMockCharacteristic *)characteristic updateValue:(NSData *)value error:(NSError *)error;
-- (void)fakeCharacteristic:(RZBMockCharacteristic *)characteristic writeResponseWithError:(NSError *)error;
-- (void)fakeCharacteristic:(RZBMockCharacteristic *)characteristic notify:(BOOL)notifyState error:(NSError *)error;
+- (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic updateValue:(NSData *)value error:(NSError *)error;
+- (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic writeResponseWithError:(NSError *)error;
+- (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic notify:(BOOL)notifyState error:(NSError *)error;
 
 @end
 
@@ -83,10 +81,10 @@ characteristicUUID:(CBUUID *)characteristicUUID
 @protocol RZBMockPeripheralDelegate <NSObject>
 
 - (void)mockPeripheral:(RZBMockPeripheral *)peripheral discoverServices:(NSArray *)serviceUUIDs;
-- (void)mockPeripheral:(RZBMockPeripheral *)peripheral discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(RZBMockService *)service;
-- (void)mockPeripheral:(RZBMockPeripheral *)peripheral readValueForCharacteristic:(RZBMockCharacteristic *)characteristic;
-- (void)mockPeripheral:(RZBMockPeripheral *)peripheral writeValue:(NSData *)data forCharacteristic:(RZBMockCharacteristic *)characteristic type:(CBCharacteristicWriteType)type;
-- (void)mockPeripheral:(RZBMockPeripheral *)peripheral setNotifyValue:(BOOL)enabled forCharacteristic:(RZBMockCharacteristic *)characteristic;
+- (void)mockPeripheral:(RZBMockPeripheral *)peripheral discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(CBService *)service;
+- (void)mockPeripheral:(RZBMockPeripheral *)peripheral readValueForCharacteristic:(CBCharacteristic *)characteristic;
+- (void)mockPeripheral:(RZBMockPeripheral *)peripheral writeValue:(NSData *)data forCharacteristic:(CBCharacteristic *)characteristic type:(CBCharacteristicWriteType)type;
+- (void)mockPeripheral:(RZBMockPeripheral *)peripheral setNotifyValue:(BOOL)enabled forCharacteristic:(CBCharacteristic *)characteristic;
 - (void)mockPeripheralReadRSSI:(RZBMockPeripheral *)peripheral;
 
 @end
