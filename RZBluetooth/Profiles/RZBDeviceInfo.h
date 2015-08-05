@@ -31,8 +31,7 @@ typedef void(^RZBDeviceInfoCallback)(RZBDeviceInfo *deviceInfo, NSError *error);
  * If any of the bluetooth commands fail for a non-characteristic-discovery reason
  * the last error will be reported to the completion block.
  */
-- (void)rzb_fetchDeviceInformation:(NSArray *)deviceInfoKeys
-                        completion:(RZBDeviceInfoCallback)completion;
-
+- (void)rzb_fetchDeviceInformationKeys:(NSArray *)deviceInfoKeys
+                            completion:(RZBDeviceInfoCallback)completion;
 
 @end

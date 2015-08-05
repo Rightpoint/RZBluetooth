@@ -12,15 +12,12 @@
 
 @implementation RZBSimulatedDevice
 
-- (instancetype)initWithSimulatedCentral:(RZBSimulatedCentral *)simulatedCentral
+- (instancetype)initWithQueue:(dispatch_queue_t)queue options:(NSDictionary *)options peripheralManagerClass:(Class)peripheralManagerClass
 {
     self = [super init];
     if (self) {
-        dispatch_queue_t queue = simulatedCentral.mockCentralManager.queue;
         _identifier = [NSUUID UUID];
-        _simulatedCentral = simulatedCentral;
-        _peripheralManager = [[RZBMockPeripheralManager alloc] initWithDelegate:self queue:queue];
-        [_simulatedCentral addSimulatedDeviceWithIdentifier:_identifier peripheralManager:_peripheralManager];
+        _peripheralManager = [[peripheralManagerClass alloc] initWithDelegate:self queue:queue];
     }
     return self;
 }

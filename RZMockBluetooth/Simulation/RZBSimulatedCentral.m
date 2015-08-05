@@ -15,7 +15,6 @@
 @interface RZBSimulatedCentral () <RZBMockCentralManagerDelegate>
 
 @property (strong, nonatomic, readonly) NSMutableArray *connections;
-@property (strong, nonatomic, readonly) NSMutableArray *scannedDeviceUUIDs;
 
 @property (strong, nonatomic) NSArray *servicesToScan;
 @property (assign, nonatomic) BOOL isScanning;
@@ -30,7 +29,6 @@
     self = [super init];
     if (self) {
         _connections = [NSMutableArray array];
-        _scannedDeviceUUIDs = [NSMutableArray array];
         _mockCentralManager = mockCentralManager;
         _mockCentralManager.mockDelegate = self;
     }
@@ -68,12 +66,10 @@
         return;
     }
     for (__weak RZBSimulatedConnection *connection in self.connections) {
-        if ([connection isDiscoverableWithServices:self.servicesToScan] &&
-            [self.scannedDeviceUUIDs containsObject:connection.identifier] == NO) {
+        if ([connection isDiscoverableWithServices:self.servicesToScan]) {
             [connection.scanCallback dispatch:^(NSError *injectedError) {
                 NSAssert(injectedError == nil, @"Can not inject errors into scans");
-                if ([self.scannedDeviceUUIDs containsObject:connection.identifier] == NO && self.isScanning) {
-                    [self.scannedDeviceUUIDs addObject:connection.identifier];
+                if (self.isScanning) {
                     [self.mockCentralManager fakeScanPeripheralWithUUID:connection.peripheral.identifier
                                                                 advInfo:connection.peripheralManager.advInfo
                                                                    RSSI:connection.RSSI];
@@ -99,7 +95,6 @@
 {
     self.isScanning = NO;
     self.servicesToScan = nil;
-    [self.scannedDeviceUUIDs removeAllObjects];
 }
 
 - (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager connectPeripheral:(RZBMockPeripheral *)peripheral options:(NSDictionary *)options

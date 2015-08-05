@@ -11,7 +11,7 @@
 #import "RZBSimulatedDevice.h"
 #import "RZBDeviceInfo.h"
 #import "RZBMockPeripheralManager.h"
-
+#import "RZBSimulatedCentral.h"
 
 @interface RZBProfileDeviceInfoTestCase : RZBProfileTestCase
 @property (strong, nonatomic) RZBSimulatedDevice *device;
@@ -23,7 +23,12 @@
 - (void)setUp {
     [super setUp];
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
-    self.device = [[RZBSimulatedDevice alloc] initWithSimulatedCentral:self.centralManager.simulatedCentral];
+    self.device = [[RZBSimulatedDevice alloc] initWithQueue:self.mockCentralManager.queue
+                                                    options:@{}
+                                     peripheralManagerClass:[RZBMockPeripheralManager class]];
+    [self.centralManager.simulatedCentral addSimulatedDeviceWithIdentifier:self.device.identifier
+                                                         peripheralManager:(id)self.device.peripheralManager];
+
     self.deviceInfo = [[RZBDeviceInfo alloc] init];
     self.deviceInfo.manufacturerName = @"Fake Bytes";
     self.deviceInfo.serialNumber = @"1234567890";
@@ -71,7 +76,7 @@
 - (void)testReadPopulatedCharacteristic
 {
     XCTestExpectation *read = [self expectationWithDescription:@"Peripheral will connect"];
-    [self.peripheral rzb_fetchDeviceInformation:@[@"manufacturerName"] completion:^(RZBDeviceInfo *deviceInfo, NSError *error) {
+    [self.peripheral rzb_fetchDeviceInformationKeys:@[@"manufacturerName"] completion:^(RZBDeviceInfo *deviceInfo, NSError *error) {
         [read fulfill];
         XCTAssert([self.deviceInfo.manufacturerName isEqualToString:deviceInfo.manufacturerName]);
         XCTAssert(self.deviceInfo != deviceInfo);

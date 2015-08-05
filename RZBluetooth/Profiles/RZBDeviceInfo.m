@@ -48,8 +48,8 @@ NSString *const RZBDeviceInfoModelNumberKey = @"modelNumber";
 
 @implementation CBPeripheral (RZBDeviceInfo)
 
-- (void)rzb_fetchDeviceInformation:(NSArray *)deviceInfoKeys
-                        completion:(RZBDeviceInfoCallback)completion
+- (void)rzb_fetchDeviceInformationKeys:(NSArray *)deviceInfoKeys
+                            completion:(RZBDeviceInfoCallback)completion
 {
     NSDictionary *UUIDsByKey = [RZBDeviceInfo characteristicUUIDsByKey];
     deviceInfoKeys = deviceInfoKeys ?: [UUIDsByKey allKeys];

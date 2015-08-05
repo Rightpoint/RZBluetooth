@@ -10,15 +10,13 @@
 #import "RZBDefines.h"
 
 @class RZBMockPeripheralManager;
-@class RZBSimulatedCentral;
 
 @interface RZBSimulatedDevice : NSObject <CBPeripheralManagerDelegate>
 
-- (instancetype)initWithSimulatedCentral:(RZBSimulatedCentral *)simulatedCentral;
+- (instancetype)initWithQueue:(dispatch_queue_t)queue options:(NSDictionary *)options peripheralManagerClass:(Class)peripheralManagerClass;
 
 @property (strong, nonatomic, readonly) NSUUID *identifier;
-@property (weak, nonatomic, readonly) RZBSimulatedCentral *simulatedCentral;
-@property (strong, nonatomic, readonly) RZBMockPeripheralManager *peripheralManager;
+@property (strong, nonatomic, readonly) CBPeripheralManager *peripheralManager;
 
 - (void)addBluetoothRepresentable:(id<RZBBluetoothRepresentable>)bluetoothRepresentable isPrimary:(BOOL)isPrimary;
 

@@ -30,6 +30,7 @@
         _readRequests = [NSMutableArray array];
         _writeRequests = [NSMutableArray array];
         self.scanCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
+        self.scanCallback.paused = YES;
         self.connectCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
         self.cancelConncetionCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
         self.discoverServiceCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
@@ -92,7 +93,6 @@
         }
     }
     [self.discoverCharacteristicCallback dispatch:^(NSError *injectedError) {
-
         [peripheral fakeDiscoverCharacteristics:characteristics forService:service error:injectedError];
     }];
 }
@@ -163,7 +163,12 @@
 
 - (void)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager startAdvertising:(NSDictionary *)advertisementData
 {
-    [self.central triggerScanIfNeeded];
+    self.scanCallback.paused = NO;
+}
+
+- (void)mockPeripheralManagerStopAdvertising:(RZBMockPeripheralManager *)peripheralManager
+{
+    self.scanCallback.paused = YES;
 }
 
 - (void)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager respondToRequest:(CBATTRequest *)request withResult:(CBATTError)result
@@ -187,9 +192,6 @@
     // We don't have any buffer mechanism, so always return YES
     return YES;
 }
-
-- (void)mockPeripheralManagerStopAdvertising:(RZBMockPeripheralManager *)peripheralManager
-{}
 
 - (void)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager setDesiredConnectionLatency:(CBPeripheralManagerConnectionLatency)latency forCentral:(CBCentral *)central
 {}
