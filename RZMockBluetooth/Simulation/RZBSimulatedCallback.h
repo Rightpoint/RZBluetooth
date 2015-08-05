@@ -15,11 +15,11 @@ typedef void(^RZBSimulatedCallbackBlock)(NSError *injectedError);
 
 + (void)setDefaultDelay:(NSTimeInterval)delay;
 
-+ (RZBSimulatedCallback *)callback;
++ (RZBSimulatedCallback *)callbackOnQueue:(dispatch_queue_t)queue;
 
+@property (strong, nonatomic) dispatch_queue_t queue;
 @property (assign, nonatomic) NSTimeInterval delay;
 @property (strong, nonatomic) NSError *injectError;
-@property (copy, nonatomic) RZBSimulatedCallbackBlock block;
 
 - (void)dispatch:(RZBSimulatedCallbackBlock)block;
 

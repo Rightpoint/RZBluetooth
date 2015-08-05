@@ -16,19 +16,21 @@ static NSTimeInterval __defaultDelay = 0;
     __defaultDelay = delay;
 }
 
-+ (RZBSimulatedCallback *)callback
++ (RZBSimulatedCallback *)callbackOnQueue:(dispatch_queue_t)queue
 {
+    queue = queue ?: dispatch_get_main_queue();
     RZBSimulatedCallback *cb = [[RZBSimulatedCallback alloc] init];
     cb.delay = __defaultDelay;
+    cb.queue = queue;
     return cb;
 }
 
 - (void)dispatch:(RZBSimulatedCallbackBlock)block
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (self.block) {
-            self.block(self.injectError);
-            self.block = nil;
+    NSParameterAssert(block);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.delay * NSEC_PER_SEC)), self.queue, ^{
+        if (block) {
+            block(self.injectError);
         }
     });
 }

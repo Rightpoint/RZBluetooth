@@ -37,8 +37,6 @@
 - (void)writeValue:(NSData *)data forCharacteristic:(CBCharacteristic *)characteristic type:(CBCharacteristicWriteType)type;
 - (void)setNotifyValue:(BOOL)enabled forCharacteristic:(CBCharacteristic *)characteristic;
 
-
-
 - (CBMutableService *)serviceForUUID:(CBUUID *)serviceUUID;
 
 - (CBMutableCharacteristic *)newServiceForUUID:(CBUUID *)serviceUUID;

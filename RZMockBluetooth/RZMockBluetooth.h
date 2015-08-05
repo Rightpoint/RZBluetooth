@@ -9,4 +9,7 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "RZBMockCentralManager.h"
 #import "RZBMockPeripheral.h"
+#import "RZBMockPeripheralManager.h"
+#import "RZBSimulatedCentral.h"
+#import "RZBSimulatedConnection.h"
 #import "NSError+RZBMock.h"
