@@ -6,7 +6,8 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
+@import XCTest;
+
 #import "RZBTestableCentralManager.h"
 #import "RZBCentralManager+Private.h"
 #import "RZBMockCentralManager.h"

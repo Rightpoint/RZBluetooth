@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-#import <CoreBluetooth/CoreBluetooth.h>
+@import CoreBluetooth;
 
 #define RZB_OVERLOADED FOUNDATION_EXTERN __attribute__((overloadable))
 

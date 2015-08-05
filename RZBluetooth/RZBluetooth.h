@@ -6,7 +6,8 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-#import <CoreBluetooth/CoreBluetooth.h>
+@import CoreBluetooth;
+
 #import "RZBCentralManager.h"
 #import "CBPeripheral+RZBExtension.h"
 #import "CBService+RZBExtension.h"

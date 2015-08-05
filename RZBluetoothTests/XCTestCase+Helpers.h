@@ -6,8 +6,9 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
-#import <Foundation/Foundation.h>
+@import XCTest;
+@import CoreBluetooth;
+
 #import "RZBUUIDPath.h"
 #import "NSRunLoop+RZBWaitFor.h"
 

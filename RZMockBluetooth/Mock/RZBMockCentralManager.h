@@ -6,7 +6,8 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-#import <CoreBluetooth/CoreBluetooth.h>
+@import CoreBluetooth;
+
 @class RZBMockPeripheral;
 @protocol RZBMockCentralManagerDelegate;
 

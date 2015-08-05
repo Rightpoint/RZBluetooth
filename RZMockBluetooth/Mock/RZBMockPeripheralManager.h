@@ -6,18 +6,14 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-#import <CoreBluetooth/CoreBluetooth.h>
-#import "RZBMockPeripheral.h"
+@import CoreBluetooth;
 
-@class RZBMockCentralManager;
-@class RZBMockPeripheralManager;
-@class RZBSimulatedCallback;
 @protocol RZBMockPeripheralManagerDelegate;
 
-typedef NSData*(^RZBReadAction)(void);
-typedef void(^RZBWriteAction)(NSData *data);
-typedef void(^RZBNotifyAction)(BOOL isNotifying);
-
+/**
+ * Mock API for CBPeripheralManager. This is not a direct subclass of CBPeripheralManager
+ * because not all of the things can be controlled (like peripheralManagerDidUpdateState: signaling)
+ */
 @interface RZBMockPeripheralManager : NSObject
 
 - (instancetype)initWithDelegate:(id<CBPeripheralManagerDelegate>)delegate queue:(dispatch_queue_t)queue;

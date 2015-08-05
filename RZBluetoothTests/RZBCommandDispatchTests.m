@@ -6,12 +6,11 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
+@import XCTest;
+
 #import "RZBCommandDispatch.h"
 #import "RZTestCommands.h"
 #import "XCTestCase+Helpers.h"
-
-
 
 @interface RZBCommandDispatchTests : XCTestCase <RZBCommandDispatchDelegate>
 

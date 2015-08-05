@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-#import <CoreBluetooth/CoreBluetooth.h>
-
+@import Foundation;
 
 typedef void(^RZBSimulatedCallbackBlock)(NSError *injectedError);
 

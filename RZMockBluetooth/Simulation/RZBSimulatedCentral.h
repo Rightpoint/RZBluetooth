@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "RZBMockCentralManager.h"
 
 @class RZBMockPeripheralManager;
