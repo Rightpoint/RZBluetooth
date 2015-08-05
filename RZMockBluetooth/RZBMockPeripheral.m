@@ -167,7 +167,9 @@
 - (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic notify:(BOOL)notifyState error:(NSError *)error
 {
     dispatch_async(self.mockCentralManager.queue, ^{
-        [characteristic setValue:@(notifyState) forKey:@"isNotifying"];
+        if (error == nil) {
+            [characteristic setValue:@(notifyState) forKey:@"isNotifying"];
+        }
         [self.delegate peripheral:(id)self didUpdateNotificationStateForCharacteristic:(id)characteristic error:error];
     });
 }

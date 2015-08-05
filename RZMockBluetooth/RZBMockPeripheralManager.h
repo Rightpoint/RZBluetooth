@@ -24,8 +24,8 @@ typedef void(^RZBNotifyAction)(BOOL isNotifying);
 - (instancetype)initWithDelegate:(id<CBPeripheralManagerDelegate>)delegate queue:(dispatch_queue_t)queue options:(NSDictionary *)options;
 
 @property (weak, nonatomic, readonly) id<CBPeripheralManagerDelegate>delegate;
-@property(readonly) CBPeripheralManagerState state;
-@property(readonly) BOOL isAdvertising;
+@property (readonly) CBPeripheralManagerState state;
+@property (readonly) BOOL isAdvertising;
 
 - (void)startAdvertising:(NSDictionary *)advertisementData;
 - (void)stopAdvertising;
@@ -34,11 +34,12 @@ typedef void(^RZBNotifyAction)(BOOL isNotifying);
 - (void)removeService:(CBMutableService *)service;
 - (void)removeAllServices;
 
-
 @property (weak, nonatomic) id<RZBMockPeripheralManagerDelegate> mockDelegate;
 
-@property (strong, nonatomic) NSMutableArray *services;
 @property (copy, nonatomic) NSDictionary *advInfo;
+@property (strong, nonatomic, readonly) NSMutableArray *services;
+@property (copy, nonatomic, readonly) NSDictionary *options;
+@property (copy, nonatomic, readonly) dispatch_queue_t queue;
 
 - (void)respondToRequest:(CBATTRequest *)request withResult:(CBATTError)result;
 - (BOOL)updateValue:(NSData *)value forCharacteristic:(CBMutableCharacteristic *)characteristic onSubscribedCentrals:(NSArray *)centrals;

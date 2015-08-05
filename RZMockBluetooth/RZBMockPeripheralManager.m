@@ -11,11 +11,19 @@
 
 @implementation RZBMockPeripheralManager
 
-- (instancetype)init
+- (instancetype)initWithDelegate:(id<CBPeripheralManagerDelegate>)delegate queue:(dispatch_queue_t)queue
+{
+    return [self initWithDelegate:delegate queue:queue options:@{}];
+}
+
+- (instancetype)initWithDelegate:(id<CBPeripheralManagerDelegate>)delegate queue:(dispatch_queue_t)queue options:(NSDictionary *)options
 {
     self = [super init];
     if (self) {
         _services = [NSMutableArray array];
+        _delegate = delegate;
+        _options = options;
+        _queue = queue ?: dispatch_get_main_queue();
     }
     return self;
 }
@@ -67,22 +75,28 @@
 
 - (void)fakeReadRequest:(CBATTRequest *)request
 {
-    [self.delegate peripheralManager:(id)self didReceiveReadRequest:request];
+    dispatch_async(self.queue, ^{
+        [self.delegate peripheralManager:(id)self didReceiveReadRequest:request];
+    });
 }
 
 - (void)fakeWriteRequest:(CBATTRequest *)request
 {
-    [self.delegate peripheralManager:(id)self didReceiveWriteRequests:@[request]];
+    dispatch_async(self.queue, ^{
+        [self.delegate peripheralManager:(id)self didReceiveWriteRequests:@[request]];
+    });
 }
 
 - (void)fakeNotifyState:(BOOL)enabled central:(CBCentral *)central characteristic:(CBMutableCharacteristic *)characteristic
 {
-    if (enabled) {
-        [self.delegate peripheralManager:(id)self central:central didSubscribeToCharacteristic:(id)characteristic];
-    }
-    else {
-        [self.delegate peripheralManager:(id)self central:central didUnsubscribeFromCharacteristic:(id)characteristic];
-    }
+    dispatch_async(self.queue, ^{
+        if (enabled) {
+            [self.delegate peripheralManager:(id)self central:central didSubscribeToCharacteristic:(id)characteristic];
+        }
+        else {
+            [self.delegate peripheralManager:(id)self central:central didUnsubscribeFromCharacteristic:(id)characteristic];
+        }
+    });
 }
 
 @end

@@ -9,7 +9,7 @@
 #import "RZBSimulatedConnection.h"
 #import "RZBMockPeripheralManager.h"
 #import "RZBSimulatedCallback.h"
-#import "RZBSimulatedCentral.h"
+#import "RZBSimulatedCentral+Private.h"
 
 @implementation RZBSimulatedConnection
 

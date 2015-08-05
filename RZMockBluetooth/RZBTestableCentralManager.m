@@ -9,7 +9,7 @@
 #import "RZBTestableCentralManager.h"
 #import "RZBCentralManager+Private.h"
 #import "RZBMockCentralManager.h"
-#import "RZBSimulatedCentral.h"
+#import "RZBSimulatedCentral+Private.h"
 
 @implementation RZBTestableCentralManager
 
