@@ -14,7 +14,7 @@
 typedef void(^RZBCallbackBlock)(id object, NSError *error);
 
 /**
- * RZBCommand is a class hierarchy representing an asyncronous command that completes.
+ * RZBCommand is a class hierarchy representing an asynchronous command that completes.
  * A command encapsulates one bluetooth action. A command is executed with a
  * context, and a command can use the context to probe the environment and create
  * other commands to resolve state. Returning NO from `executeCommandWithContext:` indicates

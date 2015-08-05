@@ -59,11 +59,13 @@
 - (void)rzb_readCharacteristicUUID:(CBUUID *)characteristicUUID
                        serviceUUID:(CBUUID *)serviceUUID
                         completion:(RZBCharacteristicBlock)completion;
-- (void)rzb_setNotify:(BOOL)notify
- onCharacteristicUUID:(CBUUID *)characteristicUUID
-          serviceUUID:(CBUUID *)serviceUUID
-             onChange:(RZBCharacteristicBlock)onChange
-           completion:(RZBCharacteristicBlock)completion;
+- (void)rzb_addObserverForCharacteristicUUID:(CBUUID *)characteristicUUID
+                                 serviceUUID:(CBUUID *)serviceUUID
+                                    onChange:(RZBCharacteristicBlock)onChange
+                                  completion:(RZBCharacteristicBlock)completion;
+- (void)rzb_removeObserverForCharacteristicUUID:(CBUUID *)characteristicUUID
+                                    serviceUUID:(CBUUID *)serviceUUID
+                                     completion:(RZBCharacteristicBlock)completion;
 - (void)rzb_writeData:(NSData *)data
    characteristicUUID:(CBUUID *)characteristicUUID
           serviceUUID:(CBUUID *)serviceUUID;

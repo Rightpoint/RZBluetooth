@@ -20,14 +20,24 @@
                        serviceUUID:(CBUUID *)serviceUUID
                         completion:(RZBCharacteristicBlock)completion;
 /**
- * Monitor a characteristic for changes in value. The onChange block will be
+ * Add an observer to monitor a characteristic for changes in value. The onChange block will be
  * triggered every time the characteristic changes.
  */
-- (void)rzb_setNotify:(BOOL)notify
- onCharacteristicUUID:(CBUUID *)characteristicUUID
-          serviceUUID:(CBUUID *)serviceUUID
-             onChange:(RZBCharacteristicBlock)onChange
-           completion:(RZBCharacteristicBlock)completion;
+- (void)rzb_addObserverForCharacteristicUUID:(CBUUID *)characteristicUUID
+                                 serviceUUID:(CBUUID *)serviceUUID
+                                    onChange:(RZBCharacteristicBlock)onChange
+                                  completion:(RZBCharacteristicBlock)completion;
+
+/**
+ * Remove the observer monitoring the characteristic for changes in value. The onChange block
+ * will be removed immediately apon invocation. The completion block will be triggered
+ * once the peripheral has been notified that it no longer needs to send updates to this central.
+ */
+- (void)rzb_removeObserverForCharacteristicUUID:(CBUUID *)characteristicUUID
+                                    serviceUUID:(CBUUID *)serviceUUID
+                                     completion:(RZBCharacteristicBlock)completion;
+
+
 
 /**
  * Write the data to a specific characteristic.

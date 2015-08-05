@@ -153,14 +153,14 @@ static NSString *const RZBTestString = @"StringValue";
     NSMutableArray *values = [NSMutableArray array];
     __block BOOL completed = NO;
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
-    [p rzb_setNotify:YES
-onCharacteristicUUID:self.class.cUUID
-         serviceUUID:self.class.sUUID
-            onChange:^(CBCharacteristic *peripheral, NSError *error) {
-                [values addObject:[[NSString alloc] initWithData:peripheral.value encoding:NSUTF8StringEncoding]];
-            } completion:^(CBCharacteristic *peripheral, NSError *error) {
-                completed = YES;
-            }];
+
+    [p rzb_addObserverForCharacteristicUUID:self.class.cUUID
+                                serviceUUID:self.class.sUUID
+                                   onChange:^(CBCharacteristic *peripheral, NSError *error) {
+                                       [values addObject:[[NSString alloc] initWithData:peripheral.value encoding:NSUTF8StringEncoding]];
+                                   } completion:^(CBCharacteristic *peripheral, NSError *error) {
+                                       completed = YES;
+                                 }];
 
     RZBAssertHasCommand(RZBNotifyCharacteristicCommand, self.class.cUUIDPath, NO);
 

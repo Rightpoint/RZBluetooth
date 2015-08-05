@@ -7,6 +7,7 @@
 //
 
 #import "RZBCentralManager+Private.h"
+#import "CBService+RZBExtension.h"
 #import "CBCharacteristic+RZBExtension.h"
 #import "RZBCommandDispatch.h"
 #import "RZBCommand.h"
@@ -170,20 +171,7 @@
     return service;
 }
 
-- (CBCharacteristic *)rzb_characteristicForUUID:(CBUUID *)characteristicUUID onService:(CBService *)service
-{
-    NSParameterAssert(characteristicUUID);
-    NSParameterAssert(service);
-    for (CBCharacteristic *characteristic in service.characteristics) {
-        if ([characteristic.UUID isEqual:characteristicUUID]) {
-            return characteristic;
-        }
-    }
-    return nil;
-
-}
-
-- (CBCharacteristic *)rzb_characteristicForUUID:(CBUUID *)characteristicUUID
+- (CBCharacteristic *)characteristicForUUID:(CBUUID *)characteristicUUID
                                   onService:(CBService *)service
                          triggeredByCommand:(RZBCommand *)triggeringCommand;
 {
@@ -191,7 +179,7 @@
     if (service == nil) {
         return nil;
     }
-    CBCharacteristic *characteristic = [self rzb_characteristicForUUID:characteristicUUID onService:service];
+    CBCharacteristic *characteristic = [service rzb_characteristicForUUID:characteristicUUID];
     if (characteristic == nil) {
         CBPeripheral *peripheral = service.peripheral;
         NSParameterAssert(peripheral);
@@ -363,13 +351,8 @@
                                            withObject:characteristic
                                                 error:error
                                              selector:NULL];
-    if (!complete) {
-        if (characteristic.isNotifying && characteristic.rzb_notificationBlock) {
-            characteristic.rzb_notificationBlock(characteristic, error);
-        }
-        else {
-            NSLog(@"Unable to find callback for %@", NSStringFromSelector(_cmd));
-        }
+    if (!complete && characteristic.isNotifying && characteristic.rzb_notificationBlock) {
+        characteristic.rzb_notificationBlock(characteristic, error);
     }
 }
 
