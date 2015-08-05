@@ -14,6 +14,10 @@ typedef void(^RZBSimulatedCallbackBlock)(NSError *injectedError);
 /**
  * A simulated callback is a method of controlling the timing and error
  * injection of a callback performed by a simulated connection.
+ *
+ * By default, all callbacks will trigger after 0 seconds with no injected 
+ * errors. The callback can be controlled to delay the callback, or inject
+ * an error into the testing process.
  */
 @interface RZBSimulatedCallback : NSObject
 
