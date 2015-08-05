@@ -12,5 +12,16 @@ typedef void(^RZBScanBlock)(CBPeripheral *peripheral, NSDictionary *advInfo, NSN
 typedef void(^RZBCentralManagerStateChangeBlock)(CBCentralManagerState state);
 
 typedef void(^RZBPeripheralBlock)(CBPeripheral *peripheral, NSError *error);
-typedef void(^RZBServiceBlock)(CBService *peripheral, NSError *error);
-typedef void(^RZBCharacteristicBlock)(CBCharacteristic *peripheral, NSError *error);
+typedef void(^RZBServiceBlock)(CBService *service, NSError *error);
+typedef void(^RZBCharacteristicBlock)(CBCharacteristic *characteristic, NSError *error);
+
+@protocol RZBBluetoothRepresentable <NSObject>
+
++ (CBUUID *)serviceUUID;
++ (NSDictionary *)characteristicUUIDsByKey;
++ (CBCharacteristicProperties)characteristicPropertiesForKey:(NSString *)key;
++ (id)valueForKey:(NSString *)key fromData:(NSData *)data;
++ (NSData *)dataForKey:(NSString *)key fromValue:(NSString *)value;
+
+- (id)valueForKey:(NSString *)key;
+@end

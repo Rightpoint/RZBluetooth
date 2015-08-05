@@ -7,19 +7,13 @@
 //
 
 #import "CBPeripheral+RZBExtension.h"
+#import "CBPeripheral+RZBHelper.h"
 #import "CBCharacteristic+RZBExtension.h"
 #import "RZBCentralManager+Private.h"
 #import "RZBUUIDPath.h"
 #import "RZBCommand.h"
 
 @implementation CBPeripheral (RZBExtension)
-
-- (RZBCentralManager *)centralManager
-{
-    RZBCentralManager *centralManager = (id)self.delegate;
-    NSAssert([centralManager isKindOfClass:[RZBCentralManager class]], @"CBPeripheral is not properly configured.  The delegate property must be configured to the RZCentralManager that owns it.");
-    return centralManager;
-}
 
 - (RZBCommandDispatch *)dispatch
 {

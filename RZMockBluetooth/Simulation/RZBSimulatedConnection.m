@@ -25,6 +25,7 @@
         _identifier = identifier;
         _central = central;
         _peripheralManager = peripheralManager;
+        _peripheralManager.mockDelegate = self;
         _peripheral = [central.mockCentralManager peripheralForUUID:identifier];
         _readRequests = [NSMutableArray array];
         _writeRequests = [NSMutableArray array];
@@ -102,9 +103,14 @@
 
     [self.readCharacteristicCallback dispatch:^(NSError *injectedError) {
         if (injectedError == nil) {
-            CBATTRequest *readRequest = [self requestForCharacteristic:characteristic];
-            [self.readRequests addObject:readRequest];
-            [self.peripheralManager fakeReadRequest:readRequest];
+            if (characteristic.value == nil) {
+                CBATTRequest *readRequest = [self requestForCharacteristic:characteristic];
+                [self.readRequests addObject:readRequest];
+                [self.peripheralManager fakeReadRequest:readRequest];
+            }
+            else {
+                [peripheral fakeCharacteristic:characteristic updateValue:characteristic.value error:nil];
+            }
         }
         else {
             [peripheral fakeCharacteristic:characteristic updateValue:characteristic.value error:injectedError];
@@ -160,12 +166,6 @@
     [self.central triggerScanIfNeeded];
 }
 
-- (void)mockPeripheralManagerStopAdvertising:(RZBMockPeripheralManager *)peripheralManager
-{}
-
-- (void)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager setDesiredConnectionLatency:(CBPeripheralManagerConnectionLatency)latency forCentral:(CBCentral *)central
-{}
-
 - (void)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager respondToRequest:(CBATTRequest *)request withResult:(CBATTError)result
 {
     NSError *error = [self errorForResult:result];
@@ -184,10 +184,17 @@
 - (BOOL)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager updateValue:(NSData *)value forCharacteristic:(CBMutableCharacteristic *)characteristic onSubscribedCentrals:(NSArray *)centrals
 {
     [self.peripheral fakeCharacteristic:characteristic updateValue:value error:nil];
-    // We don't have any overflow mechanism, so always return YES
+    // We don't have any buffer mechanism, so always return YES
     return YES;
 }
 
+- (void)mockPeripheralManagerStopAdvertising:(RZBMockPeripheralManager *)peripheralManager
+{}
+
+- (void)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager setDesiredConnectionLatency:(CBPeripheralManagerConnectionLatency)latency forCentral:(CBCentral *)central
+{}
+
+// These [c|sh]ould drive peripheral:didModifyServices:
 - (void)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager addService:(CBMutableService *)service
 {}
 
