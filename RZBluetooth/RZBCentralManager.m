@@ -14,11 +14,6 @@
 
 @implementation RZBCentralManager
 
-+ (Class)coreBluetoothCentralManagerClass
-{
-    return [CBCentralManager class];
-}
-
 - (instancetype)init
 {
     return [self initWithIdentifier:@"com.raizlabs.bluetooth" queue:nil];
@@ -26,14 +21,18 @@
 
 - (instancetype)initWithIdentifier:(NSString *)identifier queue:(dispatch_queue_t)queue
 {
+    return [self initWithIdentifier:identifier queue:queue centralClass:[CBCentralManager class]];
+}
+
+- (instancetype)initWithIdentifier:(NSString *)identifier queue:(dispatch_queue_t)queue centralClass:(Class)centralClass
+{
     NSParameterAssert(identifier);
     self = [super init];
     if (self) {
         NSDictionary *options = @{CBCentralManagerOptionRestoreIdentifierKey: identifier};
-        Class CentralManager = self.class.coreBluetoothCentralManagerClass;
-        _centralManager = [[CentralManager alloc] initWithDelegate:self
-                                                             queue:queue
-                                                           options:options];
+        _centralManager = [[centralClass alloc] initWithDelegate:self
+                                                           queue:queue
+                                                         options:options];
         _dispatch = [[RZBCommandDispatch alloc] initWithQueue:queue delegate:self];
         _peripheralsByIdentifier = [NSMutableDictionary dictionary];
     }

@@ -7,7 +7,6 @@
 //
 
 #import "RZBMockCentralTestCase.h"
-#import "RZBTestCentralManager.h"
 
 @implementation RZBMockCentralTestCase
 
@@ -24,14 +23,13 @@
 
 - (RZBMockCentralManager *)mockCentralManager
 {
-    XCTAssert([self.centralManager.centralManager isKindOfClass:[RZBMockCentralManager class]]);
-    return (id)self.centralManager.centralManager;
+    return self.centralManager.mockCentralManager;
 }
 
 - (void)setUp
 {
     [super setUp];
-    self.centralManager = [[RZBTestCentralManager alloc] init];
+    self.centralManager = [[RZBTestableCentralManager alloc] init];
     self.mockCentralManager.mockDelegate = self;
     self.invocationLog = [[RZBInvocationLog alloc] init];
 }

@@ -13,10 +13,9 @@
 @interface RZBCentralManager () <CBCentralManagerDelegate, CBPeripheralDelegate, RZBCommandDispatchDelegate>
 
 /**
- * Provide an over-ride point for tests to provide an Core-Bluetooth compatible
- * Class hierarchy.
+ * Internal initializer for specifying alternate bluetooth classes.
  */
-+ (Class)coreBluetoothCentralManagerClass;
+- (instancetype)initWithIdentifier:(NSString *)identifier queue:(dispatch_queue_t)queue centralClass:(Class)centralClass;
 
 @property (strong, nonatomic, readonly) RZBCommandDispatch *dispatch;
 @property (strong, nonatomic, readonly) CBCentralManager *centralManager;

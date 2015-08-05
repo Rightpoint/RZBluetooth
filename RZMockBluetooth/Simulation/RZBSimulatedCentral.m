@@ -12,7 +12,7 @@
 #import "RZBSimulatedCallback.h"
 #import "RZBSimulatedConnection.h"
 
-@interface RZBSimulatedCentral ()
+@interface RZBSimulatedCentral () <RZBMockCentralManagerDelegate>
 
 @property (strong, nonatomic, readonly) NSMutableArray *connections;
 @property (strong, nonatomic, readonly) NSMutableArray *scannedDeviceUUIDs;
@@ -24,14 +24,15 @@
 
 @implementation RZBSimulatedCentral
 
-- (instancetype)initWithMockCentralManager:(RZBMockCentralManager *)centralManager
+- (instancetype)initWithMockCentralManager:(RZBMockCentralManager *)mockCentralManager
 {
-    NSParameterAssert(centralManager);
+    NSParameterAssert(mockCentralManager);
     self = [super init];
     if (self) {
         _connections = [NSMutableArray array];
         _scannedDeviceUUIDs = [NSMutableArray array];
-        _mockCentralManager = centralManager;
+        _mockCentralManager = mockCentralManager;
+        _mockCentralManager.mockDelegate = self;
     }
     return self;
 }

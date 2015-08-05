@@ -13,3 +13,4 @@
 #import "RZBSimulatedCentral.h"
 #import "RZBSimulatedConnection.h"
 #import "NSError+RZBMock.h"
+#import "RZBTestableCentralManager.h"
