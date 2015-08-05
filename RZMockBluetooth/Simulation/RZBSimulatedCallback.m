@@ -8,14 +8,17 @@
 
 #import "RZBSimulatedCallback.h"
 
+static NSTimeInterval __defaultDelay = 0;
+
 @interface RZBSimulatedCallback ()
 @property (strong, nonatomic) dispatch_group_t group;
 @property (strong, nonatomic) dispatch_queue_t queue;
+@property (assign, nonatomic) NSUInteger dispatchCounter;
+@property (assign, nonatomic) NSUInteger cancelCounter;
 @end
 
 @implementation RZBSimulatedCallback
 
-static NSTimeInterval __defaultDelay = 0;
 + (void)setDefaultDelay:(NSTimeInterval)delay
 {
     __defaultDelay = delay;
@@ -31,6 +34,8 @@ static NSTimeInterval __defaultDelay = 0;
     return cb;
 }
 
+@synthesize paused = _paused;
+
 - (void)dealloc
 {
     if (_paused) {
@@ -41,6 +46,11 @@ static NSTimeInterval __defaultDelay = 0;
 - (void)dispatch:(RZBSimulatedCallbackBlock)block
 {
     NSParameterAssert(block);
+    NSUInteger dispatchCounter = NSNotFound;
+    @synchronized(self) {
+        dispatchCounter = self.dispatchCounter;
+        self.dispatchCounter += 1;
+    }
 
     dispatch_group_enter(self.group);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.delay * NSEC_PER_SEC)), self.queue, ^{
@@ -48,20 +58,38 @@ static NSTimeInterval __defaultDelay = 0;
     });
 
     dispatch_group_notify(self.group, self.queue, ^{
-        block(self.injectError);
+        if (dispatchCounter >= self.cancelCounter) {
+            block(self.injectError);
+        }
     });
 }
 
 - (void)setPaused:(BOOL)paused
 {
-    if (_paused != paused) {
-        _paused = paused;
-        if (paused) {
-            dispatch_group_enter(self.group);
+    @synchronized(self) {
+        if (_paused != paused) {
+            _paused = paused;
+            if (paused) {
+                dispatch_group_enter(self.group);
+            }
+            else {
+                dispatch_group_leave(self.group);
+            }
         }
-        else {
-            dispatch_group_leave(self.group);
-        }
+    }
+}
+
+- (BOOL)paused
+{
+    @synchronized(self) {
+        return _paused;
+    }
+}
+
+- (void)cancel
+{
+    @synchronized(self) {
+        self.cancelCounter = self.dispatchCounter;
     }
 }
 

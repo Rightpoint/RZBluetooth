@@ -129,7 +129,7 @@
             [self dispatchCommand:command.retryAfter];
         }
     }
-    // Prune out the commands that execute and complete. (write w/o reply)
+    // Prune out the commands that execute and complete. (write w/o reply, disconnect while disconnected)
     if (command.isCompleted) {
         [self completeCommand:command withObject:nil error:nil];
     }

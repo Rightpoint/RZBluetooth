@@ -40,23 +40,28 @@ typedef void(^RZBSimulatedCallbackBlock)(NSError *injectedError);
 /**
  * The delay to use for all future `dispatch:` calls.
  */
-@property (assign, nonatomic) NSTimeInterval delay;
+@property (assign) NSTimeInterval delay;
 
 /**
  * The error to inject into the dispatched block.
  */
-@property (strong, nonatomic) NSError *injectError;
+@property (strong) NSError *injectError;
 
 /**
  * Do not dispatch any blocks while paused. This will not pause the delay that
  * the dispatch is invoked with.
  */
-@property (assign, nonatomic) BOOL paused;
+@property (assign) BOOL paused;
 
 /**
  * Dispatch a block that will be triggered when the delay passes, and the callback
  * is not paused.
  */
 - (void)dispatch:(RZBSimulatedCallbackBlock)block;
+
+/**
+ * do not execute any blocks that have been dispatched to this point.
+ */
+- (void)cancel;
 
 @end

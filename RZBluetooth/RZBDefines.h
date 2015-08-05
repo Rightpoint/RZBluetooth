@@ -24,4 +24,5 @@ typedef void(^RZBCharacteristicBlock)(CBCharacteristic *characteristic, NSError 
 + (NSData *)dataForKey:(NSString *)key fromValue:(NSString *)value;
 
 - (id)valueForKey:(NSString *)key;
+
 @end

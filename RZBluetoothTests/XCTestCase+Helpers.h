@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import <Foundation/Foundation.h>
 #import "RZBUUIDPath.h"
+#import "NSRunLoop+RZBWaitFor.h"
 
 @class RZBCommandDispatch;
 

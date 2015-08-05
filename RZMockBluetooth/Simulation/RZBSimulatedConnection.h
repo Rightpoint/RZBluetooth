@@ -26,6 +26,8 @@
 @property (strong, nonatomic, readonly) NSUUID *identifier;
 
 @property (strong, nonatomic) NSNumber *RSSI;
+@property (assign, nonatomic) BOOL connectable;
+
 @property (strong, nonatomic, readonly) NSMutableArray *readRequests;
 @property (strong, nonatomic, readonly) NSMutableArray *writeRequests;
 
@@ -34,12 +36,15 @@
 @property (strong, nonatomic) RZBMockPeripheral *peripheral;
 
 @property (strong, nonatomic) RZBSimulatedCallback *scanCallback;
-@property (strong, nonatomic) RZBSimulatedCallback *connectCallback;
+
 @property (strong, nonatomic) RZBSimulatedCallback *cancelConncetionCallback;
+
+- (NSArray *)connectionDependentCallbacks;
+
+@property (strong, nonatomic) RZBSimulatedCallback *connectCallback;
 @property (strong, nonatomic) RZBSimulatedCallback *discoverServiceCallback;
 @property (strong, nonatomic) RZBSimulatedCallback *discoverCharacteristicCallback;
 @property (strong, nonatomic) RZBSimulatedCallback *readRSSICallback;
-
 @property (strong, nonatomic) RZBSimulatedCallback *readCharacteristicCallback;
 @property (strong, nonatomic) RZBSimulatedCallback *writeCharacteristicCallback;
 @property (strong, nonatomic) RZBSimulatedCallback *notifyCharacteristicCallback;

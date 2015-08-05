@@ -144,9 +144,14 @@
 - (BOOL)executeCommandWithContext:(RZBCentralManager *)context
 {
     CBPeripheral *peripheral = [context peripheralForUUID:self.peripheralUUID];
-    NSAssert(peripheral.state == CBPeripheralStateConnected, @"Should only execute connect on connected peripheral");
 
-    [context.centralManager cancelPeripheralConnection:peripheral];
+    if (peripheral.state == CBPeripheralStateConnected ||
+        peripheral.state == CBPeripheralStateConnecting) {
+        [context.centralManager cancelPeripheralConnection:peripheral];
+    }
+    else {
+        self.isCompleted = YES;
+    }
     return YES;
 }
 

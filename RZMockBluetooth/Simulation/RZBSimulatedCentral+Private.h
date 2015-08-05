@@ -14,6 +14,4 @@
 
 @property (strong, nonatomic, readonly) RZBMockCentralManager *mockCentralManager;
 
-- (void)triggerScanIfNeeded;
-
 @end

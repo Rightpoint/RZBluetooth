@@ -6,28 +6,18 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "RZBProfileTestCase.h"
-#import "RZBSimulatedDevice.h"
+#import "RZBSimulatedTestCase.h"
 #import "RZBDeviceInfo.h"
-#import "RZBMockPeripheralManager.h"
-#import "RZBSimulatedCentral.h"
 
-@interface RZBProfileDeviceInfoTestCase : RZBProfileTestCase
-@property (strong, nonatomic) RZBSimulatedDevice *device;
+@interface RZBProfileDeviceInfoTestCase : RZBSimulatedTestCase
 @property (strong, nonatomic) RZBDeviceInfo *deviceInfo;
 @end
 
 @implementation RZBProfileDeviceInfoTestCase
 
-- (void)setUp {
+- (void)setUp
+{
     [super setUp];
-    [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
-    self.device = [[RZBSimulatedDevice alloc] initWithQueue:self.mockCentralManager.queue
-                                                    options:@{}
-                                     peripheralManagerClass:[RZBMockPeripheralManager class]];
-    [self.centralManager.simulatedCentral addSimulatedDeviceWithIdentifier:self.device.identifier
-                                                         peripheralManager:(id)self.device.peripheralManager];
 
     self.deviceInfo = [[RZBDeviceInfo alloc] init];
     self.deviceInfo.manufacturerName = @"Fake Bytes";
@@ -35,8 +25,8 @@
     [self.device addBluetoothRepresentable:self.deviceInfo isPrimary:YES];
 }
 
-- (void)tearDown {
-    self.device = nil;
+- (void)tearDown
+{
     self.deviceInfo = nil;
     [super tearDown];
 }
@@ -65,10 +55,63 @@
 - (void)testConnection
 {
     XCTestExpectation *connected = [self expectationWithDescription:@"Peripheral will connect"];
+
     [self.centralManager connectToPeripheralUUID:self.device.identifier completion:^(CBPeripheral *peripheral, NSError *error) {
         [connected fulfill];
         XCTAssert([peripheral.identifier isEqual:self.device.identifier]);
     }];
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+}
+
+- (void)testConnectable
+{
+    XCTestExpectation *connected = [self expectationWithDescription:@"Peripheral will connect"];
+    CBPeripheral *p = [self.centralManager peripheralForUUID:self.device.identifier];
+    XCTAssert(p.state == CBPeripheralStateDisconnected);
+    self.connection.connectable = NO;
+
+    [self.centralManager connectToPeripheralUUID:self.device.identifier completion:^(CBPeripheral *peripheral, NSError *error) {
+        [connected fulfill];
+        XCTAssert([peripheral.identifier isEqual:self.device.identifier]);
+    }];
+    [self waitForQueueFlush];
+    XCTAssert(p.state == CBPeripheralStateConnecting);
+
+    self.connection.connectable = YES;
+    XCTAssert(p.state == CBPeripheralStateConnecting);
+
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+    XCTAssert(p.state == CBPeripheralStateConnected);
+}
+
+- (void)testConnectionAndCancelWhileNotConnectable
+{
+    XCTestExpectation *connectCallback = [self expectationWithDescription:@"Connect Callback"];
+    XCTestExpectation *cancelConnectCallback = [self expectationWithDescription:@"Connect Cancelation Callback"];
+
+    CBPeripheral *p = [self.centralManager peripheralForUUID:self.device.identifier];
+    XCTAssert(p.state == CBPeripheralStateDisconnected);
+    self.connection.connectable = NO;
+
+    [self.centralManager connectToPeripheralUUID:self.device.identifier completion:^(CBPeripheral *peripheral, NSError *error) {
+        XCTAssertNil(peripheral);
+        XCTAssertNil(error);
+        [connectCallback fulfill];
+    }];
+    [self waitForQueueFlush];
+    XCTAssert(p.state == CBPeripheralStateConnecting);
+
+    [self.centralManager cancelConnectionFromPeripheralUUID:self.device.identifier
+                                                 completion:^(CBPeripheral *peripheral, NSError *error) {
+                                                     XCTAssertNotNil(peripheral);
+                                                     XCTAssertNil(error);
+                                                     [cancelConnectCallback fulfill];
+                                                 }];
+    [self waitForQueueFlush];
+
+
+    self.connection.connectable = YES;
+    XCTAssert(p.state == CBPeripheralStateDisconnected);
 
     [self waitForExpectationsWithTimeout:5.0 handler:nil];
 }
@@ -83,7 +126,6 @@
     }];
 
     [self waitForExpectationsWithTimeout:5 handler:nil];
-
 }
 
 

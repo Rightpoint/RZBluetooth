@@ -17,7 +17,6 @@
 @property (strong, nonatomic, readonly) NSMutableArray *connections;
 
 @property (strong, nonatomic) NSArray *servicesToScan;
-@property (assign, nonatomic) BOOL isScanning;
 
 @end
 
@@ -60,25 +59,6 @@
     [self.connections removeObject:connection];
 }
 
-- (void)triggerScanIfNeeded
-{
-    if (self.isScanning == NO) {
-        return;
-    }
-    for (__weak RZBSimulatedConnection *connection in self.connections) {
-        if ([connection isDiscoverableWithServices:self.servicesToScan]) {
-            [connection.scanCallback dispatch:^(NSError *injectedError) {
-                NSAssert(injectedError == nil, @"Can not inject errors into scans");
-                if (self.isScanning) {
-                    [self.mockCentralManager fakeScanPeripheralWithUUID:connection.peripheral.identifier
-                                                                advInfo:connection.peripheralManager.advInfo
-                                                                   RSSI:connection.RSSI];
-                }
-            }];
-        }
-    }
-}
-
 - (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager retrievePeripheralsWithIdentifiers:(NSArray *)identifiers
 {
     // Nothing to do here.
@@ -86,15 +66,25 @@
 
 - (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager scanForPeripheralsWithServices:(NSArray *)services options:(NSDictionary *)options
 {
-    self.isScanning = YES;
     self.servicesToScan = services;
-    [self triggerScanIfNeeded];
+    for (__weak RZBSimulatedConnection *connection in self.connections) {
+        if ([connection isDiscoverableWithServices:self.servicesToScan]) {
+            [connection.scanCallback dispatch:^(NSError *injectedError) {
+                NSAssert(injectedError == nil, @"Can not inject errors into scans");
+                [self.mockCentralManager fakeScanPeripheralWithUUID:connection.peripheral.identifier
+                                                            advInfo:connection.peripheralManager.advInfo
+                                                               RSSI:connection.RSSI];
+            }];
+        }
+    }
 }
 
 - (void)mockCentralManagerStopScan:(RZBMockCentralManager *)mockCentralManager
 {
-    self.isScanning = NO;
     self.servicesToScan = nil;
+    for (__weak RZBSimulatedConnection *connection in self.connections) {
+        [connection.scanCallback cancel];
+    }
 }
 
 - (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager connectPeripheral:(RZBMockPeripheral *)peripheral options:(NSDictionary *)options
@@ -109,6 +99,11 @@
 - (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager cancelPeripheralConnection:(RZBMockPeripheral *)peripheral
 {
     RZBSimulatedConnection *connection = [self connectionForIdentifier:peripheral.identifier];
+    peripheral.mockDelegate = nil;
+
+    for (RZBSimulatedCallback *callback in connection.connectionDependentCallbacks) {
+        [callback cancel];
+    }
 
     [connection.cancelConncetionCallback dispatch:^(NSError *injectedError) {
         [mockCentralManager fakeDisconnectPeripheralWithUUID:peripheral.identifier

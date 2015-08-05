@@ -312,15 +312,14 @@
                                 error:error
                              selector:NULL];
 
-    // This delegate method can fail any outstanding command, and is often the terminal event
+    // This delegate method can terminate any outstanding command, and is often the terminal event
     // for a connection. Fail all commands to this peripheral
-    if (error) {
-        NSArray *commands = [self.dispatch commandsOfClass:nil
-                                          matchingUUIDPath:RZBUUIDP(peripheral.identifier)
-                                                isExecuted:YES];
-        for (RZBCommand *command in commands) {
-            [command completeWithObject:nil error:&error];
-        }
+
+    NSArray *commands = [self.dispatch commandsOfClass:nil
+                                      matchingUUIDPath:RZBUUIDP(peripheral.identifier)
+                                            isExecuted:YES];
+    for (RZBCommand *command in commands) {
+        [self.dispatch completeCommand:command withObject:nil error:error];
     }
 }
 

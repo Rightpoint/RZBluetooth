@@ -11,6 +11,10 @@
 #import "RZBSimulatedCallback.h"
 #import "RZBSimulatedCentral+Private.h"
 
+@interface RZBSimulatedConnection ()
+
+@end
+
 @implementation RZBSimulatedConnection
 
 - (instancetype)initWithIdentifier:(NSUUID *)identifier
@@ -33,6 +37,7 @@
         self.scanCallback.paused = YES;
         self.connectCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
         self.cancelConncetionCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
+        self.readRSSICallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
         self.discoverServiceCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
         self.discoverCharacteristicCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
         self.readCharacteristicCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
@@ -51,6 +56,23 @@
         }
     }
     return discoverable;
+}
+
+- (void)setConnectable:(BOOL)connectable
+{
+    self.connectCallback.paused = !connectable;
+    _connectable = connectable;
+}
+
+- (NSArray *)connectionDependentCallbacks
+{
+    return @[self.connectCallback,
+             self.discoverServiceCallback,
+             self.discoverCharacteristicCallback,
+             self.readRSSICallback,
+             self.readCharacteristicCallback,
+             self.writeCharacteristicCallback,
+             self.notifyCharacteristicCallback];
 }
 
 - (NSError *)errorForResult:(CBATTError)result
@@ -144,7 +166,7 @@
 
     [self.notifyCharacteristicCallback dispatch:^(NSError *injectedError) {
         if (injectedError == nil) {
-            [self.peripheralManager fakeNotifyState:enabled central:(id)self characteristic:(id)characteristic];
+            [self.peripheralManager fakeNotifyState:enabled central:(id)self.central characteristic:(id)characteristic];
         }
         else {
             [peripheral fakeCharacteristic:characteristic notify:enabled error:injectedError];
