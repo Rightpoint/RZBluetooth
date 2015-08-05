@@ -11,16 +11,16 @@
 
 @implementation CBPeripheral (RZBHelper)
 
-- (RZBCentralManager *)centralManager
+- (RZBCentralManager *)rzb_centralManager
 {
     RZBCentralManager *centralManager = (id)self.delegate;
     NSAssert([centralManager isKindOfClass:[RZBCentralManager class]], @"CBPeripheral is not properly configured.  The delegate property must be configured to the RZCentralManager that owns it.");
     return centralManager;
 }
 
-- (dispatch_queue_t)queue
+- (dispatch_queue_t)rzb_queue
 {
-    return self.centralManager.dispatch.queue;
+    return self.rzb_centralManager.dispatch.queue;
 }
 
 @end

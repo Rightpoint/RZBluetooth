@@ -15,6 +15,6 @@ typedef void(^RZBCharacteristicCallback)(CBCharacteristic *characteristic, NSErr
 /**
  * Storage for the onUpdate handler.
  */
-@property (strong, nonatomic) RZBCharacteristicCallback notificationBlock;
+@property (strong, nonatomic) RZBCharacteristicCallback rzb_notificationBlock;
 
 @end

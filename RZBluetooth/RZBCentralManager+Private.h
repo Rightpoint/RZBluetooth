@@ -45,7 +45,7 @@
  * command will be made, and the triggeredByCommand will be made dependent
  * on the discover command completing.
  */
-- (CBCharacteristic *)characteristicForUUID:(CBUUID *)characteristicUUID
+- (CBCharacteristic *)rzb_characteristicForUUID:(CBUUID *)characteristicUUID
                                   onService:(CBService *)service
                          triggeredByCommand:(RZBCommand *)triggeringCommand;
 

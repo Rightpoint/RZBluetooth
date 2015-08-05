@@ -10,12 +10,12 @@
 
 @interface CBService (RZBExtension)
 
-- (CBCharacteristic *)characteristicForUUID:(CBUUID *)characteristicUUID;
+- (CBCharacteristic *)rzb_characteristicForUUID:(CBUUID *)characteristicUUID;
 
 @end
 
 @interface CBMutableService (RZBExtension)
 
-- (CBMutableCharacteristic *)characteristicForUUID:(CBUUID *)characteristicUUID;
+- (CBMutableCharacteristic *)rzb_characteristicForUUID:(CBUUID *)characteristicUUID;
 
 @end

@@ -10,7 +10,7 @@
 
 @implementation CBService (RZBExtension)
 
-- (CBCharacteristic *)characteristicForUUID:(CBUUID *)characteristicUUID
+- (CBCharacteristic *)rzb_characteristicForUUID:(CBUUID *)characteristicUUID
 {
     for (CBCharacteristic *characteristic in self.characteristics) {
         if ([characteristic.UUID isEqual:characteristicUUID]) {

@@ -16,7 +16,7 @@
  */
 @interface CBPeripheral (RZBHelper)
 
-@property (weak, nonatomic, readonly) RZBCentralManager *centralManager;
-@property (weak, nonatomic, readonly) dispatch_queue_t queue;
+@property (weak, nonatomic, readonly) RZBCentralManager *rzb_centralManager;
+@property (weak, nonatomic, readonly) dispatch_queue_t rzb_queue;
 
 @end

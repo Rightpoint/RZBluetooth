@@ -58,7 +58,7 @@ NSString *const RZBDeviceInfoModelNumberKey = @"modelNumber";
     dispatch_group_t done = dispatch_group_create();
     for (NSString *key in deviceInfoKeys) {
         dispatch_group_enter(done);
-        [self readCharacteristicUUID:UUIDsByKey[key]
+        [self rzb_readCharacteristicUUID:UUIDsByKey[key]
                          serviceUUID:[RZBDeviceInfo serviceUUID]
                           completion:^(CBCharacteristic *characteristic, NSError *error) {
                               [deviceInfo setValue:[RZBDeviceInfo valueForKey:key fromData:characteristic.value] forKey:key];
@@ -70,7 +70,7 @@ NSString *const RZBDeviceInfoModelNumberKey = @"modelNumber";
                               dispatch_group_leave(done);
                           }];
     }
-    dispatch_group_notify(done, self.queue, ^{
+    dispatch_group_notify(done, self.rzb_queue, ^{
         completion(deviceInfo, lastError);
     });
 }

@@ -16,24 +16,18 @@
  * @note if a read is performed on a characteristic that is notifying, the completion
  *       block will be triggered on the next value notification.
  */
-- (void)readCharacteristicUUID:(CBUUID *)characteristicUUID
-                   serviceUUID:(CBUUID *)serviceUUID
-                    completion:(RZBCharacteristicBlock)completion;
+- (void)rzb_readCharacteristicUUID:(CBUUID *)characteristicUUID
+                       serviceUUID:(CBUUID *)serviceUUID
+                        completion:(RZBCharacteristicBlock)completion;
 /**
  * Monitor a characteristic for changes in value. The onChange block will be
  * triggered every time the characteristic changes.
  */
-- (void)monitorCharacteristicUUID:(CBUUID *)characteristicUUID
-                      serviceUUID:(CBUUID *)serviceUUID
-                         onChange:(RZBCharacteristicBlock)onChange
-                       completion:(RZBCharacteristicBlock)completion;
-
-/**
- * Stop observing changes to the characteristic
- */
-- (void)ignoreCharacteristicUUID:(CBUUID *)characteristicUUID
-                     serviceUUID:(CBUUID *)serviceUUID
-                      completion:(RZBCharacteristicBlock)completion;
+- (void)rzb_setNotify:(BOOL)notify
+ onCharacteristicUUID:(CBUUID *)characteristicUUID
+          serviceUUID:(CBUUID *)serviceUUID
+             onChange:(RZBCharacteristicBlock)onChange
+           completion:(RZBCharacteristicBlock)completion;
 
 /**
  * Write the data to a specific characteristic.
@@ -44,9 +38,9 @@
  *       CoreBluetooth will perform a staged write, which can have throughput
  *       implications.
  */
-- (void)writeData:(NSData *)data
-characteristicUUID:(CBUUID *)characteristicUUID
-      serviceUUID:(CBUUID *)serviceUUID;
+- (void)rzb_writeData:(NSData *)data
+   characteristicUUID:(CBUUID *)characteristicUUID
+          serviceUUID:(CBUUID *)serviceUUID;
 
 /**
  * Write the data to a specific characteristic and wait for a response from the
@@ -55,9 +49,9 @@ characteristicUUID:(CBUUID *)characteristicUUID
  * @note the completion block requires a notification from the device and may also
  *       impact throughput. It shouldn't be used unless required.
  */
-- (void)writeData:(NSData *)data
-characteristicUUID:(CBUUID *)characteristicUUID
-      serviceUUID:(CBUUID *)serviceUUID
-       completion:(RZBCharacteristicBlock)completion;
+- (void)rzb_writeData:(NSData *)data
+   characteristicUUID:(CBUUID *)characteristicUUID
+          serviceUUID:(CBUUID *)serviceUUID
+           completion:(RZBCharacteristicBlock)completion;
 
 @end

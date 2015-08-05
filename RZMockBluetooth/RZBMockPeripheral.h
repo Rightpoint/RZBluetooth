@@ -56,23 +56,21 @@
 
 @interface RZBMockPeripheral (Dynamic)
 
-- (void)readCharacteristicUUID:(CBUUID *)characteristicUUID
-                   serviceUUID:(CBUUID *)serviceUUID
-                    completion:(RZBCharacteristicBlock)completion;
-- (void)monitorCharacteristicUUID:(CBUUID *)characteristicUUID
-                      serviceUUID:(CBUUID *)serviceUUID
-                         onChange:(RZBCharacteristicBlock)onChange
-                       completion:(RZBCharacteristicBlock)completion;
-- (void)ignoreCharacteristicUUID:(CBUUID *)characteristicUUID
-                     serviceUUID:(CBUUID *)serviceUUID
-                      completion:(RZBCharacteristicBlock)completion;
-- (void)writeData:(NSData *)data
-characteristicUUID:(CBUUID *)characteristicUUID
-      serviceUUID:(CBUUID *)serviceUUID;
-- (void)writeData:(NSData *)data
-characteristicUUID:(CBUUID *)characteristicUUID
-      serviceUUID:(CBUUID *)serviceUUID
-       completion:(RZBCharacteristicBlock)completion;
+- (void)rzb_readCharacteristicUUID:(CBUUID *)characteristicUUID
+                       serviceUUID:(CBUUID *)serviceUUID
+                        completion:(RZBCharacteristicBlock)completion;
+- (void)rzb_setNotify:(BOOL)notify
+ onCharacteristicUUID:(CBUUID *)characteristicUUID
+          serviceUUID:(CBUUID *)serviceUUID
+             onChange:(RZBCharacteristicBlock)onChange
+           completion:(RZBCharacteristicBlock)completion;
+- (void)rzb_writeData:(NSData *)data
+   characteristicUUID:(CBUUID *)characteristicUUID
+          serviceUUID:(CBUUID *)serviceUUID;
+- (void)rzb_writeData:(NSData *)data
+   characteristicUUID:(CBUUID *)characteristicUUID
+          serviceUUID:(CBUUID *)serviceUUID
+           completion:(RZBCharacteristicBlock)completion;
 
 @end
 

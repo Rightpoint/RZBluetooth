@@ -264,7 +264,7 @@
                                     onPeripheral:peripheral
                               triggeredByCommand:self];
 
-    CBCharacteristic *characteristic = [context characteristicForUUID:self.characteristicUUID
+    CBCharacteristic *characteristic = [context rzb_characteristicForUUID:self.characteristicUUID
                                                             onService:service
                                                    triggeredByCommand:self];
     if (characteristic) {
@@ -286,7 +286,7 @@
                                     onPeripheral:peripheral
                               triggeredByCommand:self];
 
-    CBCharacteristic *characteristic = [context characteristicForUUID:self.characteristicUUID
+    CBCharacteristic *characteristic = [context rzb_characteristicForUUID:self.characteristicUUID
                                                             onService:service
                                                    triggeredByCommand:self];
     if (characteristic) {
@@ -313,7 +313,7 @@
                                     onPeripheral:peripheral
                               triggeredByCommand:self];
 
-    CBCharacteristic *characteristic = [context characteristicForUUID:self.characteristicUUID
+    CBCharacteristic *characteristic = [context rzb_characteristicForUUID:self.characteristicUUID
                                                             onService:service
                                                    triggeredByCommand:self];
 

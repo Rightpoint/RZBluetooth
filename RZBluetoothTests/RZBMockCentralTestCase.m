@@ -86,24 +86,24 @@
 - (void)triggerThreeCommandsAndStoreErrorsIn:(NSMutableArray *)errors
 {
     RZBMockPeripheral *p = (id)[self.centralManager peripheralForUUID:self.class.pUUID];
-    [p readCharacteristicUUID:self.class.cUUID
-                  serviceUUID:self.class.sUUID
-                   completion:^(CBCharacteristic *peripheral, NSError *error) {
-                       XCTAssertNotNil(error);
-                       [errors addObject:error];
-                   }];
-    [p readCharacteristicUUID:self.class.cUUID
-                  serviceUUID:self.class.sUUID
-                   completion:^(CBCharacteristic *peripheral, NSError *error) {
-                       XCTAssertNotNil(error);
-                       [errors addObject:error];
-                   }];
-    [p readCharacteristicUUID:self.class.cUUID
-                  serviceUUID:self.class.sUUID
-                   completion:^(CBCharacteristic *peripheral, NSError *error) {
-                       XCTAssertNotNil(error);
-                       [errors addObject:error];
-                   }];
+    [p rzb_readCharacteristicUUID:self.class.cUUID
+                      serviceUUID:self.class.sUUID
+                       completion:^(CBCharacteristic *peripheral, NSError *error) {
+                           XCTAssertNotNil(error);
+                           [errors addObject:error];
+                       }];
+    [p rzb_readCharacteristicUUID:self.class.cUUID
+                      serviceUUID:self.class.sUUID
+                       completion:^(CBCharacteristic *peripheral, NSError *error) {
+                           XCTAssertNotNil(error);
+                           [errors addObject:error];
+                       }];
+    [p rzb_readCharacteristicUUID:self.class.cUUID
+                      serviceUUID:self.class.sUUID
+                       completion:^(CBCharacteristic *peripheral, NSError *error) {
+                           XCTAssertNotNil(error);
+                           [errors addObject:error];
+                       }];
     [self waitForQueueFlush];
 }
 

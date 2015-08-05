@@ -170,7 +170,7 @@
     return service;
 }
 
-- (CBCharacteristic *)characteristicForUUID:(CBUUID *)characteristicUUID onService:(CBService *)service
+- (CBCharacteristic *)rzb_characteristicForUUID:(CBUUID *)characteristicUUID onService:(CBService *)service
 {
     NSParameterAssert(characteristicUUID);
     NSParameterAssert(service);
@@ -183,7 +183,7 @@
 
 }
 
-- (CBCharacteristic *)characteristicForUUID:(CBUUID *)characteristicUUID
+- (CBCharacteristic *)rzb_characteristicForUUID:(CBUUID *)characteristicUUID
                                   onService:(CBService *)service
                          triggeredByCommand:(RZBCommand *)triggeringCommand;
 {
@@ -191,7 +191,7 @@
     if (service == nil) {
         return nil;
     }
-    CBCharacteristic *characteristic = [self characteristicForUUID:characteristicUUID onService:service];
+    CBCharacteristic *characteristic = [self rzb_characteristicForUUID:characteristicUUID onService:service];
     if (characteristic == nil) {
         CBPeripheral *peripheral = service.peripheral;
         NSParameterAssert(peripheral);
@@ -365,8 +365,8 @@
                                                 error:error
                                              selector:NULL];
     if (!complete) {
-        if (characteristic.isNotifying && characteristic.notificationBlock) {
-            characteristic.notificationBlock(characteristic, error);
+        if (characteristic.isNotifying && characteristic.rzb_notificationBlock) {
+            characteristic.rzb_notificationBlock(characteristic, error);
         }
         else {
             NSLog(@"Unable to find callback for %@", NSStringFromSelector(_cmd));

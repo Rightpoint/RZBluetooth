@@ -17,10 +17,10 @@
 
 - (RZBCommandDispatch *)dispatch
 {
-    return self.centralManager.dispatch;
+    return self.rzb_centralManager.dispatch;
 }
 
-- (void)readCharacteristicUUID:(CBUUID *)characteristicUUID
+- (void)rzb_readCharacteristicUUID:(CBUUID *)characteristicUUID
                    serviceUUID:(CBUUID *)serviceUUID
                     completion:(RZBCharacteristicBlock)completion
 {
@@ -31,35 +31,25 @@
     [self.dispatch dispatchCommand:cmd];
 }
 
-- (void)monitorCharacteristicUUID:(CBUUID *)characteristicUUID
-                      serviceUUID:(CBUUID *)serviceUUID
-                         onChange:(RZBCharacteristicBlock)onChange
-                       completion:(RZBCharacteristicBlock)completion
+- (void)rzb_setNotify:(BOOL)notify
+ onCharacteristicUUID:(CBUUID *)characteristicUUID
+          serviceUUID:(CBUUID *)serviceUUID
+             onChange:(RZBCharacteristicBlock)onChange
+           completion:(RZBCharacteristicBlock)completion
 {
     NSParameterAssert(onChange);
     NSParameterAssert(completion);
     RZBUUIDPath *path = RZBUUIDP(self.identifier, serviceUUID, characteristicUUID);
     RZBNotifyCharacteristicCommand *cmd = [[RZBNotifyCharacteristicCommand alloc] initWithUUIDPath:path];
-    cmd.notify = YES;
+    cmd.notify = notify;
     [cmd addCallbackBlock:^(CBCharacteristic *characteristic, NSError *error) {
-        characteristic.notificationBlock = onChange;
+        characteristic.rzb_notificationBlock = onChange;
         completion(characteristic, error);
     }];
     [self.dispatch dispatchCommand:cmd];
 }
 
-- (void)ignoreCharacteristicUUID:(CBUUID *)characteristicUUID
-                     serviceUUID:(CBUUID *)serviceUUID
-                      completion:(RZBCharacteristicBlock)completion
-{
-    RZBUUIDPath *path = RZBUUIDP(self.identifier, serviceUUID, characteristicUUID);
-    RZBNotifyCharacteristicCommand *cmd = [[RZBNotifyCharacteristicCommand alloc] initWithUUIDPath:path];
-    cmd.notify = NO;
-    [cmd addCallbackBlock:completion];
-    [self.dispatch dispatchCommand:cmd];
-}
-
-- (void)writeData:(NSData *)data
+- (void)rzb_writeData:(NSData *)data
 characteristicUUID:(CBUUID *)characteristicUUID
       serviceUUID:(CBUUID *)serviceUUID
 {
@@ -70,7 +60,7 @@ characteristicUUID:(CBUUID *)characteristicUUID
     [self.dispatch dispatchCommand:cmd];
 }
 
-- (void)writeData:(NSData *)data
+- (void)rzb_writeData:(NSData *)data
 characteristicUUID:(CBUUID *)characteristicUUID
       serviceUUID:(CBUUID *)serviceUUID
        completion:(RZBCharacteristicBlock)completion

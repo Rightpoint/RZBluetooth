@@ -11,14 +11,14 @@
 
 @implementation CBCharacteristic (RZBExtension)
 
-- (RZBCharacteristicCallback)notificationBlock
+- (RZBCharacteristicCallback)rzb_notificationBlock
 {
     return objc_getAssociatedObject(self, _cmd);
 }
 
-- (void)setNotificationBlock:(RZBCharacteristicCallback)notificationBlock
+- (void)setRzb_notificationBlock:(RZBCharacteristicCallback)notificationBlock
 {
-    objc_setAssociatedObject(self, @selector(notificationBlock), notificationBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(rzb_notificationBlock), notificationBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 @end
