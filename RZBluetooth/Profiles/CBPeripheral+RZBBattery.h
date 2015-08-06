@@ -8,7 +8,8 @@
 
 #import <CoreBluetooth/CoreBluetooth.h>
 
-typedef void(^RZBBatteryCompletion)(NSUInteger level, NSError *error);
+typedef void(^RZBBatteryReadCompletion)(NSUInteger level, NSError *error);
+typedef void(^RZBBatteryCompletion)(NSError *error);
 
 @interface CBUUID (RZBBattery)
 
@@ -19,6 +20,7 @@ typedef void(^RZBBatteryCompletion)(NSUInteger level, NSError *error);
 
 @interface CBPeripheral (RZBBattery)
 
-- (void)rzb_fetchBatteryLevel:(RZBBatteryCompletion)completion;
-
+- (void)rzb_fetchBatteryLevel:(RZBBatteryReadCompletion)completion;
+- (void)rzb_addBatteryLevelObserver:(RZBBatteryReadCompletion)update completion:(RZBBatteryCompletion)completion;
+- (void)rzb_removeBatteryLevelObserver:(RZBBatteryCompletion)completion;
 @end

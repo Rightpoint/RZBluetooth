@@ -168,9 +168,7 @@
         if (injectedError == nil) {
             [self.peripheralManager fakeNotifyState:enabled central:(id)self.central characteristic:(id)characteristic];
         }
-        else {
-            [peripheral fakeCharacteristic:characteristic notify:enabled error:injectedError];
-        }
+        [peripheral fakeCharacteristic:characteristic notify:enabled error:injectedError];
     }];
 }
 
