@@ -33,6 +33,11 @@
     return self.centralManager.mockCentralManager;
 }
 
+- (CBPeripheral *)peripheral
+{
+    return [self.centralManager peripheralForUUID:self.device.identifier];
+}
+
 - (void)setUp
 {
     [super setUp];

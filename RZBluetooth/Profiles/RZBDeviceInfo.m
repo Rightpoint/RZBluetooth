@@ -61,7 +61,9 @@ NSString *const RZBDeviceInfoModelNumberKey = @"modelNumber";
         [self rzb_readCharacteristicUUID:UUIDsByKey[key]
                          serviceUUID:[RZBDeviceInfo serviceUUID]
                           completion:^(CBCharacteristic *characteristic, NSError *error) {
-                              [deviceInfo setValue:[RZBDeviceInfo valueForKey:key fromData:characteristic.value] forKey:key];
+                              if (characteristic.value) {
+                                  [deviceInfo setValue:[RZBDeviceInfo valueForKey:key fromData:characteristic.value] forKey:key];
+                              }
                               BOOL isDiscoveryError = ([[error domain] isEqualToString:RZBluetoothErrorDomain] &&
                                                        [error code] == RZBluetoothDiscoverCharacteristicError);
                               if (error && isDiscoveryError == NO) {

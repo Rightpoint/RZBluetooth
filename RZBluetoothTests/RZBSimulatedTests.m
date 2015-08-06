@@ -1,53 +1,31 @@
 //
-//  RZBProfileDeviceInfoTestCase.m
+//  RZBSimulatedTests.m
 //  RZBluetooth
 //
-//  Created by Brian King on 8/4/15.
+//  Created by Brian King on 8/6/15.
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
 #import "RZBSimulatedTestCase.h"
-#import "RZBDeviceInfo.h"
 
-@interface RZBProfileDeviceInfoTestCase : RZBSimulatedTestCase
-@property (strong, nonatomic) RZBDeviceInfo *deviceInfo;
+@interface RZBSimulatedTests : RZBSimulatedTestCase
+
 @end
 
-@implementation RZBProfileDeviceInfoTestCase
+@implementation RZBSimulatedTests
 
-- (void)setUp
-{
-    [super setUp];
-
-    self.deviceInfo = [[RZBDeviceInfo alloc] init];
-    self.deviceInfo.manufacturerName = @"Fake Bytes";
-    self.deviceInfo.serialNumber = @"1234567890";
-    [self.device addBluetoothRepresentable:self.deviceInfo isPrimary:YES];
-}
-
-- (void)tearDown
-{
-    self.deviceInfo = nil;
-    [super tearDown];
-}
-
-- (CBPeripheral *)peripheral
-{
-    return [self.centralManager peripheralForUUID:self.device.identifier];
-}
-
-- (void)testScan
+- (void)testScanForDevices
 {
     XCTestExpectation *discovered = [self expectationWithDescription:@"Peripheral will connect"];
 
-    [self.centralManager scanForPeripheralsWithServices:@[[RZBDeviceInfo serviceUUID]]
+    [self.centralManager scanForPeripheralsWithServices:nil
                                                 options:nil
                                  onDiscoveredPeripheral:^(CBPeripheral *peripheral, NSDictionary *advInfo, NSNumber *RSSI) {
                                      [discovered fulfill];
                                      XCTAssert([peripheral.identifier isEqual:self.device.identifier]);
                                  }];
     [self.device.peripheralManager startAdvertising:@{}];
-    
+
     [self waitForExpectationsWithTimeout:5.0 handler:nil];
     [self.centralManager stopScan];
 }
@@ -114,18 +92,6 @@
     XCTAssert(p.state == CBPeripheralStateDisconnected);
 
     [self waitForExpectationsWithTimeout:5.0 handler:nil];
-}
-
-- (void)testReadPopulatedCharacteristic
-{
-    XCTestExpectation *read = [self expectationWithDescription:@"Peripheral will connect"];
-    [self.peripheral rzb_fetchDeviceInformationKeys:@[@"manufacturerName"] completion:^(RZBDeviceInfo *deviceInfo, NSError *error) {
-        [read fulfill];
-        XCTAssert([self.deviceInfo.manufacturerName isEqualToString:deviceInfo.manufacturerName]);
-        XCTAssert(self.deviceInfo != deviceInfo);
-    }];
-
-    [self waitForExpectationsWithTimeout:5 handler:nil];
 }
 
 

@@ -10,6 +10,12 @@
 #import "RZBMockPeripheralManager.h"
 #import "RZBSimulatedCentral+Private.h"
 
+@interface RZBSimulatedDevice ()
+
+@property (strong, nonatomic, readonly) NSMutableDictionary *readHandlers;
+
+@end
+
 @implementation RZBSimulatedDevice
 
 - (instancetype)initWithQueue:(dispatch_queue_t)queue options:(NSDictionary *)options peripheralManagerClass:(Class)peripheralManagerClass
@@ -17,6 +23,7 @@
     self = [super init];
     if (self) {
         _identifier = [NSUUID UUID];
+        _readHandlers = [NSMutableDictionary dictionary];
         _peripheralManager = [[peripheralManagerClass alloc] initWithDelegate:self queue:queue];
     }
     return self;
@@ -48,12 +55,51 @@
 
 - (void)addBluetoothRepresentable:(id<RZBBluetoothRepresentable>)bluetoothRepresentable isPrimary:(BOOL)isPrimary
 {
+    NSParameterAssert(bluetoothRepresentable);
     CBMutableService *service = [self serviceForRepresentable:bluetoothRepresentable isPrimary:isPrimary];
     [self.peripheralManager addService:service];
 }
 
+- (void)addReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBSimulatedDeviceRead)handler;
+{
+    NSParameterAssert(characteristicUUID);
+    NSParameterAssert(handler);
+    self.readHandlers[characteristicUUID] = [handler copy];
+}
+
+#pragma mark - CBPeripheralDelegate
+
 - (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral
 {
+}
+
+- (void)peripheralManager:(CBPeripheralManager *)peripheral didAddService:(CBService *)service error:(NSError *)error
+{
+    if (error) {
+        NSLog(@"Error adding service %@", service);
+    }
+}
+
+- (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didSubscribeToCharacteristic:(CBCharacteristic *)characteristic
+{
+    
+}
+
+- (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didUnsubscribeFromCharacteristic:(CBCharacteristic *)characteristic
+{
+
+}
+
+- (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveReadRequest:(CBATTRequest *)request
+{
+    RZBSimulatedDeviceRead read = self.readHandlers[request.characteristic.UUID];
+    if (read) {
+        CBATTError result = read(request);
+        [peripheral respondToRequest:request withResult:result];
+    }
+    else {
+        NSLog(@"Un-handled read for %@", request);
+    }
 }
 
 @end

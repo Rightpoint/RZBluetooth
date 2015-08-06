@@ -10,6 +10,8 @@
 
 @class RZBMockPeripheralManager;
 
+typedef CBATTError (^RZBSimulatedDeviceRead)(CBATTRequest *request);
+
 @interface RZBSimulatedDevice : NSObject <CBPeripheralManagerDelegate>
 
 - (instancetype)initWithQueue:(dispatch_queue_t)queue options:(NSDictionary *)options peripheralManagerClass:(Class)peripheralManagerClass;
@@ -18,5 +20,6 @@
 @property (strong, nonatomic, readonly) CBPeripheralManager *peripheralManager;
 
 - (void)addBluetoothRepresentable:(id<RZBBluetoothRepresentable>)bluetoothRepresentable isPrimary:(BOOL)isPrimary;
+- (void)addReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBSimulatedDeviceRead)handler;
 
 @end

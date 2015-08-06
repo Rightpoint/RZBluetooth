@@ -24,6 +24,7 @@
 + (Class)simulatedDeviceClass;
 
 @property (strong, nonatomic) RZBTestableCentralManager *centralManager;
+@property (strong, nonatomic, readonly) CBPeripheral *peripheral;
 @property (strong, nonatomic, readonly) RZBMockCentralManager *mockCentralManager;
 @property (strong, nonatomic) RZBSimulatedDevice *device;
 @property (strong, nonatomic) RZBSimulatedConnection *connection;
