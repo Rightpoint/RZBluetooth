@@ -11,8 +11,12 @@
 FOUNDATION_EXPORT NSString *const RZBluetoothErrorDomain;
 
 typedef NS_ENUM(NSUInteger, RZBluetoothError) {
-    RZBluetoothDiscoverServiceError = 1,
+    RZBluetoothUnsupported = CBCentralManagerStateUnsupported,
+    RZBluetoothUnauthorized = CBCentralManagerStateUnauthorized,
+    RZBluetoothPoweredOff = CBCentralManagerStatePoweredOff,
+    RZBluetoothDiscoverServiceError,
     RZBluetoothDiscoverCharacteristicError,
+
 };
 
 FOUNDATION_EXPORT NSString *const RZBluetoothUndiscoveredUUIDsKey;

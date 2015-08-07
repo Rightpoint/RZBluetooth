@@ -12,6 +12,7 @@
 #import "RZBCommandDispatch.h"
 #import "RZBCommand.h"
 #import "RZBUUIDPath.h"
+#import "RZBErrors.h"
 
 @implementation RZBCentralManager
 
@@ -38,6 +39,11 @@
         _peripheralsByIdentifier = [NSMutableDictionary dictionary];
     }
     return self;
+}
+
+- (CBCentralManagerState)state
+{
+    return self.centralManager.state;
 }
 
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs
@@ -240,6 +246,7 @@
 
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
+    NSError *error = nil;
     switch (central.state) {
         case CBCentralManagerStateUnknown:
         case CBCentralManagerStateResetting:
@@ -248,11 +255,21 @@
         case CBCentralManagerStatePoweredOn:
             [self.dispatch dispatchPendingCommands];
             break;
-        default:
-            if (self.centralStateIssueHandler) {
-                self.centralStateIssueHandler(central.state);
-            }
+        case CBCentralManagerStateUnsupported:
+            error = [NSError errorWithDomain:RZBluetoothErrorDomain code:RZBluetoothUnsupported userInfo:nil];
             break;
+        case CBCentralManagerStateUnauthorized:
+            error = [NSError errorWithDomain:RZBluetoothErrorDomain code:RZBluetoothUnauthorized userInfo:nil];
+            break;
+        case CBCentralManagerStatePoweredOff:
+            error = [NSError errorWithDomain:RZBluetoothErrorDomain code:RZBluetoothPoweredOff userInfo:nil];
+            break;
+        default:
+            break;
+    }
+    _errorForCentralState = error;
+    if (self.centralStateErrorHandler && error) {
+        self.centralStateErrorHandler(error);
     }
 }
 

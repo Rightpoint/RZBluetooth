@@ -33,6 +33,17 @@
 - (instancetype)initWithIdentifier:(NSString *)identifier queue:(dispatch_queue_t)queue;
 
 /**
+ *  If the central manager is powered on, and there are no permission issues, this is YES.
+ */
+@property (assign, nonatomic, readonly) BOOL isPoweredOn;
+
+/**
+ * If the central manager is not powered on, and has reached an error state requiring user
+ * interaction, this property will hold an error value describing the issue.
+ */
+@property (assign, nonatomic, readonly) NSError *errorForCentralState;
+
+/**
  * Helper to get a peripheral from a peripheralUUID
  */
 - (CBPeripheral *)peripheralForUUID:(NSUUID *)peripheralUUID;
@@ -40,7 +51,7 @@
 /**
  * This block will be triggered whenever the central manager state encounters an error state.
  */
-@property (nonatomic, copy) RZBCentralManagerStateChangeBlock centralStateIssueHandler;
+@property (nonatomic, copy) RZBErrorBlock centralStateErrorHandler;
 
 /**
  * Scan for peripherals with the specified UUIDs and options. Trigger the scanBlock

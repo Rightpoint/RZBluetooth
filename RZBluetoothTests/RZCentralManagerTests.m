@@ -192,8 +192,8 @@ static NSString *const RZBTestString = @"StringValue";
     NSMutableArray *values = [NSMutableArray array];
     NSArray *triggeringValues = @[@(CBCentralManagerStateUnsupported), @(CBCentralManagerStateUnauthorized), @(CBCentralManagerStatePoweredOff)];
     NSArray *nonTriggeringValues = @[@(CBCentralManagerStateUnknown), @(CBCentralManagerStatePoweredOn), @(CBCentralManagerStateResetting)];
-    self.centralManager.centralStateIssueHandler = ^(CBCentralManagerState state) {
-        [values addObject:@(state)];
+    self.centralManager.centralStateErrorHandler = ^(NSError *error) {
+        [values addObject:@(error.code)];
     };
 
     for (NSNumber *triggeringValue in triggeringValues) {
