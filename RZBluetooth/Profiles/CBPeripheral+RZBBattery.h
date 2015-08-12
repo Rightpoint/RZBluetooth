@@ -23,4 +23,5 @@ typedef void(^RZBBatteryCompletion)(NSError *error);
 - (void)rzb_fetchBatteryLevel:(RZBBatteryReadCompletion)completion;
 - (void)rzb_addBatteryLevelObserver:(RZBBatteryReadCompletion)update completion:(RZBBatteryCompletion)completion;
 - (void)rzb_removeBatteryLevelObserver:(RZBBatteryCompletion)completion;
+
 @end

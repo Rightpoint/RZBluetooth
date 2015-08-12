@@ -8,9 +8,11 @@
 
 #import "RZBSimulatedTestCase.h"
 #import "CBPeripheral+RZBBattery.h"
+#import "RZBSimulatedDevice+RZBBatteryLevel.h"
+
 
 @interface RZBProfileBatteryTests : RZBSimulatedTestCase
-@property (assign, nonatomic) uint8_t batteryLevel;
+
 @property (strong, nonatomic) CBMutableCharacteristic *batteryCharacteristic;
 @end
 
@@ -19,34 +21,11 @@
 - (void)setUp
 {
     [super setUp];
-    __weak typeof(self) welf = (id)self;
-    CBMutableService *batteryService = [[CBMutableService alloc] initWithType:[CBUUID rzb_UUIDForBatteryService] primary:NO];
-    self.batteryCharacteristic = [[CBMutableCharacteristic alloc] initWithType:[CBUUID rzb_UUIDForBatteryLevelCharacteristic]
-                                                                    properties:CBCharacteristicPropertyRead | CBCharacteristicPropertyIndicate
-                                                                         value:nil permissions:CBAttributePermissionsReadable];
-    batteryService.characteristics = @[self.batteryCharacteristic];
-
-    [self.device.peripheralManager addService:batteryService];
-    [self.device addReadCallbackForCharacteristicUUID:[CBUUID rzb_UUIDForBatteryLevelCharacteristic]
-                                              handler:^CBATTError (CBATTRequest *request) {
-                                                  uint8_t batteryLevel = welf.batteryLevel;
-                                                  request.value = [NSData dataWithBytes:&batteryLevel length:1];
-                                                  return CBATTErrorSuccess;
-                                              }];
-}
-
-- (void)transmitValue:(uint8_t)level
-{
-    NSData *value = [NSData dataWithBytes:&level length:1];
-    [self.device.peripheralManager updateValue:value
-                             forCharacteristic:self.batteryCharacteristic
-                          onSubscribedCentrals:nil];
-    [self waitForQueueFlush];
+    [self.device addBatteryService];
 }
 
 - (void)tearDown
 {
-    self.batteryLevel = NSNotFound;
     [super tearDown];
 }
 
@@ -54,7 +33,7 @@
 {
     XCTestExpectation *read = [self expectationWithDescription:@"Read battery level"];
 
-    self.batteryLevel = 80;
+    self.device.batteryLevel = 80;
     [self.peripheral rzb_fetchBatteryLevel:^(NSUInteger level, NSError *error) {
         [read fulfill];
         XCTAssertNil(error);
@@ -77,7 +56,8 @@
     [self waitForExpectationsWithTimeout:1.0 handler:nil];
     NSArray *transmittedValues = @[@(10), @(20), @(30)];
     for (NSNumber *level in transmittedValues) {
-        [self transmitValue:[level unsignedIntegerValue]];
+        self.device.batteryLevel = [level unsignedIntegerValue];
+        [self waitForQueueFlush];
     }
     XCTAssertEqualObjects(transmittedValues, values);
     [values removeAllObjects];
@@ -87,7 +67,8 @@
         XCTAssertNil(error);
         [removeMonitor fulfill];
     }];
-    [self transmitValue:33];
+    self.device.batteryLevel = 33;
+    [self waitForQueueFlush];
     [self waitForExpectationsWithTimeout:1 handler:nil];
     XCTAssert(values.count == 0);
 }

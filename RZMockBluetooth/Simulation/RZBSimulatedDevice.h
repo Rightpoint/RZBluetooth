@@ -18,8 +18,19 @@ typedef CBATTError (^RZBSimulatedDeviceRead)(CBATTRequest *request);
 
 @property (strong, nonatomic, readonly) NSUUID *identifier;
 @property (strong, nonatomic, readonly) CBPeripheralManager *peripheralManager;
+@property (strong, nonatomic, readonly) NSArray *services;
+/**
+ * Shared storage for categories.
+ */
+@property (strong, nonatomic, readonly) NSMutableDictionary *values;
 
+- (void)addService:(CBMutableService *)service;
 - (void)addBluetoothRepresentable:(id<RZBBluetoothRepresentable>)bluetoothRepresentable isPrimary:(BOOL)isPrimary;
 - (void)addReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBSimulatedDeviceRead)handler;
+
+/**
+ * Search all of the services for a characteristic matching characteristicUUID.
+ */
+- (CBMutableCharacteristic *)characteristicForUUID:(CBUUID *)characteristicUUID;
 
 @end

@@ -8,6 +8,13 @@
 
 @import CoreBluetooth;
 
+#define RZB_KEYPATH(c, p) ({\
+c *object __unused; \
+typeof(object.p) property __unused; \
+@#p; \
+})
+
+
 typedef void(^RZBScanBlock)(CBPeripheral *peripheral, NSDictionary *advInfo, NSNumber *RSSI);
 typedef void(^RZBErrorBlock)(NSError *error);
 

@@ -53,11 +53,17 @@
     return service;
 }
 
+- (void)addService:(CBMutableService *)service
+{
+    [[self mutableArrayValueForKey:@"services"] addObject:service];
+    [self.peripheralManager addService:service];
+}
+
 - (void)addBluetoothRepresentable:(id<RZBBluetoothRepresentable>)bluetoothRepresentable isPrimary:(BOOL)isPrimary
 {
     NSParameterAssert(bluetoothRepresentable);
     CBMutableService *service = [self serviceForRepresentable:bluetoothRepresentable isPrimary:isPrimary];
-    [self.peripheralManager addService:service];
+    [self addService:service];
 }
 
 - (void)addReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBSimulatedDeviceRead)handler;
@@ -66,6 +72,19 @@
     NSParameterAssert(handler);
     self.readHandlers[characteristicUUID] = [handler copy];
 }
+
+- (CBMutableCharacteristic *)characteristicForUUID:(CBUUID *)characteristicUUID
+{
+    for (CBMutableService *service in self.services) {
+        for (CBMutableCharacteristic *characteristic in service.characteristics) {
+            if ([characteristic.UUID isEqual:characteristicUUID]) {
+                return characteristic;
+            }
+        }
+    }
+    return nil;
+}
+
 
 #pragma mark - CBPeripheralDelegate
 

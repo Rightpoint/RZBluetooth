@@ -43,6 +43,7 @@
 		ABCD83801B73D77C00DA1162 /* CBPeripheral+RZBBattery.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCD837F1B73D77C00DA1162 /* CBPeripheral+RZBBattery.m */; };
 		ABCD83821B73DD2600DA1162 /* RZBSimulatedTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCD83811B73DD2600DA1162 /* RZBSimulatedTests.m */; };
 		ABCD83841B73DE5D00DA1162 /* RZBProfileBatteryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCD83831B73DE5D00DA1162 /* RZBProfileBatteryTests.m */; };
+		ABCD83AE1B7ACF9E00DA1162 /* RZBSimulatedDevice+RZBBatteryLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCD83AD1B7ACF9E00DA1162 /* RZBSimulatedDevice+RZBBatteryLevel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,6 +156,9 @@
 		ABCD837F1B73D77C00DA1162 /* CBPeripheral+RZBBattery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBPeripheral+RZBBattery.m"; sourceTree = "<group>"; };
 		ABCD83811B73DD2600DA1162 /* RZBSimulatedTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBSimulatedTests.m; sourceTree = "<group>"; };
 		ABCD83831B73DE5D00DA1162 /* RZBProfileBatteryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBProfileBatteryTests.m; sourceTree = "<group>"; };
+		ABCD83AB1B7ACD5900DA1162 /* RZBluetooth.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = RZBluetooth.podspec; sourceTree = "<group>"; };
+		ABCD83AC1B7ACF9E00DA1162 /* RZBSimulatedDevice+RZBBatteryLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RZBSimulatedDevice+RZBBatteryLevel.h"; sourceTree = "<group>"; };
+		ABCD83AD1B7ACF9E00DA1162 /* RZBSimulatedDevice+RZBBatteryLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RZBSimulatedDevice+RZBBatteryLevel.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +200,8 @@
 				AB4135EC1B718C94002F450F /* RZBSimulatedConnection.m */,
 				AB4136051B71BE40002F450F /* RZBSimulatedDevice.h */,
 				AB4136061B71BE40002F450F /* RZBSimulatedDevice.m */,
+				ABCD83AC1B7ACF9E00DA1162 /* RZBSimulatedDevice+RZBBatteryLevel.h */,
+				ABCD83AD1B7ACF9E00DA1162 /* RZBSimulatedDevice+RZBBatteryLevel.m */,
 			);
 			path = Simulation;
 			sourceTree = "<group>";
@@ -203,6 +209,7 @@
 		AB45C4901B6BF70B00CC0166 = {
 			isa = PBXGroup;
 			children = (
+				ABCD83AB1B7ACD5900DA1162 /* RZBluetooth.podspec */,
 				AB45C5481B6C0B8900CC0166 /* README.md */,
 				AB45C49B1B6BF70B00CC0166 /* RZBluetooth */,
 				AB45C4E51B6BF8BA00CC0166 /* RZMockBluetooth */,
@@ -488,6 +495,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABCD83AE1B7ACF9E00DA1162 /* RZBSimulatedDevice+RZBBatteryLevel.m in Sources */,
 				AB4135EF1B718C94002F450F /* RZBSimulatedCallback.m in Sources */,
 				AB4135F11B718C94002F450F /* RZBSimulatedConnection.m in Sources */,
 				ABCD83791B71D1F900DA1162 /* RZBMockPeripheral.m in Sources */,

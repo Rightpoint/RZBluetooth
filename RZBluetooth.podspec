@@ -21,9 +21,9 @@ Pod::Spec.new do |s|
     core.public_header_files = "RZBluetooth/**/*.h"
   end
 
-  s.subspec "RZMockBluetooth" do |fryolator|
-    fryolator.dependency "RZBluetooth/Core"
-    fryolator.source_files = "RZMockBluetooth/**/*.{h,m}"
-    fryolator.public_header_files = "RZMockBluetooth/**/*.h"
+  s.subspec "Mock" do |mock|
+    mock.dependency "RZBluetooth/Core"
+    mock.source_files = "RZMockBluetooth/**/*.{h,m}"
+    mock.public_header_files = "RZMockBluetooth/**/*.h"
   end
 end
