@@ -8,6 +8,7 @@
 
 #import "RZBSimulatedTestCase.h"
 #import "XCTestCase+Helpers.h"
+#import "NSRunLoop+RZBWaitFor.h"
 
 @implementation RZBSimulatedTestCase
 

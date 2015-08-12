@@ -26,4 +26,12 @@ Pod::Spec.new do |s|
     mock.source_files = "RZMockBluetooth/**/*.{h,m}"
     mock.public_header_files = "RZMockBluetooth/**/*.h"
   end
+
+  s.subspec "Test" do |test|
+    test.dependency "RZBluetooth/Mock"
+    test.frameworks = 'XCTest'
+    test.source_files = "RZBluetoothTests/RZBSimulatedTestCase.{h,m}",
+                        "RZBluetoothTests/Helpers/NSRunLoop+RZBWaitFor.{h,m}",
+    test.public_header_files = "RZBluetoothTests/RZBSimulatedTestCase.h"
+  end
 end
