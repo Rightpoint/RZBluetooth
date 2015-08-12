@@ -75,7 +75,9 @@
 {
     NSParameterAssert(peripheralUUID);
     NSParameterAssert(connection);
-
+    [self connectToPeripheralUUID:peripheralUUID completion:^(CBPeripheral *peripheral, NSError *error) {
+        connection(peripheral, error);
+    }];
 }
 
 - (void)cancelConnectionFromPeripheralUUID:(NSUUID *)peripheralUUID
