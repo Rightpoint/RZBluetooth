@@ -27,6 +27,7 @@ typedef CBATTError (^RZBSimulatedDeviceRead)(CBATTRequest *request);
 - (void)addService:(CBMutableService *)service;
 - (void)addBluetoothRepresentable:(id<RZBBluetoothRepresentable>)bluetoothRepresentable isPrimary:(BOOL)isPrimary;
 - (void)addReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBSimulatedDeviceRead)handler;
+- (void)addWriteCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBSimulatedDeviceRead)handler;
 
 /**
  * Search all of the services for a characteristic matching characteristicUUID.

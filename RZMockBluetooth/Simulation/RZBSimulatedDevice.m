@@ -13,6 +13,7 @@
 @interface RZBSimulatedDevice ()
 
 @property (strong, nonatomic, readonly) NSMutableDictionary *readHandlers;
+@property (strong, nonatomic, readonly) NSMutableDictionary *writeHandlers;
 
 @end
 
@@ -24,6 +25,7 @@
     if (self) {
         _identifier = [NSUUID UUID];
         _readHandlers = [NSMutableDictionary dictionary];
+        _writeHandlers = [NSMutableDictionary dictionary];
         _peripheralManager = [[peripheralManagerClass alloc] initWithDelegate:self queue:queue];
     }
     return self;
@@ -73,6 +75,13 @@
     self.readHandlers[characteristicUUID] = [handler copy];
 }
 
+- (void)addWriteCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBSimulatedDeviceRead)handler;
+{
+    NSParameterAssert(characteristicUUID);
+    NSParameterAssert(handler);
+    self.writeHandlers[characteristicUUID] = [handler copy];
+}
+
 - (CBMutableCharacteristic *)characteristicForUUID:(CBUUID *)characteristicUUID
 {
     for (CBMutableService *service in self.services) {
@@ -112,13 +121,30 @@
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveReadRequest:(CBATTRequest *)request
 {
     RZBSimulatedDeviceRead read = self.readHandlers[request.characteristic.UUID];
+    CBATTError result = CBATTErrorRequestNotSupported;
     if (read) {
-        CBATTError result = read(request);
-        [peripheral respondToRequest:request withResult:result];
+        result = read(request);
     }
     else {
         NSLog(@"Un-handled read for %@", request);
     }
+    [peripheral respondToRequest:request withResult:result];
+}
+
+- (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveWriteRequests:(NSArray *)requests
+{
+    CBATTError result = CBATTErrorSuccess;
+    for (CBATTRequest *request in requests) {
+        RZBSimulatedDeviceRead write = self.writeHandlers[request.characteristic.UUID];
+        if (write) {
+            result = MAX(result, write(request));
+        }
+        else {
+            NSLog(@"Un-handled write for %@", request);
+            result = MAX(result, CBATTErrorRequestNotSupported);
+        }
+    }
+    [peripheral respondToRequest:requests.firstObject withResult:result];
 }
 
 @end
