@@ -11,6 +11,7 @@
 #import "RZBCommandDispatch.h"
 #import "RZTestCommands.h"
 #import "XCTestCase+Helpers.h"
+#import "NSRunLoop+RZBWaitFor.h"
 
 @interface RZBCommandDispatchTests : XCTestCase <RZBCommandDispatchDelegate>
 
@@ -28,6 +29,13 @@
 
 - (id)commandDispatch:(RZBCommandDispatch *)dispatch contextForCommand:(RZBCommand *)command
 {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    dispatch_queue_t current = dispatch_get_current_queue();
+#pragma clang diagnostic pop
+
+
+    XCTAssertEqual(current, dispatch.queue);
     return nil;
 }
 
@@ -143,6 +151,31 @@
     [self waitForQueueFlush];
     [self.dispatch completeCommand:cmd1 withObject:nil error:(id)[NSNull null]];
     XCTAssertTrue(errors.count == 3);
+}
+
+/**
+ * This test will do lots of things on lots of threads to try to aggrevate any threading issues.
+ */
+#define ABUSE_COUNT 100
+- (void)testThreadSafety
+{
+    dispatch_queue_t q = dispatch_queue_create("com.rzbluetooth.test", DISPATCH_QUEUE_SERIAL);
+    self.dispatch = [[RZBCommandDispatch alloc] initWithQueue:q delegate:self];
+    dispatch_queue_t b = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_apply(ABUSE_COUNT, b, ^(size_t i) {
+        RZBCTestCommand *cmd = [[RZBCTestCommand alloc] initWithUUIDPath:self.class.cUUIDPath];
+        [self.dispatch dispatchCommand:cmd];
+        dispatch_async(b, ^{
+            [self.dispatch completeCommand:cmd
+                                withObject:nil
+                                     error:(id)[NSNull null]];
+
+        });
+    });
+    BOOL done = [[NSRunLoop currentRunLoop] rzb_waitWithTimeout:1.0 forCheck:^BOOL{
+        return self.dispatch.commands.count == 0;
+    }];
+    XCTAssert(done);
 }
 
 @end
