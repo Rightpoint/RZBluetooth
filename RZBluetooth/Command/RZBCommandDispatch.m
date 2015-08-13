@@ -15,9 +15,11 @@
 - (instancetype)initWithQueue:(dispatch_queue_t)queue delegate:(id<RZBCommandDispatchDelegate>)delegate
 {
     self = [super init];
-    _queue = queue ? queue : dispatch_get_main_queue();
-    _commands = [NSMutableArray array];
-    _delegate = delegate;
+    if (self) {
+        _queue = queue ? queue : dispatch_get_main_queue();
+        _commands = [NSMutableArray array];
+        _delegate = delegate;
+    }
     return self;
 }
 
