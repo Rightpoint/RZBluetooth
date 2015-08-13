@@ -82,7 +82,8 @@
 
 - (CBATTRequest *)requestForCharacteristic:(CBCharacteristic *)characteristic
 {
-    CBATTRequest *request = [[CBATTRequest alloc] init];
+    // Work around CBATTRequest's init NS_UNAVAILABLE
+    CBATTRequest *request = [[[CBATTRequest class] alloc] init];
     [request setValue:characteristic forKey:@"characteristic"];
     [request setValue:self forKey:@"central"];
     return request;
