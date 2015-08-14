@@ -51,6 +51,7 @@
     RZBScanCommand *cmd = [self.dispatch commandOfClass:[RZBScanCommand class]
                                        matchingUUIDPath:nil
                                               createNew:YES];
+    cmd.serviceUUIDs = serviceUUIDs;
     [self.dispatch dispatchCommand:cmd];
 }
 
