@@ -49,6 +49,17 @@
     XCTAssertFalse([pCommand matchesUUIDPath:RZBUUIDP(self.class.pUUID, self.class.sUUID, self.class.c2UUID)]);
 }
 
+- (void)testDescription
+{
+    RZBCTestCommand *cmd = [[RZBCTestCommand alloc] initWithUUIDPath:self.class.cUUIDPath];
+    XCTAssertTrue([cmd.description containsString:@"isExecuted=NO, isCompleted=NO peripheralUUID="]);
+    XCTAssertTrue([cmd.description containsString:@"serviceUUID=01234567 characteristicUUID=12345678"]);
+    XCTAssertTrue([cmd.description containsString:[cmd.class description]]);
+    XCTAssertFalse([cmd.description containsString:@"dependentCommand"]);
+    cmd.retryAfter = [[RZBCTestCommand alloc] initWithUUIDPath:self.class.sUUIDPath];
+    XCTAssertTrue([cmd.description containsString:@"dependentCommand=<RZBCTestCommand:"]);
+}
+
 - (void)testCallback
 {
     NSUUID *completionObject = [NSUUID UUID];

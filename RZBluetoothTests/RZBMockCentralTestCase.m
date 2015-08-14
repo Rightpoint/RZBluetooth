@@ -7,18 +7,16 @@
 //
 
 #import "RZBMockCentralTestCase.h"
+#import "NSRunLoop+RZBWaitFor.h"
 
 @implementation RZBMockCentralTestCase
 
 - (void)waitForQueueFlush
 {
-    XCTestExpectation *e = [self expectationWithDescription:@"Queue Flush"];
-    [self waitForDispatch:self.centralManager.dispatch expectation:e];
-    [self waitForExpectationsWithTimeout:10.0 handler:^(NSError *error) {
-        if (error) {
-            NSLog(@"Queue did not flush - %@", error);
-        }
+    BOOL done = [[NSRunLoop currentRunLoop] rzb_waitWithTimeout:2.0 forCheck:^BOOL{
+        return self.centralManager.dispatch.dispatchCounter == 0;
     }];
+    XCTAssert(done);
 }
 
 - (RZBMockCentralManager *)mockCentralManager

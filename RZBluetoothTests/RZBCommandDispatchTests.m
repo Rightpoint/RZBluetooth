@@ -171,7 +171,13 @@
                                      error:(id)[NSNull null]];
 
         });
+        if (i % 10 == 0) {
+            dispatch_async(b, ^{
+                [self.dispatch resetCommands];
+            });
+        }
     });
+
     BOOL done = [[NSRunLoop currentRunLoop] rzb_waitWithTimeout:1.0 forCheck:^BOOL{
         return self.dispatch.commands.count == 0;
     }];

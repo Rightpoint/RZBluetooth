@@ -450,8 +450,21 @@ static NSString *const RZBTestString = @"StringValue";
     XCTAssertEqualObjects(errors, (@[[NSError rzb_connectionError], [NSError rzb_connectionError], [NSError rzb_connectionError]]));
 }
 
-- (void)testAutoConnection
+- (void)testReadRSSI
 {
+    [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
+    RZBMockPeripheral *p = (id)[self.centralManager peripheralForUUID:self.class.pUUID];
+    XCTestExpectation *read = [self expectationWithDescription:@"Read RSSI"];
+    [p rzb_readRSSI:^(NSNumber *RSSI, NSError *error) {
+        XCTAssertNil(error);
+        XCTAssertEqualObjects(@-88, RSSI);
+        [read fulfill];
+    }];
+    [self ensureAndCompleteConnectionTo:self.class.pUUID];
+
+    [self waitForQueueFlush];
+    [p fakeRSSI:@-88 error:nil];
+    [self waitForExpectationsWithTimeout:1 handler:nil];
 }
 
 @end

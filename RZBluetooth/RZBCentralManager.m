@@ -41,11 +41,6 @@
     return self;
 }
 
-- (CBCentralManagerState)state
-{
-    return self.centralManager.state;
-}
-
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs
                                options:(NSDictionary *)options
                 onDiscoveredPeripheral:(RZBScanBlock)scanBlock;
@@ -266,8 +261,6 @@
         case CBCentralManagerStatePoweredOff:
             error = [NSError errorWithDomain:RZBluetoothErrorDomain code:RZBluetoothPoweredOff userInfo:nil];
             break;
-        default:
-            break;
     }
     _errorForCentralState = error;
     if (self.centralStateErrorHandler && error) {
@@ -332,16 +325,18 @@
 
 #pragma mark CBPeripheralDelegate
 
-//- (void)peripheralDidUpdateName:(CBPeripheral *)peripheral
+//- (void)peripheralDidUpdateName:(CBPeripheral *)peripheral {}
 
-- (void)peripheral:(CBPeripheral *)peripheral didModifyServices:(NSArray *)invalidatedServices
-{
-    // Nothing needs to be done here, everything will be re-discovered automatically
-}
+// Nothing needs to be done here, everything will be re-discovered automatically
+//- (void)peripheral:(CBPeripheral *)peripheral didModifyServices:(NSArray *)invalidatedServices {}
 
 - (void)peripheral:(CBPeripheral *)peripheral didReadRSSI:(NSNumber *)RSSI error:(NSError *)error
 {
-
+    [self completeFirstCommandOfClass:[RZBReadRSSICommand class]
+                     matchingUUIDPath:RZBUUIDP(peripheral.identifier)
+                           withObject:RSSI
+                                error:error
+                             selector:_cmd];
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error

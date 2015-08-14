@@ -57,6 +57,12 @@ typedef void(^RZBCallbackBlock)(id object, NSError *error);
 
 @end
 
+@interface RZBReadRSSICommand : RZBCommand
+
+@property (copy, nonatomic) NSUUID *peripheralUUID;
+
+@end
+
 @interface RZBDiscoverServiceCommand : RZBCommand
 
 @property (copy, nonatomic) NSUUID *peripheralUUID;

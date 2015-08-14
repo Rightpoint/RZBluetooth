@@ -76,17 +76,4 @@
     [self waitForExpectationsWithTimeout:1 handler:nil];
 }
 
-- (void)waitForDispatch:(RZBCommandDispatch *)dispatch expectation:(XCTestExpectation *)expectation
-{
-    dispatch_async(dispatch.queue, ^{
-        if (dispatch.dispatchCounter == 0) {
-            [expectation fulfill];
-        }
-        else {
-            [self waitForDispatch:dispatch expectation:expectation];
-        }
-    });
-}
-
-
 @end

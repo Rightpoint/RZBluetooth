@@ -157,6 +157,18 @@
 
 @end
 
+@implementation RZBReadRSSICommand
+
+- (BOOL)executeCommandWithContext:(RZBCentralManager *)context
+{
+    CBPeripheral *peripheral = [context connectedPeripheralForUUID:self.peripheralUUID
+                                                triggeredByCommand:self];
+    [peripheral readRSSI];
+    return peripheral != nil;
+}
+
+@end
+
 @implementation RZBDiscoverServiceCommand
 
 - (instancetype)initWithUUIDPath:(RZBUUIDPath *)UUIDPath

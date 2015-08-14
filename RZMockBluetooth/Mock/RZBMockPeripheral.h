@@ -55,7 +55,7 @@
 @end
 
 @interface RZBMockPeripheral (Dynamic)
-
+- (void)rzb_readRSSI:(RZBRSSIBlock)completion;
 - (void)rzb_readCharacteristicUUID:(CBUUID *)characteristicUUID
                        serviceUUID:(CBUUID *)serviceUUID
                         completion:(RZBCharacteristicBlock)completion;

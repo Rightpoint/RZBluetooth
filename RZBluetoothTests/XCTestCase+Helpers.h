@@ -28,6 +28,5 @@
 + (RZBUUIDPath *)cUUIDPath;
 
 - (void)waitForQueueFlush;
-- (void)waitForDispatch:(RZBCommandDispatch *)dispatch expectation:(XCTestExpectation *)expectation;
 
 @end

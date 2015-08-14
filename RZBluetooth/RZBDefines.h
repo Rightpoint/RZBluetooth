@@ -17,6 +17,7 @@ typeof(object.p) property __unused; \
 
 typedef void(^RZBScanBlock)(CBPeripheral *peripheral, NSDictionary *advInfo, NSNumber *RSSI);
 typedef void(^RZBErrorBlock)(NSError *error);
+typedef void(^RZBRSSIBlock)(NSNumber *RSSI, NSError *error);
 
 typedef void(^RZBPeripheralBlock)(CBPeripheral *peripheral, NSError *error);
 typedef void(^RZBServiceBlock)(CBService *service, NSError *error);

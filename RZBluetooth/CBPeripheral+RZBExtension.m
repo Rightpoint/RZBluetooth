@@ -21,6 +21,14 @@
     return self.rzb_centralManager.dispatch;
 }
 
+- (void)rzb_readRSSI:(RZBRSSIBlock)completion
+{
+    NSParameterAssert(completion);
+    RZBReadRSSICommand *cmd = [[RZBReadRSSICommand alloc] initWithUUIDPath:RZBUUIDP(self.identifier)];
+    [cmd addCallbackBlock:completion];
+    [self.dispatch dispatchCommand:cmd];
+}
+
 - (void)rzb_readCharacteristicUUID:(CBUUID *)characteristicUUID
                        serviceUUID:(CBUUID *)serviceUUID
                         completion:(RZBCharacteristicBlock)completion

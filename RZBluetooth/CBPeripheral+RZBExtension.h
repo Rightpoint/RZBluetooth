@@ -11,6 +11,11 @@
 @interface CBPeripheral (RZBExtension)
 
 /**
+ * Read the new RSSI value from the peripheral
+ */
+- (void)rzb_readRSSI:(RZBRSSIBlock)completion;
+
+/**
  * Read a characteristic and trigger the completion block.
  *
  * @note if a read is performed on a characteristic that is notifying, the completion
