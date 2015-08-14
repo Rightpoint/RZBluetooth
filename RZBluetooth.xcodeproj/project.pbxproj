@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB0E299D1B7E19E100A1ADA9 /* CBPeripheral+RZBHeartRate.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0E299C1B7E19E100A1ADA9 /* CBPeripheral+RZBHeartRate.m */; };
+		AB0E29A01B7E2CE200A1ADA9 /* CBUUID+RZBPublic.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0E299F1B7E2CE200A1ADA9 /* CBUUID+RZBPublic.m */; };
+		AB0E29A31B7E2D3F00A1ADA9 /* RZBHeartRateMeasurement.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0E29A21B7E2D3F00A1ADA9 /* RZBHeartRateMeasurement.m */; };
 		AB4135EF1B718C94002F450F /* RZBSimulatedCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4135E81B718C94002F450F /* RZBSimulatedCallback.m */; };
 		AB4135F01B718C94002F450F /* RZBSimulatedCentral.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4135EA1B718C94002F450F /* RZBSimulatedCentral.m */; };
 		AB4135F11B718C94002F450F /* RZBSimulatedConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4135EC1B718C94002F450F /* RZBSimulatedConnection.m */; };
@@ -86,6 +89,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AB0E299B1B7E19E100A1ADA9 /* CBPeripheral+RZBHeartRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBPeripheral+RZBHeartRate.h"; sourceTree = "<group>"; };
+		AB0E299C1B7E19E100A1ADA9 /* CBPeripheral+RZBHeartRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBPeripheral+RZBHeartRate.m"; sourceTree = "<group>"; };
+		AB0E299E1B7E2CE200A1ADA9 /* CBUUID+RZBPublic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBUUID+RZBPublic.h"; sourceTree = "<group>"; };
+		AB0E299F1B7E2CE200A1ADA9 /* CBUUID+RZBPublic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBUUID+RZBPublic.m"; sourceTree = "<group>"; };
+		AB0E29A11B7E2D3F00A1ADA9 /* RZBHeartRateMeasurement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZBHeartRateMeasurement.h; sourceTree = "<group>"; };
+		AB0E29A21B7E2D3F00A1ADA9 /* RZBHeartRateMeasurement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBHeartRateMeasurement.m; sourceTree = "<group>"; };
 		AB4135E71B718C94002F450F /* RZBSimulatedCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZBSimulatedCallback.h; sourceTree = "<group>"; };
 		AB4135E81B718C94002F450F /* RZBSimulatedCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBSimulatedCallback.m; sourceTree = "<group>"; };
 		AB4135E91B718C94002F450F /* RZBSimulatedCentral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZBSimulatedCentral.h; sourceTree = "<group>"; };
@@ -296,12 +305,18 @@
 		AB45C4BF1B6BF88B00CC0166 /* Profiles */ = {
 			isa = PBXGroup;
 			children = (
+				AB0E299E1B7E2CE200A1ADA9 /* CBUUID+RZBPublic.h */,
+				AB0E299F1B7E2CE200A1ADA9 /* CBUUID+RZBPublic.m */,
 				AB4135FD1B71B45F002F450F /* CBPeripheral+RZBHelper.h */,
 				AB4135FE1B71B45F002F450F /* CBPeripheral+RZBHelper.m */,
 				AB4135FA1B71AB91002F450F /* RZBDeviceInfo.h */,
 				AB4135FB1B71AB91002F450F /* RZBDeviceInfo.m */,
+				AB0E29A11B7E2D3F00A1ADA9 /* RZBHeartRateMeasurement.h */,
+				AB0E29A21B7E2D3F00A1ADA9 /* RZBHeartRateMeasurement.m */,
 				ABCD837E1B73D77C00DA1162 /* CBPeripheral+RZBBattery.h */,
 				ABCD837F1B73D77C00DA1162 /* CBPeripheral+RZBBattery.m */,
+				AB0E299B1B7E19E100A1ADA9 /* CBPeripheral+RZBHeartRate.h */,
+				AB0E299C1B7E19E100A1ADA9 /* CBPeripheral+RZBHeartRate.m */,
 			);
 			path = Profiles;
 			sourceTree = "<group>";
@@ -462,9 +477,12 @@
 				AB45C4CA1B6BF88B00CC0166 /* RZBCommand.m in Sources */,
 				AB45C4CC1B6BF88B00CC0166 /* RZBUUIDPath.m in Sources */,
 				AB45C4CF1B6BF88B00CC0166 /* RZBCentralManager.m in Sources */,
+				AB0E29A01B7E2CE200A1ADA9 /* CBUUID+RZBPublic.m in Sources */,
 				AB45C4C81B6BF88B00CC0166 /* CBPeripheral+RZBExtension.m in Sources */,
 				AB45C4CD1B6BF88B00CC0166 /* RZBErrors.m in Sources */,
+				AB0E29A31B7E2D3F00A1ADA9 /* RZBHeartRateMeasurement.m in Sources */,
 				ABCD83801B73D77C00DA1162 /* CBPeripheral+RZBBattery.m in Sources */,
+				AB0E299D1B7E19E100A1ADA9 /* CBPeripheral+RZBHeartRate.m in Sources */,
 				AB45C4C91B6BF88B00CC0166 /* CBCharacteristic+RZBExtension.m in Sources */,
 				AB45C4CB1B6BF88B00CC0166 /* RZBCommandDispatch.m in Sources */,
 				AB45C5511B70F8D800CC0166 /* CBService+RZBExtension.m in Sources */,

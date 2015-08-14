@@ -8,25 +8,9 @@
 
 #import "CBPeripheral+RZBBattery.h"
 #import "CBPeripheral+RZBHelper.h"
-
-@implementation CBUUID (RZBBattery)
-
-+ (CBUUID *)rzb_UUIDForBatteryService
-{
-    return [CBUUID UUIDWithString:@"180F"];
-}
-
-+ (CBUUID *)rzb_UUIDForBatteryLevelCharacteristic
-{
-    return [CBUUID UUIDWithString:@"2A19"];
-}
-
-
-@end
+#import "CBUUID+RZBPublic.h"
 
 @implementation CBPeripheral (RZBBattery)
-
-
 
 - (void)rzb_fetchBatteryLevel:(RZBBatteryReadCompletion)completion
 {

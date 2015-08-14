@@ -13,8 +13,6 @@ typedef void(^RZBBatteryCompletion)(NSError *error);
 
 @interface CBUUID (RZBBattery)
 
-+ (CBUUID *)rzb_UUIDForBatteryService;
-+ (CBUUID *)rzb_UUIDForBatteryLevelCharacteristic;
 
 @end
 

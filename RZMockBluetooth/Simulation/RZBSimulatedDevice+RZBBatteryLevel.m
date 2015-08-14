@@ -8,6 +8,7 @@
 
 #import "RZBSimulatedDevice+RZBBatteryLevel.h"
 #import "CBPeripheral+RZBBattery.h"
+#import "CBUUID+RZBPublic.h"
 
 static NSString *const RZBBatteryLevelKey = @"batteryLevel";
 
