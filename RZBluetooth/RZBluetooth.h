@@ -12,4 +12,7 @@
 #import "CBPeripheral+RZBExtension.h"
 #import "CBService+RZBExtension.h"
 #import "RZBErrors.h"
+#import "CBUUID+RZBPublic.h"
 
+#import "CBPeripheral+RZBHeartRate.h"
+#import "CBPeripheral+RZBBattery.h"

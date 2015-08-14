@@ -1,0 +1,22 @@
+PODS:
+  - RZBluetooth (0.1):
+    - RZBluetooth/Core (= 0.1)
+  - RZBluetooth/Core (0.1)
+  - RZBluetooth/Mock (0.1):
+    - RZBluetooth/Core
+  - RZBluetooth/Test (0.1):
+    - RZBluetooth/Mock
+
+DEPENDENCIES:
+  - RZBluetooth (from `../`)
+  - RZBluetooth/Mock (from `../`)
+  - RZBluetooth/Test (from `../`)
+
+EXTERNAL SOURCES:
+  RZBluetooth:
+    :path: ../
+
+SPEC CHECKSUMS:
+  RZBluetooth: 45ab76310013d558b81940833611294755c54faa
+
+COCOAPODS: 0.36.3

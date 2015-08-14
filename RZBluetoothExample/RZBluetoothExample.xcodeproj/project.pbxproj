@@ -1,0 +1,517 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9BA044D01D2E23927120EDA9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 917F1EEB2723A192BE979B8D /* libPods.a */; };
+		A433380A683A822E1422B94C /* libPods-RZBluetoothExampleUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 846C131369D74D0FFB5CD689 /* libPods-RZBluetoothExampleUITests.a */; };
+		AB55E55C1B7E47F9009781B8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AB55E55B1B7E47F9009781B8 /* main.m */; };
+		AB55E55F1B7E47F9009781B8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AB55E55E1B7E47F9009781B8 /* AppDelegate.m */; };
+		AB55E5621B7E47F9009781B8 /* ServiceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB55E5611B7E47F9009781B8 /* ServiceListViewController.m */; };
+		AB55E5651B7E47F9009781B8 /* PeripheralViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB55E5641B7E47F9009781B8 /* PeripheralViewController.m */; };
+		AB55E56A1B7E47F9009781B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB55E5691B7E47F9009781B8 /* Assets.xcassets */; };
+		AB55E5781B7E47F9009781B8 /* RZBluetoothExampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = AB55E5771B7E47F9009781B8 /* RZBluetoothExampleUITests.m */; };
+		AB55E5841B7E4911009781B8 /* ScanListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB55E5831B7E4911009781B8 /* ScanListViewController.m */; };
+		AB7E1D591B7E7F8900D69159 /* HeartRateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7E1D571B7E7F8900D69159 /* HeartRateViewController.m */; };
+		AB7E1D5A1B7E7F8900D69159 /* HeartRateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB7E1D581B7E7F8900D69159 /* HeartRateViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AB55E5741B7E47F9009781B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AB55E54F1B7E47F9009781B8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AB55E5561B7E47F9009781B8;
+			remoteInfo = RZBluetoothExample;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1B0E3F5C315399AD7DF763D1 /* Pods-RZBluetoothExampleUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RZBluetoothExampleUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RZBluetoothExampleUITests/Pods-RZBluetoothExampleUITests.release.xcconfig"; sourceTree = "<group>"; };
+		34E629689CD10761550784B1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		846C131369D74D0FFB5CD689 /* libPods-RZBluetoothExampleUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RZBluetoothExampleUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F266EF2A8D0BA8E44B7CAAF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		917F1EEB2723A192BE979B8D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB55E5571B7E47F9009781B8 /* RZBluetoothExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RZBluetoothExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB55E55B1B7E47F9009781B8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AB55E55D1B7E47F9009781B8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AB55E55E1B7E47F9009781B8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		AB55E5601B7E47F9009781B8 /* ServiceListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServiceListViewController.h; sourceTree = "<group>"; };
+		AB55E5611B7E47F9009781B8 /* ServiceListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServiceListViewController.m; sourceTree = "<group>"; };
+		AB55E5631B7E47F9009781B8 /* PeripheralViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PeripheralViewController.h; sourceTree = "<group>"; };
+		AB55E5641B7E47F9009781B8 /* PeripheralViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PeripheralViewController.m; sourceTree = "<group>"; };
+		AB55E5691B7E47F9009781B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AB55E56E1B7E47F9009781B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB55E5731B7E47F9009781B8 /* RZBluetoothExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RZBluetoothExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB55E5771B7E47F9009781B8 /* RZBluetoothExampleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZBluetoothExampleUITests.m; sourceTree = "<group>"; };
+		AB55E5791B7E47F9009781B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB55E5821B7E4911009781B8 /* ScanListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanListViewController.h; sourceTree = "<group>"; };
+		AB55E5831B7E4911009781B8 /* ScanListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanListViewController.m; sourceTree = "<group>"; };
+		AB7E1D561B7E7F8900D69159 /* HeartRateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeartRateViewController.h; sourceTree = "<group>"; };
+		AB7E1D571B7E7F8900D69159 /* HeartRateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeartRateViewController.m; sourceTree = "<group>"; };
+		AB7E1D581B7E7F8900D69159 /* HeartRateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeartRateViewController.xib; sourceTree = "<group>"; };
+		C84F254C9C7505F736F9E58F /* Pods-RZBluetoothExampleUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RZBluetoothExampleUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RZBluetoothExampleUITests/Pods-RZBluetoothExampleUITests.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AB55E5541B7E47F9009781B8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BA044D01D2E23927120EDA9 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AB55E5701B7E47F9009781B8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A433380A683A822E1422B94C /* libPods-RZBluetoothExampleUITests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3532B301E86FC118D92873EC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				34E629689CD10761550784B1 /* Pods.debug.xcconfig */,
+				8F266EF2A8D0BA8E44B7CAAF /* Pods.release.xcconfig */,
+				C84F254C9C7505F736F9E58F /* Pods-RZBluetoothExampleUITests.debug.xcconfig */,
+				1B0E3F5C315399AD7DF763D1 /* Pods-RZBluetoothExampleUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		55C04F518FA9CCC25B86215D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				917F1EEB2723A192BE979B8D /* libPods.a */,
+				846C131369D74D0FFB5CD689 /* libPods-RZBluetoothExampleUITests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AB55E54E1B7E47F9009781B8 = {
+			isa = PBXGroup;
+			children = (
+				AB55E5591B7E47F9009781B8 /* RZBluetoothExample */,
+				AB55E5761B7E47F9009781B8 /* RZBluetoothExampleUITests */,
+				AB55E5581B7E47F9009781B8 /* Products */,
+				3532B301E86FC118D92873EC /* Pods */,
+				55C04F518FA9CCC25B86215D /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		AB55E5581B7E47F9009781B8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AB55E5571B7E47F9009781B8 /* RZBluetoothExample.app */,
+				AB55E5731B7E47F9009781B8 /* RZBluetoothExampleUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AB55E5591B7E47F9009781B8 /* RZBluetoothExample */ = {
+			isa = PBXGroup;
+			children = (
+				AB55E55D1B7E47F9009781B8 /* AppDelegate.h */,
+				AB55E55E1B7E47F9009781B8 /* AppDelegate.m */,
+				AB55E5601B7E47F9009781B8 /* ServiceListViewController.h */,
+				AB55E5611B7E47F9009781B8 /* ServiceListViewController.m */,
+				AB55E5821B7E4911009781B8 /* ScanListViewController.h */,
+				AB55E5831B7E4911009781B8 /* ScanListViewController.m */,
+				AB55E5631B7E47F9009781B8 /* PeripheralViewController.h */,
+				AB55E5641B7E47F9009781B8 /* PeripheralViewController.m */,
+				AB7E1D561B7E7F8900D69159 /* HeartRateViewController.h */,
+				AB7E1D571B7E7F8900D69159 /* HeartRateViewController.m */,
+				AB7E1D581B7E7F8900D69159 /* HeartRateViewController.xib */,
+				AB55E5691B7E47F9009781B8 /* Assets.xcassets */,
+				AB55E56E1B7E47F9009781B8 /* Info.plist */,
+				AB55E55A1B7E47F9009781B8 /* Supporting Files */,
+			);
+			path = RZBluetoothExample;
+			sourceTree = "<group>";
+		};
+		AB55E55A1B7E47F9009781B8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AB55E55B1B7E47F9009781B8 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AB55E5761B7E47F9009781B8 /* RZBluetoothExampleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				AB55E5771B7E47F9009781B8 /* RZBluetoothExampleUITests.m */,
+				AB55E5791B7E47F9009781B8 /* Info.plist */,
+			);
+			path = RZBluetoothExampleUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AB55E5561B7E47F9009781B8 /* RZBluetoothExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AB55E57C1B7E47F9009781B8 /* Build configuration list for PBXNativeTarget "RZBluetoothExample" */;
+			buildPhases = (
+				CC9E606673FAD72236E194CA /* Check Pods Manifest.lock */,
+				AB55E5531B7E47F9009781B8 /* Sources */,
+				AB55E5541B7E47F9009781B8 /* Frameworks */,
+				AB55E5551B7E47F9009781B8 /* Resources */,
+				3DFABAA9D80FF1AC0AE1FFC2 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RZBluetoothExample;
+			productName = RZBluetoothExample;
+			productReference = AB55E5571B7E47F9009781B8 /* RZBluetoothExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AB55E5721B7E47F9009781B8 /* RZBluetoothExampleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AB55E57F1B7E47F9009781B8 /* Build configuration list for PBXNativeTarget "RZBluetoothExampleUITests" */;
+			buildPhases = (
+				0BCA369D99C642596A33599E /* Check Pods Manifest.lock */,
+				AB55E56F1B7E47F9009781B8 /* Sources */,
+				AB55E5701B7E47F9009781B8 /* Frameworks */,
+				AB55E5711B7E47F9009781B8 /* Resources */,
+				8C5A137E9D820C9070BBC55C /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AB55E5751B7E47F9009781B8 /* PBXTargetDependency */,
+			);
+			name = RZBluetoothExampleUITests;
+			productName = RZBluetoothExampleUITests;
+			productReference = AB55E5731B7E47F9009781B8 /* RZBluetoothExampleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AB55E54F1B7E47F9009781B8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = Raizlabs;
+				TargetAttributes = {
+					AB55E5561B7E47F9009781B8 = {
+						CreatedOnToolsVersion = 7.0;
+					};
+					AB55E5721B7E47F9009781B8 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = AB55E5561B7E47F9009781B8;
+					};
+				};
+			};
+			buildConfigurationList = AB55E5521B7E47F9009781B8 /* Build configuration list for PBXProject "RZBluetoothExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AB55E54E1B7E47F9009781B8;
+			productRefGroup = AB55E5581B7E47F9009781B8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AB55E5561B7E47F9009781B8 /* RZBluetoothExample */,
+				AB55E5721B7E47F9009781B8 /* RZBluetoothExampleUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AB55E5551B7E47F9009781B8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB55E56A1B7E47F9009781B8 /* Assets.xcassets in Resources */,
+				AB7E1D5A1B7E7F8900D69159 /* HeartRateViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AB55E5711B7E47F9009781B8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0BCA369D99C642596A33599E /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		3DFABAA9D80FF1AC0AE1FFC2 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8C5A137E9D820C9070BBC55C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RZBluetoothExampleUITests/Pods-RZBluetoothExampleUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CC9E606673FAD72236E194CA /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AB55E5531B7E47F9009781B8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB55E55F1B7E47F9009781B8 /* AppDelegate.m in Sources */,
+				AB55E5621B7E47F9009781B8 /* ServiceListViewController.m in Sources */,
+				AB55E55C1B7E47F9009781B8 /* main.m in Sources */,
+				AB7E1D591B7E7F8900D69159 /* HeartRateViewController.m in Sources */,
+				AB55E5841B7E4911009781B8 /* ScanListViewController.m in Sources */,
+				AB55E5651B7E47F9009781B8 /* PeripheralViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AB55E56F1B7E47F9009781B8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB55E5781B7E47F9009781B8 /* RZBluetoothExampleUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AB55E5751B7E47F9009781B8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AB55E5561B7E47F9009781B8 /* RZBluetoothExample */;
+			targetProxy = AB55E5741B7E47F9009781B8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		AB55E57A1B7E47F9009781B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		AB55E57B1B7E47F9009781B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AB55E57D1B7E47F9009781B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34E629689CD10761550784B1 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = RZBluetoothExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.raizlabs.RZBluetoothExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		AB55E57E1B7E47F9009781B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8F266EF2A8D0BA8E44B7CAAF /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = RZBluetoothExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.raizlabs.RZBluetoothExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		AB55E5801B7E47F9009781B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C84F254C9C7505F736F9E58F /* Pods-RZBluetoothExampleUITests.debug.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = RZBluetoothExampleUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.raizlabs.RZBluetoothExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = RZBluetoothExample;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		AB55E5811B7E47F9009781B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1B0E3F5C315399AD7DF763D1 /* Pods-RZBluetoothExampleUITests.release.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = RZBluetoothExampleUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.raizlabs.RZBluetoothExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = RZBluetoothExample;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AB55E5521B7E47F9009781B8 /* Build configuration list for PBXProject "RZBluetoothExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB55E57A1B7E47F9009781B8 /* Debug */,
+				AB55E57B1B7E47F9009781B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AB55E57C1B7E47F9009781B8 /* Build configuration list for PBXNativeTarget "RZBluetoothExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB55E57D1B7E47F9009781B8 /* Debug */,
+				AB55E57E1B7E47F9009781B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AB55E57F1B7E47F9009781B8 /* Build configuration list for PBXNativeTarget "RZBluetoothExampleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB55E5801B7E47F9009781B8 /* Debug */,
+				AB55E5811B7E47F9009781B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AB55E54F1B7E47F9009781B8 /* Project object */;
+}

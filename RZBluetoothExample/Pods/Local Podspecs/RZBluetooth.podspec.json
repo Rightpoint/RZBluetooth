@@ -1,0 +1,55 @@
+{
+  "name": "RZBluetooth",
+  "version": "0.1",
+  "summary": "A Core Bluetooth helper library to simplify the development and testing of Core Bluetooth applications.",
+  "description": "",
+  "homepage": "http://github.com/Raizlabs/RZBluetooth",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Brian King": "brianaking@gmail.com"
+  },
+  "platforms": {
+    "ios": 7.0
+  },
+  "source": {
+    "git": "https://github.com/Raizlabs/RZBluetooth.git",
+    "tag": "0.1"
+  },
+  "requires_arc": true,
+  "default_subspecs": "Core",
+  "subspecs": [
+    {
+      "name": "Core",
+      "source_files": "RZBluetooth/**/*.{h,m}",
+      "public_header_files": "RZBluetooth/**/*.h"
+    },
+    {
+      "name": "Mock",
+      "dependencies": {
+        "RZBluetooth/Core": [
+
+        ]
+      },
+      "source_files": "RZMockBluetooth/**/*.{h,m}",
+      "public_header_files": "RZMockBluetooth/**/*.h"
+    },
+    {
+      "name": "Test",
+      "dependencies": {
+        "RZBluetooth/Mock": [
+
+        ]
+      },
+      "frameworks": "XCTest",
+      "public_header_files": "RZBluetoothTests/RZBSimulatedTestCase.h",
+      "source_files": [
+        "RZBluetoothTests/RZBSimulatedTestCase.{h,m}",
+        "RZBluetoothTests/Helpers/NSRunLoop+RZBWaitFor.{h,m}",
+        "RZBluetoothTests/RZBSimulatedTestCase.h"
+      ]
+    }
+  ]
+}

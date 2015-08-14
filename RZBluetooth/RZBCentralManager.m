@@ -31,7 +31,7 @@
     NSParameterAssert(identifier);
     self = [super init];
     if (self) {
-        NSDictionary *options = @{CBCentralManagerOptionRestoreIdentifierKey: identifier};
+        NSDictionary *options = @{};
         _centralManager = [[centralClass alloc] initWithDelegate:self
                                                            queue:queue
                                                          options:options];
@@ -272,6 +272,7 @@
 {
     NSArray *peripherals = dict[CBCentralManagerRestoredStatePeripheralsKey];
     for (CBPeripheral *peripheral in peripherals) {
+        peripheral.delegate = self;
         self.peripheralsByIdentifier[peripheral.identifier] = peripheral;
     }
 }
@@ -279,6 +280,7 @@
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
     if (self.activeScanBlock) {
+        peripheral.delegate = self;
         self.activeScanBlock(peripheral, advertisementData, RSSI);
     }
 }
