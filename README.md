@@ -54,10 +54,10 @@ Core Bluetooth has many intermediary callbacks that need to be handled before th
 ```
 
 A few things to note:
- - The peripheral is automatically connected. Any connection error is relayed to the completion block.
+ - The peripheral is automatically connected if it is not connected.
  - The service and characteristics are automatically discovered. If they are not supported by the peripheral, an error object will be generated. This is a lot more helpful than an array not having the expected object.
- - Multiple read and write calls will not cause more connect or discover events than required.
- - In direct CoreBluetooth, more read and write calls cause terrible if chains in the delegate. RZBluetooth allows separation of communication code, such that different bluetooth services can be written and supported in isolation. This allows the development of isolated "Profile" level API's.
+ - Multiple read and write calls will not cause more connect or discover events than required. The discover events are batched up and triggered on the next runloop iteration.
+ - In direct CoreBluetooth, more read and write characteristics cause terrible if chains in the delegate. RZBluetooth allows separation of communication code, such that different bluetooth services can be written and supported in isolation. This allows the development of isolated "Profile" level API's.
 
 ## Profile level API's
 Application level code working with Core Bluetooth does not want to read and write NSData blobs. They want Profile level API's that work with whatever domain knowledge the services and characteristics encapsulate. RZBluetooth comes with API's for many of the standard bluetooth profiles, and these provide a pattern for developers to extend RZBluetooth to support thier proprietary profiles.
@@ -65,23 +65,23 @@ Application level code working with Core Bluetooth does not want to read and wri
 ```
 - (void)exampleOperations
 {
-    // FIXME: THESE NEED TO ACTUALY BE IMPLEMENTED
     CBPeripheral *peripheral = [self.centralManager peripheralForUUID:uuid];
-    [peripheral monitorBatteryLevel:^(NSUInteger batteryLevel) {
+    [peripheral rzb_addBatteryLevelObserver:^(NSUInteger batteryLevel, NSError *error) {
         // Update UI for the battery level.
     } completion:^(NSError *error) {
         // Completion indicating that the battery monitor has been setup.
     }];
-    [peripheral fetchDeviceInformation:^(NSDictionary *deviceInfo, NSError *error) {
+    [peripheral rzb_readSensorLocation:^(RZBBodyLocation location) {
+    }];
+    [peripheral rzb_addHeartRateObserver:^(RZBHeartRateMeasurement *measurement, NSError *error) {
+    } completion:^(NSError *error) {
     }];
 }
 ```
 
 ## Testing
-CoreBluetooth is challenging to test. RZBluetooth comes with a library RZMockBluetooth that provides 3 methods of testing your application.
+CoreBluetooth can be challenging to test. RZBluetooth comes with a library RZMockBluetooth that allows you to use mock Core Bluetooth objects to test your bluetooth and application code. The first step is writing a "Device Simulator" using the CBPeripheralManager API provided by Core Bluetooth. This Device Simulator can then be ran on a mac or another iOS device to simulate your hardware during development. This small development effort decouples the device development effort with the application development and greatly help.
 
- - Mock Objects to manually control your interactions in Unit Tests.
- - Mock Peripherals to fake your devices bluetooth structure. These simulated peripherals use the mock objects to interact with your automated tests in a simpler fashion.
- - Simulated Peripherals that take the simulated device written above, but run in a stand alone application and pretend to be your device. 
+However, this does not help your unit tests. RZBMockBluetooth is able to make a simulated connection between your application CBCentralManager and the CBPeripheralManager to connect your application code to your device simulator in memory. RZBSimulatedConnection allows the test developer to control connection, discoverability, RSSI, scanning, the timing of callbacks, and injection of errors through a simple API. With very little effort your device will connect and talk with your simulator. With slightly more effort, the test developer can reproduce various edge cases and error scenarios.
 
 
