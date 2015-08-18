@@ -11,6 +11,7 @@
 @class RZBMockPeripheralManager;
 
 typedef CBATTError (^RZBSimulatedDeviceRead)(CBATTRequest *request);
+typedef void (^RZBSimulatedDeviceSubscribe)(BOOL isNotifying);
 
 @interface RZBSimulatedDevice : NSObject <CBPeripheralManagerDelegate>
 
@@ -18,6 +19,7 @@ typedef CBATTError (^RZBSimulatedDeviceRead)(CBATTRequest *request);
 
 @property (strong, nonatomic, readonly) NSUUID *identifier;
 @property (strong, nonatomic, readonly) CBPeripheralManager *peripheralManager;
+@property (strong, nonatomic, readonly) dispatch_queue_t queue;
 @property (strong, nonatomic, readonly) NSArray *services;
 /**
  * Shared storage for categories.
@@ -28,6 +30,7 @@ typedef CBATTError (^RZBSimulatedDeviceRead)(CBATTRequest *request);
 - (void)addBluetoothRepresentable:(id<RZBBluetoothRepresentable>)bluetoothRepresentable isPrimary:(BOOL)isPrimary;
 - (void)addReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBSimulatedDeviceRead)handler;
 - (void)addWriteCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBSimulatedDeviceRead)handler;
+- (void)addSubscribeCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBSimulatedDeviceSubscribe)handler;
 
 /**
  * Search all of the services for a characteristic matching characteristicUUID.

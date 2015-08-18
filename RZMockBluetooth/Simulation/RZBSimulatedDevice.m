@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic, readonly) NSMutableDictionary *readHandlers;
 @property (strong, nonatomic, readonly) NSMutableDictionary *writeHandlers;
+@property (strong, nonatomic, readonly) NSMutableDictionary *subscribeHandlers;
 
 @end
 
@@ -23,9 +24,11 @@
 {
     self = [super init];
     if (self) {
+        _queue = queue ?: dispatch_get_main_queue();
         _identifier = [NSUUID UUID];
         _readHandlers = [NSMutableDictionary dictionary];
         _writeHandlers = [NSMutableDictionary dictionary];
+        _subscribeHandlers = [NSMutableDictionary dictionary];
         _peripheralManager = [[peripheralManagerClass alloc] initWithDelegate:self queue:queue];
     }
     return self;
@@ -82,6 +85,13 @@
     self.writeHandlers[characteristicUUID] = [handler copy];
 }
 
+- (void)addSubscribeCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBSimulatedDeviceSubscribe)handler
+{
+    NSParameterAssert(characteristicUUID);
+    NSParameterAssert(handler);
+    self.subscribeHandlers[characteristicUUID] = [handler copy];
+}
+
 - (CBMutableCharacteristic *)characteristicForUUID:(CBUUID *)characteristicUUID
 {
     for (CBMutableService *service in self.services) {
@@ -110,12 +120,18 @@
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didSubscribeToCharacteristic:(CBCharacteristic *)characteristic
 {
-    
+    RZBSimulatedDeviceSubscribe handler = self.subscribeHandlers[characteristic.UUID];
+    if (handler) {
+        handler(YES);
+    }
 }
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didUnsubscribeFromCharacteristic:(CBCharacteristic *)characteristic
 {
-
+    RZBSimulatedDeviceSubscribe handler = self.subscribeHandlers[characteristic.UUID];
+    if (handler) {
+        handler(NO);
+    }
 }
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveReadRequest:(CBATTRequest *)request
