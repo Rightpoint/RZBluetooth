@@ -58,6 +58,16 @@
     return service;
 }
 
+- (void)startAdvertising
+{
+    [self.peripheralManager startAdvertising:@{CBAdvertisementDataServiceUUIDsKey:[self advertisedServices]}];
+}
+
+- (void)stopAdvertising
+{
+    [self.peripheralManager stopAdvertising];
+}
+
 - (void)addService:(CBMutableService *)service
 {
     [[self mutableArrayValueForKey:@"services"] addObject:service];

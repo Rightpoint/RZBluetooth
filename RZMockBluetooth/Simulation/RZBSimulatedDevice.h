@@ -29,6 +29,11 @@ typedef void (^RZBSimulatedDeviceSubscribe)(BOOL isNotifying);
  */
 @property (strong, nonatomic, readonly) NSMutableDictionary *values;
 
+@property (strong, nonatomic) NSArray *advertisedServices;
+
+- (void)startAdvertising;
+- (void)stopAdvertising;
+
 - (void)addService:(CBMutableService *)service;
 - (void)addBluetoothRepresentable:(id<RZBBluetoothRepresentable>)bluetoothRepresentable isPrimary:(BOOL)isPrimary;
 - (void)addReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBSimulatedDeviceRead)handler;
