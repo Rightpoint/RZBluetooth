@@ -21,6 +21,9 @@ typedef void (^RZBSimulatedDeviceSubscribe)(BOOL isNotifying);
 @property (strong, nonatomic, readonly) CBPeripheralManager *peripheralManager;
 @property (strong, nonatomic, readonly) dispatch_queue_t queue;
 @property (strong, nonatomic, readonly) NSArray *services;
+
+@property (copy, nonatomic) void (^onStateChange)(CBPeripheralManagerState);
+
 /**
  * Shared storage for categories.
  */

@@ -42,7 +42,7 @@
     NSMutableArray *characteristics = [NSMutableArray array];
     [characteristicsByUUID enumerateKeysAndObjectsUsingBlock:^(NSString *key, CBUUID *UUID, BOOL *stop) {
         CBCharacteristicProperties properties = [representable.class characteristicPropertiesForKey:key];
-        CBAttributePermissions permissions = CBAttributePermissionsReadable | CBAttributePermissionsWriteable;
+        CBAttributePermissions permissions = CBAttributePermissionsReadable;
         id value = [representable valueForKey:key];
 
         if (value) {
@@ -109,13 +109,14 @@
 
 - (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral
 {
+    if (self.onStateChange) {
+        self.onStateChange(peripheral.state);
+    }
 }
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didAddService:(CBService *)service error:(NSError *)error
 {
-    if (error) {
-        NSLog(@"Error adding service %@", service);
-    }
+    NSLog(@"Add Service: %@ (%@)", service, error);
 }
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didSubscribeToCharacteristic:(CBCharacteristic *)characteristic
