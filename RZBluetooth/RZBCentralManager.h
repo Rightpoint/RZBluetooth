@@ -41,7 +41,7 @@
  * If the central manager is not powered on, and has reached an error state requiring user
  * interaction, this property will hold an error value describing the issue.
  */
-@property (assign, nonatomic, readonly) NSError *errorForCentralState;
+@property (strong, nonatomic, readonly) NSError *errorForCentralState;
 
 /**
  * Helper to get a peripheral from a peripheralUUID
