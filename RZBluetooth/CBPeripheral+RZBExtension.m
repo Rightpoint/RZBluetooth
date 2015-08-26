@@ -52,6 +52,9 @@
     cmd.notify = YES;
     [cmd addCallbackBlock:^(CBCharacteristic *characteristic, NSError *error) {
         characteristic.rzb_notificationBlock = onChange;
+        if (characteristic.value && error == nil) {
+            onChange(characteristic, error);
+        }
         completion(characteristic, error);
     }];
     [self.dispatch dispatchCommand:cmd];
