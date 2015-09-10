@@ -41,6 +41,18 @@
     [self waitForExpectationsWithTimeout:5.0 handler:nil];
 }
 
+- (void)testConnectionError
+{
+    XCTestExpectation *connected = [self expectationWithDescription:@"Peripheral will connect"];
+    self.connection.connectCallback.injectError = [NSError rzb_connectionError];
+    [self.centralManager connectToPeripheralUUID:self.device.identifier completion:^(CBPeripheral *peripheral, NSError *error) {
+        [connected fulfill];
+        XCTAssertNotNil(error);
+        XCTAssert([peripheral.identifier isEqual:self.device.identifier]);
+    }];
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+}
+
 - (void)testConnectable
 {
     XCTestExpectation *connected = [self expectationWithDescription:@"Peripheral will connect"];
