@@ -6,7 +6,7 @@
 //  Copyright © 2015 Raizlabs. All rights reserved.
 //
 
-#import <CoreBluetooth/CoreBluetooth.h>
+@import CoreBluetooth;
 
 @interface CBUUID (RZBPublic)
 

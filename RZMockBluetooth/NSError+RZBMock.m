@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
+@import CoreBluetooth;
+
 #import "NSError+RZBMock.h"
 
 @implementation NSError (RZBMock)

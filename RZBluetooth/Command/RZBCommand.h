@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-@import CoreBluetooth;
+#import "RZBDefines.h"
 
 @class RZBCommandDispatch;
 @class RZBUUIDPath;

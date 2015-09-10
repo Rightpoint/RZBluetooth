@@ -16,6 +16,8 @@
 #import "RZBMockPeripheralManager.h"
 #import "RZBSimulatedCentral.h"
 #import "RZBSimulatedConnection.h"
+#import "RZBSimulatedCallback.h"
+#import "NSError+RZBMock.h"
 
 #define RZBAssertCommandCount(cnt) XCTAssert(self.centralManager.dispatch.commands.count == cnt, @"Expected %zd commands, saw %zd", cnt, self.centralManager.dispatch.commands.count)
 

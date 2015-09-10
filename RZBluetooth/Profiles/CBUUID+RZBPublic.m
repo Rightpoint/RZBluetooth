@@ -20,7 +20,6 @@
     return [CBUUID UUIDWithString:@"2A19"];
 }
 
-
 + (CBUUID *)rzb_UUIDForHeartRateService
 {
     return [CBUUID UUIDWithString:@"180D"];

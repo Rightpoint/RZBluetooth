@@ -6,14 +6,11 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-@import CoreBluetooth;
-
-#define RZB_OVERLOADED FOUNDATION_EXTERN __attribute__((overloadable))
+#import "RZBDefines.h"
 
 /**
- * A command filter is a helper object to store lookup state.
- * This is used internally to help lookup various command objects.
- *
+ * A UUIDPath is a helper object to assist help looking up objects. It's used as
+ * a method of identifying a peripheral, service, or characteristic.
  */
 @interface RZBUUIDPath : NSObject
 

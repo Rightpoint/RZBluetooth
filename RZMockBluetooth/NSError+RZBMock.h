@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-@import CoreBluetooth;
-
 @interface NSError (RZBMock)
 
 /**

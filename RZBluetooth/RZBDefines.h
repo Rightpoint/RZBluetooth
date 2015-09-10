@@ -14,6 +14,8 @@ typeof(object.p) property __unused; \
 @#p; \
 })
 
+#define RZB_OVERLOADED FOUNDATION_EXTERN __attribute__((overloadable))
+
 
 typedef void(^RZBScanBlock)(CBPeripheral *peripheral, NSDictionary *advInfo, NSNumber *RSSI);
 typedef void(^RZBErrorBlock)(NSError *error);
