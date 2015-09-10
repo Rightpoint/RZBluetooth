@@ -5,13 +5,14 @@ RZBluetooth is a Core Bluetooth helper with 3 primary goals:
  - Simplify and encourage testing - including unit tests, automated integration tests, and manual tests.
 
 # Quick Start
-To emphasis how easy RZBluetooth is, the following block of code will print out the heart rate of the first heart rate monitor that comes nearby, every time a new reading is available..
+To emphasize how easy RZBluetooth is, the following block of code will print out the heart rate of the first heart rate monitor that comes nearby, every time a new reading is available.
 
 ```
 self.centralManager = [[RZBCentralManager alloc] init];
 [self.centralManager scanForPeripheralsWithServices:@[CBUUID rzb_UUIDForHeartRateService] options:@{} onDiscoveredPeripheral:^(CBPeripheral *peripheral, NSDictionary *advInfo, NSNumber *RSSI) {
     [self.centralManager stopScan];
-    [peripheral rzb_addHeartRateObserver:^(RZBHeartRateMeasurement *measurement, NSError *error) {
+    self.peripheral = peripheral;
+    [self.peripheral rzb_addHeartRateObserver:^(RZBHeartRateMeasurement *measurement, NSError *error) {
         NSLog(@"%@", measurement);
     } completion:^(NSError *error) {
         if (error) {
@@ -20,32 +21,32 @@ self.centralManager = [[RZBCentralManager alloc] init];
     }];
 }];
 ```
-Obviously a real application would have more concerns than this, but the complexity of CoreBluetooth should not be one of them.
 
 # Install
 RZBluetooth is available through CocoaPods. To install it, add the following line to your Podfile:
 
 ```
-# Not published on cocoapods yet!
 pod 'RZBluetooth', :git => "https://github.com/Raizlabs/RZBluetooth"
 ```
 
 # Usage
-There are a few patterns of behaviors an application with Bluetooth will perform:
+There are a few patterns of behavior that most Bluetooth conform to:
 
 1. Discover peripherals that the application can interact with.
 2. Availability Interactions with a known peripheral
 3. User interaction with a known peripheral.
 
 ## Scanning
-Scaning for new peripherals is usually a user initiated action that collects all near by devices, and allows the user to confirm the device they want to interact with. Be sure to specify the UUID of the required service. 
+Scaning for new peripherals is usually a user initiated action that collects all near by devices, and allows the user to confirm the device they want to interact with. Be sure to specify the UUID of the required service.
 
-Think through the UX of your application
+Think through the UX of your application:
 
 1. Prompt the user to perform any required device action to make the device appear. Most heart rate monitors will not be discoverable unless they are worn.
 2. Do you need a list of near by devices to select from? Can you tell the user that too many devices were found and the other devices should be turned off?
 3. If there are multiple devices, how does the user ensure the proper device is selected?
 4. What type of security is used? Initiate the SSN pairing process by reading or writing a secured property before completing selection.
+
+Once a device has been selected, the peripheral UUID can be persisted between application starts. Also it's important to note that the UUID is unique to the ios device and should not be shared between computers.
 
 
 ## Availability Interactions
