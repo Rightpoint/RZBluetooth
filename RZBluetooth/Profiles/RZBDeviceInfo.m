@@ -7,7 +7,8 @@
 //
 
 #import "RZBDeviceInfo.h"
-#import "CBPeripheral+RZBHelper.h"
+#import "CBPeripheral+Private.h"
+#import "RZBErrors.h"
 
 NSString *const RZBDeviceInfoModelNumberKey = @"modelNumber";
 

@@ -11,11 +11,6 @@
 typedef void(^RZBBatteryReadCompletion)(NSUInteger level, NSError *error);
 typedef void(^RZBBatteryCompletion)(NSError *error);
 
-@interface CBUUID (RZBBattery)
-
-
-@end
-
 @interface CBPeripheral (RZBBattery)
 
 - (void)rzb_fetchBatteryLevel:(RZBBatteryReadCompletion)completion;

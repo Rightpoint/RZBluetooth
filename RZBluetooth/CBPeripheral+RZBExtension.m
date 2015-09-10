@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-#import "CBPeripheral+RZBExtension.h"
-#import "CBPeripheral+RZBHelper.h"
+#import "CBPeripheral+Private.h"
 #import "CBCharacteristic+RZBExtension.h"
 #import "CBService+RZBExtension.h"
 #import "RZBCentralManager+Private.h"
@@ -16,9 +15,21 @@
 
 @implementation CBPeripheral (RZBExtension)
 
-- (RZBCommandDispatch *)dispatch
+- (RZBCommandDispatch *)rzb_dispatch
 {
     return self.rzb_centralManager.dispatch;
+}
+
+- (RZBCentralManager *)rzb_centralManager
+{
+    RZBCentralManager *centralManager = (id)self.delegate;
+    NSAssert([centralManager isKindOfClass:[RZBCentralManager class]], @"CBPeripheral is not properly configured.  The delegate property must be configured to the RZCentralManager that owns it.");
+    return centralManager;
+}
+
+- (dispatch_queue_t)rzb_queue
+{
+    return self.rzb_centralManager.dispatch.queue;
 }
 
 - (void)rzb_readRSSI:(RZBRSSIBlock)completion
@@ -26,7 +37,7 @@
     NSParameterAssert(completion);
     RZBReadRSSICommand *cmd = [[RZBReadRSSICommand alloc] initWithUUIDPath:RZBUUIDP(self.identifier)];
     [cmd addCallbackBlock:completion];
-    [self.dispatch dispatchCommand:cmd];
+    [self.rzb_dispatch dispatchCommand:cmd];
 }
 
 - (void)rzb_readCharacteristicUUID:(CBUUID *)characteristicUUID
@@ -37,7 +48,7 @@
     RZBUUIDPath *path = RZBUUIDP(self.identifier, serviceUUID, characteristicUUID);
     RZBReadCharacteristicCommand *cmd = [[RZBReadCharacteristicCommand alloc] initWithUUIDPath:path];
     [cmd addCallbackBlock:completion];
-    [self.dispatch dispatchCommand:cmd];
+    [self.rzb_dispatch dispatchCommand:cmd];
 }
 
 - (void)rzb_addObserverForCharacteristicUUID:(CBUUID *)characteristicUUID
@@ -57,7 +68,7 @@
         }
         completion(characteristic, error);
     }];
-    [self.dispatch dispatchCommand:cmd];
+    [self.rzb_dispatch dispatchCommand:cmd];
 }
 
 - (void)rzb_removeObserverForCharacteristicUUID:(CBUUID *)characteristicUUID
@@ -78,7 +89,7 @@
     [cmd addCallbackBlock:^(CBCharacteristic *c, NSError *error) {
         completion(c, error);
     }];
-    [self.dispatch dispatchCommand:cmd];
+    [self.rzb_dispatch dispatchCommand:cmd];
 }
 
 - (void)rzb_writeData:(NSData *)data
@@ -89,7 +100,7 @@
     RZBUUIDPath *path = RZBUUIDP(self.identifier, serviceUUID, characteristicUUID);
     RZBWriteCharacteristicCommand *cmd = [[RZBWriteCharacteristicCommand alloc] initWithUUIDPath:path];
     cmd.data = data;
-    [self.dispatch dispatchCommand:cmd];
+    [self.rzb_dispatch dispatchCommand:cmd];
 }
 
 - (void)rzb_writeData:(NSData *)data
@@ -103,7 +114,7 @@
     RZBWriteCharacteristicCommand *cmd = [[RZBWriteWithReplyCharacteristicCommand alloc] initWithUUIDPath:path];
     cmd.data = data;
     [cmd addCallbackBlock:completion];
-    [self.dispatch dispatchCommand:cmd];
+    [self.rzb_dispatch dispatchCommand:cmd];
 }
 
 @end

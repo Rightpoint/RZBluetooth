@@ -7,7 +7,7 @@
 //
 
 #import "CBPeripheral+RZBBattery.h"
-#import "CBPeripheral+RZBHelper.h"
+#import "CBPeripheral+RZBExtension.h"
 #import "CBUUID+RZBPublic.h"
 
 @implementation CBPeripheral (RZBBattery)

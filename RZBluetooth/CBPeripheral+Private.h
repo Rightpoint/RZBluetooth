@@ -1,20 +1,16 @@
 //
-//  CBPeripheral+RZBHelper.h
+//  CBPeripheral+Private.h
 //  RZBluetooth
 //
-//  Created by Brian King on 8/4/15.
+//  Created by Brian King on 9/10/15.
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
+#import <CoreBluetooth/CoreBluetooth.h>
 #import "CBPeripheral+RZBExtension.h"
-#import "RZBErrors.h"
+#import "RZBCentralManager.h"
 
-@class RZBCentralManager;
-
-/**
- * Helper class for use by the various profiles.
- */
-@interface CBPeripheral (RZBHelper)
+@interface CBPeripheral ()
 
 @property (weak, nonatomic, readonly) RZBCentralManager *rzb_centralManager;
 @property (weak, nonatomic, readonly) dispatch_queue_t rzb_queue;
