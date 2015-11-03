@@ -199,17 +199,23 @@
     
     if ([self.readRequests containsObject:request]) {
         [self.readRequests removeObject:request];
-        [self.peripheral fakeCharacteristic:(CBMutableCharacteristic *)request.characteristic updateValue:request.value error:error];
+        if (self.peripheral.state == CBPeripheralStateConnected) {
+            [self.peripheral fakeCharacteristic:(CBMutableCharacteristic *)request.characteristic updateValue:request.value error:error];
+        }
     }
     else if ([self.writeRequests containsObject:request]) {
         [self.writeRequests removeObject:request];
-        [self.peripheral fakeCharacteristic:(CBMutableCharacteristic *)request.characteristic writeResponseWithError:error];
+        if (self.peripheral.state == CBPeripheralStateConnected) {
+            [self.peripheral fakeCharacteristic:(CBMutableCharacteristic *)request.characteristic writeResponseWithError:error];
+        }
     }
 }
 
 - (BOOL)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager updateValue:(NSData *)value forCharacteristic:(CBMutableCharacteristic *)characteristic onSubscribedCentrals:(NSArray *)centrals
 {
-    [self.peripheral fakeCharacteristic:characteristic updateValue:value error:nil];
+    if (self.peripheral.state == CBPeripheralStateConnected) {
+        [self.peripheral fakeCharacteristic:characteristic updateValue:value error:nil];
+    }
     // We don't have any buffer mechanism, so always return YES
     return YES;
 }
