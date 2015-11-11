@@ -35,10 +35,15 @@
         _centralManager = [[centralClass alloc] initWithDelegate:self
                                                            queue:queue
                                                          options:options];
-        _dispatch = [[RZBCommandDispatch alloc] initWithQueue:queue delegate:self];
+        _dispatch = [[RZBCommandDispatch alloc] initWithQueue:queue context:self];
         _peripheralsByIdentifier = [NSMutableDictionary dictionary];
     }
     return self;
+}
+
+- (CBCentralManagerState)state
+{
+    return self.centralManager.state;
 }
 
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs
@@ -206,15 +211,11 @@
                    matchingUUIDPath:(RZBUUIDPath *)UUIDPath
                          withObject:(id)object
                               error:(NSError *)error
-                           selector:(SEL)selector
 {
     NSArray *commands = [self.dispatch commandsOfClass:cls matchingUUIDPath:UUIDPath isExecuted:YES];
     RZBCommand *command = commands.firstObject;
     [self.dispatch completeCommand:command withObject:object error:error];
 
-    if (commands.count == 0 && selector != NULL) {
-        NSLog(@"Received a callback (%@) and can not find a command that is waiting for it.", NSStringFromSelector(selector));
-    }
     return commands.count > 0;
 }
 
@@ -228,23 +229,13 @@
     }
 }
 
-#pragma mark - RZBCommandDispatchDelegate
-
-- (BOOL)commandDispatch:(RZBCommandDispatch *)dispatch shouldExecuteCommand:(RZBCommand *)command
-{
-    return self.centralManager.state == CBCentralManagerStatePoweredOn;
-}
-
-- (id)commandDispatch:(RZBCommandDispatch *)dispatch contextForCommand:(RZBCommand *)command
-{
-    return self;
-}
-
 #pragma mark - CBCentralManagerDelegate
 
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
-    NSError *error = nil;
+    if (self.centralStateHandler) {
+        self.centralStateHandler(central.state);
+    }
     switch (central.state) {
         case CBCentralManagerStateUnknown:
         case CBCentralManagerStateResetting:
@@ -253,19 +244,7 @@
         case CBCentralManagerStatePoweredOn:
             [self.dispatch dispatchPendingCommands];
             break;
-        case CBCentralManagerStateUnsupported:
-            error = [NSError errorWithDomain:RZBluetoothErrorDomain code:RZBluetoothUnsupported userInfo:nil];
-            break;
-        case CBCentralManagerStateUnauthorized:
-            error = [NSError errorWithDomain:RZBluetoothErrorDomain code:RZBluetoothUnauthorized userInfo:nil];
-            break;
-        case CBCentralManagerStatePoweredOff:
-            error = [NSError errorWithDomain:RZBluetoothErrorDomain code:RZBluetoothPoweredOff userInfo:nil];
-            break;
-    }
-    _errorForCentralState = error;
-    if (self.centralStateErrorHandler && error) {
-        self.centralStateErrorHandler(error);
+        default: {}
     }
 }
 
@@ -275,6 +254,9 @@
     for (CBPeripheral *peripheral in peripherals) {
         peripheral.delegate = self;
         self.peripheralsByIdentifier[peripheral.identifier] = peripheral;
+    }
+    if (self.restorationHandler) {
+        self.restorationHandler(peripherals);
     }
 }
 
@@ -291,8 +273,7 @@
     [self completeFirstCommandOfClass:[RZBConnectCommand class]
                      matchingUUIDPath:RZBUUIDP(peripheral.identifier)
                            withObject:peripheral
-                                error:nil
-                             selector:_cmd];
+                                error:nil];
 }
 
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
@@ -300,8 +281,7 @@
     [self completeFirstCommandOfClass:[RZBConnectCommand class]
                      matchingUUIDPath:RZBUUIDP(peripheral.identifier)
                            withObject:peripheral
-                                error:error
-                             selector:_cmd];
+                                error:error];
 }
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
@@ -312,8 +292,7 @@
     [self completeFirstCommandOfClass:[RZBCancelConnectionCommand class]
                      matchingUUIDPath:RZBUUIDP(peripheral.identifier)
                            withObject:peripheral
-                                error:error
-                             selector:NULL];
+                                error:error];
 
     // This delegate method can terminate any outstanding command, and is often the terminal event
     // for a connection. Fail all commands to this peripheral
@@ -338,8 +317,7 @@
     [self completeFirstCommandOfClass:[RZBReadRSSICommand class]
                      matchingUUIDPath:RZBUUIDP(peripheral.identifier)
                            withObject:RSSI
-                                error:error
-                             selector:_cmd];
+                                error:error];
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
@@ -347,8 +325,7 @@
     [self completeFirstCommandOfClass:[RZBDiscoverServiceCommand class]
                      matchingUUIDPath:RZBUUIDP(peripheral.identifier)
                            withObject:peripheral
-                                error:error
-                             selector:_cmd];
+                                error:error];
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
@@ -356,8 +333,7 @@
     [self completeFirstCommandOfClass:[RZBDiscoverCharacteristicCommand class]
                      matchingUUIDPath:RZBUUIDP(peripheral.identifier, service.UUID)
                            withObject:service
-                                error:error
-                             selector:_cmd];
+                                error:error];
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
@@ -366,8 +342,7 @@
     BOOL complete = [self completeFirstCommandOfClass:[RZBReadCharacteristicCommand class]
                                      matchingUUIDPath:path
                                            withObject:characteristic
-                                                error:error
-                                             selector:NULL];
+                                                error:error];
     if (!complete && characteristic.isNotifying && characteristic.rzb_notificationBlock) {
         characteristic.rzb_notificationBlock(characteristic, error);
     }
@@ -379,8 +354,7 @@
     [self completeFirstCommandOfClass:[RZBWriteWithReplyCharacteristicCommand class]
                      matchingUUIDPath:path
                            withObject:characteristic
-                                error:error
-                             selector:_cmd];
+                                error:error];
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
@@ -389,8 +363,7 @@
     [self completeFirstCommandOfClass:[RZBNotifyCharacteristicCommand class]
                      matchingUUIDPath:path
                            withObject:characteristic
-                                error:error
-                             selector:_cmd];
+                                error:error];
 }
 
 @end

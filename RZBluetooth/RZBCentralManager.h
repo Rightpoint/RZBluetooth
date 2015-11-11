@@ -33,25 +33,25 @@
 - (instancetype)initWithIdentifier:(NSString *)identifier queue:(dispatch_queue_t)queue;
 
 /**
- *  If the central manager is powered on, and there are no permission issues, this is YES.
+ * Expose the backing CBCentralManagerState. See RZBluetoothErrorForState to generate an
+ * error object representing the non-functioning terminal states.
  */
-@property (assign, nonatomic, readonly) BOOL isPoweredOn;
+@property (assign, nonatomic, readonly) CBCentralManagerState state;
 
 /**
- * If the central manager is not powered on, and has reached an error state requiring user
- * interaction, this property will hold an error value describing the issue.
+ * This block will be triggered whenever the central manager state changes.
  */
-@property (strong, nonatomic, readonly) NSError *errorForCentralState;
+@property (nonatomic, copy) RZBStateBlock centralStateHandler;
+
+/**
+ * This block will be triggered when restored with 
+ */
+@property (nonatomic, copy) RZBRestorationBlock restorationHandler;
 
 /**
  * Helper to get a peripheral from a peripheralUUID
  */
 - (CBPeripheral *)peripheralForUUID:(NSUUID *)peripheralUUID;
-
-/**
- * This block will be triggered whenever the central manager state encounters an error state.
- */
-@property (nonatomic, copy) RZBErrorBlock centralStateErrorHandler;
 
 /**
  * Scan for peripherals with the specified UUIDs and options. Trigger the scanBlock
@@ -97,6 +97,5 @@
  */
 - (void)connectToPeripheralUUID:(NSUUID *)peripheralUUID
                      completion:(RZBPeripheralBlock)completion;
-
 
 @end

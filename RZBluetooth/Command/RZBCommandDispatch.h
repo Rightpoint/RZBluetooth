@@ -10,7 +10,6 @@
 
 @class RZBCommand;
 @class RZBUUIDPath;
-@protocol RZBCommandDispatchDelegate;
 
 /**
  * Manage the execution and dependency management of the command objects.
@@ -18,11 +17,11 @@
  */
 @interface RZBCommandDispatch : NSObject
 
-- (instancetype)initWithQueue:(dispatch_queue_t)queue delegate:(id<RZBCommandDispatchDelegate>)delegate;
+- (instancetype)initWithQueue:(dispatch_queue_t)queue context:(id)context;
 
 @property (nonatomic, strong, readonly) NSMutableArray *commands;
 @property (nonatomic, strong, readonly) dispatch_queue_t queue;
-@property (nonatomic, weak, readonly) id<RZBCommandDispatchDelegate>delegate;
+@property (nonatomic, weak, readonly) id context;
 @property (assign) NSUInteger dispatchCounter;
 
 /**
@@ -94,12 +93,5 @@
  * Attempt to dispatch any un-executed commands
  */
 - (void)dispatchPendingCommands;
-
-@end
-
-@protocol RZBCommandDispatchDelegate <NSObject>
-
-- (BOOL)commandDispatch:(RZBCommandDispatch *)dispatch shouldExecuteCommand:(RZBCommand *)command;
-- (id)commandDispatch:(RZBCommandDispatch *)dispatch contextForCommand:(RZBCommand *)command;
 
 @end

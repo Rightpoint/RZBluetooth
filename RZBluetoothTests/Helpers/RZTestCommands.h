@@ -10,15 +10,14 @@
 
 @interface RZBPTestCommand : RZBCommand
 @property (strong, nonatomic) NSUUID *peripheralUUID;
+@property (assign, nonatomic) BOOL shouldExecute;
 @end
 
-@interface RZBSTestCommand : RZBCommand
-@property (strong, nonatomic) NSUUID *peripheralUUID;
+@interface RZBSTestCommand : RZBPTestCommand
 @property (strong, nonatomic) NSUUID *serviceUUID;
 @end
 
-@interface RZBCTestCommand : RZBCommand
-@property (strong, nonatomic) NSUUID *peripheralUUID;
+@interface RZBCTestCommand : RZBPTestCommand
 @property (strong, nonatomic) NSUUID *serviceUUID;
 @property (strong, nonatomic) NSUUID *characteristicUUID;
 @end

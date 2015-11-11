@@ -33,8 +33,11 @@ typedef void(^RZBCallbackBlock)(id object, NSError *error);
 @property (strong, nonatomic) RZBCommand *retryAfter;
 @property (assign, nonatomic) BOOL isExecuted;
 @property (assign, nonatomic) BOOL isCompleted;
+@property (assign, nonatomic) NSTimeInterval expiresAt;
+@property (assign, nonatomic, readonly) BOOL isUserInteraction;
+@property (assign, nonatomic, readonly) BOOL isExpired;
 
-- (BOOL)executeCommandWithContext:(id)context;
+- (BOOL)executeCommandWithContext:(id)context error:(inout NSError **)error;
 
 - (BOOL)matchesUUIDPath:(RZBUUIDPath *)UUIDPath;
 

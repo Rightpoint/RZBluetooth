@@ -45,9 +45,14 @@
     }]];
 }
 
-- (BOOL)executeCommandWithContext:(RZBCentralManager *)context
+- (BOOL)executeCommandWithContext:(RZBCentralManager *)context error:(inout NSError **)error
 {
-    return YES;
+    CBCentralManagerState state = context.centralManager.state;
+    BOOL bluetoothReady = (state == CBCentralManagerStatePoweredOn);
+    if (self.isUserInteraction > 0) {
+        *error = RZBluetoothErrorForState(state);
+    }
+    return bluetoothReady;
 }
 
 - (instancetype)initWithUUIDPath:(RZBUUIDPath *)UUIDPath
@@ -62,6 +67,16 @@
         }];
     }
     return self;
+}
+
+- (BOOL)isUserInteraction
+{
+    return self.expiresAt > 0;
+}
+
+- (BOOL)isExpired
+{
+    return (self.expiresAt > 0 && self.expiresAt <= [[NSDate date] timeIntervalSinceReferenceDate]);
 }
 
 - (BOOL)matchesUUIDPath:(RZBUUIDPath *)UUIDPath
@@ -120,6 +135,10 @@
         [description appendFormat:@" dependentCommand=<%@:%p>", self.retryAfter.class, self.retryAfter];
     }
 
+    if (self.expiresAt > 0) {
+        [description appendFormat:@" expiresAt=<%f>", self.expiresAt];
+    }
+
     [description appendString:@">"];
     return description;
 }
@@ -128,21 +147,25 @@
 
 @implementation RZBConnectCommand
 
-- (BOOL)executeCommandWithContext:(RZBCentralManager *)context
+- (BOOL)executeCommandWithContext:(RZBCentralManager *)context error:(inout NSError **)error
 {
+    BOOL isReady = [super executeCommandWithContext:context error:error];
     CBPeripheral *peripheral = [context peripheralForUUID:self.peripheralUUID];
     NSAssert(peripheral.state != CBPeripheralStateConnected, @"Should not execute connect on connected peripheral");
 
-    [context.centralManager connectPeripheral:peripheral options:self.connectOptions];
-    return YES;
+    if (isReady) {
+        [context.centralManager connectPeripheral:peripheral options:self.connectOptions];
+    }
+    return isReady;
 }
 
 @end
 
 @implementation RZBCancelConnectionCommand
 
-- (BOOL)executeCommandWithContext:(RZBCentralManager *)context
+- (BOOL)executeCommandWithContext:(RZBCentralManager *)context error:(inout NSError **)error
 {
+    [super executeCommandWithContext:context error:error];
     CBPeripheral *peripheral = [context peripheralForUUID:self.peripheralUUID];
 
     if (peripheral.state == CBPeripheralStateConnected ||
@@ -159,12 +182,16 @@
 
 @implementation RZBReadRSSICommand
 
-- (BOOL)executeCommandWithContext:(RZBCentralManager *)context
+- (BOOL)executeCommandWithContext:(RZBCentralManager *)context error:(inout NSError **)error
 {
-    CBPeripheral *peripheral = [context connectedPeripheralForUUID:self.peripheralUUID
-                                                triggeredByCommand:self];
-    [peripheral readRSSI];
-    return peripheral != nil;
+    BOOL isReady = [super executeCommandWithContext:context error:error];
+    if (isReady) {
+        CBPeripheral *peripheral = [context connectedPeripheralForUUID:self.peripheralUUID
+                                                    triggeredByCommand:self];
+        [peripheral readRSSI];
+        isReady = (peripheral != nil);
+    }
+    return isReady;
 }
 
 @end
@@ -186,12 +213,16 @@
     }
 }
 
-- (BOOL)executeCommandWithContext:(RZBCentralManager *)context
+- (BOOL)executeCommandWithContext:(RZBCentralManager *)context error:(inout NSError **)error
 {
-    CBPeripheral *peripheral = [context connectedPeripheralForUUID:self.peripheralUUID
-                                                triggeredByCommand:self];
-    [peripheral discoverServices:self.serviceUUIDs];
-    return peripheral != nil;
+    BOOL isReady = [super executeCommandWithContext:context error:error];
+    if (isReady) {
+        CBPeripheral *peripheral = [context connectedPeripheralForUUID:self.peripheralUUID
+                                                    triggeredByCommand:self];
+        [peripheral discoverServices:self.serviceUUIDs];
+        isReady = (peripheral != nil);
+    }
+    return isReady;
 }
 
 - (NSArray *)undiscoveredUUIDsInPeripheral:(CBPeripheral *)peripheral
@@ -233,19 +264,23 @@
     }
 }
 
-- (BOOL)executeCommandWithContext:(RZBCentralManager *)context
+- (BOOL)executeCommandWithContext:(RZBCentralManager *)context error:(inout NSError **)error
 {
-    CBPeripheral *peripheral = [context connectedPeripheralForUUID:self.peripheralUUID
-                                                triggeredByCommand:self];
-    
-    CBService *service = [context serviceForUUID:self.serviceUUID
-                                    onPeripheral:peripheral
-                              triggeredByCommand:self];
-    if (service) {
-        [peripheral discoverCharacteristics:self.characteristicUUIDs
-                                 forService:service];
+    BOOL isReady = [super executeCommandWithContext:context error:error];
+    if (isReady) {
+        CBPeripheral *peripheral = [context connectedPeripheralForUUID:self.peripheralUUID
+                                                    triggeredByCommand:self];
+
+        CBService *service = [context serviceForUUID:self.serviceUUID
+                                        onPeripheral:peripheral
+                                  triggeredByCommand:self];
+        if (service) {
+            [peripheral discoverCharacteristics:self.characteristicUUIDs
+                                     forService:service];
+        }
+        isReady = (service != nil);
     }
-    return service != nil;
+    return isReady;
 }
 
 - (NSArray *)undiscoveredUUIDsInService:(CBService *)service
@@ -272,44 +307,52 @@
 
 @implementation RZBReadCharacteristicCommand
 
-- (BOOL)executeCommandWithContext:(RZBCentralManager *)context
+- (BOOL)executeCommandWithContext:(RZBCentralManager *)context error:(inout NSError **)error
 {
-    CBPeripheral *peripheral = [context connectedPeripheralForUUID:self.peripheralUUID
-                                                triggeredByCommand:self];
+    BOOL isReady = [super executeCommandWithContext:context error:error];
+    if (isReady) {
+        CBPeripheral *peripheral = [context connectedPeripheralForUUID:self.peripheralUUID
+                                                    triggeredByCommand:self];
 
-    CBService *service = [context serviceForUUID:self.serviceUUID
-                                    onPeripheral:peripheral
-                              triggeredByCommand:self];
+        CBService *service = [context serviceForUUID:self.serviceUUID
+                                        onPeripheral:peripheral
+                                  triggeredByCommand:self];
 
-    CBCharacteristic *characteristic = [context characteristicForUUID:self.characteristicUUID
-                                                            onService:service
-                                                   triggeredByCommand:self];
-    if (characteristic) {
-        [peripheral readValueForCharacteristic:characteristic];
+        CBCharacteristic *characteristic = [context characteristicForUUID:self.characteristicUUID
+                                                                onService:service
+                                                       triggeredByCommand:self];
+        if (characteristic) {
+            [peripheral readValueForCharacteristic:characteristic];
+        }
+        isReady = (characteristic != nil);
     }
-    return characteristic != nil;
+    return isReady;
 }
 
 @end
 
 @implementation RZBNotifyCharacteristicCommand
 
-- (BOOL)executeCommandWithContext:(RZBCentralManager *)context
+- (BOOL)executeCommandWithContext:(RZBCentralManager *)context error:(inout NSError **)error
 {
-    CBPeripheral *peripheral = [context connectedPeripheralForUUID:self.peripheralUUID
-                                                triggeredByCommand:self];
+    BOOL isReady = [super executeCommandWithContext:context error:error];
+    if (isReady) {
+        CBPeripheral *peripheral = [context connectedPeripheralForUUID:self.peripheralUUID
+                                                    triggeredByCommand:self];
 
-    CBService *service = [context serviceForUUID:self.serviceUUID
-                                    onPeripheral:peripheral
-                              triggeredByCommand:self];
+        CBService *service = [context serviceForUUID:self.serviceUUID
+                                        onPeripheral:peripheral
+                                  triggeredByCommand:self];
 
-    CBCharacteristic *characteristic = [context characteristicForUUID:self.characteristicUUID
-                                                            onService:service
-                                                   triggeredByCommand:self];
-    if (characteristic) {
-        [peripheral setNotifyValue:self.notify forCharacteristic:characteristic];
+        CBCharacteristic *characteristic = [context characteristicForUUID:self.characteristicUUID
+                                                                onService:service
+                                                       triggeredByCommand:self];
+        if (characteristic) {
+            [peripheral setNotifyValue:self.notify forCharacteristic:characteristic];
+        }
+        isReady = (characteristic != nil);
     }
-    return characteristic != nil;
+    return isReady;
 }
 
 @end
@@ -321,27 +364,28 @@
     return CBCharacteristicWriteWithoutResponse;
 }
 
-- (BOOL)executeCommandWithContext:(RZBCentralManager *)context
+- (BOOL)executeCommandWithContext:(RZBCentralManager *)context error:(inout NSError **)error
 {
-    CBPeripheral *peripheral = [context connectedPeripheralForUUID:self.peripheralUUID
-                                                triggeredByCommand:self];
+    BOOL isReady = [super executeCommandWithContext:context error:error];
+    if (isReady) {
+        CBPeripheral *peripheral = [context connectedPeripheralForUUID:self.peripheralUUID
+                                                    triggeredByCommand:self];
 
-    CBService *service = [context serviceForUUID:self.serviceUUID
-                                    onPeripheral:peripheral
-                              triggeredByCommand:self];
+        CBService *service = [context serviceForUUID:self.serviceUUID
+                                        onPeripheral:peripheral
+                                  triggeredByCommand:self];
 
-    CBCharacteristic *characteristic = [context characteristicForUUID:self.characteristicUUID
-                                                            onService:service
-                                                   triggeredByCommand:self];
+        CBCharacteristic *characteristic = [context characteristicForUUID:self.characteristicUUID
+                                                                onService:service
+                                                       triggeredByCommand:self];
 
-    if (characteristic) {
-        [peripheral writeValue:self.data forCharacteristic:characteristic type:self.writeType];
-        self.isCompleted = (self.writeType == CBCharacteristicWriteWithoutResponse);
-        return YES;
+        if (characteristic) {
+            [peripheral writeValue:self.data forCharacteristic:characteristic type:self.writeType];
+            self.isCompleted = (self.writeType == CBCharacteristicWriteWithoutResponse);
+        }
+        isReady = (characteristic != nil);
     }
-    else {
-        return NO;
-    }
+    return isReady;
 }
 
 @end
@@ -357,11 +401,14 @@
 
 @implementation RZBScanCommand
 
-- (BOOL)executeCommandWithContext:(RZBCentralManager *)context
+- (BOOL)executeCommandWithContext:(RZBCentralManager *)context error:(inout NSError **)error
 {
-    [context.centralManager scanForPeripheralsWithServices:self.serviceUUIDs
-                                                   options:self.scanOptions];
-    return YES;
+    BOOL isReady = [super executeCommandWithContext:context error:error];
+    if (isReady) {
+        [context.centralManager scanForPeripheralsWithServices:self.serviceUUIDs
+                                                       options:self.scanOptions];
+    }
+    return isReady;
 }
 
 @end

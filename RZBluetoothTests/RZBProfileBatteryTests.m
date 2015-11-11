@@ -13,7 +13,6 @@
 
 @interface RZBProfileBatteryTests : RZBSimulatedTestCase
 
-@property (strong, nonatomic) CBMutableCharacteristic *batteryCharacteristic;
 @end
 
 @implementation RZBProfileBatteryTests
@@ -22,11 +21,6 @@
 {
     [super setUp];
     [self.device addBatteryService];
-}
-
-- (void)tearDown
-{
-    [super tearDown];
 }
 
 - (void)testRead

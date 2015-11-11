@@ -10,6 +10,20 @@
 
 @implementation RZBPTestCommand
 
+- (instancetype)initWithUUIDPath:(RZBUUIDPath *)UUIDPath
+{
+    self = [super initWithUUIDPath:UUIDPath];
+    if (self) {
+        self.shouldExecute = YES;
+    }
+    return self;
+}
+
+- (BOOL)executeCommandWithContext:(id)context error:(inout NSError **)error
+{
+    return self.shouldExecute;
+}
+
 @end
 
 @implementation RZBSTestCommand

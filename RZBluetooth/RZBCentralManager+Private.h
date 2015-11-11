@@ -10,7 +10,7 @@
 #import "RZBCommandDispatch.h"
 
 
-@interface RZBCentralManager () <CBCentralManagerDelegate, CBPeripheralDelegate, RZBCommandDispatchDelegate>
+@interface RZBCentralManager () <CBCentralManagerDelegate, CBPeripheralDelegate>
 
 /**
  * Internal initializer for specifying alternate bluetooth classes.

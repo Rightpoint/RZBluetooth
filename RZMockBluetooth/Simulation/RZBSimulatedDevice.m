@@ -30,6 +30,7 @@
         _writeHandlers = [NSMutableDictionary dictionary];
         _subscribeHandlers = [NSMutableDictionary dictionary];
         _peripheralManager = [[peripheralManagerClass alloc] initWithDelegate:self queue:queue];
+        _values = [NSMutableDictionary dictionary];
     }
     return self;
 }

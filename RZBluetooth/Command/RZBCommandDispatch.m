@@ -9,16 +9,18 @@
 #import "RZBCommandDispatch.h"
 #import "RZBCommand.h"
 #import "RZBUUIDPath.h"
+#import "RZBUserInteraction.h"
+#import "RZBErrors.h"
 
 @implementation RZBCommandDispatch
 
-- (instancetype)initWithQueue:(dispatch_queue_t)queue delegate:(id<RZBCommandDispatchDelegate>)delegate
+- (instancetype)initWithQueue:(dispatch_queue_t)queue context:(id)context
 {
     self = [super init];
     if (self) {
         _queue = queue ? queue : dispatch_get_main_queue();
         _commands = [NSMutableArray array];
-        _delegate = delegate;
+        _context = context;
     }
     return self;
 }
@@ -43,6 +45,15 @@
             [self.commands addObject:command];
         }
     }
+    if ([RZBUserInteraction enabled]) {
+        command.expiresAt = [[NSDate date] timeIntervalSinceReferenceDate] + [RZBUserInteraction timeout];
+        int64_t timeout = ([RZBUserInteraction timeout] * NSEC_PER_SEC);
+        __weak typeof(self) weakSelf = self;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, timeout), self.queue, ^{
+            [weakSelf checkForExpiredCommands];
+        });
+    }
+
     self.dispatchCounter += 1;
     dispatch_async(self.queue, ^{
         [self executeCommand:command];
@@ -115,17 +126,15 @@
 {
     NSParameterAssert(command);
     if (command.isExecuted ||
-        command.retryAfter != nil ||
-        ![self.delegate commandDispatch:self shouldExecuteCommand:command]) {
+        command.retryAfter != nil) {
         return;
     }
-    id context = [self.delegate commandDispatch:self contextForCommand:command];
-
-    BOOL executed = [command executeCommandWithContext:context];
-    if (executed) {
-        command.isExecuted = YES;
+    NSError *error = nil;
+    command.isExecuted = [command executeCommandWithContext:self.context error:&error];
+    if (error) {
+        command.isCompleted = YES;
     }
-    else {
+    if (!command.isExecuted) {
         // The command created a dependent command, make sure it is dispatched
         if (command.retryAfter) {
             [self dispatchCommand:command.retryAfter];
@@ -133,7 +142,7 @@
     }
     // Prune out the commands that execute and complete. (write w/o reply, disconnect while disconnected)
     if (command.isCompleted) {
-        [self completeCommand:command withObject:nil error:nil];
+        [self completeCommand:command withObject:nil error:error];
     }
 }
 
@@ -160,6 +169,25 @@
     @synchronized(self.commands) {
         [self.commands removeObject:command];
     }
+}
+
+- (void)checkForExpiredCommands
+{
+    for (RZBCommand *command in [self synchronizedCommandsCopy]) {
+        if (command.isExpired) {
+            [self expireCommand:command];
+        }
+    }
+}
+
+- (void)expireCommand:(RZBCommand *)command
+{
+    NSParameterAssert(command.isExpired);
+    NSError *expirationError = [NSError errorWithDomain:RZBluetoothErrorDomain
+                                                   code:RZBluetoothTimeoutError
+                                               userInfo:nil];
+
+    [self completeCommand:command withObject:nil error:expirationError];
 }
 
 @end

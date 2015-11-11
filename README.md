@@ -23,6 +23,8 @@ self.centralManager = [[RZBCentralManager alloc] init];
 }];
 ```
 
+This block will wait for bluetooth to power on and scan for a new peripheral supporting the heart rate service. When one is found, the app will connect to the peripheral, discover the heart rate service and observe the characteristic. When the characteristic is notified, the `NSData*` object is serialized into a more developer friendly object. All of these details are nicely encapsulated for you, and the pattern of CBPeripheral categories should be easily extendable to your devices domain space.
+
 # Install
 RZBluetooth is available through CocoaPods. To install it, add the following line to your Podfile:
 
@@ -33,7 +35,7 @@ pod 'RZBluetooth', :git => "https://github.com/Raizlabs/RZBluetooth"
 # Usage
 There are a few patterns of behavior that most Bluetooth devices conform to:
 
-1. Discover peripherals that the application can interact with.
+1. Scanning for peripherals that the application can interact with.
 2. Availability Interactions with a known peripheral
 3. User interaction with a known peripheral.
 
@@ -47,11 +49,11 @@ Think through the UX of your application:
 3. If there are multiple devices, how does the user ensure the proper device is selected?
 4. What type of security is used? Initiate the SSN pairing process by reading or writing a secured property before completing selection.
 
-Once a device has been selected, the peripheral UUID can be persisted between application starts. Also, it's important to note that the UUID is unique to the iOS device and should not be shared between computers.
+Once a device has been selected, the peripheral UUID can be persisted between application starts. Also, it's important to note that the peripheral UUID is unique to the iOS device and should not be shared between computers.
 
 
 ## Availability Interactions
-Availability Interactions are a set of actions that should be performed every time the device becomes available. Device Sync is usually built on top of this. All transport layer errors should be ignored, and most other errors would be fatal. RZBluetooth provides a helper for this functionality:
+Availability Interactions are a set of actions that should be performed every time the device becomes available. Device Sync is usually built on top of this. All transport layer errors should be ignored, and most other errors would be considered fatal. RZBluetooth provides a helper for this functionality:
 
 ```objc
 [self.centralManager maintainConnectionToPeripheralUUID:peripheralUUID 
@@ -60,11 +62,19 @@ Availability Interactions are a set of actions that should be performed every ti
 }];
 ```
 
+All action performed here will occur every time the device becomes connectable. This usage pattern is extremely important for low power devices that can not maintain a constant connection.
+
 ## User Interactions
-Core Bluetooth and RZBluetooth actions do not time out. When performing actions initiated by the user, make sure that you provide some timeout mechanism so the user knows there's an issue.
+Core Bluetooth and RZBluetooth actions do not time out by default. User initiated actions however do need to timeout so the UI can inform the user that there's an issue. Also, if there's a terminal bluetooth state (powered off, unsupported, etc) that should also create an error object. This behavior can be easily enabled via the `RZBUserInteraction` object:
 
 ```objc
-// Timeouts will be built into RZBluetooth soon!
+[RZBUserInteraction setTimeout:5.0];
+[RZBUserInteraction perform:^{
+    [self.peripheral rzb_fetchBatteryLevel:^(NSUInteger level, NSError *error) {
+        // The error object could have status code RZBluetoothTimeoutError, or RZBluetooth[Unsupported|Unauthorized|PoweredOff]
+    }];
+}];
+
 ```
 
 # Features

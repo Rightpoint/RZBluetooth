@@ -16,7 +16,8 @@ typedef NS_ENUM(NSUInteger, RZBluetoothError) {
     RZBluetoothPoweredOff = CBCentralManagerStatePoweredOff,
     RZBluetoothDiscoverServiceError,
     RZBluetoothDiscoverCharacteristicError,
-
+    RZBluetoothTimeoutError,
 };
 
 FOUNDATION_EXPORT NSString *const RZBluetoothUndiscoveredUUIDsKey;
+FOUNDATION_EXPORT NSError *RZBluetoothErrorForState(CBCentralManagerState state);

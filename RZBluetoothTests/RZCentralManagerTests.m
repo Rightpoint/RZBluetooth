@@ -187,24 +187,33 @@ static NSString *const RZBTestString = @"StringValue";
     XCTAssertEqualObjects(values, updateValues);
 }
 
-- (void)testCentralStateIssueBlock
+- (void)testCentralStateErrorGeneration
 {
-    NSMutableArray *values = [NSMutableArray array];
     NSArray *triggeringValues = @[@(CBCentralManagerStateUnsupported), @(CBCentralManagerStateUnauthorized), @(CBCentralManagerStatePoweredOff)];
     NSArray *nonTriggeringValues = @[@(CBCentralManagerStateUnknown), @(CBCentralManagerStatePoweredOn), @(CBCentralManagerStateResetting)];
-    self.centralManager.centralStateErrorHandler = ^(NSError *error) {
-        [values addObject:@(error.code)];
-    };
-
     for (NSNumber *triggeringValue in triggeringValues) {
-        [self.mockCentralManager fakeStateChange:[triggeringValue unsignedIntegerValue]];
+        XCTAssertNotNil(RZBluetoothErrorForState([triggeringValue unsignedIntegerValue]));
     }
     for (NSNumber *nonTriggeringValue in nonTriggeringValues) {
-        [self.mockCentralManager fakeStateChange:[nonTriggeringValue unsignedIntegerValue]];
+        XCTAssertNil(RZBluetoothErrorForState([nonTriggeringValue unsignedIntegerValue]));
+    }
+}
+
+- (void)testCentralStateBlock
+{
+    NSMutableArray *handledStates = [NSMutableArray array];
+    self.centralManager.centralStateHandler = ^(CBCentralManagerState state) {
+        [handledStates addObject:@(state)];
+    };
+
+    NSArray *states = @[@(CBCentralManagerStateUnsupported), @(CBCentralManagerStateUnauthorized), @(CBCentralManagerStatePoweredOff), @(CBCentralManagerStateUnknown), @(CBCentralManagerStatePoweredOn), @(CBCentralManagerStateResetting)];
+
+    for (NSNumber *state in states) {
+        [self.mockCentralManager fakeStateChange:[state unsignedIntegerValue]];
     }
     [self waitForQueueFlush];
 
-    XCTAssertEqualObjects(values, triggeringValues);
+    XCTAssertEqualObjects(handledStates, states);
 }
 
 - (void)testScan

@@ -13,41 +13,17 @@
 #import "XCTestCase+Helpers.h"
 #import "NSRunLoop+RZBWaitFor.h"
 
-@interface RZBCommandDispatchTests : XCTestCase <RZBCommandDispatchDelegate>
+@interface RZBCommandDispatchTests : XCTestCase
 
 @property (strong, nonatomic) RZBCommandDispatch *dispatch;
-@property (assign, nonatomic) BOOL shouldExecute;
 
 @end
 
 @implementation RZBCommandDispatchTests
 
-- (BOOL)commandDispatch:(RZBCommandDispatch *)dispatch shouldExecuteCommand:(RZBCommand *)command
-{
-    return self.shouldExecute;
-}
-
-- (id)commandDispatch:(RZBCommandDispatch *)dispatch contextForCommand:(RZBCommand *)command
-{
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    dispatch_queue_t current = dispatch_get_current_queue();
-#pragma clang diagnostic pop
-
-
-    XCTAssertEqual(current, dispatch.queue);
-    return nil;
-}
-
-- (void)setUp
-{
-    [super setUp];
-    self.shouldExecute = YES;
-}
-
 - (void)testCommandLookup
 {
-    self.dispatch = [[RZBCommandDispatch alloc] initWithQueue:nil delegate:self];
+    self.dispatch = [[RZBCommandDispatch alloc] initWithQueue:nil context:self];
     RZBCTestCommand *cCmd = [[RZBCTestCommand alloc] initWithUUIDPath:self.class.cUUIDPath];
     [self.dispatch dispatchCommand:cCmd];
     NSArray *c = nil;
@@ -73,21 +49,21 @@
     XCTAssertTrue(c.count == 1);
 
     // Check non-matching class
-    c = [self.dispatch commandsOfClass:[RZBPTestCommand class] matchingUUIDPath:self.class.cUUIDPath isExecuted:YES];
+    c = [self.dispatch commandsOfClass:[RZBSTestCommand class] matchingUUIDPath:self.class.cUUIDPath isExecuted:YES];
     XCTAssertTrue(c.count == 0);
 }
 
 - (void)testCommandDispatchExecutionCancelation
 {
-    self.shouldExecute = NO;
-    self.dispatch = [[RZBCommandDispatch alloc] initWithQueue:nil delegate:self];
+    self.dispatch = [[RZBCommandDispatch alloc] initWithQueue:nil context:self];
     RZBCTestCommand *cCmd = [[RZBCTestCommand alloc] initWithUUIDPath:self.class.cUUIDPath];
+    cCmd.shouldExecute = NO;
     [self.dispatch dispatchCommand:cCmd];
     [self waitForQueueFlush];
     XCTAssertTrue(self.dispatch.commands.count == 1);
     XCTAssertTrue(cCmd.isExecuted == NO);
 
-    self.shouldExecute = YES;
+    cCmd.shouldExecute = YES;
     [self.dispatch dispatchPendingCommands];
     [self waitForQueueFlush];
     XCTAssertTrue(self.dispatch.commands.count == 1);
@@ -96,7 +72,7 @@
 
 - (void)testDependentCommands
 {
-    self.dispatch = [[RZBCommandDispatch alloc] initWithQueue:nil delegate:self];
+    self.dispatch = [[RZBCommandDispatch alloc] initWithQueue:nil context:self];
     RZBCTestCommand *cmd1 = [[RZBCTestCommand alloc] initWithUUIDPath:self.class.cUUIDPath];
     RZBCTestCommand *cmd2 = [[RZBCTestCommand alloc] initWithUUIDPath:self.class.cUUIDPath];
     RZBCTestCommand *cmd3 = [[RZBCTestCommand alloc] initWithUUIDPath:self.class.cUUIDPath];
@@ -129,7 +105,7 @@
 - (void)testDependentCommandErrors
 {
     NSMutableArray *errors = [NSMutableArray array];
-    self.dispatch = [[RZBCommandDispatch alloc] initWithQueue:nil delegate:self];
+    self.dispatch = [[RZBCommandDispatch alloc] initWithQueue:nil context:self];
     RZBCTestCommand *cmd1 = [[RZBCTestCommand alloc] initWithUUIDPath:self.class.cUUIDPath];
     RZBCTestCommand *cmd2 = [[RZBCTestCommand alloc] initWithUUIDPath:self.class.cUUIDPath];
     RZBCTestCommand *cmd3 = [[RZBCTestCommand alloc] initWithUUIDPath:self.class.cUUIDPath];
@@ -160,7 +136,7 @@
 - (void)testThreadSafety
 {
     dispatch_queue_t q = dispatch_queue_create("com.rzbluetooth.test", DISPATCH_QUEUE_SERIAL);
-    self.dispatch = [[RZBCommandDispatch alloc] initWithQueue:q delegate:self];
+    self.dispatch = [[RZBCommandDispatch alloc] initWithQueue:q context:self];
     dispatch_queue_t b = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_apply(ABUSE_COUNT, b, ^(size_t i) {
         RZBCTestCommand *cmd = [[RZBCTestCommand alloc] initWithUUIDPath:self.class.cUUIDPath];
