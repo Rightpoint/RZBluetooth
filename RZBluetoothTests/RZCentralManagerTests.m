@@ -226,7 +226,7 @@ static NSString *const RZBTestString = @"StringValue";
          [values addObject:peripheral.identifier];
          XCTAssertTrue(advInfo.count == 0);
          XCTAssertTrue(RSSI.integerValue == 55);
-     }];
+     } completion:nil];
     [self waitForQueueFlush];
 
     RZBAssertCommandCount(1);

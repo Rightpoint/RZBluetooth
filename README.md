@@ -71,11 +71,22 @@ Core Bluetooth and RZBluetooth actions do not time out by default. User initiate
 [RZBUserInteraction setTimeout:5.0];
 [RZBUserInteraction perform:^{
     [self.peripheral rzb_fetchBatteryLevel:^(NSUInteger level, NSError *error) {
-        // The error object could have status code RZBluetoothTimeoutError, or RZBluetooth[Unsupported|Unauthorized|PoweredOff]
-    }];
+        // The error object could have status code RZBluetoothTimeoutError
 }];
-
+}];
 ```
+
+# Error Handling
+All Core Bluetooth errors passed through to the client, however RZBluetooth adds a handful of errors to help clarify some state corner cases.
+
+## CBCentralManagerState
+If an action is performed and the central is in a "terminal" state, an error with an error code of `RZBluetooth[Unsupported|Unauthorized|PoweredOff]` will be generated. If the state is Unknown or Resetting, RZBluetooth will wait for the state to become powered on before sending the commands, or will fail the command with an appropriate error.
+
+## Un-Discoverable Services and Characteristics
+If an action is performed on a peripheral and the service or characteristic does not exist, an error object will be generated to clearly state the failure scenario. Both `RZBluetoothDiscoverServiceError` and `RZBluetoothDiscoverCharacteristicError` will have a userInfo dictionary with the key `RZBluetoothUndiscoveredUUIDsKey` populated with the undiscovered UUIDs.
+
+## User Initiated Timeout
+If an action is performed with `RZBUserInteraction` enabled, and the action takes longer than the timeout, the command will fail, and the completion block will be triggered with an error object. The error code will be `RZBluetoothTimeoutError`.
 
 # Features
 

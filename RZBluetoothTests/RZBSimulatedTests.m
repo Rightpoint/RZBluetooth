@@ -23,7 +23,8 @@
                                  onDiscoveredPeripheral:^(CBPeripheral *peripheral, NSDictionary *advInfo, NSNumber *RSSI) {
                                      [discovered fulfill];
                                      XCTAssert([peripheral.identifier isEqual:self.device.identifier]);
-                                 }];
+                                 }
+                                             completion:nil];
     [self.device.peripheralManager startAdvertising:@{}];
 
     [self waitForExpectationsWithTimeout:5.0 handler:nil];
