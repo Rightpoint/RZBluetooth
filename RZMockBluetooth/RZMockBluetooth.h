@@ -13,5 +13,6 @@
 #import "RZBMockPeripheralManager.h"
 #import "RZBSimulatedCentral.h"
 #import "RZBSimulatedConnection.h"
+#import "RZBSimulatedCallback.h"
 #import "NSError+RZBMock.h"
 #import "RZBTestableCentralManager.h"

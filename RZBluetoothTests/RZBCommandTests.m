@@ -66,7 +66,7 @@
     NSError *completionError = [NSError errorWithDomain:NSCocoaErrorDomain code:22 userInfo:nil];
     __block NSUInteger triggerCount = 0;
     RZBPTestCommand *pCommand = [[RZBPTestCommand alloc] initWithUUIDPath:self.class.pUUIDPath];
-    XCTAssertThrows([pCommand addCallbackBlock:nil]);
+    XCTAssertNoThrow([pCommand addCallbackBlock:nil]);
 
     [pCommand addCallbackBlock:^(id object, NSError *error) {
         XCTAssertTrue(object == completionObject);

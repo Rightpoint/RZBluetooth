@@ -79,6 +79,7 @@
  * should be initiated inside of the onConnection block.
  *
  * @param peripheralUUID The UUID of the peripheral to connect to
+ * @param onConnection The block to trigger when the connection occurs.
  */
 - (void)maintainConnectionToPeripheralUUID:(NSUUID *)peripheralUUID
                               onConnection:(RZBPeripheralBlock)onConnection;

@@ -8,7 +8,8 @@
 
 #import "RZBCentralManager.h"
 #import "RZBCommandDispatch.h"
-
+#import "RZBPeripheralState.h"
+#import "RZBCentralManagerState.h"
 
 @interface RZBCentralManager () <CBCentralManagerDelegate, CBPeripheralDelegate>
 
@@ -19,7 +20,7 @@
 
 @property (strong, nonatomic, readonly) RZBCommandDispatch *dispatch;
 @property (strong, nonatomic, readonly) CBCentralManager *centralManager;
-@property (strong, nonatomic, readonly) NSMutableDictionary *peripheralsByIdentifier;
+@property (strong, nonatomic, readonly) RZBCentralManagerState *managerState;
 
 @property (nonatomic, copy) RZBScanBlock activeScanBlock;
 

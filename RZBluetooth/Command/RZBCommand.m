@@ -7,7 +7,6 @@
 //
 
 #import "RZBCommand.h"
-#import "CBCharacteristic+RZBExtension.h"
 #import "RZBUUIDPath.h"
 #import "RZBErrors.h"
 #import "RZBCentralManager+Private.h"
@@ -100,11 +99,10 @@
 
 - (void)addCallbackBlock:(RZBCallbackBlock)callbackBlock
 {
-    NSParameterAssert(callbackBlock);
-    if (self.callbackBlock == nil) {
+    if (self.callbackBlock == nil && callbackBlock) {
         self.callbackBlock = callbackBlock;
     }
-    else {
+    else if (self.callbackBlock) {
         RZBCallbackBlock currentBlock = self.callbackBlock;
         self.callbackBlock = ^(id obj, NSError *error) {
             currentBlock(obj, error);

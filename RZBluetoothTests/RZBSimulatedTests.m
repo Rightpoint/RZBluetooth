@@ -107,5 +107,38 @@
     [self waitForExpectationsWithTimeout:5.0 handler:nil];
 }
 
+- (void)testMaintainConnection
+{
+    __block NSUInteger connectCount = 0;
+    CBPeripheral *p = [self.centralManager peripheralForUUID:self.device.identifier];
+    XCTAssert(p.state == CBPeripheralStateDisconnected);
+    self.connection.connectable = NO;
+
+    [self.centralManager maintainConnectionToPeripheralUUID:p.identifier onConnection:^(CBPeripheral *peripheral, NSError *error) {
+
+        connectCount++;
+    }];
+#define TEST_COUNT 10
+    for (NSUInteger i = 0; i < TEST_COUNT; i++) {
+        [self waitForQueueFlush];
+        XCTAssert(p.state == CBPeripheralStateConnecting);
+
+        self.connection.connectable = YES;
+        [self waitForQueueFlush];
+        XCTAssert(p.state == CBPeripheralStateConnected);
+        XCTAssert(connectCount == i + 1);
+
+        self.connection.connectable = NO;
+        // Disable the connection maintenance on the last iteration.
+        if (i == TEST_COUNT - 1) {
+            [self.centralManager cancelConnectionFromPeripheralUUID:p.identifier completion:nil];
+        }
+        else {
+            [self.mockCentralManager fakeDisconnectPeripheralWithUUID:p.identifier error:nil];
+        }
+    }
+    [self waitForQueueFlush];
+    XCTAssert(p.state == CBPeripheralStateDisconnected);
+}
 
 @end

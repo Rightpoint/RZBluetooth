@@ -7,11 +7,12 @@
 //
 
 #import "CBPeripheral+Private.h"
-#import "CBCharacteristic+RZBExtension.h"
 #import "CBService+RZBExtension.h"
 #import "RZBCentralManager+Private.h"
 #import "RZBUUIDPath.h"
 #import "RZBCommand.h"
+
+@import ObjectiveC.runtime;
 
 @implementation CBPeripheral (RZBExtension)
 
@@ -25,6 +26,11 @@
     RZBCentralManager *centralManager = (id)self.delegate;
     NSAssert([centralManager isKindOfClass:[RZBCentralManager class]], @"CBPeripheral is not properly configured.  The delegate property must be configured to the RZCentralManager that owns it.");
     return centralManager;
+}
+
+- (RZBPeripheralState *)rzb_peripheralState
+{
+    return [self.rzb_centralManager.managerState stateForIdentifier:self.identifier];
 }
 
 - (dispatch_queue_t)rzb_queue
@@ -62,7 +68,7 @@
     RZBNotifyCharacteristicCommand *cmd = [[RZBNotifyCharacteristicCommand alloc] initWithUUIDPath:path];
     cmd.notify = YES;
     [cmd addCallbackBlock:^(CBCharacteristic *characteristic, NSError *error) {
-        characteristic.rzb_notificationBlock = onChange;
+        [self.rzb_peripheralState setNotifyBlock:onChange forCharacteristicUUID:characteristic.UUID];
         if (characteristic.value && error == nil) {
             onChange(characteristic, error);
         }
@@ -81,7 +87,7 @@
     // If anything here is nil, there is no completion block, which is fine.
     CBService *service = [self.rzb_centralManager serviceForUUID:serviceUUID onPeripheral:self];
     CBCharacteristic *characteristic = [service rzb_characteristicForUUID:characteristicUUID];
-    characteristic.rzb_notificationBlock = nil;
+    [self.rzb_peripheralState setNotifyBlock:nil forCharacteristicUUID:characteristic.UUID];
 
     RZBUUIDPath *path = RZBUUIDP(self.identifier, serviceUUID, characteristicUUID);
     RZBNotifyCharacteristicCommand *cmd = [[RZBNotifyCharacteristicCommand alloc] initWithUUIDPath:path];
