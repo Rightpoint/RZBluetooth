@@ -56,13 +56,15 @@
 /**
  * Scan for peripherals with the specified UUIDs and options. Trigger the scanBlock
  * for every discovered peripheral. Multiple calls to this method will replace the previous
- * calls. The completion block will be triggered if there are any bluetooth state errors,
- * or for possible timeout errors.
+ * calls. 
+ *
+ * The onError: block will be triggered if there are any CBCentralManagerState errors and
+ * for user interaction timeout errors if configured.
  */
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs
                                options:(NSDictionary *)options
                 onDiscoveredPeripheral:(RZBScanBlock)scanBlock
-                            completion:(RZBErrorBlock)completion;
+                               onError:(RZBErrorBlock)onError;
 
 /**
  * Stop the peripheral scan.

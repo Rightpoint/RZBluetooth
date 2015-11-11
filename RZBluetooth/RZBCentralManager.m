@@ -49,7 +49,7 @@
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs
                                options:(NSDictionary *)options
                 onDiscoveredPeripheral:(RZBScanBlock)scanBlock
-                            completion:(RZBErrorBlock)completion
+                               onError:(RZBErrorBlock)onError
 {
     NSParameterAssert(scanBlock);
     self.activeScanBlock = scanBlock;
@@ -59,8 +59,8 @@
                                               createNew:YES];
     cmd.serviceUUIDs = serviceUUIDs;
     [cmd addCallbackBlock:^(id object, NSError *error) {
-        if (completion) {
-            completion(error);
+        if (onError && error) {
+            onError(error);
         }
     }];
 

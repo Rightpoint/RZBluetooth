@@ -24,7 +24,7 @@
                                      [discovered fulfill];
                                      XCTAssert([peripheral.identifier isEqual:self.device.identifier]);
                                  }
-                                             completion:nil];
+                                             onError:nil];
     [self.device.peripheralManager startAdvertising:@{}];
 
     [self waitForExpectationsWithTimeout:5.0 handler:nil];

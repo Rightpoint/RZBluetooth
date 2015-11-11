@@ -88,6 +88,8 @@
             [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]
                                   withRowAnimation:UITableViewRowAnimationAutomatic];
         }
+    } onError:^(NSError *error) {
+        NSLog(@"Error scanning: %@", error);
     }];
 }
 
