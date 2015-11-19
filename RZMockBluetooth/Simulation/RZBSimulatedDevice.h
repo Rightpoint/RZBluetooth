@@ -15,7 +15,10 @@ typedef void (^RZBSimulatedDeviceSubscribe)(BOOL isNotifying);
 
 @interface RZBSimulatedDevice : NSObject <CBPeripheralManagerDelegate>
 
-- (instancetype)initWithQueue:(dispatch_queue_t)queue options:(NSDictionary *)options peripheralManagerClass:(Class)peripheralManagerClass;
+- (instancetype)initWithIdentifier:(NSUUID *)identifier
+                             queue:(dispatch_queue_t)queue
+                           options:(NSDictionary *)options
+            peripheralManagerClass:(Class)peripheralManagerClass;
 
 @property (strong, nonatomic, readonly) NSUUID *identifier;
 @property (strong, nonatomic, readonly) CBPeripheralManager *peripheralManager;

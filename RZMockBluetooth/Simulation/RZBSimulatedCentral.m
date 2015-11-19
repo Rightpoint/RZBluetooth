@@ -66,6 +66,7 @@
 
 - (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager scanForPeripheralsWithServices:(NSArray *)services options:(NSDictionary *)options
 {
+    NSParameterAssert(mockCentralManager);
     self.servicesToScan = services;
     for (__weak RZBSimulatedConnection *connection in self.connections) {
         if ([connection isDiscoverableWithServices:self.servicesToScan]) {
@@ -81,6 +82,7 @@
 
 - (void)mockCentralManagerStopScan:(RZBMockCentralManager *)mockCentralManager
 {
+    NSParameterAssert(mockCentralManager);
     self.servicesToScan = nil;
     for (__weak RZBSimulatedConnection *connection in self.connections) {
         [connection.scanCallback cancel];
@@ -89,7 +91,10 @@
 
 - (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager connectPeripheral:(RZBMockPeripheral *)peripheral options:(NSDictionary *)options
 {
+    NSParameterAssert(mockCentralManager);
+    NSParameterAssert(peripheral);
     RZBSimulatedConnection *connection = [self connectionForIdentifier:peripheral.identifier];
+    NSAssert(connection != nil, @"Attempt to connect to an unknown peripheral %@", peripheral.identifier);
     peripheral.mockDelegate = connection;
     [connection.connectCallback dispatch:^(NSError *injectedError) {
         [mockCentralManager fakeConnectPeripheralWithUUID:peripheral.identifier error:injectedError];
@@ -98,7 +103,11 @@
 
 - (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager cancelPeripheralConnection:(RZBMockPeripheral *)peripheral
 {
+    NSParameterAssert(mockCentralManager);
+    NSParameterAssert(peripheral);
     RZBSimulatedConnection *connection = [self connectionForIdentifier:peripheral.identifier];
+    NSAssert(connection != nil, @"Attempt to disconnect to an unknown peripheral %@", peripheral.identifier);
+
     peripheral.mockDelegate = nil;
 
     for (RZBSimulatedCallback *callback in connection.connectionDependentCallbacks) {

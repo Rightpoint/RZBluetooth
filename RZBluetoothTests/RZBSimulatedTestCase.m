@@ -43,9 +43,10 @@
     [super setUp];
     self.centralManager = [[RZBTestableCentralManager alloc] init];
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
-    self.device = [[self.class.simulatedDeviceClass alloc] initWithQueue:self.mockCentralManager.queue
-                                                    options:@{}
-                                     peripheralManagerClass:[RZBMockPeripheralManager class]];
+    self.device = [[self.class.simulatedDeviceClass alloc] initWithIdentifier:[NSUUID UUID]
+                                                                        queue:self.mockCentralManager.queue
+                                                                      options:@{}
+                                                       peripheralManagerClass:[RZBMockPeripheralManager class]];
     [self.centralManager.simulatedCentral addSimulatedDeviceWithIdentifier:self.device.identifier
                                                          peripheralManager:(id)self.device.peripheralManager];
     self.connection = [self.centralManager.simulatedCentral connectionForIdentifier:self.device.identifier];

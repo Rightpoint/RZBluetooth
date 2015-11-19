@@ -20,7 +20,10 @@
 
 @implementation RZBSimulatedDevice
 
-- (instancetype)initWithQueue:(dispatch_queue_t)queue options:(NSDictionary *)options peripheralManagerClass:(Class)peripheralManagerClass
+- (instancetype)initWithIdentifier:(NSUUID *)identifier
+                             queue:(dispatch_queue_t)queue
+                           options:(NSDictionary *)options
+            peripheralManagerClass:(Class)peripheralManagerClass
 {
     self = [super init];
     if (self) {
