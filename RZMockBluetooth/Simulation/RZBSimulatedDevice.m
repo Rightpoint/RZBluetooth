@@ -28,7 +28,7 @@
     self = [super init];
     if (self) {
         _queue = queue ?: dispatch_get_main_queue();
-        _identifier = [NSUUID UUID];
+        _identifier = identifier;
         _readHandlers = [NSMutableDictionary dictionary];
         _writeHandlers = [NSMutableDictionary dictionary];
         _subscribeHandlers = [NSMutableDictionary dictionary];
