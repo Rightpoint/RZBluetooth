@@ -62,6 +62,12 @@
 {
     self.connectCallback.paused = !connectable;
     _connectable = connectable;
+    if (connectable == NO) {
+        if (self.peripheral.state == CBPeripheralStateConnected ||
+            self.peripheral.state == CBPeripheralStateConnecting) {
+            [self.central.mockCentralManager fakeDisconnectPeripheralWithUUID:self.identifier error:nil];
+        }
+    }
 }
 
 - (NSArray *)connectionDependentCallbacks
