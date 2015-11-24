@@ -30,6 +30,7 @@
 
 @property (strong, nonatomic, readonly) NSMutableArray *readRequests;
 @property (strong, nonatomic, readonly) NSMutableArray *writeRequests;
+@property (strong, nonatomic, readonly) NSMutableArray *subscribedCharacteristics;
 
 @property (weak, nonatomic, readonly) RZBSimulatedCentral *central;
 @property (strong, nonatomic, readonly) RZBMockPeripheralManager *peripheralManager;
@@ -48,5 +49,7 @@
 @property (strong, nonatomic) RZBSimulatedCallback *readCharacteristicCallback;
 @property (strong, nonatomic) RZBSimulatedCallback *writeCharacteristicCallback;
 @property (strong, nonatomic) RZBSimulatedCallback *notifyCharacteristicCallback;
+
+- (void)disconnect;
 
 @end

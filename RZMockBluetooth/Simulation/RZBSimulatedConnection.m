@@ -33,6 +33,8 @@
         _peripheral = [central.mockCentralManager peripheralForUUID:identifier];
         _readRequests = [NSMutableArray array];
         _writeRequests = [NSMutableArray array];
+        _subscribedCharacteristics = [NSMutableArray array];
+
         self.scanCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
         self.scanCallback.paused = YES;
         self.connectCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
@@ -65,9 +67,25 @@
     if (connectable == NO) {
         if (self.peripheral.state == CBPeripheralStateConnected ||
             self.peripheral.state == CBPeripheralStateConnecting) {
-            [self.central.mockCentralManager fakeDisconnectPeripheralWithUUID:self.identifier error:nil];
+            [self disconnect];
         }
     }
+}
+
+- (void)disconnect
+{
+    for (RZBSimulatedCallback *callback in self.connectionDependentCallbacks) {
+        [callback cancel];
+    }
+    for (CBMutableCharacteristic *characteristic in self.subscribedCharacteristics) {
+        [self.peripheralManager fakeNotifyState:NO central:(id)self.central characteristic:characteristic];
+    }
+    [self.subscribedCharacteristics removeAllObjects];
+    self.peripheral.state = CBPeripheralStateDisconnecting;
+    [self.cancelConncetionCallback dispatch:^(NSError *injectedError) {
+        [self.central.mockCentralManager fakeDisconnectPeripheralWithUUID:self.identifier
+                                                                    error:injectedError];
+    }];
 }
 
 - (NSArray *)connectionDependentCallbacks
@@ -172,6 +190,13 @@
     NSAssert([characteristic isKindOfClass:[CBMutableCharacteristic class]], @"");
 
     [self.notifyCharacteristicCallback dispatch:^(NSError *injectedError) {
+        if (enabled) {
+            [self.subscribedCharacteristics addObject:characteristic];
+        }
+        else {
+            [self.subscribedCharacteristics removeObject:characteristic];
+        }
+
         if (injectedError == nil) {
             [self.peripheralManager fakeNotifyState:enabled central:(id)self.central characteristic:(id)characteristic];
         }

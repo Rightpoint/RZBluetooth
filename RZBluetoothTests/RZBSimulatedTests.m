@@ -128,13 +128,12 @@
         XCTAssert(p.state == CBPeripheralStateConnected);
         XCTAssert(connectCount == i + 1);
 
-        self.connection.connectable = NO;
         // Disable the connection maintenance on the last iteration.
         if (i == TEST_COUNT - 1) {
             [self.centralManager cancelConnectionFromPeripheralUUID:p.identifier completion:nil];
         }
         else {
-            [self.mockCentralManager fakeDisconnectPeripheralWithUUID:p.identifier error:nil];
+            self.connection.connectable = NO;
         }
     }
     [self waitForQueueFlush];

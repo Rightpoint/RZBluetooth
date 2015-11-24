@@ -110,14 +110,7 @@
 
     peripheral.mockDelegate = nil;
 
-    for (RZBSimulatedCallback *callback in connection.connectionDependentCallbacks) {
-        [callback cancel];
-    }
-
-    [connection.cancelConncetionCallback dispatch:^(NSError *injectedError) {
-        [mockCentralManager fakeDisconnectPeripheralWithUUID:peripheral.identifier
-                                                       error:injectedError];
-    }];
+    [connection disconnect];
 }
 
 @end
