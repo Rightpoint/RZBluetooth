@@ -16,6 +16,7 @@
 
 @property (strong, nonatomic) CBPeripheral *peripheral;
 @property (copy, nonatomic) RZBPeripheralBlock onConnection;
+@property (copy, nonatomic) RZBPeripheralBlock onDisconnection;
 @property (assign, nonatomic) BOOL maintainConnection;
 
 - (RZBCharacteristicBlock)notifyBlockForCharacteristicUUID:(CBUUID *)characteristicUUID;

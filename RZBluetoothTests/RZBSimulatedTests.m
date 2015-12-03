@@ -110,14 +110,18 @@
 - (void)testMaintainConnection
 {
     __block NSUInteger connectCount = 0;
+    __block NSUInteger disconnectCount = 0;
     CBPeripheral *p = [self.centralManager peripheralForUUID:self.device.identifier];
     XCTAssert(p.state == CBPeripheralStateDisconnected);
     self.connection.connectable = NO;
 
-    [self.centralManager maintainConnectionToPeripheralUUID:p.identifier onConnection:^(CBPeripheral *peripheral, NSError *error) {
-
+    [self.centralManager setConnectionHandlerForPeripheralUUID:p.identifier handler:^(CBPeripheral *peripheral, NSError *error) {
         connectCount++;
     }];
+    [self.centralManager setDisconnectionHandlerForPeripheralUUID:p.identifier handler:^(CBPeripheral *peripheral, NSError *error) {
+        disconnectCount++;
+    }];
+    [self.centralManager maintainConnectionToPeripheralUUID:p.identifier];
 #define TEST_COUNT 10
     for (NSUInteger i = 0; i < TEST_COUNT; i++) {
         [self waitForQueueFlush];
@@ -131,9 +135,14 @@
         // Disable the connection maintenance on the last iteration.
         if (i == TEST_COUNT - 1) {
             [self.centralManager cancelConnectionFromPeripheralUUID:p.identifier completion:nil];
+            // Cancel will clear out the disconnect block so it should not be triggered.
+            [self waitForQueueFlush];
+            XCTAssert(disconnectCount == i);
         }
         else {
             self.connection.connectable = NO;
+            [self waitForQueueFlush];
+            XCTAssert(disconnectCount == i + 1);
         }
     }
     [self waitForQueueFlush];

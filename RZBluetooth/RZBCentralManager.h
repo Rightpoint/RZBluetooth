@@ -72,17 +72,40 @@
 - (void)stopScan;
 
 /**
- * This will maintain a connection to the peripheral at all times,
- * reconnecting to the peripheral when the connection fails. This is 
+ * This will make the central manager maintain a connection to the peripheral at 
+ * all times, reconnecting to the peripheral when the connection fails. This is
  * one of the most common patterns for connecting to a device with
- * battery limitations. When using this pattern, all device communication
- * should be initiated inside of the onConnection block.
+ * battery limitations. 
+ *
+ * This behavior will be disabled if cancelConnectionFromPeripheralUUID:completion: is called.
  *
  * @param peripheralUUID The UUID of the peripheral to connect to
- * @param onConnection The block to trigger when the connection occurs.
  */
-- (void)maintainConnectionToPeripheralUUID:(NSUUID *)peripheralUUID
-                              onConnection:(RZBPeripheralBlock)onConnection;
+- (void)maintainConnectionToPeripheralUUID:(NSUUID *)peripheralUUID;
+
+/**
+ * Specify a block to invoke when the peripheral with peripheralUUID is connected.
+ *
+ * This block will be cleared if cancelConnectionFromPeripheralUUID:completion: is called.
+ *
+ * @param peripheralUUID The UUID of the peripheral
+ * @param onConnection The block to invoke on connection
+ */
+- (void)setConnectionHandlerForPeripheralUUID:(NSUUID *)peripheralUUID
+                                      handler:(RZBPeripheralBlock)onConnection;
+
+/**
+ * Specify a block to invoke when the peripheral with peripheralUUID is disconnected
+ *
+ * This block will be cleared if cancelConnectionFromPeripheralUUID:completion: is called.
+ *
+ * @param peripheralUUID The UUID of the peripheral
+ * @param onDisconnection The block to invoke on connection
+ */
+- (void)setDisconnectionHandlerForPeripheralUUID:(NSUUID *)peripheralUUID
+                                         handler:(RZBPeripheralBlock)onDisconnection;
+
+
 
 /**
  * Cancel the connection to a peripheral. This will cancel the connection

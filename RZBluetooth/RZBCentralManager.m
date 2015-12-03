@@ -79,14 +79,23 @@
 #pragma mark - Command Generation
 
 - (void)maintainConnectionToPeripheralUUID:(NSUUID *)peripheralUUID
-                              onConnection:(RZBPeripheralBlock)onConnection
 {
     NSParameterAssert(peripheralUUID);
-    NSParameterAssert(onConnection);
     CBPeripheral *peripheral = [self peripheralForUUID:peripheralUUID];
-    [self.managerState stateForIdentifier:peripheralUUID].onConnection = onConnection;
     [self.managerState stateForIdentifier:peripheralUUID].maintainConnection = YES;
     [self triggerAutomaticConnectionForPeripheral:peripheral];
+}
+
+- (void)setConnectionHandlerForPeripheralUUID:(NSUUID *)peripheralUUID
+                                      handler:(RZBPeripheralBlock)onConnection;
+{
+    [self.managerState stateForIdentifier:peripheralUUID].onConnection = onConnection;
+}
+
+- (void)setDisconnectionHandlerForPeripheralUUID:(NSUUID *)peripheralUUID
+                                         handler:(RZBPeripheralBlock)onDisconnection;
+{
+    [self.managerState stateForIdentifier:peripheralUUID].onDisconnection = onDisconnection;
 }
 
 - (void)cancelConnectionFromPeripheralUUID:(NSUUID *)peripheralUUID
@@ -95,6 +104,7 @@
     NSParameterAssert(peripheralUUID);
     CBPeripheral *peripheral = [self peripheralForUUID:peripheralUUID];
     [self.managerState stateForIdentifier:peripheralUUID].onConnection = nil;
+    [self.managerState stateForIdentifier:peripheralUUID].onDisconnection = nil;
     [self.managerState stateForIdentifier:peripheralUUID].maintainConnection = NO;
     if (peripheral.state == CBPeripheralStateDisconnected) {
         dispatch_async(self.dispatch.queue, ^() {
@@ -316,6 +326,11 @@
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
+    RZBPeripheralBlock onDisconnection = [self.managerState stateForIdentifier:peripheral.identifier].onDisconnection;
+    if (onDisconnection) {
+        onDisconnection(peripheral, error);
+    }
+
     // Clear out the strong storage of the peripheral.
     [self.managerState stateForIdentifier:peripheral.identifier].peripheral = nil;
 
@@ -326,7 +341,6 @@
 
     // This delegate method can terminate any outstanding command, and is often the terminal event
     // for a connection. Fail all commands to this peripheral
-
     NSArray *commands = [self.dispatch commandsOfClass:nil
                                       matchingUUIDPath:RZBUUIDP(peripheral.identifier)
                                             isExecuted:YES];

@@ -56,10 +56,10 @@ Once a device has been selected, the peripheral UUID can be persisted between ap
 Availability Interactions are a set of actions that should be performed every time the device becomes available. Device Sync is usually built on top of this. All transport layer errors should be ignored, and most other errors would be considered fatal. RZBluetooth provides a helper for this functionality:
 
 ```objc
-[self.centralManager maintainConnectionToPeripheralUUID:peripheralUUID 
-                                           onConnection:^(CBPeripheral *peripheral, NSError *error) {
+[self.centralManager setConnectionHandlerForPeripheralUUID:p.identifier handler:^(CBPeripheral *peripheral, NSError *error) {
     // Perform actions here
 }];
+[self.centralManager maintainConnectionToPeripheralUUID:p.identifier];
 ```
 
 All action performed here will occur every time the device becomes connectable. This usage pattern is extremely important for low power devices that can not maintain a constant connection.
