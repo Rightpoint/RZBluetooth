@@ -13,6 +13,7 @@
 #import "RZBCommand.h"
 #import "RZBUUIDPath.h"
 #import "RZBErrors.h"
+#import "RZBLog+Private.h"
 
 @implementation RZBCentralManager
 
@@ -267,6 +268,9 @@
 
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
+    RZBLogDelegate(@"%@ - %@", NSStringFromSelector(_cmd), central);
+    RZBLogDelegateValue(@"State=%d", (unsigned int)central.state);
+
     if (self.centralStateHandler) {
         self.centralStateHandler(central.state);
     }
@@ -284,6 +288,9 @@
 
 - (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary *)dict
 {
+    RZBLogDelegate(@"%@ - %@", NSStringFromSelector(_cmd), central);
+    RZBLogDelegateValue(@"Restore State=%@", dict);
+
     NSArray *peripherals = dict[CBCentralManagerRestoredStatePeripheralsKey];
     for (CBPeripheral *peripheral in peripherals) {
         peripheral.delegate = self;
@@ -296,6 +303,10 @@
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
+    RZBLogDelegate(@"%@ - %@ %@", NSStringFromSelector(_cmd), central, RZBLogIdentifier(peripheral));
+    RZBLogDelegateValue(@"advertisementData=%@", advertisementData);
+    RZBLogDelegateValue(@"RSSI=%@", RSSI);
+
     if (self.activeScanBlock) {
         peripheral.delegate = self;
         self.activeScanBlock(peripheral, advertisementData, RSSI);
@@ -304,6 +315,7 @@
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
+    RZBLogDelegate(@"%@ - %@ %@", NSStringFromSelector(_cmd), central, RZBLogIdentifier(peripheral));
     RZBPeripheralBlock onConnection = [self.managerState stateForIdentifier:peripheral.identifier].onConnection;
     if (onConnection) {
         onConnection(peripheral, nil);
@@ -317,6 +329,7 @@
 
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
+    RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), central, RZBLogIdentifier(peripheral), error);
     [self completeFirstCommandOfClass:[RZBConnectCommand class]
                      matchingUUIDPath:RZBUUIDP(peripheral.identifier)
                            withObject:peripheral
@@ -326,6 +339,7 @@
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
+    RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), central, RZBLogIdentifier(peripheral), error);
     RZBPeripheralBlock onDisconnection = [self.managerState stateForIdentifier:peripheral.identifier].onDisconnection;
     if (onDisconnection) {
         onDisconnection(peripheral, error);
@@ -359,6 +373,9 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral didReadRSSI:(NSNumber *)RSSI error:(NSError *)error
 {
+    RZBLogDelegate(@"%@ - %@ %@", NSStringFromSelector(_cmd), RZBLogIdentifier(peripheral), error);
+    RZBLogDelegateValue(@"RSSI=%@", RSSI);
+
     [self completeFirstCommandOfClass:[RZBReadRSSICommand class]
                      matchingUUIDPath:RZBUUIDP(peripheral.identifier)
                            withObject:RSSI
@@ -367,6 +384,9 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
 {
+    RZBLogDelegate(@"%@ - %@ %@", NSStringFromSelector(_cmd), RZBLogIdentifier(peripheral), error);
+    RZBLogDelegateValue(@"Services=%@", RZBLogUUIDArray(peripheral.services));
+
     [self completeFirstCommandOfClass:[RZBDiscoverServiceCommand class]
                      matchingUUIDPath:RZBUUIDP(peripheral.identifier)
                            withObject:peripheral
@@ -375,6 +395,9 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
+    RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), RZBLogIdentifier(peripheral), RZBLogUUID(service), error);
+    RZBLogDelegateValue(@"Characteristics=%@", RZBLogUUIDArray(service.characteristics));
+
     [self completeFirstCommandOfClass:[RZBDiscoverCharacteristicCommand class]
                      matchingUUIDPath:RZBUUIDP(peripheral.identifier, service.UUID)
                            withObject:service
@@ -383,6 +406,9 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
+    RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), RZBLogIdentifier(peripheral), RZBLogUUID(characteristic), error);
+    RZBLogDelegateValue(@"Value=%@", characteristic.value);
+
     RZBUUIDPath *path = RZBUUIDP(peripheral.identifier, characteristic.service.UUID, characteristic.UUID);
     BOOL complete = [self completeFirstCommandOfClass:[RZBReadCharacteristicCommand class]
                                      matchingUUIDPath:path
@@ -397,6 +423,7 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
+    RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), RZBLogIdentifier(peripheral), RZBLogUUID(characteristic), error);
     RZBUUIDPath *path = RZBUUIDP(peripheral.identifier, characteristic.service.UUID, characteristic.UUID);
     [self completeFirstCommandOfClass:[RZBWriteWithReplyCharacteristicCommand class]
                      matchingUUIDPath:path
@@ -406,6 +433,9 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
+    RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), RZBLogIdentifier(peripheral), RZBLogUUID(characteristic), error);
+    RZBLogDelegateValue(@"Notify=%@", characteristic.isNotifying ? @"YES" : @"NO");
+
     RZBUUIDPath *path = RZBUUIDP(peripheral.identifier, characteristic.service.UUID, characteristic.UUID);
     [self completeFirstCommandOfClass:[RZBNotifyCharacteristicCommand class]
                      matchingUUIDPath:path

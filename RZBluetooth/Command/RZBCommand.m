@@ -10,6 +10,7 @@
 #import "RZBUUIDPath.h"
 #import "RZBErrors.h"
 #import "RZBCentralManager+Private.h"
+#import "RZBLog+Private.h"
 
 #define RZBoolString(value) (value ? @"YES" : @"NO")
 
@@ -150,6 +151,8 @@
     NSAssert(peripheral.state != CBPeripheralStateConnected, @"Should not execute connect on connected peripheral");
 
     if (isReady) {
+        RZBLogCommand(@"connectPeripheral:%@ options:%@", RZBLogIdentifier(peripheral), self.connectOptions);
+
         [context.centralManager connectPeripheral:peripheral options:self.connectOptions];
     }
     return isReady;
@@ -166,9 +169,11 @@
 
     if (peripheral.state == CBPeripheralStateConnected ||
         peripheral.state == CBPeripheralStateConnecting) {
+        RZBLogCommand(@"cancelPeripheralConnection: %@", RZBLogIdentifier(peripheral));
         [context.centralManager cancelPeripheralConnection:peripheral];
     }
     else {
+        RZBLogCommand(@"Already Cancelled: %@", RZBLogIdentifier(peripheral));
         self.isCompleted = YES;
     }
     return YES;
@@ -184,6 +189,8 @@
     if (isReady) {
         CBPeripheral *peripheral = [context connectedPeripheralForUUID:self.peripheralUUID
                                                     triggeredByCommand:self];
+        RZBLogCommand(@"readRSSI: %@", RZBLogIdentifier(peripheral));
+
         [peripheral readRSSI];
         isReady = (peripheral != nil);
     }
@@ -215,6 +222,8 @@
     if (isReady) {
         CBPeripheral *peripheral = [context connectedPeripheralForUUID:self.peripheralUUID
                                                     triggeredByCommand:self];
+        RZBLogCommand(@"%@ discoverServices:%@", RZBLogIdentifier(peripheral), RZBLogArray(self.serviceUUIDs));
+
         [peripheral discoverServices:self.serviceUUIDs];
         isReady = (peripheral != nil);
     }
@@ -271,6 +280,8 @@
                                         onPeripheral:peripheral
                                   triggeredByCommand:self];
         if (service) {
+            RZBLogCommand(@"%@ discoverCharacteristics:%@ forService:%@", RZBLogIdentifier(peripheral), RZBLogArray(self.characteristicUUIDs), RZBLogUUID(service));
+
             [peripheral discoverCharacteristics:self.characteristicUUIDs
                                      forService:service];
         }
@@ -318,6 +329,8 @@
                                                                 onService:service
                                                        triggeredByCommand:self];
         if (characteristic) {
+            RZBLogCommand(@"%@ readValueForCharacteristic:%@", RZBLogIdentifier(peripheral), self.characteristicUUID);
+
             [peripheral readValueForCharacteristic:characteristic];
         }
         isReady = (characteristic != nil);
@@ -344,6 +357,8 @@
                                                                 onService:service
                                                        triggeredByCommand:self];
         if (characteristic) {
+            RZBLogCommand(@"%@ setNotifyValue:%@ forCharacteristic:%@", RZBLogIdentifier(peripheral), RZBLogBool(self.notify), self.characteristicUUID);
+
             [peripheral setNotifyValue:self.notify forCharacteristic:characteristic];
         }
         isReady = (characteristic != nil);
@@ -376,6 +391,9 @@
                                                        triggeredByCommand:self];
 
         if (characteristic) {
+            RZBLogCommand(@"%@ writeData:<data> forCharacteristic:%@ type:%@", RZBLogIdentifier(peripheral), self.characteristicUUID, @(self.writeType));
+            RZBLog(RZBLogLevelWriteCommandData, @"Data=%@", self.data);
+
             [peripheral writeValue:self.data forCharacteristic:characteristic type:self.writeType];
             self.isCompleted = (self.writeType == CBCharacteristicWriteWithoutResponse);
         }
@@ -401,6 +419,8 @@
 {
     BOOL isReady = [super executeCommandWithContext:context error:error];
     if (isReady) {
+        RZBLogCommand(@"scanForPeripheralsWithServices:%@ options:%@", RZBLogArray(self.serviceUUIDs), self.scanOptions);
+
         [context.centralManager scanForPeripheralsWithServices:self.serviceUUIDs
                                                        options:self.scanOptions];
     }
