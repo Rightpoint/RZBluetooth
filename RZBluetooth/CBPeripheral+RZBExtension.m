@@ -69,9 +69,6 @@
     cmd.notify = YES;
     [cmd addCallbackBlock:^(CBCharacteristic *characteristic, NSError *error) {
         [self.rzb_peripheralState setNotifyBlock:onChange forCharacteristicUUID:characteristic.UUID];
-        if (characteristic.value && error == nil) {
-            onChange(characteristic, error);
-        }
         completion(characteristic, error);
     }];
     [self.rzb_dispatch dispatchCommand:cmd];
