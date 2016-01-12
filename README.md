@@ -148,7 +148,7 @@ A few things to note:
  - In direct Core Bluetooth, more read and write characteristics cause terrible if chains in the delegate. RZBluetooth allows separation of communication code, such that different bluetooth services can be written and supported in isolation. This allows the development of isolated "Profile" level APIs.
 
 ## Profile level APIs
-Application level code does not want to read and write `NSData` blobs. The APIs They want Profile level APIs that work with whatever domain knowledge the services and characteristics encapsulate. RZBluetooth comes with APIs for many of the standard bluetooth profiles, and these provide a pattern for developers to extend RZBluetooth to support their proprietary profiles.
+Application level code does not want to read and write `NSData` blobs, it wants Profile level APIs that work with whatever domain knowledge the services and characteristics encapsulate. RZBluetooth comes with APIs for many of the standard bluetooth profiles, and these provide a pattern for developers to extend RZBluetooth to support their proprietary profiles.
 
 ```objc
 - (void)exampleOperations
@@ -168,7 +168,7 @@ Application level code does not want to read and write `NSData` blobs. The APIs 
 ```
 
 ## Testing
-Core Bluetooth can be challenging to test. RZBluetooth comes with a library, `RZMockBluetooth`, that allows you to use mock Core Bluetooth objects to test your bluetooth and application code. The first step is writing a "Device Simulator" using the `CBPeripheralManager` API provided by Core Bluetooth. This Device Simulator can then be run on a Mac or another iOS device to simulate your hardware during development. This small development effort decouples the device development effort with the application development and greatly help.
+Core Bluetooth can be challenging to test. RZBluetooth comes with a library, `RZMockBluetooth`, that allows you to use mock Core Bluetooth objects to test your bluetooth and application code. The first step is writing a "Device Simulator" using the `CBPeripheralManager` API provided by Core Bluetooth. This Device Simulator can then be run on a Mac or another iOS device to simulate your hardware during development. This small development effort decouples the device development effort from the application development effort and thus greatly helps.
 
 However, this does not help your unit tests. `RZBMockBluetooth` is able to make a simulated connection between your application’s `CBCentralManager` and the `CBPeripheralManager` to connect your application code to your device simulator in memory. `RZBSimulatedConnection` allows the test developer to control connection, discoverability, RSSI, scanning, the timing of callbacks, and injection of errors through a simple API. With very little effort your device will connect and talk with your simulator. With slightly more effort, the test developer can reproduce various edge cases and error scenarios.
 
