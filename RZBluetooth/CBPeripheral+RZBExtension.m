@@ -123,4 +123,16 @@
     [self.rzb_dispatch dispatchCommand:cmd];
 }
 
+- (void)rzb_discoverCharacteristicUUIDs:(NSArray *)characteristicUUIDs
+                            serviceUUID:(CBUUID *)serviceUUID
+                             completion:(RZBCharacteristicBlock)completion
+{
+    NSParameterAssert(completion);
+    RZBUUIDPath *path = RZBUUIDP(self.identifier, serviceUUID);
+    RZBDiscoverCharacteristicCommand *cmd = [[RZBDiscoverCharacteristicCommand alloc] initWithUUIDPath:path];
+    [cmd.characteristicUUIDs addObjectsFromArray:characteristicUUIDs];
+    [cmd addCallbackBlock:completion];
+    [self.rzb_dispatch dispatchCommand:cmd];
+}
+
 @end
