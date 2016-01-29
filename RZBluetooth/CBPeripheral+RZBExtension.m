@@ -71,9 +71,6 @@
         if (characteristic != nil) {
             [self.rzb_peripheralState setNotifyBlock:onChange forCharacteristicUUID:characteristic.UUID];
         }
-        if (characteristic.value && error == nil) {
-            onChange(characteristic, nil);
-        }
         completion(characteristic, error);
     }];
     [self.rzb_dispatch dispatchCommand:cmd];
