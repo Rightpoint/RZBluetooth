@@ -68,7 +68,12 @@
     RZBNotifyCharacteristicCommand *cmd = [[RZBNotifyCharacteristicCommand alloc] initWithUUIDPath:path];
     cmd.notify = YES;
     [cmd addCallbackBlock:^(CBCharacteristic *characteristic, NSError *error) {
-        [self.rzb_peripheralState setNotifyBlock:onChange forCharacteristicUUID:characteristic.UUID];
+        if (characteristic != nil) {
+            [self.rzb_peripheralState setNotifyBlock:onChange forCharacteristicUUID:characteristic.UUID];
+        }
+        if (characteristic.value && error == nil) {
+            onChange(characteristic, nil);
+        }
         completion(characteristic, error);
     }];
     [self.rzb_dispatch dispatchCommand:cmd];
@@ -78,7 +83,8 @@
                                     serviceUUID:(CBUUID *)serviceUUID
                                      completion:(RZBCharacteristicBlock)completion;
 {
-    NSParameterAssert(completion);
+    NSParameterAssert(characteristicUUID);
+    RZBUUIDPath *path = RZBUUIDP(self.identifier, serviceUUID, characteristicUUID);
 
     // Remove the completion block immediately to behave consistently.
     // If anything here is nil, there is no completion block, which is fine.
@@ -86,7 +92,6 @@
     CBCharacteristic *characteristic = [service rzb_characteristicForUUID:characteristicUUID];
     [self.rzb_peripheralState setNotifyBlock:nil forCharacteristicUUID:characteristic.UUID];
 
-    RZBUUIDPath *path = RZBUUIDP(self.identifier, serviceUUID, characteristicUUID);
     RZBNotifyCharacteristicCommand *cmd = [[RZBNotifyCharacteristicCommand alloc] initWithUUIDPath:path];
     cmd.notify = NO;
     [cmd addCallbackBlock:^(CBCharacteristic *c, NSError *error) {
@@ -116,6 +121,18 @@
     RZBUUIDPath *path = RZBUUIDP(self.identifier, serviceUUID, characteristicUUID);
     RZBWriteCharacteristicCommand *cmd = [[RZBWriteWithReplyCharacteristicCommand alloc] initWithUUIDPath:path];
     cmd.data = data;
+    [cmd addCallbackBlock:completion];
+    [self.rzb_dispatch dispatchCommand:cmd];
+}
+
+- (void)rzb_discoverCharacteristicUUIDs:(NSArray *)characteristicUUIDs
+                            serviceUUID:(CBUUID *)serviceUUID
+                             completion:(RZBCharacteristicBlock)completion
+{
+    NSParameterAssert(completion);
+    RZBUUIDPath *path = RZBUUIDP(self.identifier, serviceUUID);
+    RZBDiscoverCharacteristicCommand *cmd = [[RZBDiscoverCharacteristicCommand alloc] initWithUUIDPath:path];
+    [cmd.characteristicUUIDs addObjectsFromArray:characteristicUUIDs];
     [cmd addCallbackBlock:completion];
     [self.rzb_dispatch dispatchCommand:cmd];
 }
