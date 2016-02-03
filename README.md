@@ -27,30 +27,22 @@ Alternatively in Swift:
 
 ```swift
 centralManager = RZBCentralManager()
-        
-let heartRateMeasurement: RZBHeartRateUpdateCompletion = { (measurement: RZBHeartRateMeasurement?, error: NSError?) in
-    guard let heartRate = measurement?.heartRate else { return }
-    print("HEART RATE: \(heartRate)")
- }
-        
-let heartRateCompletion: RZBHeartRateCompletion  = { (error: NSError?) in
-    guard let error = error else { return }
-    print("ERROR: \(error)")
-}
-        
-let scanBlock: RZBScanBlock = { (peripheral: CBPeripheral?, advInfo: [NSObject : AnyObject]?, RSSI: NSNumber?) in
+
+centralManager!.scanForPeripheralsWithServices([CBUUID.rzb_UUIDForHeartRateService()], options: nil, onDiscoveredPeripheral: { (peripheral: CBPeripheral?, advInfo: [NSObject : AnyObject]?, RSSI: NSNumber?) in
     guard let centralManager = self.centralManager, peripheral = peripheral else { return }
     centralManager.stopScan()
     self.peripheral = peripheral
-    peripheral.rzb_addHeartRateObserver(heartRateMeasurement, completion: heartRateCompletion)
-}
-
-let errorBlock: RZBErrorBlock = { (error: NSError?) in
+    peripheral.rzb_addHeartRateObserver({ (measurement: RZBHeartRateMeasurement?, error: NSError?) in
+        guard let heartRate = measurement?.heartRate else { return }
+        print("HEART RATE: \(heartRate)")
+    }, completion: { (error: NSError?) in
+        guard let error = error else { return }
+        print("ERROR: \(error)")
+    })
+}, onError: { (error: NSError?) in
     guard let error = error else { return }
     print("ERROR: \(error)")
-}
-        
-centralManager!.scanForPeripheralsWithServices(nil, options: nil, onDiscoveredPeripheral: scanBlock, onError: errorBlock)
+})
  ```
 
 This block will wait for bluetooth to power on and scan for a new peripheral supporting the heart rate service. When one is found, the app will connect to the peripheral, discover the heart rate service and observe the characteristic. When the characteristic is notified, the `NSData*` object is serialized into a more developer friendly object. All of these details are nicely encapsulated for you, and the pattern of CBPeripheral categories should be easily extendable to your devices domain space.
@@ -201,5 +193,3 @@ Application level code does not want to read and write `NSData` blobs. The APIs 
 Core Bluetooth can be challenging to test. RZBluetooth comes with a library, `RZMockBluetooth`, that allows you to use mock Core Bluetooth objects to test your bluetooth and application code. The first step is writing a "Device Simulator" using the `CBPeripheralManager` API provided by Core Bluetooth. This Device Simulator can then be run on a Mac or another iOS device to simulate your hardware during development. This small development effort decouples the device development effort with the application development and greatly help.
 
 However, this does not help your unit tests. `RZBMockBluetooth` is able to make a simulated connection between your application’s `CBCentralManager` and the `CBPeripheralManager` to connect your application code to your device simulator in memory. `RZBSimulatedConnection` allows the test developer to control connection, discoverability, RSSI, scanning, the timing of callbacks, and injection of errors through a simple API. With very little effort your device will connect and talk with your simulator. With slightly more effort, the test developer can reproduce various edge cases and error scenarios.
-
-
