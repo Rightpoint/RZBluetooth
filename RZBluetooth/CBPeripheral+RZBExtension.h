@@ -8,6 +8,8 @@
 
 #import "RZBDefines.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface CBPeripheral (RZBExtension)
 
 /**
@@ -31,7 +33,7 @@
 - (void)rzb_addObserverForCharacteristicUUID:(CBUUID *)characteristicUUID
                                  serviceUUID:(CBUUID *)serviceUUID
                                     onChange:(RZBCharacteristicBlock)onChange
-                                  completion:(RZBCharacteristicBlock)completion;
+                                  completion:(RZBCharacteristicBlock __nullable)completion;
 
 /**
  * Remove the observer monitoring the characteristic for changes in value. The onChange block
@@ -40,7 +42,7 @@
  */
 - (void)rzb_removeObserverForCharacteristicUUID:(CBUUID *)characteristicUUID
                                     serviceUUID:(CBUUID *)serviceUUID
-                                     completion:(RZBCharacteristicBlock)completion;
+                                     completion:(RZBCharacteristicBlock __nullable)completion;
 
 
 
@@ -83,3 +85,5 @@
                              completion:(RZBCharacteristicBlock)completion;
 
 @end
+
+NS_ASSUME_NONNULL_END
