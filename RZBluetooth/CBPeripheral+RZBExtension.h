@@ -27,6 +27,9 @@
 /**
  * Add an observer to monitor a characteristic for changes in value. The onChange block will be
  * triggered every time the characteristic changes.
+ *
+ * @note if a value is already present for the characteristic, the onChange block will be triggered
+ *       immediately. This will happen if the bluetooth service already has a cached value.
  */
 - (void)rzb_addObserverForCharacteristicUUID:(CBUUID *)characteristicUUID
                                  serviceUUID:(CBUUID *)serviceUUID
