@@ -27,6 +27,10 @@
 /**
  * Add an observer to monitor a characteristic for changes in value. The onChange block will be
  * triggered every time the characteristic changes.
+ *
+ * @note if a value is already present for the characteristic, the onChange block will be triggered
+ *       immediately. This will happen if the bluetooth service already has a cached value. If this
+ *       behavior is not desired, call RZBShouldTriggerInitialValue(false)
  */
 - (void)rzb_addObserverForCharacteristicUUID:(CBUUID *)characteristicUUID
                                  serviceUUID:(CBUUID *)serviceUUID
@@ -83,3 +87,9 @@
                              completion:(RZBCharacteristicBlock)completion;
 
 @end
+
+/**
+ *  By default rzb_addObserverForCharacteristicUUID will trigger the initial value on the characteristic if
+ *  a value is present after discovery. This method will disable that behavior if desired.
+ */
+OBJC_EXTERN void RZBShouldTriggerInitialValue(BOOL notifyCachedValue);
