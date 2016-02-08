@@ -11,6 +11,10 @@
 @class RZBMockPeripheralManager;
 @class RZBSimulatedConnection;
 
+/**
+ *  The simulated central is an internal object for managing the association of a connection and a peripheral
+ *  manager.
+ */
 @interface RZBSimulatedCentral : NSObject <RZBMockCentralManagerDelegate>
 
 - (void)addSimulatedDeviceWithIdentifier:(NSUUID *)peripheralUUID peripheralManager:(RZBMockPeripheralManager *)peripheralManager;
