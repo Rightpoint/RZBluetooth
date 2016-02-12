@@ -8,7 +8,7 @@
 
 #import "RZBSimulatedDevice.h"
 #import "RZBMockPeripheralManager.h"
-#import "RZBSimulatedCentral+Private.h"
+#import "RZBSimulatedCentral.h"
 
 @interface RZBSimulatedDevice ()
 

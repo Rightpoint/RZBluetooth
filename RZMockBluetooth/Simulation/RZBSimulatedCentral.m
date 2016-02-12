@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-#import "RZBSimulatedCentral+Private.h"
+#import "RZBSimulatedCentral.h"
 #import "RZBMockPeripheralManager.h"
 #import "RZBMockPeripheral.h"
 #import "RZBSimulatedCallback.h"

@@ -107,7 +107,6 @@
 		AB4135EC1B718C94002F450F /* RZBSimulatedConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBSimulatedConnection.m; sourceTree = "<group>"; };
 		AB4135F61B7198F9002F450F /* RZBTestableCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZBTestableCentralManager.h; sourceTree = "<group>"; };
 		AB4135F71B7198F9002F450F /* RZBTestableCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBTestableCentralManager.m; sourceTree = "<group>"; };
-		AB4135F91B719B73002F450F /* RZBSimulatedCentral+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RZBSimulatedCentral+Private.h"; sourceTree = "<group>"; };
 		AB4135FA1B71AB91002F450F /* RZBDeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZBDeviceInfo.h; sourceTree = "<group>"; };
 		AB4135FB1B71AB91002F450F /* RZBDeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBDeviceInfo.m; sourceTree = "<group>"; };
 		AB4136001B71BAE3002F450F /* RZBSimulatedTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZBSimulatedTestCase.h; sourceTree = "<group>"; };
@@ -221,7 +220,6 @@
 				ABE73B5C1C6928E6003620E0 /* RZBSimulatedConnection+Private.h */,
 				AB4135EC1B718C94002F450F /* RZBSimulatedConnection.m */,
 				AB4135E91B718C94002F450F /* RZBSimulatedCentral.h */,
-				AB4135F91B719B73002F450F /* RZBSimulatedCentral+Private.h */,
 				AB4135EA1B718C94002F450F /* RZBSimulatedCentral.m */,
 				AB4135E71B718C94002F450F /* RZBSimulatedCallback.h */,
 				AB4135E81B718C94002F450F /* RZBSimulatedCallback.m */,
