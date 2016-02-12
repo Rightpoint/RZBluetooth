@@ -190,7 +190,7 @@ Application level code does not want to read and write `NSData` blobs, it wants 
 ```
 
 ## Testing
-Core Bluetooth can be challenging to test. RZBluetooth comes with a library, `RZMockBluetooth`, that allows you to use mock Core Bluetooth objects to test your bluetooth and application code. Using the mock library you can fake the discovery and read callbacks to your code, and the objects will consistently manage their mocked state. 
+Core Bluetooth can be challenging to test. RZBluetooth comes with a library, `RZMockBluetooth`, that allows you to use mock Core Bluetooth objects to test your bluetooth and application code. Using the mock library you can fake the bluetooth device events programmatically, and the Core Bluetooth objects seen by your application will consistently manage their mocked state. All of your application code will use the same API provided by Core Bluetooth even though the objects are actually equivalent `RZBMock` objects.
 
 For example:
 ```obj-c
@@ -247,6 +247,8 @@ Note that RZBSimulatedDevice provides a dictionary `values` to store arbitrary d
 
 ## Expose Developer API
 
+Next, the simulated device needs to present some developer-facing API to configure the in-memory state that is being exposed via bluetooth. This implementation also provides indication support to notify any observing peripherals that the battery level has changed. This API can then be used to modify the simulated device state via Unit Tests, an in-memory simulated device HUD, or a custom application.
+
 ```obj-c
 - (void)setBatteryLevel:(uint8_t)level
 {
@@ -265,11 +267,9 @@ Note that RZBSimulatedDevice provides a dictionary `values` to store arbitrary d
 }
 ```
 
-Finally, the simulated device should present some developer-facing API for configuring the in-memory state that is being exposed via bluetooth. This implementation also provides indication support to notify any observing peripherals that the battery level has changed. This API can then be used to modify the simulated device state via Unit Tests, an in-memory simulated device HUD, or a custom application.
-
 ## Central Instantiation
 
-One design constraint that is required to integrate the simulation is that the `RZBCentralManager` that is usually used must be swapped out with an `RZBTestableCentralManager`. This can be performed in any number of ways, but does have some implementation considerations. The simulation can also be used without RZBluetooth by using `RZBSimulatedCentral` as well.
+One design constraint that is required to integrate the simulation is that the `RZBCentralManager` that is usually used must be swapped out with an `RZBTestableCentralManager`. This can be performed in any number of ways, but does have some implementation considerations. The simulation can also be used without RZBluetooth by using `RZBMockCentralManager` and `RZBSimulatedCentral` instead.
 
 ## Simulated Connections
 
@@ -277,29 +277,29 @@ One design constraint that is required to integrate the simulation is that the `
 
 Examples:
 ```obj-c
-    RZBTestableCentralManager *centralManager = [[RZBTestableCentralManager alloc] init];
-    RZBSimulatedCentral *central = centralManager.simulatedCentral;
-    NSUUID *identifier = // The identifer for the CBPeripheral.identifer.
-    RZBSimulatedConnection *connection = [central connectionForIdentifier:identifier]
+RZBTestableCentralManager *centralManager = [[RZBTestableCentralManager alloc] init];
+RZBSimulatedCentral *central = centralManager.simulatedCentral;
+NSUUID *identifier = // The identifier for the CBPeripheral.identifier.
+RZBSimulatedConnection *connection = [central connectionForIdentifier:identifier]
 
-    // Disconnect or prevent connection.
-    connection.connectable = NO;
+// Disconnect or prevent connection.
+connection.connectable = NO;
 
-    ...runloop spins...
+// ...runloop spins...
 
-    // Configure the connect callback to inject an error after 1 second on next connection.
-    connection.connectCallback.injectError = [NSError rzb_connectionError];
-    connection.connectCallback.delay = 1.0;
+// Configure the connect callback to inject an error after 1 second on next connection.
+connection.connectCallback.injectError = [NSError rzb_connectionError];
+connection.connectCallback.delay = 1.0;
 
-    ...runloop spins...
+// ...runloop spins...
 
-    // Become connectable again
-    connection.connectable = YES;
+// Become connectable again
+connection.connectable = YES;
 ```
 
-The connection object has an `RZBSimulatedCallback` for each callback available, like scan, read, write, notify, connect, etc. For most integration testing scenarios only the connectable property is required.
+The connection object has an `RZBSimulatedCallback` for each available delegate callback, like scan, read, write, notify, connect, etc. For most integration testing scenarios only the connectable property is required.
 
 ## Unit Tests
 
-The final step is to build a suite of unit tests to validate the behavior of your bluetooth implementation. RZBluetooth provides a baseclass, `RZBSimulatedTestCase` which configures all of the above objects and provides easy access to the connection object. The a good starting example is the [RZBProfileBatteryTests](RZBluetoothTests/RZBProfileBatteryTests.m) which provides some simple read and observation tests.
+The final step is to build a suite of unit tests to validate the behavior of your bluetooth implementation. RZBluetooth provides a base class, `RZBSimulatedTestCase` which configures all of the above objects and provides easy access to the connection object. A good example to follow is the [RZBProfileBatteryTests](RZBluetoothTests/RZBProfileBatteryTests.m) which provides some simple read and observation tests.
 
