@@ -14,6 +14,8 @@
 
 @import ObjectiveC.runtime;
 
+static BOOL RZBExtensionShouldTriggerInitialValue = YES;
+
 @implementation CBPeripheral (RZBExtension)
 
 - (RZBCommandDispatch *)rzb_dispatch
@@ -71,7 +73,7 @@
         if (characteristic != nil) {
             [self.rzb_peripheralState setNotifyBlock:onChange forCharacteristicUUID:characteristic.UUID];
         }
-        if (characteristic.value && error == nil) {
+        if (RZBExtensionShouldTriggerInitialValue && characteristic.value && error == nil) {
             onChange(characteristic, nil);
         }
         completion(characteristic, error);
@@ -138,3 +140,9 @@
 }
 
 @end
+
+void RZBShouldTriggerInitialValue(BOOL notifyCachedValue)
+{
+    RZBExtensionShouldTriggerInitialValue = notifyCachedValue;
+}
+
