@@ -6,14 +6,10 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-#import "RZBSimulatedConnection.h"
+#import "RZBSimulatedConnection+Private.h"
 #import "RZBMockPeripheralManager.h"
 #import "RZBSimulatedCallback.h"
-#import "RZBSimulatedCentral+Private.h"
-
-@interface RZBSimulatedConnection ()
-
-@end
+#import "RZBSimulatedCentral.h"
 
 @implementation RZBSimulatedConnection
 

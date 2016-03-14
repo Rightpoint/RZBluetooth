@@ -26,13 +26,12 @@ static NSString *const RZBBatteryLevelKey = @"batteryLevel";
     [self addService:batteryService];
 
     __block typeof(self) welf = (id)self;
-    [self addReadCallbackForCharacteristicUUID:[CBUUID rzb_UUIDForBatteryLevelCharacteristic]
-                                       handler:^CBATTError (CBATTRequest *request) {
-                                           NSNumber *batteryNumber = welf.values[RZBBatteryLevelKey];
-                                           uint8_t batteryLevel = [batteryNumber unsignedIntegerValue];
-                                           request.value = [NSData dataWithBytes:&batteryLevel length:1];
-                                           return CBATTErrorSuccess;
-                                       }];
+    [self addReadCallbackForCharacteristicUUID:[CBUUID rzb_UUIDForBatteryLevelCharacteristic] handler:^CBATTError (CBATTRequest *request) {
+        NSNumber *batteryNumber = welf.values[RZBBatteryLevelKey];
+        uint8_t batteryLevel = [batteryNumber unsignedIntegerValue];
+        request.value = [NSData dataWithBytes:&batteryLevel length:1];
+        return CBATTErrorSuccess;
+    }];
 }
 
 - (void)setBatteryLevel:(uint8_t)level
