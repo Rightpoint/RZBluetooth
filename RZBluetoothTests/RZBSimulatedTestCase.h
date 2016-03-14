@@ -10,17 +10,23 @@
 
 #import "RZBTestableCentralManager.h"
 #import "RZBCentralManager+Private.h"
+
 #import "RZBMockCentralManager.h"
 #import "RZBMockPeripheralManager.h"
-#import "RZBSimulatedDevice.h"
 #import "RZBMockPeripheralManager.h"
+
+#import "RZBSimulatedDevice.h"
 #import "RZBSimulatedCentral.h"
 #import "RZBSimulatedConnection.h"
 #import "RZBSimulatedCallback.h"
+
 #import "NSError+RZBMock.h"
 
 #define RZBAssertCommandCount(cnt) XCTAssert(self.centralManager.dispatch.commands.count == cnt, @"Expected %zd commands, saw %zd", cnt, self.centralManager.dispatch.commands.count)
 
+/**
+ *  The RZBSimulatedTestCase is a convience class to assist testing bluetooth code.
+ */
 @interface RZBSimulatedTestCase : XCTestCase
 
 + (Class)simulatedDeviceClass;

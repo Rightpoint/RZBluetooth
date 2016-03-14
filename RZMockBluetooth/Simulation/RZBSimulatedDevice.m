@@ -8,7 +8,7 @@
 
 #import "RZBSimulatedDevice.h"
 #import "RZBMockPeripheralManager.h"
-#import "RZBSimulatedCentral+Private.h"
+#import "RZBSimulatedCentral.h"
 
 @interface RZBSimulatedDevice ()
 
@@ -20,10 +20,9 @@
 
 @implementation RZBSimulatedDevice
 
-- (instancetype)initWithIdentifier:(NSUUID *)identifier
-                             queue:(dispatch_queue_t)queue
-                           options:(NSDictionary *)options
-            peripheralManagerClass:(Class)peripheralManagerClass
+- (instancetype)initMockWithIdentifier:(NSUUID *)identifier
+                                 queue:(dispatch_queue_t)queue
+                               options:(NSDictionary *)options;
 {
     self = [super init];
     if (self) {
@@ -32,7 +31,26 @@
         _readHandlers = [NSMutableDictionary dictionary];
         _writeHandlers = [NSMutableDictionary dictionary];
         _subscribeHandlers = [NSMutableDictionary dictionary];
-        _peripheralManager = [[peripheralManagerClass alloc] initWithDelegate:self queue:queue];
+        _peripheralManager = (id)[[RZBMockPeripheralManager alloc] initWithDelegate:self
+                                                                              queue:queue
+                                                                            options:options];
+        _values = [NSMutableDictionary dictionary];
+    }
+    return self;
+}
+
+- (instancetype)initWithQueue:(dispatch_queue_t)queue
+                      options:(NSDictionary *)options;
+{
+    self = [super init];
+    if (self) {
+        _queue = queue ?: dispatch_get_main_queue();
+        _readHandlers = [NSMutableDictionary dictionary];
+        _writeHandlers = [NSMutableDictionary dictionary];
+        _subscribeHandlers = [NSMutableDictionary dictionary];
+        _peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self
+                                                                     queue:queue
+                                                                   options:options];
         _values = [NSMutableDictionary dictionary];
     }
     return self;
@@ -64,6 +82,8 @@
 
 - (void)startAdvertising
 {
+    NSAssert(self.peripheralManager.isAdvertising == NO, @"Already Advertising");
+    NSAssert([self advertisedServices] != nil, @"Must Specify the services that should be advertised by setting the advertisedServices property prior to advertising");
     [self.peripheralManager startAdvertising:@{CBAdvertisementDataServiceUUIDsKey:[self advertisedServices]}];
 }
 
