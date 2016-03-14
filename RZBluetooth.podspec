@@ -5,6 +5,11 @@ Pod::Spec.new do |s|
   s.summary      = "A Core Bluetooth helper library to simplify the development and testing of Core Bluetooth applications."
 
   s.description  = <<-DESC
+RZBluetooth is a Core Bluetooth helper with 3 primary goals:
+
+- Simplify the delegate callbacks and encourage best practices
+- Provide a pattern for Profile level APIs, with support for public profiles
+- Simplify and encourage testing - including unit tests, automated integration tests, and manual tests.
                    DESC
 
   s.homepage     = "http://github.com/Raizlabs/RZBluetooth"
