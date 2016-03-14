@@ -10,9 +10,9 @@
 #import "CBPeripheral+RZBExtension.h"
 #import "RZBCentralManager.h"
 
-@interface CBPeripheral (RZBluetoothStuff)
+@interface CBPeripheral (RZBluetoothAdditions)
 
-@property (weak, nonatomic, readonly) RZBCentralManager *rzb_centralManager;
-@property (weak, nonatomic, readonly) dispatch_queue_t rzb_queue;
+@property(weak, nonatomic, readonly) RZBCentralManager *rzb_centralManager;
+@property(weak, nonatomic, readonly) dispatch_queue_t rzb_queue;
 
 @end
