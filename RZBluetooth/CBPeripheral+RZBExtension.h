@@ -74,6 +74,17 @@
            completion:(RZBCharacteristicBlock)completion;
 
 /**
+ * Discover the services specified and trigger the completion block.
+ *
+ * @note this is not required to read or write, but can be used to discover if
+ *       optional characteristics are available.
+ *
+ * @note the completion block will contain an error if the characteristics or
+ *       services requested do not exist.
+ */
+- (void)rzb_discoverServiceUUIDs:(NSArray *)serviceUUIDs
+                      completion:(RZBCharacteristicBlock)completion;
+/**
  * Discover the characteristics specified and trigger the completion block.
  *
  * @note this is not required to read or write, but can be used to discover if

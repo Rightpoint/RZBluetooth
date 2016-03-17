@@ -127,6 +127,19 @@ static BOOL RZBExtensionShouldTriggerInitialValue = YES;
     [self.rzb_dispatch dispatchCommand:cmd];
 }
 
+- (void)rzb_discoverServiceUUIDs:(NSArray *)serviceUUIDs
+                      completion:(RZBCharacteristicBlock)completion
+{
+    NSParameterAssert(completion);
+    RZBUUIDPath *path = RZBUUIDP(self.identifier);
+    RZBDiscoverServiceCommand *cmd = [[RZBDiscoverServiceCommand alloc] initWithUUIDPath:path];
+    if (serviceUUIDs) {
+        [cmd.serviceUUIDs addObjectsFromArray:serviceUUIDs];
+    }
+    [cmd addCallbackBlock:completion];
+    [self.rzb_dispatch dispatchCommand:cmd];
+}
+
 - (void)rzb_discoverCharacteristicUUIDs:(NSArray *)characteristicUUIDs
                             serviceUUID:(CBUUID *)serviceUUID
                              completion:(RZBCharacteristicBlock)completion
@@ -134,7 +147,9 @@ static BOOL RZBExtensionShouldTriggerInitialValue = YES;
     NSParameterAssert(completion);
     RZBUUIDPath *path = RZBUUIDP(self.identifier, serviceUUID);
     RZBDiscoverCharacteristicCommand *cmd = [[RZBDiscoverCharacteristicCommand alloc] initWithUUIDPath:path];
-    [cmd.characteristicUUIDs addObjectsFromArray:characteristicUUIDs];
+    if (characteristicUUIDs) {
+        [cmd.characteristicUUIDs addObjectsFromArray:characteristicUUIDs];
+    }
     [cmd addCallbackBlock:completion];
     [self.rzb_dispatch dispatchCommand:cmd];
 }
