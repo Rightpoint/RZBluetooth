@@ -176,8 +176,8 @@
 		ABCD83AC1B7ACF9E00DA1162 /* RZBSimulatedDevice+RZBBatteryLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RZBSimulatedDevice+RZBBatteryLevel.h"; sourceTree = "<group>"; };
 		ABCD83AD1B7ACF9E00DA1162 /* RZBSimulatedDevice+RZBBatteryLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RZBSimulatedDevice+RZBBatteryLevel.m"; sourceTree = "<group>"; };
 		ABCF15071C04D443002DA9BE /* RZBPeripheralManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBPeripheralManagerTests.m; sourceTree = "<group>"; };
-		ABE73B5D1C693294003620E0 /* RZBBluetoothRepresentable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZBBluetoothRepresentable.h; sourceTree = "<group>"; };
 		ABE73B5C1C6928E6003620E0 /* RZBSimulatedConnection+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RZBSimulatedConnection+Private.h"; sourceTree = "<group>"; };
+		ABE73B5D1C693294003620E0 /* RZBBluetoothRepresentable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZBBluetoothRepresentable.h; sourceTree = "<group>"; };
 		ABEA8FC01BF2740200543BC3 /* RZBUserInteraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZBUserInteraction.h; sourceTree = "<group>"; };
 		ABEA8FC11BF2740200543BC3 /* RZBUserInteraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBUserInteraction.m; sourceTree = "<group>"; };
 		ABEA8FC31BF28D6A00543BC3 /* RZBUserInteractionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBUserInteractionTests.m; sourceTree = "<group>"; };

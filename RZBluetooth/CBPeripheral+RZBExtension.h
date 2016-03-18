@@ -87,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @note the completion block will contain an error if the characteristics or
  *       services requested do not exist.
  */
-- (void)rzb_discoverServiceUUIDs:(NSArray *)serviceUUIDs
+- (void)rzb_discoverServiceUUIDs:(NSArray * __nullable)serviceUUIDs
                       completion:(RZBPeripheralBlock)completion;
 /**
  * Discover the characteristics specified and trigger the completion block.
@@ -102,7 +102,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @note the completion block will contain an error if the characteristics or
  *       services requested do not exist.
  */
-- (void)rzb_discoverCharacteristicUUIDs:(NSArray *)characteristicUUIDs
+- (void)rzb_discoverCharacteristicUUIDs:(NSArray * __nullable)characteristicUUIDs
                             serviceUUID:(CBUUID *)serviceUUID
                              completion:(RZBServiceBlock)completion;
 

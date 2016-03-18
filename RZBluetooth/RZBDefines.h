@@ -15,6 +15,7 @@ typeof(object.p) property __unused; \
 })
 
 #define RZB_OVERLOADED FOUNDATION_EXTERN __attribute__((overloadable))
+#define RZB_DEFAULT_BLOCK(block) block = block ?: ^(id obj, NSError *error) {}
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,9 +25,9 @@ typedef void(^RZBStateBlock)(CBCentralManagerState state);
 typedef void(^RZBRestorationBlock)(NSArray *peripherals);
 typedef void(^RZBRSSIBlock)(NSNumber *RSSI, NSError *__nullable error);
 
-typedef void(^RZBPeripheralBlock)(CBPeripheral *peripheral, NSError *__nullable error);
-typedef void(^RZBServiceBlock)(CBService *service, NSError *__nullable error);
-typedef void(^RZBCharacteristicBlock)(CBCharacteristic *characteristic, NSError *__nullable error);
+typedef void(^RZBPeripheralBlock)(CBPeripheral *__nullable peripheral, NSError *__nullable error);
+typedef void(^RZBServiceBlock)(CBService *__nullable service, NSError *__nullable error);
+typedef void(^RZBCharacteristicBlock)(CBCharacteristic *__nullable characteristic, NSError *__nullable error);
 
 NS_ASSUME_NONNULL_END
 

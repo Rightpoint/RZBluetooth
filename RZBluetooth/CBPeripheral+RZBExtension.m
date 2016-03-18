@@ -65,7 +65,7 @@ static BOOL RZBExtensionShouldTriggerInitialValue = YES;
                                   completion:(RZBCharacteristicBlock)completion;
 {
     NSParameterAssert(onChange);
-    NSParameterAssert(completion);
+    RZB_DEFAULT_BLOCK(completion);
     RZBUUIDPath *path = RZBUUIDP(self.identifier, serviceUUID, characteristicUUID);
     RZBNotifyCharacteristicCommand *cmd = [[RZBNotifyCharacteristicCommand alloc] initWithUUIDPath:path];
     cmd.notify = YES;
@@ -85,7 +85,7 @@ static BOOL RZBExtensionShouldTriggerInitialValue = YES;
                                     serviceUUID:(CBUUID *)serviceUUID
                                      completion:(RZBCharacteristicBlock)completion;
 {
-    NSParameterAssert(characteristicUUID);
+    RZB_DEFAULT_BLOCK(completion);
     RZBUUIDPath *path = RZBUUIDP(self.identifier, serviceUUID, characteristicUUID);
 
     // Remove the completion block immediately to behave consistently.
