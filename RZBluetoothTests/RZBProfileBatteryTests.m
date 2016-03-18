@@ -8,8 +8,9 @@
 
 #import "RZBSimulatedTestCase.h"
 #import "CBPeripheral+RZBBattery.h"
+#import "CBPeripheral+RZBExtension.h"
 #import "RZBSimulatedDevice+RZBBatteryLevel.h"
-
+#import "CBUUID+RZBPublic.h"
 
 @interface RZBProfileBatteryTests : RZBSimulatedTestCase
 
@@ -32,6 +33,30 @@
         [read fulfill];
         XCTAssertNil(error);
         XCTAssert(level == 80);
+    }];
+    [self waitForExpectationsWithTimeout:1.0 handler:nil];
+}
+
+- (void)testServiceDiscovery
+{
+    XCTestExpectation *discover = [self expectationWithDescription:@"Discover Battery Service"];
+
+    self.device.batteryLevel = 80;
+    [self.peripheral rzb_discoverServiceUUIDs:@[[CBUUID rzb_UUIDForBatteryService]] completion:^(CBPeripheral * _Nullable peripheral, NSError * _Nullable error) {
+        [discover fulfill];
+        XCTAssertNil(error);
+    }];
+    [self waitForExpectationsWithTimeout:1.0 handler:nil];
+}
+
+- (void)testCharacteristicDiscovery
+{
+    XCTestExpectation *discover = [self expectationWithDescription:@"Discover Battery Service"];
+
+    self.device.batteryLevel = 80;
+    [self.peripheral rzb_discoverCharacteristicUUIDs:@[[CBUUID rzb_UUIDForBatteryLevelCharacteristic]] serviceUUID:[CBUUID rzb_UUIDForBatteryService] completion:^(CBService * _Nullable service, NSError * _Nullable error) {
+        [discover fulfill];
+        XCTAssertNil(error);
     }];
     [self waitForExpectationsWithTimeout:1.0 handler:nil];
 }
