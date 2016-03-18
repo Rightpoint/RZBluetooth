@@ -128,7 +128,7 @@ static BOOL RZBExtensionShouldTriggerInitialValue = YES;
 }
 
 - (void)rzb_discoverServiceUUIDs:(NSArray *)serviceUUIDs
-                      completion:(RZBCharacteristicBlock)completion
+                      completion:(RZBPeripheralBlock)completion
 {
     NSParameterAssert(completion);
     RZBUUIDPath *path = RZBUUIDP(self.identifier);
@@ -142,7 +142,7 @@ static BOOL RZBExtensionShouldTriggerInitialValue = YES;
 
 - (void)rzb_discoverCharacteristicUUIDs:(NSArray *)characteristicUUIDs
                             serviceUUID:(CBUUID *)serviceUUID
-                             completion:(RZBCharacteristicBlock)completion
+                             completion:(RZBServiceBlock)completion
 {
     NSParameterAssert(completion);
     RZBUUIDPath *path = RZBUUIDP(self.identifier, serviceUUID);

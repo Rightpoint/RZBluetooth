@@ -76,6 +76,9 @@
 /**
  * Discover the services specified and trigger the completion block.
  *
+ * @param serviceUUIDs array of services to discover. Pass nil to discover all services.
+ * @param completion a completion block to trigger with the peripheral containing the specified services.
+ *
  * @note this is not required to read or write, but can be used to discover if
  *       optional characteristics are available.
  *
@@ -83,9 +86,13 @@
  *       services requested do not exist.
  */
 - (void)rzb_discoverServiceUUIDs:(NSArray *)serviceUUIDs
-                      completion:(RZBCharacteristicBlock)completion;
+                      completion:(RZBPeripheralBlock)completion;
 /**
  * Discover the characteristics specified and trigger the completion block.
+ *
+ * @param characteristicUUIDs array of characteristic UUIDs to discover. Pass nil to discover all characteristics.
+ * @param serviceUUID serviceUUID to discover the characteristics in.
+ * @param completion a completion block to trigger with the peripheral containing the specified services.
  *
  * @note this is not required to read or write, but can be used to discover if
  *       optional characteristics are available.
@@ -95,7 +102,7 @@
  */
 - (void)rzb_discoverCharacteristicUUIDs:(NSArray *)characteristicUUIDs
                             serviceUUID:(CBUUID *)serviceUUID
-                             completion:(RZBCharacteristicBlock)completion;
+                             completion:(RZBServiceBlock)completion;
 
 @end
 
