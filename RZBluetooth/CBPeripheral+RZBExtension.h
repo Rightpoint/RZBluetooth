@@ -8,6 +8,8 @@
 
 #import "RZBDefines.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface CBPeripheral (RZBExtension)
 
 /**
@@ -35,7 +37,7 @@
 - (void)rzb_addObserverForCharacteristicUUID:(CBUUID *)characteristicUUID
                                  serviceUUID:(CBUUID *)serviceUUID
                                     onChange:(RZBCharacteristicBlock)onChange
-                                  completion:(RZBCharacteristicBlock)completion;
+                                  completion:(RZBCharacteristicBlock __nullable)completion;
 
 /**
  * Remove the observer monitoring the characteristic for changes in value. The onChange block
@@ -44,7 +46,7 @@
  */
 - (void)rzb_removeObserverForCharacteristicUUID:(CBUUID *)characteristicUUID
                                     serviceUUID:(CBUUID *)serviceUUID
-                                     completion:(RZBCharacteristicBlock)completion;
+                                     completion:(RZBCharacteristicBlock __nullable)completion;
 
 
 
@@ -111,3 +113,5 @@
  *  a value is present after discovery. This method will disable that behavior if desired.
  */
 OBJC_EXTERN void RZBShouldTriggerInitialValue(BOOL notifyCachedValue);
+
+NS_ASSUME_NONNULL_END

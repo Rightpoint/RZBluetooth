@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-#import "RZBDefines.h"
+#import "RZBBluetoothRepresentable.h"
 
 @class RZBMockPeripheralManager;
 

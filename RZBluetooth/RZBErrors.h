@@ -8,6 +8,8 @@
 
 @import CoreBluetooth;
 
+NS_ASSUME_NONNULL_BEGIN
+
 FOUNDATION_EXPORT NSString *const RZBluetoothErrorDomain;
 
 typedef NS_ENUM(NSUInteger, RZBluetoothError) {
@@ -21,3 +23,5 @@ typedef NS_ENUM(NSUInteger, RZBluetoothError) {
 
 FOUNDATION_EXPORT NSString *const RZBluetoothUndiscoveredUUIDsKey;
 FOUNDATION_EXPORT NSError *RZBluetoothErrorForState(CBCentralManagerState state);
+
+NS_ASSUME_NONNULL_END
