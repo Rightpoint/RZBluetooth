@@ -8,6 +8,7 @@
 
 #import "RZBDefines.h"
 
+NS_ASSUME_NONNULL_BEGIN
 /**
  * RZCentralManager encapsulates all delegate interactions, exposing only the high
  * level Bluetooth actions. RZCentralManager will automatically connect, and
@@ -30,7 +31,7 @@
  *              It is important that the dispatch queue be a serial queue
  *
  */
-- (instancetype)initWithIdentifier:(NSString *)identifier queue:(dispatch_queue_t)queue;
+- (instancetype)initWithIdentifier:(NSString *)identifier queue:(dispatch_queue_t __nullable)queue;
 
 /**
  * Expose the backing CBCentralManagerState. See RZBluetoothErrorForState to generate an
@@ -44,7 +45,7 @@
 @property (nonatomic, copy) RZBStateBlock centralStateHandler;
 
 /**
- * This block will be triggered when restored with 
+ * This block will be triggered when restored with an array of CBPeripheral objects
  */
 @property (nonatomic, copy) RZBRestorationBlock restorationHandler;
 
@@ -61,10 +62,10 @@
  * The onError: block will be triggered if there are any CBCentralManagerState errors and
  * for user interaction timeout errors if configured.
  */
-- (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs
-                               options:(NSDictionary *)options
+- (void)scanForPeripheralsWithServices:(NSArray<CBUUID *> * __nullable)serviceUUIDs
+                               options:(NSDictionary<NSString *, id> * __nullable)options
                 onDiscoveredPeripheral:(RZBScanBlock)scanBlock
-                               onError:(RZBErrorBlock)onError;
+                               onError:(RZBErrorBlock __nullable)onError;
 
 /**
  * Stop the peripheral scan.
@@ -92,7 +93,7 @@
  * @param onConnection The block to invoke on connection
  */
 - (void)setConnectionHandlerForPeripheralUUID:(NSUUID *)peripheralUUID
-                                      handler:(RZBPeripheralBlock)onConnection;
+                                      handler:(RZBPeripheralBlock __nullable)onConnection;
 
 /**
  * Specify a block to invoke when the peripheral with peripheralUUID is disconnected
@@ -103,7 +104,7 @@
  * @param onDisconnection The block to invoke on connection
  */
 - (void)setDisconnectionHandlerForPeripheralUUID:(NSUUID *)peripheralUUID
-                                         handler:(RZBPeripheralBlock)onDisconnection;
+                                         handler:(RZBPeripheralBlock __nullable)onDisconnection;
 
 
 
@@ -116,7 +117,7 @@
  * @param peripheralUUID The UUID of the peripheral to connect to
  */
 - (void)cancelConnectionFromPeripheralUUID:(NSUUID *)peripheralUUID
-                                completion:(RZBPeripheralBlock)completion;
+                                completion:(RZBPeripheralBlock __nullable)completion;
 
 /**
  * Initiate a connection to a peripheral. This is exposed in case
@@ -124,6 +125,8 @@
  * will initiate a connection if needed, so this method is not needed.
  */
 - (void)connectToPeripheralUUID:(NSUUID *)peripheralUUID
-                     completion:(RZBPeripheralBlock)completion;
+                     completion:(RZBPeripheralBlock __nullable)completion;
 
 @end
+
+NS_ASSUME_NONNULL_END

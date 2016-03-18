@@ -8,6 +8,8 @@
 
 #import "RZBDefines.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface CBPeripheral (RZBExtension)
 
 /**
@@ -35,7 +37,7 @@
 - (void)rzb_addObserverForCharacteristicUUID:(CBUUID *)characteristicUUID
                                  serviceUUID:(CBUUID *)serviceUUID
                                     onChange:(RZBCharacteristicBlock)onChange
-                                  completion:(RZBCharacteristicBlock)completion;
+                                  completion:(RZBCharacteristicBlock __nullable)completion;
 
 /**
  * Remove the observer monitoring the characteristic for changes in value. The onChange block
@@ -44,7 +46,7 @@
  */
 - (void)rzb_removeObserverForCharacteristicUUID:(CBUUID *)characteristicUUID
                                     serviceUUID:(CBUUID *)serviceUUID
-                                     completion:(RZBCharacteristicBlock)completion;
+                                     completion:(RZBCharacteristicBlock __nullable)completion;
 
 
 
@@ -74,7 +76,10 @@
            completion:(RZBCharacteristicBlock)completion;
 
 /**
- * Discover the characteristics specified and trigger the completion block.
+ * Discover the services specified and trigger the completion block.
+ *
+ * @param serviceUUIDs array of services to discover. Pass nil to discover all services.
+ * @param completion a completion block to trigger with the peripheral containing the specified services.
  *
  * @note this is not required to read or write, but can be used to discover if
  *       optional characteristics are available.
@@ -82,9 +87,24 @@
  * @note the completion block will contain an error if the characteristics or
  *       services requested do not exist.
  */
-- (void)rzb_discoverCharacteristicUUIDs:(NSArray *)characteristicUUIDs
+- (void)rzb_discoverServiceUUIDs:(NSArray<CBUUID *> * __nullable)serviceUUIDs
+                      completion:(RZBPeripheralBlock)completion;
+/**
+ * Discover the characteristics specified and trigger the completion block.
+ *
+ * @param characteristicUUIDs array of characteristic UUIDs to discover. Pass nil to discover all characteristics.
+ * @param serviceUUID serviceUUID to discover the characteristics in.
+ * @param completion a completion block to trigger with the peripheral containing the specified services.
+ *
+ * @note this is not required to read or write, but can be used to discover if
+ *       optional characteristics are available.
+ *
+ * @note the completion block will contain an error if the characteristics or
+ *       services requested do not exist.
+ */
+- (void)rzb_discoverCharacteristicUUIDs:(NSArray<CBUUID *> * __nullable)characteristicUUIDs
                             serviceUUID:(CBUUID *)serviceUUID
-                             completion:(RZBCharacteristicBlock)completion;
+                             completion:(RZBServiceBlock)completion;
 
 @end
 
@@ -93,3 +113,5 @@
  *  a value is present after discovery. This method will disable that behavior if desired.
  */
 OBJC_EXTERN void RZBShouldTriggerInitialValue(BOOL notifyCachedValue);
+
+NS_ASSUME_NONNULL_END

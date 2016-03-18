@@ -8,6 +8,8 @@
 
 @import CoreBluetooth;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface CBService (RZBExtension)
 
 - (CBCharacteristic *)rzb_characteristicForUUID:(CBUUID *)characteristicUUID;
@@ -19,3 +21,5 @@
 - (CBMutableCharacteristic *)rzb_characteristicForUUID:(CBUUID *)characteristicUUID;
 
 @end
+
+NS_ASSUME_NONNULL_END

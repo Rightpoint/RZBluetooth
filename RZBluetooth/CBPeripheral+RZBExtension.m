@@ -65,7 +65,7 @@ static BOOL RZBExtensionShouldTriggerInitialValue = YES;
                                   completion:(RZBCharacteristicBlock)completion;
 {
     NSParameterAssert(onChange);
-    NSParameterAssert(completion);
+    RZB_DEFAULT_BLOCK(completion);
     RZBUUIDPath *path = RZBUUIDP(self.identifier, serviceUUID, characteristicUUID);
     RZBNotifyCharacteristicCommand *cmd = [[RZBNotifyCharacteristicCommand alloc] initWithUUIDPath:path];
     cmd.notify = YES;
@@ -85,7 +85,7 @@ static BOOL RZBExtensionShouldTriggerInitialValue = YES;
                                     serviceUUID:(CBUUID *)serviceUUID
                                      completion:(RZBCharacteristicBlock)completion;
 {
-    NSParameterAssert(characteristicUUID);
+    RZB_DEFAULT_BLOCK(completion);
     RZBUUIDPath *path = RZBUUIDP(self.identifier, serviceUUID, characteristicUUID);
 
     // Remove the completion block immediately to behave consistently.
@@ -127,14 +127,29 @@ static BOOL RZBExtensionShouldTriggerInitialValue = YES;
     [self.rzb_dispatch dispatchCommand:cmd];
 }
 
+- (void)rzb_discoverServiceUUIDs:(NSArray *)serviceUUIDs
+                      completion:(RZBPeripheralBlock)completion
+{
+    NSParameterAssert(completion);
+    RZBUUIDPath *path = RZBUUIDP(self.identifier);
+    RZBDiscoverServiceCommand *cmd = [[RZBDiscoverServiceCommand alloc] initWithUUIDPath:path];
+    if (serviceUUIDs) {
+        [cmd.serviceUUIDs addObjectsFromArray:serviceUUIDs];
+    }
+    [cmd addCallbackBlock:completion];
+    [self.rzb_dispatch dispatchCommand:cmd];
+}
+
 - (void)rzb_discoverCharacteristicUUIDs:(NSArray *)characteristicUUIDs
                             serviceUUID:(CBUUID *)serviceUUID
-                             completion:(RZBCharacteristicBlock)completion
+                             completion:(RZBServiceBlock)completion
 {
     NSParameterAssert(completion);
     RZBUUIDPath *path = RZBUUIDP(self.identifier, serviceUUID);
     RZBDiscoverCharacteristicCommand *cmd = [[RZBDiscoverCharacteristicCommand alloc] initWithUUIDPath:path];
-    [cmd.characteristicUUIDs addObjectsFromArray:characteristicUUIDs];
+    if (characteristicUUIDs) {
+        [cmd.characteristicUUIDs addObjectsFromArray:characteristicUUIDs];
+    }
     [cmd addCallbackBlock:completion];
     [self.rzb_dispatch dispatchCommand:cmd];
 }
