@@ -62,8 +62,8 @@ NS_ASSUME_NONNULL_BEGIN
  * The onError: block will be triggered if there are any CBCentralManagerState errors and
  * for user interaction timeout errors if configured.
  */
-- (void)scanForPeripheralsWithServices:(NSArray * __nullable)serviceUUIDs
-                               options:(NSDictionary * __nullable)options
+- (void)scanForPeripheralsWithServices:(NSArray<CBUUID *> * __nullable)serviceUUIDs
+                               options:(NSDictionary<NSString *, id> * __nullable)options
                 onDiscoveredPeripheral:(RZBScanBlock)scanBlock
                                onError:(RZBErrorBlock __nullable)onError;
 
