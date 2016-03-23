@@ -33,7 +33,7 @@
     return self.centralManager.mockCentralManager;
 }
 
-- (CBPeripheral *)peripheral
+- (RZBPeripheral *)peripheral
 {
     return [self.centralManager peripheralForUUID:self.device.identifier];
 }

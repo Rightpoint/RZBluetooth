@@ -108,7 +108,7 @@
 - (void)setupConnectedPeripheral
 {
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
-    [self.centralManager connectToPeripheralUUID:self.class.pUUID completion:^(CBPeripheral *peripheral, NSError *error) {}];
+    [self.centralManager connectToPeripheralUUID:self.class.pUUID completion:^(RZBPeripheral *peripheral, NSError *error) {}];
     [self ensureAndCompleteConnectionTo:self.class.pUUID];
 }
 

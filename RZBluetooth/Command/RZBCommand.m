@@ -10,6 +10,7 @@
 #import "RZBUUIDPath.h"
 #import "RZBErrors.h"
 #import "RZBCentralManager+Private.h"
+#import "RZBPeripheral+Private.h"
 #import "RZBLog+Private.h"
 
 #define RZBoolString(value) (value ? @"YES" : @"NO")
@@ -147,7 +148,7 @@
 - (BOOL)executeCommandWithContext:(RZBCentralManager *)context error:(inout NSError **)error
 {
     BOOL isReady = [super executeCommandWithContext:context error:error];
-    CBPeripheral *peripheral = [context peripheralForUUID:self.peripheralUUID];
+    CBPeripheral *peripheral = [context corePeripheralForUUID:self.peripheralUUID];
     NSAssert(peripheral.state != CBPeripheralStateConnected, @"Should not execute connect on connected peripheral");
 
     if (isReady) {
@@ -165,7 +166,7 @@
 - (BOOL)executeCommandWithContext:(RZBCentralManager *)context error:(inout NSError **)error
 {
     [super executeCommandWithContext:context error:error];
-    CBPeripheral *peripheral = [context peripheralForUUID:self.peripheralUUID];
+    CBPeripheral *peripheral = [context corePeripheralForUUID:self.peripheralUUID];
 
     if (peripheral.state == CBPeripheralStateConnected ||
         peripheral.state == CBPeripheralStateConnecting) {
@@ -239,9 +240,9 @@
     return undiscoveredUUIDs;
 }
 
-- (void)completeWithObject:(CBPeripheral *)peripheral error:(inout NSError **)error
+- (void)completeWithObject:(RZBPeripheral *)peripheral error:(inout NSError **)error
 {
-    NSArray *undiscoveredUUIDs = [self undiscoveredUUIDsInPeripheral:peripheral];
+    NSArray *undiscoveredUUIDs = [self undiscoveredUUIDsInPeripheral:peripheral.corePeripheral];
     if (*error == nil && undiscoveredUUIDs.count > 0) {
         *error = [NSError errorWithDomain:RZBluetoothErrorDomain
                                      code:RZBluetoothDiscoverServiceError

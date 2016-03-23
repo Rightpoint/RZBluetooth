@@ -20,7 +20,7 @@
 
     [self.centralManager scanForPeripheralsWithServices:nil
                                                 options:nil
-                                 onDiscoveredPeripheral:^(CBPeripheral *peripheral, NSDictionary *advInfo, NSNumber *RSSI) {
+                                 onDiscoveredPeripheral:^(RZBPeripheral *peripheral, NSDictionary *advInfo, NSNumber *RSSI) {
                                      [discovered fulfill];
                                      XCTAssert([peripheral.identifier isEqual:self.device.identifier]);
                                  }
@@ -35,7 +35,7 @@
 {
     XCTestExpectation *connected = [self expectationWithDescription:@"Peripheral will connect"];
 
-    [self.centralManager connectToPeripheralUUID:self.device.identifier completion:^(CBPeripheral *peripheral, NSError *error) {
+    [self.centralManager connectToPeripheralUUID:self.device.identifier completion:^(RZBPeripheral *peripheral, NSError *error) {
         [connected fulfill];
         XCTAssert([peripheral.identifier isEqual:self.device.identifier]);
     }];
@@ -46,7 +46,7 @@
 {
     XCTestExpectation *connected = [self expectationWithDescription:@"Peripheral will connect"];
     self.connection.connectCallback.injectError = [NSError rzb_connectionError];
-    [self.centralManager connectToPeripheralUUID:self.device.identifier completion:^(CBPeripheral *peripheral, NSError *error) {
+    [self.centralManager connectToPeripheralUUID:self.device.identifier completion:^(RZBPeripheral *peripheral, NSError *error) {
         [connected fulfill];
         XCTAssertNotNil(error);
         XCTAssert([peripheral.identifier isEqual:self.device.identifier]);
@@ -57,11 +57,11 @@
 - (void)testConnectable
 {
     XCTestExpectation *connected = [self expectationWithDescription:@"Peripheral will connect"];
-    CBPeripheral *p = [self.centralManager peripheralForUUID:self.device.identifier];
+    RZBPeripheral *p = [self.centralManager peripheralForUUID:self.device.identifier];
     XCTAssert(p.state == CBPeripheralStateDisconnected);
     self.connection.connectable = NO;
 
-    [self.centralManager connectToPeripheralUUID:self.device.identifier completion:^(CBPeripheral *peripheral, NSError *error) {
+    [self.centralManager connectToPeripheralUUID:self.device.identifier completion:^(RZBPeripheral *peripheral, NSError *error) {
         [connected fulfill];
         XCTAssert([peripheral.identifier isEqual:self.device.identifier]);
     }];
@@ -80,11 +80,11 @@
     XCTestExpectation *connectCallback = [self expectationWithDescription:@"Connect Callback"];
     XCTestExpectation *cancelConnectCallback = [self expectationWithDescription:@"Connect Cancelation Callback"];
 
-    CBPeripheral *p = [self.centralManager peripheralForUUID:self.device.identifier];
+    RZBPeripheral *p = [self.centralManager peripheralForUUID:self.device.identifier];
     XCTAssert(p.state == CBPeripheralStateDisconnected);
     self.connection.connectable = NO;
 
-    [self.centralManager connectToPeripheralUUID:self.device.identifier completion:^(CBPeripheral *peripheral, NSError *error) {
+    [self.centralManager connectToPeripheralUUID:self.device.identifier completion:^(RZBPeripheral *peripheral, NSError *error) {
         XCTAssertNil(peripheral);
         XCTAssertNil(error);
         [connectCallback fulfill];
@@ -93,7 +93,7 @@
     XCTAssert(p.state == CBPeripheralStateConnecting);
 
     [self.centralManager cancelConnectionFromPeripheralUUID:self.device.identifier
-                                                 completion:^(CBPeripheral *peripheral, NSError *error) {
+                                                 completion:^(RZBPeripheral *peripheral, NSError *error) {
                                                      XCTAssertNotNil(peripheral);
                                                      XCTAssertNil(error);
                                                      [cancelConnectCallback fulfill];
@@ -111,17 +111,18 @@
 {
     __block NSUInteger connectCount = 0;
     __block NSUInteger disconnectCount = 0;
-    CBPeripheral *p = [self.centralManager peripheralForUUID:self.device.identifier];
+    RZBPeripheral *p = [self.centralManager peripheralForUUID:self.device.identifier];
     XCTAssert(p.state == CBPeripheralStateDisconnected);
     self.connection.connectable = NO;
 
-    [self.centralManager setConnectionHandlerForPeripheralUUID:p.identifier handler:^(CBPeripheral *peripheral, NSError *error) {
+    p.onConnection = ^(RZBPeripheral *peripheral, NSError *error) {
         connectCount++;
-    }];
-    [self.centralManager setDisconnectionHandlerForPeripheralUUID:p.identifier handler:^(CBPeripheral *peripheral, NSError *error) {
+    };
+    p.onDisconnection = ^(RZBPeripheral *peripheral, NSError *error) {
         disconnectCount++;
-    }];
-    [self.centralManager maintainConnectionToPeripheralUUID:p.identifier];
+    };
+    p.maintainConnection = YES;
+
 #define TEST_COUNT 10
     for (NSUInteger i = 0; i < TEST_COUNT; i++) {
         [self waitForQueueFlush];

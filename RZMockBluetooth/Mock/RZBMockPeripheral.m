@@ -8,7 +8,6 @@
 
 #import "RZBMockCentralManager.h"
 #import "RZBMockPeripheral.h"
-#import "CBPeripheral+RZBExtension.h"
 
 @import ObjectiveC.runtime;
 

@@ -133,7 +133,7 @@ static NSString *const RZBTestString = @"StringValue";
     [self testRead];
     __block BOOL completed = NO;
     [self.centralManager cancelConnectionFromPeripheralUUID:self.class.pUUID
-                                                 completion:^(CBPeripheral *peripheral, NSError *error) {
+                                                 completion:^(RZBPeripheral *peripheral, NSError *error) {
                                                      completed = YES;
                                                  }];
     RZBAssertHasCommand(RZBCancelConnectionCommand, self.class.pUUIDPath, NO);
@@ -221,7 +221,7 @@ static NSString *const RZBTestString = @"StringValue";
     NSMutableArray *values = [NSMutableArray array];
     [self.centralManager scanForPeripheralsWithServices:@[self.class.sUUID]
                                                 options:nil
-                                 onDiscoveredPeripheral:^(CBPeripheral *peripheral, NSDictionary *advInfo, NSNumber *RSSI)
+                                 onDiscoveredPeripheral:^(RZBPeripheral *peripheral, NSDictionary *advInfo, NSNumber *RSSI)
      {
          [values addObject:peripheral.identifier];
          XCTAssertTrue(advInfo.count == 0);

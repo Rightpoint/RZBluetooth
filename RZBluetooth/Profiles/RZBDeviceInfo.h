@@ -7,6 +7,7 @@
 //
 
 #import "RZBBluetoothRepresentable.h"
+#import "RZBPeripheral.h"
 
 @interface RZBDeviceInfo : NSObject <RZBBluetoothRepresentable>
 
@@ -21,7 +22,7 @@
 
 typedef void(^RZBDeviceInfoCallback)(RZBDeviceInfo *deviceInfo, NSError *error);
 
-@interface CBPeripheral (RZBDeviceInfo)
+@interface RZBPeripheral (RZBDeviceInfo)
 
 /**
  * Fetch the device information keys specified in deviceInfoKeys. If nil

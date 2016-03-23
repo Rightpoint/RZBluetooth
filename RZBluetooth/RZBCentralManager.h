@@ -8,7 +8,10 @@
 
 #import "RZBDefines.h"
 
+@class RZBPeripheral;
+
 NS_ASSUME_NONNULL_BEGIN
+
 /**
  * RZCentralManager encapsulates all delegate interactions, exposing only the high
  * level Bluetooth actions. RZCentralManager will automatically connect, and
@@ -52,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Helper to get a peripheral from a peripheralUUID
  */
-- (CBPeripheral *)peripheralForUUID:(NSUUID *)peripheralUUID;
+- (RZBPeripheral *)peripheralForUUID:(NSUUID *)peripheralUUID;
 
 /**
  * Scan for peripherals with the specified UUIDs and options. Trigger the scanBlock
@@ -71,42 +74,6 @@ NS_ASSUME_NONNULL_BEGIN
  * Stop the peripheral scan.
  */
 - (void)stopScan;
-
-/**
- * This will make the central manager maintain a connection to the peripheral at 
- * all times, reconnecting to the peripheral when the connection fails. This is
- * one of the most common patterns for connecting to a device with
- * battery limitations. 
- *
- * This behavior will be disabled if cancelConnectionFromPeripheralUUID:completion: is called.
- *
- * @param peripheralUUID The UUID of the peripheral to connect to
- */
-- (void)maintainConnectionToPeripheralUUID:(NSUUID *)peripheralUUID;
-
-/**
- * Specify a block to invoke when the peripheral with peripheralUUID is connected.
- *
- * This block will be cleared if cancelConnectionFromPeripheralUUID:completion: is called.
- *
- * @param peripheralUUID The UUID of the peripheral
- * @param onConnection The block to invoke on connection
- */
-- (void)setConnectionHandlerForPeripheralUUID:(NSUUID *)peripheralUUID
-                                      handler:(RZBPeripheralBlock __nullable)onConnection;
-
-/**
- * Specify a block to invoke when the peripheral with peripheralUUID is disconnected
- *
- * This block will be cleared if cancelConnectionFromPeripheralUUID:completion: is called.
- *
- * @param peripheralUUID The UUID of the peripheral
- * @param onDisconnection The block to invoke on connection
- */
-- (void)setDisconnectionHandlerForPeripheralUUID:(NSUUID *)peripheralUUID
-                                         handler:(RZBPeripheralBlock __nullable)onDisconnection;
-
-
 
 /**
  * Cancel the connection to a peripheral. This will cancel the connection

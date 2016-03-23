@@ -6,14 +6,14 @@
 //  Copyright © 2015 Raizlabs. All rights reserved.
 //
 
-@import CoreBluetooth;
+#import "RZBPeripheral.h"
 #import "RZBHeartRateMeasurement.h"
 
 typedef void(^RZBHeartRateCompletion)(NSError *error);
 typedef void(^RZBHeartRateUpdateCompletion)(RZBHeartRateMeasurement *measurement, NSError *error);
 typedef void(^RZBHeartRateSensorLocationCompletion)(RZBBodyLocation location);
 
-@interface CBPeripheral (RZBHeartRate)
+@interface RZBPeripheral (RZBHeartRate)
 
 /**
  * Read the sensor location of the heart rate monitor. This callback will return Other if an

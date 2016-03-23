@@ -9,7 +9,7 @@
 @import CoreBluetooth;
 
 #import "RZBCentralManager.h"
-#import "CBPeripheral+RZBExtension.h"
+#import "RZBPeripheral.h"
 #import "CBService+RZBExtension.h"
 #import "RZBErrors.h"
 #import "CBUUID+RZBPublic.h"

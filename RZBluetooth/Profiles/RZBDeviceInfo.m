@@ -7,7 +7,6 @@
 //
 
 #import "RZBDeviceInfo.h"
-#import "CBPeripheral+Private.h"
 #import "RZBErrors.h"
 
 NSString *const RZBDeviceInfoModelNumberKey = @"modelNumber";
@@ -47,7 +46,7 @@ NSString *const RZBDeviceInfoModelNumberKey = @"modelNumber";
 
 @end
 
-@implementation CBPeripheral (RZBDeviceInfo)
+@implementation RZBPeripheral (RZBDeviceInfo)
 
 - (void)rzb_fetchDeviceInformationKeys:(NSArray *)deviceInfoKeys
                             completion:(RZBDeviceInfoCallback)completion
@@ -59,7 +58,7 @@ NSString *const RZBDeviceInfoModelNumberKey = @"modelNumber";
     dispatch_group_t done = dispatch_group_create();
     for (NSString *key in deviceInfoKeys) {
         dispatch_group_enter(done);
-        [self rzb_readCharacteristicUUID:UUIDsByKey[key]
+        [self readCharacteristicUUID:UUIDsByKey[key]
                          serviceUUID:[RZBDeviceInfo serviceUUID]
                           completion:^(CBCharacteristic *characteristic, NSError *error) {
                               if (characteristic.value) {
@@ -73,7 +72,7 @@ NSString *const RZBDeviceInfoModelNumberKey = @"modelNumber";
                               dispatch_group_leave(done);
                           }];
     }
-    dispatch_group_notify(done, self.rzb_queue, ^{
+    dispatch_group_notify(done, self.queue, ^{
         completion(deviceInfo, lastError);
     });
 }

@@ -8,8 +8,6 @@
 
 #import "RZBCentralManager.h"
 #import "RZBCommandDispatch.h"
-#import "RZBPeripheralState.h"
-#import "RZBCentralManagerState.h"
 
 @interface RZBCentralManager () <CBCentralManagerDelegate, CBPeripheralDelegate>
 
@@ -20,9 +18,11 @@
 
 @property (strong, nonatomic, readonly) RZBCommandDispatch *dispatch;
 @property (strong, nonatomic, readonly) CBCentralManager *centralManager;
-@property (strong, nonatomic, readonly) RZBCentralManagerState *managerState;
+@property (strong, nonatomic, readonly) NSMutableDictionary<NSUUID *, RZBPeripheral *> *peripheralsByUUID;
 
 @property (nonatomic, copy) RZBScanBlock activeScanBlock;
+
+- (CBPeripheral *)corePeripheralForUUID:(NSUUID *)peripheralUUID;
 
 /**
  * Obtain a connected peripheral. If the result is nil, a connect

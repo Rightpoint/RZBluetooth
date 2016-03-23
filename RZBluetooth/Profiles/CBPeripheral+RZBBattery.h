@@ -7,11 +7,12 @@
 //
 
 #import <CoreBluetooth/CoreBluetooth.h>
+#import "RZBPeripheral.h"
 
 typedef void(^RZBBatteryReadCompletion)(NSUInteger level, NSError *error);
 typedef void(^RZBBatteryCompletion)(NSError *error);
 
-@interface CBPeripheral (RZBBattery)
+@interface RZBPeripheral (RZBBattery)
 
 - (void)rzb_fetchBatteryLevel:(RZBBatteryReadCompletion)completion;
 - (void)rzb_addBatteryLevelObserver:(RZBBatteryReadCompletion)update completion:(RZBBatteryCompletion)completion;
