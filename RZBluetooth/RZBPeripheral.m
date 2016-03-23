@@ -58,6 +58,14 @@
     return self.centralManager.dispatch.queue;
 }
 
+- (void)setMaintainConnection:(BOOL)maintainConnection
+{
+    _maintainConnection = maintainConnection;
+    if (maintainConnection) {
+        [self.centralManager triggerAutomaticConnectionForPeripheral:self];
+    }
+}
+
 - (void)readRSSI:(RZBRSSIBlock)completion
 {
     NSParameterAssert(completion);

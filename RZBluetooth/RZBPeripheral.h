@@ -110,8 +110,8 @@ characteristicUUID:(CBUUID *)characteristicUUID
 @property (strong, nonatomic, readonly) NSUUID *identifier;
 @property (nonatomic, readonly) CBPeripheralState state;
 
-@property (copy, nonatomic) RZBPeripheralBlock onConnection;
-@property (copy, nonatomic) RZBPeripheralBlock onDisconnection;
+@property (copy, nonatomic) RZBPeripheralBlock __nullable onConnection;
+@property (copy, nonatomic) RZBPeripheralBlock __nullable onDisconnection;
 @property (nonatomic) BOOL maintainConnection;
 @property (strong, nonatomic) dispatch_queue_t queue;
 

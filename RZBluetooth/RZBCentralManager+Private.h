@@ -53,4 +53,7 @@
 - (CBService *)serviceForUUID:(CBUUID *)serviceUUID
                  onPeripheral:(CBPeripheral *)peripheral;
 
+- (void)triggerAutomaticConnectionForPeripheral:(RZBPeripheral *)peripheral;
+
+
 @end

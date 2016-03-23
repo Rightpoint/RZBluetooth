@@ -85,6 +85,10 @@
 {
     NSParameterAssert(peripheralUUID);
     RZBPeripheral *peripheral = [self peripheralForUUID:peripheralUUID];
+#warning More Proof a delegate is the correct route.
+    peripheral.maintainConnection = NO;
+    peripheral.onConnection = nil;
+    peripheral.onDisconnection = nil;
     if (peripheral.corePeripheral.state == CBPeripheralStateDisconnected) {
         dispatch_async(self.dispatch.queue, ^() {
             if (completion) {
