@@ -38,6 +38,11 @@
     }
 }
 
+- (NSString *)name
+{
+    return self.corePeripheral.name;
+}
+
 - (NSUUID *)identifier
 {
     return self.corePeripheral.identifier;

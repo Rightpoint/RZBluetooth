@@ -107,6 +107,7 @@ characteristicUUID:(CBUUID *)characteristicUUID
                         serviceUUID:(CBUUID *)serviceUUID
                          completion:(RZBServiceBlock)completion;
 
+@property (retain, readonly, nullable) NSString *name;
 @property (strong, nonatomic, readonly) NSUUID *identifier;
 @property (nonatomic, readonly) CBPeripheralState state;
 
