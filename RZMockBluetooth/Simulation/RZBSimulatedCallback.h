@@ -8,7 +8,7 @@
 
 @import Foundation;
 
-typedef void(^RZBSimulatedCallbackBlock)(NSError *injectedError);
+typedef void(^RZBSimulatedCallbackBlock)(NSError *__nullable injectedError);
 
 NS_ASSUME_NONNULL_BEGIN
 /**

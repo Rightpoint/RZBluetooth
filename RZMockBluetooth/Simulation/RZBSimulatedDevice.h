@@ -10,6 +10,8 @@
 
 @class RZBMockPeripheralManager;
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef CBATTError (^RZBSimulatedDeviceRead)(CBATTRequest *request);
 typedef void (^RZBSimulatedDeviceSubscribe)(BOOL isNotifying);
 
@@ -31,7 +33,7 @@ typedef void (^RZBSimulatedDeviceSubscribe)(BOOL isNotifying);
  *  @param options The option dictionary to pass to the CBPeripheralManager
  */
 - (instancetype)initMockWithIdentifier:(NSUUID *)identifier
-                                 queue:(dispatch_queue_t)queue
+                                 queue:(dispatch_queue_t __nullable)queue
                                options:(NSDictionary *)options;
 
 /**
@@ -40,7 +42,7 @@ typedef void (^RZBSimulatedDeviceSubscribe)(BOOL isNotifying);
  *  @param queue The dispatch queue to trigger the delegate on
  *  @param options The option dictionary to pass to the CBPeripheralManager
  */
-- (instancetype)initWithQueue:(dispatch_queue_t)queue
+- (instancetype)initWithQueue:(dispatch_queue_t __nullable)queue
                       options:(NSDictionary *)options;
 
 /**
@@ -63,13 +65,13 @@ typedef void (^RZBSimulatedDeviceSubscribe)(BOOL isNotifying);
 /**
  *  All of the services added to the peripheral
  */
-@property (strong, nonatomic, readonly) NSArray *services;
+@property (strong, nonatomic, readonly) NSArray<CBMutableService *> *services;
 
 /**
  *  A block to be triggered on peripheral manager state change. When connecting to a real CBPeripheralManager
  *  services can only be configured when state is CBPeripheralManagerStatePoweredOn.
  */
-@property (copy, nonatomic) void (^onStateChange)(CBPeripheralManagerState);
+@property (copy, nonatomic, nullable) void (^onStateChange)(CBPeripheralManagerState);
 
 /**
  * Shared storage for categories. This is a hack that allows categories to define storage. I'm not sure
@@ -128,3 +130,5 @@ typedef void (^RZBSimulatedDeviceSubscribe)(BOOL isNotifying);
 - (CBMutableCharacteristic *)characteristicForUUID:(CBUUID *)characteristicUUID;
 
 @end
+
+NS_ASSUME_NONNULL_END

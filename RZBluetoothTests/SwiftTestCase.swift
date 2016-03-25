@@ -17,8 +17,6 @@ class SwiftTestCase: RZBSimulatedTestCase {
 
     func testScan() {
         var peripherals: [RZBPeripheral] = []
-        connection.connectable = false;
-        connection.scanCallback.paused = true
         centralManager.scanForPeripheralsWithServices(nil, options: nil) { scanInfo, error in
             if let peripheral = scanInfo?.peripheral {
                 peripherals.append(peripheral)
@@ -29,12 +27,16 @@ class SwiftTestCase: RZBSimulatedTestCase {
         }
         tic()
         XCTAssert(peripherals.count == 0)
-        connection.scanCallback.paused = false
+        device.peripheralManager.startAdvertising([:])
         tic()
 
         XCTAssert(peripherals.count == 1)
         centralManager.stopScan()
         waitForQueueFlush()
+    }
+
+    func testRead() {
+        
     }
 
 }

@@ -12,6 +12,11 @@
 		AB0E29A31B7E2D3F00A1ADA9 /* RZBHeartRateMeasurement.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0E29A21B7E2D3F00A1ADA9 /* RZBHeartRateMeasurement.m */; };
 		AB14AF031CA59CDA00D1436D /* RZBScanInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AB14AF021CA59CDA00D1436D /* RZBScanInfo.m */; };
 		AB14AF121CA5D42F00D1436D /* SwiftTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB14AF111CA5D42F00D1436D /* SwiftTestCase.swift */; };
+		AB14AF151CA5DBE500D1436D /* PacketPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB14AF141CA5DBE500D1436D /* PacketPeripheral.swift */; };
+		AB14AF171CA5DC0300D1436D /* SimulatedPacketDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB14AF161CA5DC0300D1436D /* SimulatedPacketDevice.swift */; };
+		AB14AF191CA5DC2000D1436D /* Packet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB14AF181CA5DC2000D1436D /* Packet.swift */; };
+		AB14AF1B1CA5DE9A00D1436D /* SwiftExampleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB14AF1A1CA5DE9A00D1436D /* SwiftExampleTest.swift */; };
+		AB14AF1D1CA5DF1800D1436D /* PacketUUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB14AF1C1CA5DF1800D1436D /* PacketUUID.swift */; };
 		AB4135EF1B718C94002F450F /* RZBSimulatedCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4135E81B718C94002F450F /* RZBSimulatedCallback.m */; };
 		AB4135F01B718C94002F450F /* RZBSimulatedCentral.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4135EA1B718C94002F450F /* RZBSimulatedCentral.m */; };
 		AB4135F11B718C94002F450F /* RZBSimulatedConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4135EC1B718C94002F450F /* RZBSimulatedConnection.m */; };
@@ -103,6 +108,11 @@
 		AB14AF021CA59CDA00D1436D /* RZBScanInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBScanInfo.m; sourceTree = "<group>"; };
 		AB14AF101CA5D42F00D1436D /* RZBluetoothTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RZBluetoothTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		AB14AF111CA5D42F00D1436D /* SwiftTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftTestCase.swift; sourceTree = "<group>"; };
+		AB14AF141CA5DBE500D1436D /* PacketPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PacketPeripheral.swift; sourceTree = "<group>"; };
+		AB14AF161CA5DC0300D1436D /* SimulatedPacketDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulatedPacketDevice.swift; sourceTree = "<group>"; };
+		AB14AF181CA5DC2000D1436D /* Packet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Packet.swift; sourceTree = "<group>"; };
+		AB14AF1A1CA5DE9A00D1436D /* SwiftExampleTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExampleTest.swift; sourceTree = "<group>"; };
+		AB14AF1C1CA5DF1800D1436D /* PacketUUID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PacketUUID.swift; sourceTree = "<group>"; };
 		AB4135E71B718C94002F450F /* RZBSimulatedCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZBSimulatedCallback.h; sourceTree = "<group>"; };
 		AB4135E81B718C94002F450F /* RZBSimulatedCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBSimulatedCallback.m; sourceTree = "<group>"; };
 		AB4135E91B718C94002F450F /* RZBSimulatedCentral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZBSimulatedCentral.h; sourceTree = "<group>"; };
@@ -210,6 +220,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AB14AF131CA5DBB800D1436D /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				AB14AF1C1CA5DF1800D1436D /* PacketUUID.swift */,
+				AB14AF181CA5DC2000D1436D /* Packet.swift */,
+				AB14AF141CA5DBE500D1436D /* PacketPeripheral.swift */,
+				AB14AF161CA5DC0300D1436D /* SimulatedPacketDevice.swift */,
+			);
+			name = Example;
+			sourceTree = "<group>";
+		};
 		AB4135E61B718C94002F450F /* Simulation */ = {
 			isa = PBXGroup;
 			children = (
@@ -300,6 +321,8 @@
 				AB45C4D81B6BF8AB00CC0166 /* Helpers */,
 				AB45C4A91B6BF70B00CC0166 /* Supporting Files */,
 				AB14AF111CA5D42F00D1436D /* SwiftTestCase.swift */,
+				AB14AF1A1CA5DE9A00D1436D /* SwiftExampleTest.swift */,
+				AB14AF131CA5DBB800D1436D /* Example */,
 				AB14AF101CA5D42F00D1436D /* RZBluetoothTests-Bridging-Header.h */,
 			);
 			path = RZBluetoothTests;
@@ -519,16 +542,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB45C4E21B6BF8AB00CC0166 /* RZBCommandDispatchTests.m in Sources */,
+				AB14AF1D1CA5DF1800D1436D /* PacketUUID.swift in Sources */,
 				AB45C5471B6C09FD00CC0166 /* RZBInvocationLog.m in Sources */,
 				ABCF15081C04D443002DA9BE /* RZBPeripheralManagerTests.m in Sources */,
 				AB45C4E41B6BF8AB00CC0166 /* RZTestCommands.m in Sources */,
+				AB14AF191CA5DC2000D1436D /* Packet.swift in Sources */,
 				AB45C4E01B6BF8AB00CC0166 /* RZBCommandTests.m in Sources */,
 				AB45C4DF1B6BF8AB00CC0166 /* XCTestCase+Helpers.m in Sources */,
 				ABCD837D1B726C2D00DA1162 /* NSRunLoop+RZBWaitFor.m in Sources */,
 				AB14AF121CA5D42F00D1436D /* SwiftTestCase.swift in Sources */,
+				AB14AF171CA5DC0300D1436D /* SimulatedPacketDevice.swift in Sources */,
 				AB4136021B71BAE3002F450F /* RZBSimulatedTestCase.m in Sources */,
 				AB4136041B71BC3D002F450F /* RZBProfileDeviceInfoTests.m in Sources */,
+				AB14AF151CA5DBE500D1436D /* PacketPeripheral.swift in Sources */,
 				ABCD83841B73DE5D00DA1162 /* RZBProfileBatteryTests.m in Sources */,
+				AB14AF1B1CA5DE9A00D1436D /* SwiftExampleTest.swift in Sources */,
 				AB45C4DE1B6BF8AB00CC0166 /* RZBMockCentralTestCase.m in Sources */,
 				ABEA8FC41BF28D6A00543BC3 /* RZBUserInteractionTests.m in Sources */,
 				AB45C4DD1B6BF8AB00CC0166 /* RZBCentralManagerCallbackTests.m in Sources */,
