@@ -79,6 +79,47 @@
     [self.dispatch dispatchCommand:cmd];
 }
 
+- (void)cancelConnectionWithCompletion:(RZBPeripheralBlock)completion
+{
+#warning More proof a delegate is the correct route.
+    self.maintainConnection = NO;
+    self.onConnection = nil;
+    self.onDisconnection = nil;
+    if (self.corePeripheral.state == CBPeripheralStateDisconnected) {
+        dispatch_async(self.dispatch.queue, ^() {
+            if (completion) {
+                completion(self, nil);
+            }
+        });
+    }
+    else {
+        RZBConnectCommand *cmd = [self.dispatch commandOfClass:[RZBCancelConnectionCommand class]
+                                              matchingUUIDPath:RZBUUIDP(self.identifier)
+                                                     createNew:YES];
+        [cmd addCallbackBlock:completion];
+        [self.dispatch dispatchCommand:cmd];
+    }
+}
+
+- (void)connectWithCompletion:(RZBPeripheralBlock)completion
+{
+    if (self.state == CBPeripheralStateConnected) {
+        dispatch_async(self.dispatch.queue, ^() {
+            if (completion) {
+                completion(self, nil);
+            }
+        });
+    }
+    else {
+        // Add our callback to the current executing command
+        RZBConnectCommand *cmd = [self.dispatch commandOfClass:[RZBConnectCommand class]
+                                              matchingUUIDPath:RZBUUIDP(self.identifier)
+                                                     createNew:YES];
+        [cmd addCallbackBlock:completion];
+        [self.dispatch dispatchCommand:cmd];
+    }
+}
+
 - (void)readCharacteristicUUID:(CBUUID *)characteristicUUID
                    serviceUUID:(CBUUID *)serviceUUID
                     completion:(RZBCharacteristicBlock)completion

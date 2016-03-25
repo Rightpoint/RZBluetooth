@@ -68,8 +68,7 @@
     XCTAssert(self.peripheral.state == CBPeripheralStateConnected);
     XCTAssert(self.isNotifying);
 
-    [self.centralManager cancelConnectionFromPeripheralUUID:self.peripheral.identifier completion:^(RZBPeripheral *peripheral, NSError *error) {
-
+    [self.peripheral cancelConnectionWithCompletion:^(RZBPeripheral * _Nullable peripheral, NSError * _Nullable error) {
     }];
     [self waitForQueueFlush];
     XCTAssert(self.isNotifying == NO);

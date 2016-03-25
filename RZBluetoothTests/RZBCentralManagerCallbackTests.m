@@ -134,10 +134,10 @@ static NSString *const RZBTestString = @"StringValue";
     // Trigger a read just to re-use the setup and connection
     [self testRead];
     __block BOOL completed = NO;
-    [self.centralManager cancelConnectionFromPeripheralUUID:self.class.pUUID
-                                                 completion:^(RZBPeripheral *peripheral, NSError *error) {
-                                                     completed = YES;
-                                                 }];
+    RZBPeripheral *p = [self.centralManager peripheralForUUID:self.class.pUUID];
+    [p cancelConnectionWithCompletion:^(RZBPeripheral * _Nullable peripheral, NSError * _Nullable error) {
+        completed = YES;
+    }];
     RZBAssertHasCommand(RZBCancelConnectionCommand, self.class.pUUIDPath, NO);
 
     [self waitForQueueFlush];

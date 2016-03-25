@@ -87,25 +87,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)stopScan;
 
-/**
- * Cancel the connection to a peripheral. This will cancel the connection
- * if connected. If the peripheral is not connected, it trigger the completion
- * block immediately. If the peripheral has a maintained connection, the 
- * reconnect behavior will also be cancelled.
- *
- * @param peripheralUUID The UUID of the peripheral to connect to
- */
-- (void)cancelConnectionFromPeripheralUUID:(NSUUID *)peripheralUUID
-                                completion:(RZBPeripheralBlock __nullable)completion;
-
-/**
- * Initiate a connection to a peripheral. This is exposed in case
- * someone wants to use it directly, but all of the above commands
- * will initiate a connection if needed, so this method is not needed.
- */
-- (void)connectToPeripheralUUID:(NSUUID *)peripheralUUID
-                     completion:(RZBPeripheralBlock __nullable)completion;
-
 @end
 
 NS_ASSUME_NONNULL_END

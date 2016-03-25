@@ -70,6 +70,21 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)readRSSI:(RZBRSSIBlock)completion;
 
 /**
+ * Cancel the connection to a peripheral. This will cancel the connection
+ * if connected. If the peripheral is not connected, it trigger the completion
+ * block immediately. If the peripheral has a maintained connection, the
+ * reconnect behavior will also be cancelled.
+ */
+- (void)cancelConnectionWithCompletion:(RZBPeripheralBlock __nullable)completion;
+
+/**
+ * Initiate a connection to a peripheral. This is exposed in case
+ * someone wants to use it directly, but all of the above commands
+ * will initiate a connection if needed, so this method is not needed.
+ */
+- (void)connectWithCompletion:(RZBPeripheralBlock __nullable)completion;
+
+/**
  * Read a characteristic and trigger the completion block.
  *
  * @note if a read is performed on a characteristic that is notifying, the completion

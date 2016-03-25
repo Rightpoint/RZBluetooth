@@ -95,56 +95,6 @@ static BOOL s_useMockCoreBluetooth = NO;
     }
 }
 
-#pragma mark - Command Generation
-
-- (void)cancelConnectionFromPeripheralUUID:(NSUUID *)peripheralUUID
-                                completion:(RZBPeripheralBlock)completion
-{
-    NSParameterAssert(peripheralUUID);
-    RZBPeripheral *peripheral = [self peripheralForUUID:peripheralUUID];
-#warning More proof a delegate is the correct route.
-    peripheral.maintainConnection = NO;
-    peripheral.onConnection = nil;
-    peripheral.onDisconnection = nil;
-    if (peripheral.corePeripheral.state == CBPeripheralStateDisconnected) {
-        dispatch_async(self.dispatch.queue, ^() {
-            if (completion) {
-                completion(peripheral, nil);
-            }
-        });
-    }
-    else {
-        RZBConnectCommand *cmd = [self.dispatch commandOfClass:[RZBCancelConnectionCommand class]
-                                              matchingUUIDPath:RZBUUIDP(peripheralUUID)
-                                                     createNew:YES];
-        [cmd addCallbackBlock:completion];
-        [self.dispatch dispatchCommand:cmd];
-    }
-}
-
-- (void)connectToPeripheralUUID:(NSUUID *)peripheralUUID
-                     completion:(RZBPeripheralBlock)completion
-{
-    NSParameterAssert(peripheralUUID);
-    RZBPeripheral *peripheral = [self peripheralForUUID:peripheralUUID];
-
-    if (peripheral.state == CBPeripheralStateConnected) {
-        dispatch_async(self.dispatch.queue, ^() {
-            if (completion) {
-                completion(peripheral, nil);
-            }
-        });
-    }
-    else {
-        // Add our callback to the current executing command
-        RZBConnectCommand *cmd = [self.dispatch commandOfClass:[RZBConnectCommand class]
-                                              matchingUUIDPath:RZBUUIDP(peripheralUUID)
-                                                     createNew:YES];
-        [cmd addCallbackBlock:completion];
-        [self.dispatch dispatchCommand:cmd];
-    }
-}
-
 #pragma mark - Lookup Helpers
 
 - (CBPeripheral *)corePeripheralForUUID:(NSUUID *)peripheralUUID
