@@ -41,7 +41,7 @@
 - (void)testPeripheralManagerDisconnectionViaSimulatedConnectionDisconnection
 {
     typeof(self) welf = self;
-    [self.peripheral rzb_addBatteryLevelObserver:^(NSUInteger level, NSError *error) {
+    [self.peripheral addBatteryLevelObserver:^(NSUInteger level, NSError *error) {
         welf.level = level;
     } completion:^(NSError *error) {
     }];
@@ -60,7 +60,7 @@
 - (void)testPeripheralManagerDisconnectionViaCancelConnection
 {
     typeof(self) welf = self;
-    [self.peripheral rzb_addBatteryLevelObserver:^(NSUInteger level, NSError *error) {
+    [self.peripheral addBatteryLevelObserver:^(NSUInteger level, NSError *error) {
         welf.level = level;
     } completion:^(NSError *error) {
     }];

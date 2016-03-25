@@ -1,5 +1,5 @@
 //
-//  CBPeripheral+RZBHeartRate.h
+//  RZBPeripheral+RZBHeartRate.h
 //  RZBluetooth
 //
 //  Created by Brian King on 8/14/15.
@@ -19,12 +19,12 @@ typedef void(^RZBHeartRateSensorLocationCompletion)(RZBBodyLocation location);
  * Read the sensor location of the heart rate monitor. This callback will return Other if an
  * error occurs.
  */
-- (void)rzb_readSensorLocation:(RZBHeartRateSensorLocationCompletion)completion;
+- (void)readSensorLocation:(RZBHeartRateSensorLocationCompletion)completion;
 
-- (void)rzb_addHeartRateObserver:(RZBHeartRateUpdateCompletion)update completion:(RZBHeartRateCompletion)completion;
+- (void)addHeartRateObserver:(RZBHeartRateUpdateCompletion)update completion:(RZBHeartRateCompletion)completion;
 
-- (void)rzb_removeHeartRateObserver:(RZBHeartRateCompletion)completion;
+- (void)removeHeartRateObserver:(RZBHeartRateCompletion)completion;
 
-- (void)rzb_resetHeartRateEnergyExpended:(RZBHeartRateCompletion)completion;
+- (void)resetHeartRateEnergyExpended:(RZBHeartRateCompletion)completion;
 
 @end

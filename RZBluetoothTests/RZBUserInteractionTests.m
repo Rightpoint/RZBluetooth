@@ -32,7 +32,7 @@
 
     self.device.batteryLevel = 80;
     [RZBUserInteraction perform:^{
-        [self.peripheral rzb_fetchBatteryLevel:^(NSUInteger level, NSError *error) {
+        [self.peripheral fetchBatteryLevel:^(NSUInteger level, NSError *error) {
             [read fulfill];
             XCTAssertNil(error);
             XCTAssert(level == 80);
@@ -49,7 +49,7 @@
     self.connection.readCharacteristicCallback.delay = 1.0;
     self.device.batteryLevel = 80;
     [RZBUserInteraction perform:^{
-        [self.peripheral rzb_fetchBatteryLevel:^(NSUInteger level, NSError *error) {
+        [self.peripheral fetchBatteryLevel:^(NSUInteger level, NSError *error) {
             [read fulfill];
             XCTAssert(error);
         }];
@@ -66,7 +66,7 @@
     XCTestExpectation *read = [self expectationWithDescription:@"Read battery level"];
     self.device.batteryLevel = 80;
     [RZBUserInteraction perform:^{
-        [self.peripheral rzb_fetchBatteryLevel:^(NSUInteger level, NSError *error) {
+        [self.peripheral fetchBatteryLevel:^(NSUInteger level, NSError *error) {
             [read fulfill];
             XCTAssert(error);
             XCTAssert(error.code == RZBluetoothPoweredOff);
@@ -84,7 +84,7 @@
     XCTestExpectation *read = [self expectationWithDescription:@"Read battery level"];
     self.device.batteryLevel = 80;
     [RZBUserInteraction perform:^{
-        [self.peripheral rzb_fetchBatteryLevel:^(NSUInteger level, NSError *error) {
+        [self.peripheral fetchBatteryLevel:^(NSUInteger level, NSError *error) {
             [read fulfill];
             XCTAssert(error);
             XCTAssert(error.code == RZBluetoothTimeoutError);

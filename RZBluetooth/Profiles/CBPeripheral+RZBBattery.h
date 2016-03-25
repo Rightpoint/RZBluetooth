@@ -1,5 +1,5 @@
 //
-//  CBPeripheral+RZBBattery.h
+//  RZBPeripheral+RZBBattery.h
 //  RZBluetooth
 //
 //  Created by Brian King on 8/6/15.
@@ -14,8 +14,8 @@ typedef void(^RZBBatteryCompletion)(NSError *error);
 
 @interface RZBPeripheral (RZBBattery)
 
-- (void)rzb_fetchBatteryLevel:(RZBBatteryReadCompletion)completion;
-- (void)rzb_addBatteryLevelObserver:(RZBBatteryReadCompletion)update completion:(RZBBatteryCompletion)completion;
-- (void)rzb_removeBatteryLevelObserver:(RZBBatteryCompletion)completion;
+- (void)fetchBatteryLevel:(RZBBatteryReadCompletion)completion;
+- (void)addBatteryLevelObserver:(RZBBatteryReadCompletion)update completion:(RZBBatteryCompletion)completion;
+- (void)removeBatteryLevelObserver:(RZBBatteryCompletion)completion;
 
 @end

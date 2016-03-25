@@ -1,5 +1,5 @@
 //
-//  CBPeripheral+RZBHeartRate.m
+//  RZBPeripheral+RZBHeartRate.m
 //  RZBluetooth
 //
 //  Created by Brian King on 8/14/15.
@@ -17,7 +17,7 @@ typedef NS_ENUM(uint8_t, RZBHeartRateControl) {
 
 @implementation RZBPeripheral (RZBHeartRate)
 
-- (void)rzb_readSensorLocation:(RZBHeartRateSensorLocationCompletion)completion
+- (void)readSensorLocation:(RZBHeartRateSensorLocationCompletion)completion
 {
     NSParameterAssert(completion);
     [self readCharacteristicUUID:[CBUUID rzb_UUIDForBodyLocationCharacteristic]
@@ -29,7 +29,7 @@ typedef NS_ENUM(uint8_t, RZBHeartRateControl) {
                       }];
 }
 
-- (void)rzb_addHeartRateObserver:(RZBHeartRateUpdateCompletion)update completion:(RZBHeartRateCompletion)completion
+- (void)addHeartRateObserver:(RZBHeartRateUpdateCompletion)update completion:(RZBHeartRateCompletion)completion
 {
     NSParameterAssert(update);
     NSParameterAssert(completion);
@@ -43,7 +43,7 @@ typedef NS_ENUM(uint8_t, RZBHeartRateControl) {
                                   }];
 }
 
-- (void)rzb_removeHeartRateObserver:(RZBHeartRateCompletion)completion
+- (void)removeHeartRateObserver:(RZBHeartRateCompletion)completion
 {
     NSParameterAssert(completion);
     [self removeObserverForCharacteristicUUID:[CBUUID rzb_UUIDForHeartRateMeasurementCharacteristic]
@@ -53,7 +53,7 @@ typedef NS_ENUM(uint8_t, RZBHeartRateControl) {
                                    }];
 }
 
-- (void)rzb_resetHeartRateEnergyExpended:(RZBHeartRateCompletion)completion
+- (void)resetHeartRateEnergyExpended:(RZBHeartRateCompletion)completion
 {
     NSParameterAssert(completion);
     RZBHeartRateControl control = RZBHeartRateControlResetEnergyExpended;

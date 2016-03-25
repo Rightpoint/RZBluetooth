@@ -11,7 +11,7 @@
 
 @implementation RZBPeripheral (RZBBattery)
 
-- (void)rzb_fetchBatteryLevel:(RZBBatteryReadCompletion)completion
+- (void)fetchBatteryLevel:(RZBBatteryReadCompletion)completion
 {
     [self readCharacteristicUUID:[CBUUID rzb_UUIDForBatteryLevelCharacteristic]
                      serviceUUID:[CBUUID rzb_UUIDForBatteryService]
@@ -22,7 +22,7 @@
                       }];
 }
 
-- (void)rzb_addBatteryLevelObserver:(RZBBatteryReadCompletion)update completion:(RZBBatteryCompletion)completion
+- (void)addBatteryLevelObserver:(RZBBatteryReadCompletion)update completion:(RZBBatteryCompletion)completion
 {
     [self addObserverForCharacteristicUUID:[CBUUID rzb_UUIDForBatteryLevelCharacteristic]
                                serviceUUID:[CBUUID rzb_UUIDForBatteryService]
@@ -35,7 +35,7 @@
                                   }];
 }
 
-- (void)rzb_removeBatteryLevelObserver:(RZBBatteryCompletion)completion
+- (void)removeBatteryLevelObserver:(RZBBatteryCompletion)completion
 {
     [self removeObserverForCharacteristicUUID:[CBUUID rzb_UUIDForBatteryLevelCharacteristic]
                                   serviceUUID:[CBUUID rzb_UUIDForBatteryService]
