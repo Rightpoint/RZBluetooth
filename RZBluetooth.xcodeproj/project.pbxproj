@@ -281,14 +281,14 @@
 		AB45C4A81B6BF70B00CC0166 /* RZBluetoothTests */ = {
 			isa = PBXGroup;
 			children = (
+				AB4136001B71BAE3002F450F /* RZBSimulatedTestCase.h */,
+				AB4136011B71BAE3002F450F /* RZBSimulatedTestCase.m */,
 				AB45C4D01B6BF8AB00CC0166 /* RZBCentralManagerCallbackTests.m */,
 				AB45C4D21B6BF8AB00CC0166 /* RZBMockCentralTestCase.h */,
 				AB45C4D11B6BF8AB00CC0166 /* RZBMockCentralTestCase.m */,
 				AB45C4D71B6BF8AB00CC0166 /* RZBCommandDispatchTests.m */,
 				AB45C4D41B6BF8AB00CC0166 /* RZBCommandTests.m */,
 				AB45C4D51B6BF8AB00CC0166 /* RZBUUIDPathTests.m */,
-				AB4136001B71BAE3002F450F /* RZBSimulatedTestCase.h */,
-				AB4136011B71BAE3002F450F /* RZBSimulatedTestCase.m */,
 				ABCF15071C04D443002DA9BE /* RZBPeripheralManagerTests.m */,
 				ABCD83811B73DD2600DA1162 /* RZBSimulatedTests.m */,
 				AB4136031B71BC3D002F450F /* RZBProfileDeviceInfoTests.m */,

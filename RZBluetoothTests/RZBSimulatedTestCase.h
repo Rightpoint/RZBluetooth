@@ -30,14 +30,24 @@
  */
 @interface RZBSimulatedTestCase : XCTestCase
 
-+ (Class)simulatedDeviceClass;
-
 @property (strong, nonatomic) RZBCentralManager *centralManager;
 @property (strong, nonatomic, readonly) RZBPeripheral *peripheral;
 @property (strong, nonatomic, readonly) RZBMockCentralManager *mockCentralManager;
+
 @property (strong, nonatomic) RZBSimulatedCentral *central;
 @property (strong, nonatomic) RZBSimulatedDevice *device;
 @property (strong, nonatomic) RZBSimulatedConnection *connection;
+
+/**
+ * Over-ride in a test subclass to use a specific RZBSimulatedDevice subclass
+ */
++ (Class)simulatedDeviceClass;
+
+/**
+ * Over-ride in a test subclass to instantiate RZBCentralManager
+ */
+- (void)configureCentralManager;
+
 
 - (void)waitForQueueFlush;
 

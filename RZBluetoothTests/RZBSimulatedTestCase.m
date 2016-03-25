@@ -11,6 +11,12 @@
 
 @implementation RZBSimulatedTestCase
 
++ (void)setUp
+{
+    [RZBCentralManager setUseMockCoreBluetooth:YES];
+    [super setUp];
+}
+
 + (Class)simulatedDeviceClass
 {
     return [RZBSimulatedDevice class];
@@ -40,11 +46,15 @@
     return [self.centralManager peripheralForUUID:self.device.identifier];
 }
 
+- (void)configureCentralManager
+{
+    self.centralManager = [[RZBCentralManager alloc] init];
+}
+
 - (void)setUp
 {
     [super setUp];
-    [RZBCentralManager setUseMockCoreBluetooth:YES];
-    self.centralManager = [[RZBCentralManager alloc] init];
+    [self configureCentralManager];
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
     self.device = [[self.class.simulatedDeviceClass alloc] initMockWithIdentifier:[NSUUID UUID]
                                                                             queue:self.mockCentralManager.queue
