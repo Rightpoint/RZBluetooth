@@ -14,7 +14,7 @@
 
 @implementation PeripheralViewController
 
-- (instancetype)initWithPeripheral:(CBPeripheral *)peripheral;
+- (instancetype)initWithPeripheral:(RZBPeripheral *)peripheral;
 {
     self = [self initWithNibName:nil bundle:nil];
     if (self) {

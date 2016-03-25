@@ -12,9 +12,9 @@
 
 @interface PeripheralViewController : UIViewController
 
-- (instancetype)initWithPeripheral:(CBPeripheral *)peripheral;
+- (instancetype)initWithPeripheral:(RZBPeripheral *)peripheral;
 
-@property (strong, nonatomic, readonly) CBPeripheral *peripheral;
+@property (strong, nonatomic, readonly) RZBPeripheral *peripheral;
 
 @end
 
