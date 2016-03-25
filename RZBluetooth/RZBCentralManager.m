@@ -30,7 +30,7 @@ static BOOL s_useMockCoreBluetooth = NO;
     return s_useMockCoreBluetooth;
 }
 
-+ (Class)centralManagerClass
++ (Class)coreCentralManagerClass
 {
     return s_useMockCoreBluetooth ? NSClassFromString(@"RZBMockCentralManager") : [CBCentralManager class];
 }
@@ -52,9 +52,9 @@ static BOOL s_useMockCoreBluetooth = NO;
     if (self) {
         NSDictionary *options = @{};
         _peripheralClass = peripheralClass ?: [RZBPeripheral class];
-        _centralManager = [[[RZBCentralManager centralManagerClass] alloc] initWithDelegate:self
-                                                                                      queue:queue
-                                                                                    options:options];
+        _centralManager = [[[RZBCentralManager coreCentralManagerClass] alloc] initWithDelegate:self
+                                                                                          queue:queue
+                                                                                        options:options];
         _dispatch = [[RZBCommandDispatch alloc] initWithQueue:queue context:self];
         _peripheralsByUUID = [NSMutableDictionary dictionary];
     }
@@ -237,10 +237,9 @@ static BOOL s_useMockCoreBluetooth = NO;
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)corePeripheral
 {
     RZBLogDelegate(@"%@ - %@ %@", NSStringFromSelector(_cmd), central, RZBLogIdentifier(corePeripheral));
-
     RZBPeripheral *peripheral = [self peripheralForCorePeripheral:corePeripheral];
     if (peripheral.onConnection) {
-        peripheral.onConnection(peripheral, nil);
+        peripheral.onConnection(nil);
     }
 
     [self completeFirstCommandOfClass:[RZBConnectCommand class]
@@ -267,7 +266,7 @@ static BOOL s_useMockCoreBluetooth = NO;
     RZBPeripheral *peripheral = [self peripheralForCorePeripheral:corePeripheral];
 
     if (peripheral.onDisconnection) {
-        peripheral.onDisconnection(peripheral, error);
+        peripheral.onDisconnection(error);
     }
     
     [self completeFirstCommandOfClass:[RZBCancelConnectionCommand class]

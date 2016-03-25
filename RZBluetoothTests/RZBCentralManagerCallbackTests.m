@@ -135,7 +135,7 @@ static NSString *const RZBTestString = @"StringValue";
     [self testRead];
     __block BOOL completed = NO;
     RZBPeripheral *p = [self.centralManager peripheralForUUID:self.class.pUUID];
-    [p cancelConnectionWithCompletion:^(RZBPeripheral * _Nullable peripheral, NSError * _Nullable error) {
+    [p cancelConnectionWithCompletion:^(NSError * _Nullable error) {
         completed = YES;
     }];
     RZBAssertHasCommand(RZBCancelConnectionCommand, self.class.pUUIDPath, NO);

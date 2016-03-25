@@ -79,35 +79,35 @@
     [self.dispatch dispatchCommand:cmd];
 }
 
-- (void)cancelConnectionWithCompletion:(RZBPeripheralBlock)completion
+- (void)cancelConnectionWithCompletion:(RZBErrorBlock)completion
 {
+    completion = completion ?: ^(NSError *error) {};
 #warning More proof a delegate is the correct route.
     self.maintainConnection = NO;
     self.onConnection = nil;
     self.onDisconnection = nil;
     if (self.corePeripheral.state == CBPeripheralStateDisconnected) {
         dispatch_async(self.dispatch.queue, ^() {
-            if (completion) {
-                completion(self, nil);
-            }
+            completion(nil);
         });
     }
     else {
         RZBConnectCommand *cmd = [self.dispatch commandOfClass:[RZBCancelConnectionCommand class]
                                               matchingUUIDPath:RZBUUIDP(self.identifier)
                                                      createNew:YES];
-        [cmd addCallbackBlock:completion];
+        [cmd addCallbackBlock:^(id object, NSError *error) {
+            completion(error);
+        }];
         [self.dispatch dispatchCommand:cmd];
     }
 }
 
-- (void)connectWithCompletion:(RZBPeripheralBlock)completion
+- (void)connectWithCompletion:(RZBErrorBlock)completion
 {
+    completion = completion ?: ^(NSError *error) {};
     if (self.state == CBPeripheralStateConnected) {
         dispatch_async(self.dispatch.queue, ^() {
-            if (completion) {
-                completion(self, nil);
-            }
+            completion(nil);
         });
     }
     else {
@@ -115,7 +115,9 @@
         RZBConnectCommand *cmd = [self.dispatch commandOfClass:[RZBConnectCommand class]
                                               matchingUUIDPath:RZBUUIDP(self.identifier)
                                                      createNew:YES];
-        [cmd addCallbackBlock:completion];
+        [cmd addCallbackBlock:^(id object, NSError *error) {
+            completion(error);
+        }];
         [self.dispatch dispatchCommand:cmd];
     }
 }
@@ -201,7 +203,7 @@ characteristicUUID:(CBUUID *)characteristicUUID
 }
 
 - (void)discoverServiceUUIDs:(NSArray *)serviceUUIDs
-                  completion:(RZBPeripheralBlock)completion
+                  completion:(RZBErrorBlock)completion
 {
     NSParameterAssert(completion);
     RZBUUIDPath *path = RZBUUIDP(self.identifier);
@@ -209,7 +211,9 @@ characteristicUUID:(CBUUID *)characteristicUUID
     if (serviceUUIDs) {
         [cmd.serviceUUIDs addObjectsFromArray:serviceUUIDs];
     }
-    [cmd addCallbackBlock:completion];
+    [cmd addCallbackBlock:^(id object, NSError *error) {
+        completion(error);
+    }];
     [self.dispatch dispatchCommand:cmd];
 }
 

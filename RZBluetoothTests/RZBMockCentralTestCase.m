@@ -113,7 +113,7 @@
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
     RZBPeripheral *peripheral = [self.centralManager peripheralForUUID:self.class.pUUID];
 
-    [peripheral connectWithCompletion:^(RZBPeripheral *p, NSError *error) {}];
+    [peripheral connectWithCompletion:^(NSError *error) {}];
     [self ensureAndCompleteConnectionTo:self.class.pUUID];
 }
 

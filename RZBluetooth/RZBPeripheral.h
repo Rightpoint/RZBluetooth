@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, readonly) NSUUID *identifier;
 
 /**
+ *  The name of the backing Core Bluetooth peripheral
  */
 @property (retain, readonly, nullable) NSString *name;
 
@@ -38,14 +39,19 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) CBPeripheralState state;
 
 /**
+ *  The service objects of the backing Core Bluetooth peripheral.
+ */
+@property (retain, readonly, nullable) NSArray<CBService *> *services;
+
+/**
  * The block to execute on connection
  */
-@property (copy, nonatomic, nullable) RZBPeripheralBlock onConnection;
+@property (copy, nonatomic, nullable) RZBErrorBlock onConnection;
 
 /**
  * The block to execute on disconnection
  */
-@property (copy, nonatomic, nullable) RZBPeripheralBlock onDisconnection;
+@property (copy, nonatomic, nullable) RZBErrorBlock onDisconnection;
 
 /**
  * This will make the central manager maintain a connection to this peripheral at
@@ -75,14 +81,14 @@ NS_ASSUME_NONNULL_BEGIN
  * block immediately. If the peripheral has a maintained connection, the
  * reconnect behavior will also be cancelled.
  */
-- (void)cancelConnectionWithCompletion:(RZBPeripheralBlock __nullable)completion;
+- (void)cancelConnectionWithCompletion:(RZBErrorBlock __nullable)completion;
 
 /**
  * Initiate a connection to a peripheral. This is exposed in case
  * someone wants to use it directly, but all of the above commands
  * will initiate a connection if needed, so this method is not needed.
  */
-- (void)connectWithCompletion:(RZBPeripheralBlock __nullable)completion;
+- (void)connectWithCompletion:(RZBErrorBlock __nullable)completion;
 
 /**
  * Read a characteristic and trigger the completion block.
@@ -155,7 +161,7 @@ characteristicUUID:(CBUUID *)characteristicUUID
  *       services requested do not exist.
  */
 - (void)discoverServiceUUIDs:(NSArray<CBUUID *> * __nullable)serviceUUIDs
-                  completion:(RZBPeripheralBlock)completion;
+                  completion:(RZBErrorBlock)completion;
 /**
  * Discover the characteristics specified and trigger the completion block.
  *

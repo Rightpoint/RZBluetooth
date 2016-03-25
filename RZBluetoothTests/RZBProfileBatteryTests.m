@@ -45,7 +45,7 @@
     XCTestExpectation *discover = [self expectationWithDescription:@"Discover Battery Service"];
 
     self.device.batteryLevel = 80;
-    [self.peripheral discoverServiceUUIDs:@[[CBUUID rzb_UUIDForBatteryService]] completion:^(RZBPeripheral * _Nullable peripheral, NSError * _Nullable error) {
+    [self.peripheral discoverServiceUUIDs:@[[CBUUID rzb_UUIDForBatteryService]] completion:^(NSError * _Nullable error) {
         [discover fulfill];
         XCTAssertNil(error);
     }];
