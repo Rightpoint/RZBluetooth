@@ -13,6 +13,7 @@
 
 - (void)fetchBatteryLevel:(RZBBatteryReadCompletion)completion
 {
+    NSParameterAssert(completion);
     [self readCharacteristicUUID:[CBUUID rzb_UUIDForBatteryLevelCharacteristic]
                      serviceUUID:[CBUUID rzb_UUIDForBatteryService]
                       completion:^(CBCharacteristic *characteristic, NSError *error) {
@@ -22,8 +23,10 @@
                       }];
 }
 
-- (void)addBatteryLevelObserver:(RZBBatteryReadCompletion)update completion:(RZBBatteryCompletion)completion
+- (void)addBatteryLevelObserver:(RZBBatteryReadCompletion)update completion:(RZBErrorBlock)completion
 {
+    NSParameterAssert(update);
+    completion = completion ?: ^(NSError *e) {};
     [self addObserverForCharacteristicUUID:[CBUUID rzb_UUIDForBatteryLevelCharacteristic]
                                serviceUUID:[CBUUID rzb_UUIDForBatteryService]
                                   onChange:^(CBCharacteristic *characteristic, NSError *error) {
@@ -35,8 +38,9 @@
                                   }];
 }
 
-- (void)removeBatteryLevelObserver:(RZBBatteryCompletion)completion
+- (void)removeBatteryLevelObserver:(RZBErrorBlock)completion
 {
+    completion = completion ?: ^(NSError *e) {};
     [self removeObserverForCharacteristicUUID:[CBUUID rzb_UUIDForBatteryLevelCharacteristic]
                                   serviceUUID:[CBUUID rzb_UUIDForBatteryService]
                                    completion:^(CBCharacteristic *characteristic, NSError *error) {

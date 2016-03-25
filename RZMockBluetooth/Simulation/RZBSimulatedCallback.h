@@ -10,6 +10,7 @@
 
 typedef void(^RZBSimulatedCallbackBlock)(NSError *injectedError);
 
+NS_ASSUME_NONNULL_BEGIN
 /**
  * A simulated callback is a method of controlling the timing and error
  * injection of a callback performed by a simulated connection.
@@ -64,3 +65,5 @@ typedef void(^RZBSimulatedCallbackBlock)(NSError *injectedError);
 - (void)cancel;
 
 @end
+
+NS_ASSUME_NONNULL_END
