@@ -27,7 +27,7 @@ XCTAssert(cmds.count == c, @"Did not find an %@ command of class %@\n%@\n", isEx
 
 @interface RZBMockCentralTestCase : XCTestCase <RZBMockCentralManagerDelegate, RZBMockPeripheralDelegate>
 
-@property (strong, nonatomic) RZBTestableCentralManager *centralManager;
+@property (strong, nonatomic) RZBCentralManager *centralManager;
 @property (strong, nonatomic, readonly) RZBMockCentralManager *mockCentralManager;
 @property (strong, nonatomic) RZBInvocationLog *invocationLog;
 

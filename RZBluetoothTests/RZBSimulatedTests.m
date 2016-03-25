@@ -20,11 +20,10 @@
 
     [self.centralManager scanForPeripheralsWithServices:nil
                                                 options:nil
-                                 onDiscoveredPeripheral:^(RZBPeripheral *peripheral, NSDictionary *advInfo, NSNumber *RSSI) {
+                                 onDiscoveredPeripheral:^(RZBScanInfo *scanInfo, NSError *error) {
                                      [discovered fulfill];
-                                     XCTAssert([peripheral.identifier isEqual:self.device.identifier]);
-                                 }
-                                             onError:nil];
+                                     XCTAssert([scanInfo.peripheral.identifier isEqual:self.device.identifier]);
+                                 }];
     [self.device.peripheralManager startAdvertising:@{}];
 
     [self waitForExpectationsWithTimeout:5.0 handler:nil];

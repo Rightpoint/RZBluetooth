@@ -21,6 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface RZBCentralManager : NSObject
 
++ (void)setUseMockCoreBluetooth:(BOOL)useMockCoreBluetooth;
++ (BOOL)useMockCoreBluetooth;
+
 /**
  * Create a new central manager on the main dispatch queue, with a default identifier.
  */
@@ -35,6 +38,16 @@ NS_ASSUME_NONNULL_BEGIN
  *
  */
 - (instancetype)initWithIdentifier:(NSString *)identifier queue:(dispatch_queue_t __nullable)queue;
+
+/**
+ * Create a new central manager
+ *
+ * @param identifier the restore identifier.
+ * @param peripheralClass the subclass of RZBPeripheral to use
+ * @param queue the dispatch queue for the central to use. The main queue will be used if queue is nil.
+ *              It is important that the dispatch queue be a serial queue
+ */
+- (instancetype)initWithIdentifier:(NSString *)identifier peripheralClass:(Class)peripheralClass queue:(dispatch_queue_t __nullable)queue;
 
 /**
  * Expose the backing CBCentralManagerState. See RZBluetoothErrorForState to generate an
@@ -67,8 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)scanForPeripheralsWithServices:(NSArray<CBUUID *> * __nullable)serviceUUIDs
                                options:(NSDictionary<NSString *, id> * __nullable)options
-                onDiscoveredPeripheral:(RZBScanBlock)scanBlock
-                               onError:(RZBErrorBlock __nullable)onError;
+                onDiscoveredPeripheral:(RZBScanBlock)scanBlock;
 
 /**
  * Stop the peripheral scan.

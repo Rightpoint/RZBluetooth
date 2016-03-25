@@ -8,9 +8,9 @@
 
 @import XCTest;
 
-#import "RZBTestableCentralManager.h"
 #import "RZBCentralManager+Private.h"
 #import "RZBPeripheral.h"
+#import "RZBScanInfo.h"
 
 #import "RZBMockCentralManager.h"
 #import "RZBMockPeripheralManager.h"
@@ -32,9 +32,10 @@
 
 + (Class)simulatedDeviceClass;
 
-@property (strong, nonatomic) RZBTestableCentralManager *centralManager;
+@property (strong, nonatomic) RZBCentralManager *centralManager;
 @property (strong, nonatomic, readonly) RZBPeripheral *peripheral;
 @property (strong, nonatomic, readonly) RZBMockCentralManager *mockCentralManager;
+@property (strong, nonatomic) RZBSimulatedCentral *central;
 @property (strong, nonatomic) RZBSimulatedDevice *device;
 @property (strong, nonatomic) RZBSimulatedConnection *connection;
 

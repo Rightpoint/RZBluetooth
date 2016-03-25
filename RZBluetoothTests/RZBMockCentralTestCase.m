@@ -21,13 +21,16 @@
 
 - (RZBMockCentralManager *)mockCentralManager
 {
-    return self.centralManager.mockCentralManager;
+    RZBMockCentralManager *mockCentral = (id)self.centralManager.centralManager;
+    NSAssert([mockCentral isKindOfClass:[RZBMockCentralManager class]], @"Invalid central");
+    return mockCentral;
 }
 
 - (void)setUp
 {
     [super setUp];
-    self.centralManager = [[RZBTestableCentralManager alloc] init];
+    [RZBCentralManager setUseMockCoreBluetooth:YES];
+    self.centralManager = [[RZBCentralManager alloc] init];
     self.mockCentralManager.mockDelegate = self;
     self.invocationLog = [[RZBInvocationLog alloc] init];
 }
@@ -85,23 +88,23 @@
 {
     RZBPeripheral *peripheral = [self.centralManager peripheralForUUID:self.class.pUUID];
     [peripheral readCharacteristicUUID:self.class.cUUID
-                      serviceUUID:self.class.sUUID
-                       completion:^(CBCharacteristic *characteristic, NSError *error) {
-                           XCTAssertNotNil(error);
-                           [errors addObject:error];
-                       }];
+                           serviceUUID:self.class.sUUID
+                            completion:^(CBCharacteristic *characteristic, NSError *error) {
+                                XCTAssertNotNil(error);
+                                [errors addObject:error];
+                            }];
     [peripheral readCharacteristicUUID:self.class.cUUID
-                      serviceUUID:self.class.sUUID
-                       completion:^(CBCharacteristic *characteristic, NSError *error) {
-                           XCTAssertNotNil(error);
-                           [errors addObject:error];
-                       }];
+                           serviceUUID:self.class.sUUID
+                            completion:^(CBCharacteristic *characteristic, NSError *error) {
+                                XCTAssertNotNil(error);
+                                [errors addObject:error];
+                            }];
     [peripheral readCharacteristicUUID:self.class.cUUID
-                      serviceUUID:self.class.sUUID
-                       completion:^(CBCharacteristic *characteristic, NSError *error) {
-                           XCTAssertNotNil(error);
-                           [errors addObject:error];
-                       }];
+                           serviceUUID:self.class.sUUID
+                            completion:^(CBCharacteristic *characteristic, NSError *error) {
+                                XCTAssertNotNil(error);
+                                [errors addObject:error];
+                            }];
     [self waitForQueueFlush];
 }
 

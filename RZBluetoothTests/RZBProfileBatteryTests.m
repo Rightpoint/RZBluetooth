@@ -22,7 +22,7 @@
 {
     [super setUp];
     [self.device addBatteryService];
-    RZBSetLogHandler(^(RZBLogLevel logLevel, NSString *format, __va_list_tag *args) {
+    RZBSetLogHandler(^(RZBLogLevel logLevel, NSString *format, va_list args) {
         NSLog(@"%@", [[NSString alloc] initWithFormat:format arguments:args]);
     });
 }

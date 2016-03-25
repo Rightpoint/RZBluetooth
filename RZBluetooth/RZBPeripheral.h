@@ -9,9 +9,60 @@
 #import <Foundation/Foundation.h>
 #import "RZBDefines.h"
 
+@class RZBCentralManager;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RZBPeripheral : NSObject
+
+/**
+ *  Designated initializer to over-ride by subclasses. You should not invoke this method directly.
+ */
+- (instancetype)initWithCorePeripheral:(CBPeripheral *)corePeripheral
+                        centralManager:(RZBCentralManager *)centralManager NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)init NS_UNAVAILABLE;
+
+/**
+ *  The identifier of the backing Core Bluetooth peripheral.
+ */
+@property (strong, nonatomic, readonly) NSUUID *identifier;
+
+/**
+ */
+@property (retain, readonly, nullable) NSString *name;
+
+/**
+ *  The state of the backing Core Bluetooth peripheral.
+ */
+@property (nonatomic, readonly) CBPeripheralState state;
+
+/**
+ * The block to execute on connection
+ */
+@property (copy, nonatomic, nullable) RZBPeripheralBlock onConnection;
+
+/**
+ * The block to execute on disconnection
+ */
+@property (copy, nonatomic, nullable) RZBPeripheralBlock onDisconnection;
+
+/**
+ * This will make the central manager maintain a connection to this peripheral at
+ * all times, reconnecting to the peripheral when the connection fails. This is
+ * one of the most common patterns for connecting to a device with
+ * battery limitations.
+ *
+ * If you have more complex connection requirements, use the onConnection and onDisconnection behavior.
+ * 
+ * @note This bool is set to NO when cancelConnection is called.
+ */
+@property (nonatomic) BOOL maintainConnection;
+
+/**
+ * The dispatch queue that all callbacks occur on.
+ */
+@property (strong, nonatomic) dispatch_queue_t queue;
 
 /**
  * Read the new RSSI value from the peripheral
@@ -107,50 +158,6 @@ characteristicUUID:(CBUUID *)characteristicUUID
                         serviceUUID:(CBUUID *)serviceUUID
                          completion:(RZBServiceBlock)completion;
 
-@property (retain, readonly, nullable) NSString *name;
-@property (strong, nonatomic, readonly) NSUUID *identifier;
-@property (nonatomic, readonly) CBPeripheralState state;
-
-@property (copy, nonatomic) RZBPeripheralBlock __nullable onConnection;
-@property (copy, nonatomic) RZBPeripheralBlock __nullable onDisconnection;
-@property (nonatomic) BOOL maintainConnection;
-@property (strong, nonatomic) dispatch_queue_t queue;
-
 @end
 
 NS_ASSUME_NONNULL_END
-
-#warning Add comments back
-/**
- * This will make the central manager maintain a connection to the peripheral at
- * all times, reconnecting to the peripheral when the connection fails. This is
- * one of the most common patterns for connecting to a device with
- * battery limitations.
- *
- * This behavior will be disabled if cancelConnectionFromPeripheralUUID:completion: is called.
- *
- * @param peripheralUUID The UUID of the peripheral to connect to
- */
-//- (void)maintainConnectionToPeripheralUUID:(NSUUID *)peripheralUUID;
-
-/**
- * Specify a block to invoke when the peripheral with peripheralUUID is connected.
- *
- * This block will be cleared if cancelConnectionFromPeripheralUUID:completion: is called.
- *
- * @param peripheralUUID The UUID of the peripheral
- * @param onConnection The block to invoke on connection
- */
-//- (void)setConnectionHandlerForPeripheralUUID:(NSUUID *)peripheralUUID
-//handler:(RZBPeripheralBlock __nullable)onConnection;
-
-/**
- * Specify a block to invoke when the peripheral with peripheralUUID is disconnected
- *
- * This block will be cleared if cancelConnectionFromPeripheralUUID:completion: is called.
- *
- * @param peripheralUUID The UUID of the peripheral
- * @param onDisconnection The block to invoke on connection
- */
-//- (void)setDisconnectionHandlerForPeripheralUUID:(NSUUID *)peripheralUUID
-//handler:(RZBPeripheralBlock __nullable)onDisconnection;

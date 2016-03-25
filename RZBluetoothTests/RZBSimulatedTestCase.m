@@ -30,7 +30,9 @@
 
 - (RZBMockCentralManager *)mockCentralManager
 {
-    return self.centralManager.mockCentralManager;
+    RZBMockCentralManager *mockCentral = (id)self.centralManager.centralManager;
+    NSAssert([mockCentral isKindOfClass:[RZBMockCentralManager class]], @"Invalid central");
+    return mockCentral;
 }
 
 - (RZBPeripheral *)peripheral
@@ -41,14 +43,16 @@
 - (void)setUp
 {
     [super setUp];
-    self.centralManager = [[RZBTestableCentralManager alloc] init];
+    [RZBCentralManager setUseMockCoreBluetooth:YES];
+    self.centralManager = [[RZBCentralManager alloc] init];
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
     self.device = [[self.class.simulatedDeviceClass alloc] initMockWithIdentifier:[NSUUID UUID]
                                                                             queue:self.mockCentralManager.queue
                                                                           options:@{}];
-    [self.centralManager.simulatedCentral addSimulatedDeviceWithIdentifier:self.device.identifier
-                                                         peripheralManager:(id)self.device.peripheralManager];
-    self.connection = [self.centralManager.simulatedCentral connectionForIdentifier:self.device.identifier];
+    self.central = [[RZBSimulatedCentral alloc] initWithMockCentralManager:self.mockCentralManager];
+    [self.central addSimulatedDeviceWithIdentifier:self.device.identifier
+                                 peripheralManager:(id)self.device.peripheralManager];
+    self.connection = [self.central connectionForIdentifier:self.device.identifier];
 }
 
 - (void)tearDown

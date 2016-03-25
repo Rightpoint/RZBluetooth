@@ -85,7 +85,7 @@
         triggerCount++;
     }];
     [pCommand completeWithObject:completionObject error:&completionError];
-
+    
     XCTAssertTrue(triggerCount == 3);
 }
 

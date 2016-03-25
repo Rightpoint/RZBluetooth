@@ -10,6 +10,7 @@
 
 #import "RZBCentralManager.h"
 #import "RZBPeripheral.h"
+#import "RZBScanInfo.h"
 #import "CBService+RZBExtension.h"
 #import "RZBErrors.h"
 #import "CBUUID+RZBPublic.h"

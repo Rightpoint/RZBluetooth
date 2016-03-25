@@ -9,7 +9,7 @@
 #import "RZBCommand.h"
 #import "RZBUUIDPath.h"
 #import "RZBErrors.h"
-#import "RZBCentralManager+Private.h"
+#import "RZBCentralManager+CommandHelper.h"
 #import "RZBPeripheral+Private.h"
 #import "RZBLog+Private.h"
 

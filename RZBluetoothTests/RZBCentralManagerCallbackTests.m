@@ -1,5 +1,5 @@
 //
-//  RZCentralManagerTests.m
+//  RZBCentralManagerCallbackTests.m
 //  UMTSDK
 //
 //  Created by Brian King on 7/27/15.
@@ -11,11 +11,11 @@
 
 static NSString *const RZBTestString = @"StringValue";
 
-@interface RZCentralManagerTests : RZBMockCentralTestCase
+@interface RZBCentralManagerCallbackTests : RZBMockCentralTestCase
 
 @end
 
-@implementation RZCentralManagerTests
+@implementation RZBCentralManagerCallbackTests
 
 - (void)triggerDisconnectionError
 {
@@ -29,10 +29,8 @@ static NSString *const RZBTestString = @"StringValue";
     RZBPeripheral *peripheral = [self.centralManager peripheralForUUID:self.class.pUUID];
     // Perform a read, and ensure that nothing occurs while state == Unknown.
     [peripheral readCharacteristicUUID:self.class.cUUID
-                  serviceUUID:self.class.sUUID
-                   completion:^(CBCharacteristic *characteristic, NSError *error) {
-
-                   }];
+                           serviceUUID:self.class.sUUID
+                            completion:^(CBCharacteristic *characteristic, NSError *error) {}];
     [self waitForQueueFlush];
 
     RZBAssertCommandCount(1);
@@ -58,10 +56,10 @@ static NSString *const RZBTestString = @"StringValue";
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
     __block NSString *value = nil;
     [peripheral readCharacteristicUUID:self.class.cUUID
-                  serviceUUID:self.class.sUUID
-                   completion:^(CBCharacteristic *characteristic, NSError *error) {
-                       value = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
-                   }];
+                           serviceUUID:self.class.sUUID
+                            completion:^(CBCharacteristic *characteristic, NSError *error) {
+                                value = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
+                            }];
     RZBAssertHasCommand(RZBReadCharacteristicCommand, self.class.cUUIDPath, NO);
 
     [self ensureAndCompleteConnectionTo:self.class.pUUID];
@@ -108,11 +106,11 @@ static NSString *const RZBTestString = @"StringValue";
     __block BOOL completed = NO;
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
     [peripheral writeData:writeValue
-  characteristicUUID:self.class.cUUID
-         serviceUUID:self.class.sUUID
-          completion:^(CBCharacteristic *characteristic, NSError *error) {
-              completed = YES;
-          }];
+       characteristicUUID:self.class.cUUID
+              serviceUUID:self.class.sUUID
+               completion:^(CBCharacteristic *characteristic, NSError *error) {
+                   completed = YES;
+               }];
     RZBAssertHasCommand(RZBWriteCharacteristicCommand, self.class.cUUIDPath, NO);
 
     [self ensureAndCompleteConnectionTo:self.class.pUUID];
@@ -226,12 +224,12 @@ static NSString *const RZBTestString = @"StringValue";
     NSMutableArray *values = [NSMutableArray array];
     [self.centralManager scanForPeripheralsWithServices:@[self.class.sUUID]
                                                 options:nil
-                                 onDiscoveredPeripheral:^(RZBPeripheral *peripheral, NSDictionary *advInfo, NSNumber *RSSI)
+                                 onDiscoveredPeripheral:^(RZBScanInfo *scanInfo, NSError *error)
      {
-         [values addObject:peripheral.identifier];
-         XCTAssertTrue(advInfo.count == 0);
-         XCTAssertTrue(RSSI.integerValue == 55);
-     } onError:nil];
+         [values addObject:scanInfo.peripheral.identifier];
+         XCTAssertTrue(scanInfo.advInfo.count == 0);
+         XCTAssertTrue(scanInfo.RSSI.integerValue == 55);
+     }];
     [self waitForQueueFlush];
 
     RZBAssertCommandCount(1);
@@ -261,10 +259,10 @@ static NSString *const RZBTestString = @"StringValue";
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
     NSMutableArray *values = [NSMutableArray array];
     [peripheral readCharacteristicUUID:self.class.cUUID
-                      serviceUUID:self.class.sUUID
-                       completion:^(CBCharacteristic *characteristic, NSError *error) {
-                           [values addObject:[[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding]];
-                       }];
+                           serviceUUID:self.class.sUUID
+                            completion:^(CBCharacteristic *characteristic, NSError *error) {
+                                [values addObject:[[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding]];
+                            }];
     [self ensureAndCompleteConnectionTo:self.class.pUUID];
 
     // Make sure the first service discovery is sent
@@ -276,10 +274,10 @@ static NSString *const RZBTestString = @"StringValue";
 
     // Make a second read to another service
     [peripheral readCharacteristicUUID:self.class.c2UUID
-                      serviceUUID:self.class.s2UUID
-                       completion:^(CBCharacteristic *characteristic, NSError *error) {
-                           [values addObject:[[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding]];
-                       }];
+                           serviceUUID:self.class.s2UUID
+                            completion:^(CBCharacteristic *characteristic, NSError *error) {
+                                [values addObject:[[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding]];
+                            }];
 
     [self waitForQueueFlush];
     XCTAssertEqualObjects([self.invocationLog argumentAtIndex:0 forSelector:@selector(discoverServices:)], @[self.class.s2UUID]);
@@ -317,10 +315,10 @@ static NSString *const RZBTestString = @"StringValue";
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
     NSMutableArray *values = [NSMutableArray array];
     [peripheral readCharacteristicUUID:self.class.cUUID
-                      serviceUUID:self.class.sUUID
-                       completion:^(CBCharacteristic *characteristic, NSError *error) {
-                           [values addObject:[[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding]];
-                       }];
+                           serviceUUID:self.class.sUUID
+                            completion:^(CBCharacteristic *characteristic, NSError *error) {
+                                [values addObject:[[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding]];
+                            }];
     [self ensureAndCompleteConnectionTo:self.class.pUUID];
 
     [mockPeripheral fakeDiscoverServicesWithUUIDs:@[self.class.sUUID] error:nil];
@@ -335,10 +333,10 @@ static NSString *const RZBTestString = @"StringValue";
 
     // Make a second read to another characteristic
     [peripheral readCharacteristicUUID:self.class.c2UUID
-                      serviceUUID:self.class.sUUID
-                       completion:^(CBCharacteristic *characteristic, NSError *error) {
-                           [values addObject:[[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding]];
-                       }];
+                           serviceUUID:self.class.sUUID
+                            completion:^(CBCharacteristic *characteristic, NSError *error) {
+                                [values addObject:[[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding]];
+                            }];
     [self waitForQueueFlush];
 
     // Ensure there are two triggered commands
@@ -373,17 +371,17 @@ static NSString *const RZBTestString = @"StringValue";
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
     NSMutableArray *errors = [NSMutableArray array];
     [peripheral readCharacteristicUUID:self.class.cUUID
-                      serviceUUID:self.class.sUUID
-                       completion:^(CBCharacteristic *characteristic, NSError *error) {
-                           XCTAssertNotNil(error);
-                           [errors addObject:error];
-                       }];
+                           serviceUUID:self.class.sUUID
+                            completion:^(CBCharacteristic *characteristic, NSError *error) {
+                                XCTAssertNotNil(error);
+                                [errors addObject:error];
+                            }];
     [peripheral readCharacteristicUUID:self.class.cUUID
-                      serviceUUID:self.class.s2UUID
-                       completion:^(CBCharacteristic *characteristic, NSError *error) {
-                           XCTAssertNotNil(error);
-                           [errors addObject:error];
-                       }];
+                           serviceUUID:self.class.s2UUID
+                            completion:^(CBCharacteristic *characteristic, NSError *error) {
+                                XCTAssertNotNil(error);
+                                [errors addObject:error];
+                            }];
     [self ensureAndCompleteConnectionTo:self.class.pUUID];
     // Respond to the discover without any services.
     [mockPeripheral fakeDiscoverServicesWithUUIDs:@[] error:nil];
@@ -404,17 +402,17 @@ static NSString *const RZBTestString = @"StringValue";
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
     NSMutableArray *errors = [NSMutableArray array];
     [peripheral readCharacteristicUUID:self.class.cUUID
-                      serviceUUID:self.class.sUUID
-                       completion:^(CBCharacteristic *characteristic, NSError *error) {
-                           XCTAssertNotNil(error);
-                           [errors addObject:error];
-                       }];
+                           serviceUUID:self.class.sUUID
+                            completion:^(CBCharacteristic *characteristic, NSError *error) {
+                                XCTAssertNotNil(error);
+                                [errors addObject:error];
+                            }];
     [peripheral readCharacteristicUUID:self.class.c2UUID
-                      serviceUUID:self.class.sUUID
-                       completion:^(CBCharacteristic *characteristic, NSError *error) {
-                           XCTAssertNotNil(error);
-                           [errors addObject:error];
-                       }];
+                           serviceUUID:self.class.sUUID
+                            completion:^(CBCharacteristic *characteristic, NSError *error) {
+                                XCTAssertNotNil(error);
+                                [errors addObject:error];
+                            }];
     [self ensureAndCompleteConnectionTo:self.class.pUUID];
     [self ensureAndCompleteDiscoveryOfService:self.class.sUUID peripheralUUID:self.class.pUUID];
 
@@ -462,7 +460,7 @@ static NSString *const RZBTestString = @"StringValue";
     [self triggerThreeCommandsAndStoreErrorsIn:errors];
     [self ensureAndCompleteDiscoveryOfService:self.class.sUUID peripheralUUID:self.class.pUUID];
     [self ensureAndCompleteDiscoveryOfCharacteristic:self.class.cUUID serviceUUID:self.class.sUUID peripheralUUID:self.class.pUUID];
-    
+
     [self triggerDisconnectionError];
     XCTAssertTrue(errors.count == 3);
     XCTAssertEqualObjects(errors, (@[[NSError rzb_connectionError], [NSError rzb_connectionError], [NSError rzb_connectionError]]));
@@ -480,7 +478,7 @@ static NSString *const RZBTestString = @"StringValue";
         [read fulfill];
     }];
     [self ensureAndCompleteConnectionTo:self.class.pUUID];
-
+    
     [self waitForQueueFlush];
     [mockPeripheral fakeRSSI:@-88 error:nil];
     [self waitForExpectationsWithTimeout:1 handler:nil];

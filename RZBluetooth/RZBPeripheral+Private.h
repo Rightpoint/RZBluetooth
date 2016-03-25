@@ -15,10 +15,8 @@
 
 @interface RZBPeripheral ()
 
-- (instancetype)initWithCorePeripheral:(CBPeripheral *)corePeripheral
-                        centralManager:(RZBCentralManager *)centralManager;
-
 @property (weak, nonatomic, readonly) RZBCentralManager *centralManager;
+
 @property (strong, nonatomic, readonly) CBPeripheral *corePeripheral;
 
 @property (strong, nonatomic, readonly) NSMutableDictionary *notifyBlockByUUID;
