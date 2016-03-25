@@ -10,9 +10,9 @@ To emphasize how easy RZBluetooth is, the following block of code will print out
 
 ```objc
 self.centralManager = [[RZBCentralManager alloc] init];
-[self.centralManager scanForPeripheralsWithServices:@[CBUUID rzb_UUIDForHeartRateService] options:@{} onDiscoveredPeripheral:^(CBPeripheral *peripheral, NSDictionary *advInfo, NSNumber *RSSI) {
+[self.centralManager scanForPeripheralsWithServices:@[CBUUID rzb_UUIDForHeartRateService] options:@{} onDiscoveredPeripheral:^(RZBScanInfo *scanInfo, NSError *error) {
     [self.centralManager stopScan];
-    self.peripheral = peripheral;
+    self.peripheral = scanInfo.peripheral;
     [self.peripheral rzb_addHeartRateObserver:^(RZBHeartRateMeasurement *measurement, NSError *error) {
         NSLog(@"%@", measurement);
     } completion:^(NSError *error) {
@@ -28,8 +28,8 @@ Alternatively in Swift:
 ```swift
 centralManager = RZBCentralManager()
 
-centralManager!.scanForPeripheralsWithServices([CBUUID.rzb_UUIDForHeartRateService()], options: nil, onDiscoveredPeripheral: { (peripheral: CBPeripheral?, advInfo: [NSObject : AnyObject]?, RSSI: NSNumber?) in
-    guard let centralManager = self.centralManager, peripheral = peripheral else { return }
+centralManager!.scanForPeripheralsWithServices([CBUUID.rzb_UUIDForHeartRateService()], options: nil, onDiscoveredPeripheral: { (scanInfo: RZBScanInfo?, error: NSError?) in
+    guard let centralManager = self.centralManager, peripheral = scanInfo.peripheral else { return }
     centralManager.stopScan()
     self.peripheral = peripheral
     peripheral.rzb_addHeartRateObserver({ (measurement: RZBHeartRateMeasurement?, error: NSError?) in
@@ -78,10 +78,10 @@ Once a device has been selected, the peripheral UUID can be persisted between ap
 Availability Interactions are a set of actions that should be performed every time the device becomes available. Device Sync is usually built on top of this. All transport layer errors should be ignored, and most other errors would be considered fatal. RZBluetooth provides a helper for this functionality:
 
 ```objc
-[self.centralManager setConnectionHandlerForPeripheralUUID:p.identifier handler:^(CBPeripheral *peripheral, NSError *error) {
+peripheral.onConnection = ^(RZBPeripheral *peripheral, NSError *error) {
     // Perform actions here
-}];
-[self.centralManager maintainConnectionToPeripheralUUID:p.identifier];
+};
+peripheral.maintainConnection = YES;
 ```
 
 All action performed here will occur every time the device becomes connectable. This usage pattern is extremely important for low power devices that can not maintain a constant connection.
@@ -91,10 +91,10 @@ Core Bluetooth and RZBluetooth actions do not time out by default. User initiate
 
 ```objc
 [RZBUserInteraction setTimeout:5.0];
-[RZBUserInteraction perform:^{
+  [RZBUserInteraction perform:^{
     [self.peripheral rzb_fetchBatteryLevel:^(NSUInteger level, NSError *error) {
         // The error object could have status code RZBluetoothTimeoutError
-}];
+  }];
 }];
 ```
 
@@ -153,7 +153,7 @@ Core Bluetooth has many intermediary callbacks that need to be handled before th
 ```objc
 - (void)initiateRead
 {
-    CBPeripheral *peripheral = [self.centralManager peripheralForUUID:uuid];
+    RZBPeripheral *peripheral = [self.centralManager peripheralForUUID:uuid];
     [peripheral readCharacteristicUUID:self.class.characteristicUUID
                            serviceUUID:self.class.serviceUUID
                             completion:^(CBCharacteristic *characteristic, NSError *error) {
@@ -175,7 +175,7 @@ Application level code does not want to read and write `NSData` blobs, it wants 
 ```objc
 - (void)exampleOperations
 {
-    CBPeripheral *peripheral = [self.centralManager peripheralForUUID:uuid];
+    RZBPeripheral *peripheral = [self.centralManager peripheralForUUID:uuid];
     [peripheral rzb_addBatteryLevelObserver:^(NSUInteger batteryLevel, NSError *error) {
         // Update UI for the battery level.
     } completion:^(NSError *error) {
