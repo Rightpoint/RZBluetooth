@@ -8,7 +8,7 @@
 
 @import XCTest;
 
-#import "RZBCentralManager+Private.h"
+#import "RZBCentralManager.h"
 #import "RZBPeripheral.h"
 #import "RZBScanInfo.h"
 
