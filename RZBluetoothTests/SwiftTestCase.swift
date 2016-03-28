@@ -35,6 +35,11 @@ class SwiftTestCase: RZBSimulatedTestCase {
         waitForQueueFlush()
     }
 
+    func testProperties() {
+        let f = centralManager.mockCentralManager
+        XCTAssert(f.isKindOfClass(RZBMockCentralManager.self))
+    }
+
     func testRead() {
         
     }

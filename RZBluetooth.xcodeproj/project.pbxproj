@@ -17,6 +17,7 @@
 		AB14AF191CA5DC2000D1436D /* Packet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB14AF181CA5DC2000D1436D /* Packet.swift */; };
 		AB14AF1B1CA5DE9A00D1436D /* SwiftExampleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB14AF1A1CA5DE9A00D1436D /* SwiftExampleTest.swift */; };
 		AB14AF1D1CA5DF1800D1436D /* PacketUUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB14AF1C1CA5DF1800D1436D /* PacketUUID.swift */; };
+		AB14AF201CA9CE9900D1436D /* RZBCentralManager+Mock.m in Sources */ = {isa = PBXBuildFile; fileRef = AB14AF1F1CA9CE9900D1436D /* RZBCentralManager+Mock.m */; };
 		AB4135EF1B718C94002F450F /* RZBSimulatedCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4135E81B718C94002F450F /* RZBSimulatedCallback.m */; };
 		AB4135F01B718C94002F450F /* RZBSimulatedCentral.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4135EA1B718C94002F450F /* RZBSimulatedCentral.m */; };
 		AB4135F11B718C94002F450F /* RZBSimulatedConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4135EC1B718C94002F450F /* RZBSimulatedConnection.m */; };
@@ -113,6 +114,8 @@
 		AB14AF181CA5DC2000D1436D /* Packet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Packet.swift; sourceTree = "<group>"; };
 		AB14AF1A1CA5DE9A00D1436D /* SwiftExampleTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExampleTest.swift; sourceTree = "<group>"; };
 		AB14AF1C1CA5DF1800D1436D /* PacketUUID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PacketUUID.swift; sourceTree = "<group>"; };
+		AB14AF1E1CA9CE9900D1436D /* RZBCentralManager+Mock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RZBCentralManager+Mock.h"; sourceTree = "<group>"; };
+		AB14AF1F1CA9CE9900D1436D /* RZBCentralManager+Mock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RZBCentralManager+Mock.m"; sourceTree = "<group>"; };
 		AB4135E71B718C94002F450F /* RZBSimulatedCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZBSimulatedCallback.h; sourceTree = "<group>"; };
 		AB4135E81B718C94002F450F /* RZBSimulatedCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBSimulatedCallback.m; sourceTree = "<group>"; };
 		AB4135E91B718C94002F450F /* RZBSimulatedCentral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZBSimulatedCentral.h; sourceTree = "<group>"; };
@@ -403,6 +406,8 @@
 				ABCD83751B71D1F900DA1162 /* RZBMockPeripheral.m */,
 				ABCD83761B71D1F900DA1162 /* RZBMockPeripheralManager.h */,
 				ABCD83771B71D1F900DA1162 /* RZBMockPeripheralManager.m */,
+				AB14AF1E1CA9CE9900D1436D /* RZBCentralManager+Mock.h */,
+				AB14AF1F1CA9CE9900D1436D /* RZBCentralManager+Mock.m */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -573,6 +578,7 @@
 				AB4135EF1B718C94002F450F /* RZBSimulatedCallback.m in Sources */,
 				AB4135F11B718C94002F450F /* RZBSimulatedConnection.m in Sources */,
 				ABCD83791B71D1F900DA1162 /* RZBMockPeripheral.m in Sources */,
+				AB14AF201CA9CE9900D1436D /* RZBCentralManager+Mock.m in Sources */,
 				AB4136071B71BE40002F450F /* RZBSimulatedDevice.m in Sources */,
 				ABCD83781B71D1F900DA1162 /* RZBMockCentralManager.m in Sources */,
 				ABCD837A1B71D1F900DA1162 /* RZBMockPeripheralManager.m in Sources */,

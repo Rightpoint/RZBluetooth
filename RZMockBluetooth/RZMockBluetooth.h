@@ -14,4 +14,5 @@
 #import "RZBSimulatedCentral.h"
 #import "RZBSimulatedConnection.h"
 #import "RZBSimulatedCallback.h"
+#import "RZBCentralManager+Mock.h"
 #import "NSError+RZBMock.h"
