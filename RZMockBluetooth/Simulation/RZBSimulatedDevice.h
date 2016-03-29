@@ -57,6 +57,8 @@ typedef void (^RZBSimulatedDeviceSubscribe)(BOOL isNotifying);
  */
 @property (strong, nonatomic, readonly) CBPeripheralManager *peripheralManager;
 
+@property (strong, nonatomic, readonly) RZBMockPeripheralManager *mockPeripheralManager;
+
 /**
  *  The dispatch queue passed to the constructor.
  */
