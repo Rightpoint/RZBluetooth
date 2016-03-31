@@ -53,6 +53,11 @@
     return self.corePeripheral.state;
 }
 
+- (NSArray<CBService *> *)services
+{
+    return self.corePeripheral.services ?: @[];
+}
+
 - (RZBCommandDispatch *)dispatch
 {
     return self.centralManager.dispatch;

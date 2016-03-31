@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The service objects of the backing Core Bluetooth peripheral.
  */
-@property (retain, readonly, nullable) NSArray<CBService *> *services;
+@property (retain, readonly) NSArray<CBService *> *services;
 
 /**
  * The block to execute on connection
@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * The dispatch queue that all callbacks occur on.
  */
-@property (strong, nonatomic) dispatch_queue_t queue;
+@property (strong, nonatomic, readonly) dispatch_queue_t queue;
 
 /**
  * Read the new RSSI value from the peripheral

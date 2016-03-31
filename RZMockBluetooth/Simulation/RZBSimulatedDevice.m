@@ -56,6 +56,13 @@
     return self;
 }
 
+- (RZBMockPeripheralManager *)mockPeripheralManager
+{
+    RZBMockPeripheralManager *mockPeripheralManager = (id)self.peripheralManager;
+    NSAssert([mockPeripheralManager isKindOfClass:[RZBMockPeripheralManager class]], @"%@ is not configured with a mock peripheral manager", self);
+    return mockPeripheralManager;
+}
+
 - (CBMutableService *)serviceForRepresentable:(id<RZBBluetoothRepresentable>)representable isPrimary:(BOOL)isPrimary
 {
     CBMutableService *service = [[CBMutableService alloc] initWithType:[representable.class serviceUUID] primary:isPrimary];
