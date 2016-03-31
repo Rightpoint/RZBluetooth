@@ -253,6 +253,10 @@ static BOOL s_useMockCoreBluetooth = NO;
     RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), central, RZBLogIdentifier(corePeripheral), error);
     RZBPeripheral *peripheral = [self peripheralForCorePeripheral:corePeripheral];
 
+    if (peripheral.onConnection) {
+        peripheral.onConnection(error);
+    }
+    
     [self completeFirstCommandOfClass:[RZBConnectCommand class]
                      matchingUUIDPath:RZBUUIDP(corePeripheral.identifier)
                            withObject:peripheral
