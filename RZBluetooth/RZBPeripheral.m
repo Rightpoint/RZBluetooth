@@ -150,10 +150,11 @@
         if (characteristic != nil) {
             [self setNotifyBlock:onChange forCharacteristicUUID:characteristic.UUID];
         }
-        if (//RZBExtensionShouldTriggerInitialValue &&
-            characteristic.value && error == nil) {
-            onChange(characteristic, nil);
-        }
+        // REMOVE FOR NOW!!!
+        //        if (//RZBExtensionShouldTriggerInitialValue &&
+        //            characteristic.value && error == nil) {
+        //            onChange(characteristic, nil);
+        //        }
         completion(characteristic, error);
     }];
     [self.dispatch dispatchCommand:cmd];
