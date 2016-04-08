@@ -49,6 +49,45 @@ static NSString *const RZBTestString = @"StringValue";
     [self waitForQueueFlush];
 }
 
+- (void)performCentralStateErrorForState:(CBCentralManagerState)state
+{
+    __block NSError *readError = nil;
+    RZBPeripheral *peripheral = [self.centralManager peripheralForUUID:self.class.pUUID];
+    // Perform a read, and ensure that nothing occurs while state == Unknown.
+    [peripheral readCharacteristicUUID:self.class.cUUID
+                           serviceUUID:self.class.sUUID
+                            completion:^(CBCharacteristic *characteristic, NSError *error) {
+                                readError = error;
+                            }];
+    [self waitForQueueFlush];
+
+    RZBAssertCommandCount(1);
+    RZBAssertHasCommand(RZBReadCharacteristicCommand, self.class.cUUIDPath, NO);
+
+    // Turn the power off and ensure that an error is generated
+    // the proper CB method
+    [self.mockCentralManager fakeStateChange:state];
+    [self waitForQueueFlush];
+    XCTAssertNotNil(readError);
+    XCTAssert([readError.domain isEqualToString:RZBluetoothErrorDomain]);
+    XCTAssert(readError.code == state);
+}
+
+- (void)testCentralStateErrorPoweredOff
+{
+    [self performCentralStateErrorForState:CBCentralManagerStatePoweredOff];
+}
+
+- (void)testCentralStateErrorUnauthorized
+{
+    [self performCentralStateErrorForState:CBCentralManagerStateUnauthorized];
+}
+
+- (void)testCentralStateErrorUnsupported
+{
+    [self performCentralStateErrorForState:CBCentralManagerStateUnsupported];
+}
+
 - (void)testRead
 {
     RZBPeripheral *peripheral = [self.centralManager peripheralForUUID:self.class.pUUID];
