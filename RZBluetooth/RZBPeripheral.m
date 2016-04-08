@@ -68,14 +68,6 @@
     return self.centralManager.dispatch.queue;
 }
 
-- (void)setMaintainConnection:(BOOL)maintainConnection
-{
-    _maintainConnection = maintainConnection;
-    if (maintainConnection) {
-        [self.centralManager triggerAutomaticConnectionForPeripheral:self];
-    }
-}
-
 - (void)readRSSI:(RZBRSSIBlock)completion
 {
     NSParameterAssert(completion);
@@ -88,7 +80,6 @@
 {
     completion = completion ?: ^(NSError *error) {};
     self.maintainConnection = NO;
-    self.onConnection = nil;
     if (self.corePeripheral.state == CBPeripheralStateDisconnected) {
         dispatch_async(self.dispatch.queue, ^() {
             completion(nil);
@@ -233,6 +224,23 @@ characteristicUUID:(CBUUID *)characteristicUUID
     }
     [cmd addCallbackBlock:completion];
     [self.dispatch dispatchCommand:cmd];
+}
+
+- (void)connectionEvent:(RZBPeripheralStateEvent)event error:(NSError * __nullable)error;
+{
+    [self.connectionDelegate peripheral:self connectionEvent:event error:error];
+
+    if (event != RZBPeripheralStateEventConnectSuccess && self.maintainConnection) {
+        [self connectWithCompletion:nil];
+    }
+}
+
+- (void)setMaintainConnection:(BOOL)maintainConnection
+{
+    _maintainConnection = maintainConnection;
+    if (maintainConnection) {
+        [self connectWithCompletion:nil];
+    }
 }
 
 @end

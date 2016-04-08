@@ -18,8 +18,6 @@
 
 @property (nonatomic, copy) RZBScanBlock activeScanBlock;
 
-- (void)triggerAutomaticConnectionForPeripheral:(RZBPeripheral *)peripheral;
-
 - (CBService *)serviceForUUID:(CBUUID *)serviceUUID
                  onPeripheral:(CBPeripheral *)peripheral;
 

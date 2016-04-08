@@ -9,9 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "RZBDefines.h"
 
-@class RZBCentralManager;
+@class RZBCentralManager, RZBPeripheral;
 
 NS_ASSUME_NONNULL_BEGIN
+
+@protocol RZBPeripheralConnectionDelegate <NSObject>
+
+- (void)peripheral:(RZBPeripheral *)peripheral connectionEvent:(RZBPeripheralStateEvent)event error:(NSError *)error;
+
+@end
 
 @interface RZBPeripheral : NSObject
 
@@ -42,23 +48,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  The service objects of the backing Core Bluetooth peripheral.
  */
 @property (retain, readonly) NSArray<CBService *> *services;
-
-/**
- * The block to execute on connection
- */
-@property (copy, nonatomic, nullable) RZBConnectionBlock onConnection;
-
-/**
- * This will make the central manager maintain a connection to this peripheral at
- * all times, reconnecting to the peripheral when the connection fails. This is
- * one of the most common patterns for connecting to a device with
- * battery limitations.
- *
- * If you have more complex connection requirements, use the onConnection and onDisconnection behavior.
- * 
- * @note This bool is set to NO when cancelConnection is called.
- */
-@property (nonatomic) BOOL maintainConnection;
 
 /**
  * The dispatch queue that all callbacks occur on.
@@ -173,6 +162,37 @@ characteristicUUID:(CBUUID *)characteristicUUID
 - (void)discoverCharacteristicUUIDs:(NSArray<CBUUID *> * __nullable)characteristicUUIDs
                         serviceUUID:(CBUUID *)serviceUUID
                          completion:(RZBServiceBlock)completion;
+
+/**
+ * The connectionDelegate is informed of RZBPeripheralStateEvents as they occur. This is
+ * exposed by the delegate to allow for setup and tear down behavior specific to a certain
+ * device.
+ *
+ * The connectionDelegate is always informed of connection errors after they are passed
+ * to the completion blocks. For example if you are performing a characteristic read while
+ * disconnected and there is a connection error, the connection error will be passed
+ * to the completion block of the characteristic read, and then to the connectionDelegate.
+ */
+@property (weak, nonatomic) id<RZBPeripheralConnectionDelegate> connectionDelegate;
+
+/**
+ * This will make the central manager maintain a connection to this peripheral at
+ * all times, reconnecting to the peripheral when the connection fails. This is
+ * one of the most common patterns for connecting to a device with
+ * battery limitations.
+ *
+ * If you have more complex connection requirements, use the onConnection and onDisconnection behavior.
+ *
+ * @note This bool is set to NO when cancelConnection is called.
+ */
+@property (nonatomic) BOOL maintainConnection;
+
+/**
+ * This method drives RZBPeripheralConnectionDelegate and the maintainConnection behavior.
+ * This method is public in case a subclass intends to implement more nuanced connection
+ * maintainence behavior.
+ */
+- (void)connectionEvent:(RZBPeripheralStateEvent)event error:(NSError * __nullable)error;
 
 @end
 

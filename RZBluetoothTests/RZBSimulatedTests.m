@@ -8,11 +8,30 @@
 
 #import "RZBSimulatedTestCase.h"
 
-@interface RZBSimulatedTests : RZBSimulatedTestCase
+@interface RZBSimulatedTests : RZBSimulatedTestCase <RZBPeripheralConnectionDelegate>
+
+@property (nonatomic, assign) NSUInteger connectCount;
+@property (nonatomic, assign) NSUInteger connectFailureCount;
+@property (nonatomic, assign) NSUInteger disconnectCount;
 
 @end
 
 @implementation RZBSimulatedTests
+
+- (void)peripheral:(RZBPeripheral *)peripheral connectionEvent:(RZBPeripheralStateEvent)event error:(NSError *)error;
+{
+    switch (event) {
+        case RZBPeripheralStateEventConnectSuccess:
+            self.connectCount++;
+            break;
+        case RZBPeripheralStateEventConnectFailure:
+            self.connectFailureCount++;
+            break;
+        case RZBPeripheralStateEventDisconnected:
+            self.disconnectCount++;
+            break;
+    }
+}
 
 - (void)testScanForDevices
 {
@@ -106,23 +125,13 @@
 
 - (void)testMaintainConnection
 {
-    __block NSUInteger connectCount = 0;
-    __block NSUInteger disconnectCount = 0;
+    self.disconnectCount = 0;
+    self.connectCount = 0;
+    self.connectFailureCount = 0;
     RZBPeripheral *p = [self.centralManager peripheralForUUID:self.device.identifier];
     XCTAssert(p.state == CBPeripheralStateDisconnected);
     self.connection.connectable = NO;
-
-    p.onConnection = ^(RZBPeripheralStateEvent event, NSError *error) {
-        if (event == RZBPeripheralStateEventConnectSuccess) {
-            connectCount++;
-        }
-        else if (event == RZBPeripheralStateEventDisconnected) {
-            disconnectCount++;
-        }
-        else {
-            XCTFail("Incorrect connection event");
-        }
-    };
+    p.connectionDelegate = self;
     p.maintainConnection = YES;
 
 #define TEST_COUNT 10
@@ -133,23 +142,25 @@
         self.connection.connectable = YES;
         [self waitForQueueFlush];
         XCTAssert(p.state == CBPeripheralStateConnected);
-        XCTAssert(connectCount == i + 1);
+        XCTAssert(self.connectCount == i + 1);
 
         // Disable the connection maintenance on the last iteration.
         if (i == TEST_COUNT - 1) {
             [p cancelConnectionWithCompletion:nil];
             // Cancel will clear out the disconnect block so it should not be triggered.
             [self waitForQueueFlush];
-            XCTAssert(disconnectCount == i);
+            XCTAssert(self.disconnectCount == i + 1);
         }
         else {
             self.connection.connectable = NO;
             [self waitForQueueFlush];
-            XCTAssert(disconnectCount == i + 1);
+            XCTAssert(self.disconnectCount == i + 1);
         }
     }
     [self waitForQueueFlush];
     XCTAssert(p.state == CBPeripheralStateDisconnected);
+    XCTAssert(self.connectFailureCount == 0);
+
 }
 
 @end

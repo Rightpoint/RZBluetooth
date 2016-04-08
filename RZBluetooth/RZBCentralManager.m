@@ -163,16 +163,6 @@ static BOOL s_useMockCoreBluetooth = NO;
     return commands.count > 0;
 }
 
-- (void)triggerAutomaticConnectionForPeripheral:(RZBPeripheral *)peripheral
-{
-    if (peripheral.state == CBPeripheralStateDisconnected && peripheral.maintainConnection) {
-        RZBConnectCommand *cmd = [self.dispatch commandOfClass:[RZBConnectCommand class]
-                                              matchingUUIDPath:RZBUUIDP(peripheral.identifier)
-                                                     createNew:YES];
-        [self.dispatch dispatchCommand:cmd];
-    }
-}
-
 - (void)completeScanCommand
 {
     RZBScanCommand *cmd = [self.dispatch commandOfClass:[RZBScanCommand class]
@@ -239,14 +229,12 @@ static BOOL s_useMockCoreBluetooth = NO;
 {
     RZBLogDelegate(@"%@ - %@ %@", NSStringFromSelector(_cmd), central, RZBLogIdentifier(corePeripheral));
     RZBPeripheral *peripheral = [self peripheralForCorePeripheral:corePeripheral];
-    if (peripheral.onConnection) {
-        peripheral.onConnection(RZBPeripheralStateEventConnectSuccess, nil);
-    }
 
     [self completeFirstCommandOfClass:[RZBConnectCommand class]
                      matchingUUIDPath:RZBUUIDP(peripheral.identifier)
                            withObject:peripheral
                                 error:nil];
+    [peripheral connectionEvent:RZBPeripheralStateEventConnectSuccess error:nil];
 }
 
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)corePeripheral error:(NSError *)error
@@ -254,15 +242,11 @@ static BOOL s_useMockCoreBluetooth = NO;
     RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), central, RZBLogIdentifier(corePeripheral), error);
     RZBPeripheral *peripheral = [self peripheralForCorePeripheral:corePeripheral];
 
-    if (peripheral.onConnection) {
-        peripheral.onConnection(RZBPeripheralStateEventConnectFailure, error);
-    }
-
     [self completeFirstCommandOfClass:[RZBConnectCommand class]
                      matchingUUIDPath:RZBUUIDP(corePeripheral.identifier)
                            withObject:peripheral
                                 error:error];
-    [self triggerAutomaticConnectionForPeripheral:peripheral];
+    [peripheral connectionEvent:RZBPeripheralStateEventConnectFailure error:error];
 }
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)corePeripheral error:(NSError *)error
@@ -270,10 +254,6 @@ static BOOL s_useMockCoreBluetooth = NO;
     RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), central, RZBLogIdentifier(corePeripheral), error);
     RZBPeripheral *peripheral = [self peripheralForCorePeripheral:corePeripheral];
 
-    if (peripheral.onConnection) {
-        peripheral.onConnection(RZBPeripheralStateEventDisconnected, error);
-    }
-    
     [self completeFirstCommandOfClass:[RZBCancelConnectionCommand class]
                      matchingUUIDPath:RZBUUIDP(corePeripheral.identifier)
                            withObject:corePeripheral
@@ -287,7 +267,7 @@ static BOOL s_useMockCoreBluetooth = NO;
     for (RZBCommand *command in commands) {
         [self.dispatch completeCommand:command withObject:nil error:error];
     }
-    [self triggerAutomaticConnectionForPeripheral:peripheral];
+    [peripheral connectionEvent:RZBPeripheralStateEventDisconnected error:error];
 }
 
 #pragma mark CBPeripheralDelegate
