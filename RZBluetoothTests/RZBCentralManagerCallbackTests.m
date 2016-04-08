@@ -157,9 +157,9 @@ static NSString *const RZBTestString = @"StringValue";
     __block BOOL completed = NO;
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
 
-    [peripheral addObserverForCharacteristicUUID:self.class.cUUID
+    [peripheral enableNotifyForCharacteristicUUID:self.class.cUUID
                                      serviceUUID:self.class.sUUID
-                                        onChange:^(CBCharacteristic *c, NSError *error) {
+                                        onUpdate:^(CBCharacteristic *c, NSError *error) {
                                             [values addObject:[[NSString alloc] initWithData:c.value encoding:NSUTF8StringEncoding]];
                                         } completion:^(CBCharacteristic *c, NSError *error) {
                                             completed = YES;
