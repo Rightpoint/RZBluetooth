@@ -197,10 +197,8 @@ static BOOL s_useMockCoreBluetooth = NO;
         case CBCentralManagerStateResetting:
             [self.dispatch resetCommands];
             break;
-        case CBCentralManagerStatePoweredOn:
+        default:
             [self.dispatch dispatchPendingCommands];
-            break;
-        default: {}
     }
 }
 
