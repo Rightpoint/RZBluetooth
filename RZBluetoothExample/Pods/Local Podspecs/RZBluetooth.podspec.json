@@ -24,7 +24,12 @@
     {
       "name": "Core",
       "source_files": "RZBluetooth/**/*.{h,m}",
-      "public_header_files": "RZBluetooth/**/*.h"
+      "public_header_files": "RZBluetooth/**/*.h",
+      "private_header_files": [
+        "RZBluetooth/**/*+Private.h",
+        "RZBluetooth/Command/*.h",
+        "RZBluetooth/RZBCentralManager+CommandHelper.h"
+      ]
     },
     {
       "name": "Mock",
@@ -34,7 +39,8 @@
         ]
       },
       "source_files": "RZMockBluetooth/**/*.{h,m}",
-      "public_header_files": "RZMockBluetooth/**/*.h"
+      "public_header_files": "RZMockBluetooth/**/*.h",
+      "private_header_files": "RZMockBluetooth/**/*+Private.h"
     },
     {
       "name": "Test",
