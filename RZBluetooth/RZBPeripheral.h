@@ -179,10 +179,9 @@ characteristicUUID:(CBUUID *)characteristicUUID
 /**
  * This will make the central manager maintain a connection to this peripheral at
  * all times, reconnecting to the peripheral when the connection fails. This is
- * one of the most common patterns for connecting to a device with
- * battery limitations.
+ * a common pattern for connecting to a device with battery limitations.
  *
- * If you have more complex connection requirements, use the onConnection and onDisconnection behavior.
+ * If you have more complex connection requirements, use connectionDelegate instead.
  *
  * @note This bool is set to NO when cancelConnection is called.
  */
