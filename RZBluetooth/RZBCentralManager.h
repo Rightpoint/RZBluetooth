@@ -21,9 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface RZBCentralManager : NSObject
 
-+ (void)setUseMockCoreBluetooth:(BOOL)useMockCoreBluetooth;
-+ (BOOL)useMockCoreBluetooth;
-
 /**
  * Create a new central manager on the main dispatch queue, with a default identifier.
  */
@@ -86,6 +83,11 @@ NS_ASSUME_NONNULL_BEGIN
  * Stop the peripheral scan.
  */
 - (void)stopScan;
+
+/**
+ * This is the CoreBluetooth central manager that backs this central manager.
+ */
+@property (strong, nonatomic, readonly) CBCentralManager *centralManager;
 
 @end
 

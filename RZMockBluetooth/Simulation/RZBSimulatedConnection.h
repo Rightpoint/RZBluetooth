@@ -8,8 +8,8 @@
 
 @import CoreBluetooth;
 
-#import "RZBMockPeripheral.h"
-#import "RZBMockPeripheralManager.h"
+#import "RZBMockedPeripheral.h"
+#import "RZBMockedPeripheralManager.h"
 
 @class RZBSimulatedCallback;
 @class RZBSimulatedCentral;

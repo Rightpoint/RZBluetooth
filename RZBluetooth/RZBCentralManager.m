@@ -17,24 +17,7 @@
 #import "RZBLog+Private.h"
 #import "RZBPeripheralStateEvent.h"
 
-static BOOL s_useMockCoreBluetooth = NO;
-
 @implementation RZBCentralManager
-
-+ (void)setUseMockCoreBluetooth:(BOOL)useMockCoreBluetooth
-{
-    s_useMockCoreBluetooth = useMockCoreBluetooth;
-}
-
-+ (BOOL)useMockCoreBluetooth
-{
-    return s_useMockCoreBluetooth;
-}
-
-+ (Class)coreCentralManagerClass
-{
-    return s_useMockCoreBluetooth ? NSClassFromString(@"RZBMockCentralManager") : [CBCentralManager class];
-}
 
 - (instancetype)init
 {
@@ -53,9 +36,9 @@ static BOOL s_useMockCoreBluetooth = NO;
     if (self) {
         NSDictionary *options = @{};
         _peripheralClass = peripheralClass ?: [RZBPeripheral class];
-        _centralManager = [[[RZBCentralManager coreCentralManagerClass] alloc] initWithDelegate:self
-                                                                                          queue:queue
-                                                                                        options:options];
+        _centralManager = [[CBCentralManager alloc] initWithDelegate:self
+                                                               queue:queue
+                                                             options:options];
         _dispatch = [[RZBCommandDispatch alloc] initWithQueue:queue context:self];
         _peripheralsByUUID = [NSMutableDictionary dictionary];
     }

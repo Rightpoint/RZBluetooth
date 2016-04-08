@@ -12,10 +12,9 @@
 
 @implementation RZBSimulatedTestCase
 
-+ (void)setUp
++ (void)load
 {
-    [RZBCentralManager setUseMockCoreBluetooth:YES];
-    [super setUp];
+    RZBEnableMock(YES);
 }
 
 + (Class)simulatedDeviceClass
@@ -35,10 +34,10 @@
     XCTAssertTrue(ok, @"Dispatch queue did not complete");
 }
 
-- (RZBMockCentralManager *)mockCentralManager
+- (CBCentralManager<RZBMockedCentralManager> *)mockCentralManager
 {
-    RZBMockCentralManager *mockCentral = (id)self.centralManager.centralManager;
-    NSAssert([mockCentral isKindOfClass:[RZBMockCentralManager class]], @"Invalid central");
+    CBCentralManager<RZBMockedCentralManager> *mockCentral = (id)self.centralManager.centralManager;
+    NSAssert([mockCentral conformsToProtocol:@protocol(RZBMockedCentralManager)], @"Invalid central manager");
     return mockCentral;
 }
 

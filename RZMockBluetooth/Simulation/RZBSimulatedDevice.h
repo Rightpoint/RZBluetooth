@@ -7,8 +7,7 @@
 //
 
 #import "RZBBluetoothRepresentable.h"
-
-@class RZBMockPeripheralManager;
+#import "RZBMockedPeripheralManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -56,8 +55,6 @@ typedef void (^RZBSimulatedDeviceSubscribe)(BOOL isNotifying);
  *  or an API compatible RZBMockPeripheralManager, depending on how the simulated device was created.
  */
 @property (strong, nonatomic, readonly) CBPeripheralManager *peripheralManager;
-
-@property (strong, nonatomic, readonly) RZBMockPeripheralManager *mockPeripheralManager;
 
 /**
  *  The dispatch queue passed to the constructor.

@@ -36,8 +36,10 @@ class SwiftTestCase: RZBSimulatedTestCase {
     }
 
     func testProperties() {
-        let f = centralManager.mockCentralManager
-        XCTAssert(f.isKindOfClass(RZBMockCentralManager.self))
+        guard let _ = centralManager.centralManager as? RZBMockedCentralManager else {
+            XCTFail("Unable to cast to RZBMockedCentralManager")
+            return
+        }
     }
 
     func testRead() {

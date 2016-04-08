@@ -7,8 +7,6 @@
 //
 
 #import "RZBSimulatedCentral.h"
-#import "RZBMockPeripheralManager.h"
-#import "RZBMockPeripheral.h"
 #import "RZBSimulatedCallback.h"
 #import "RZBSimulatedConnection+Private.h"
 
@@ -22,7 +20,7 @@
 
 @implementation RZBSimulatedCentral
 
-- (instancetype)initWithMockCentralManager:(RZBMockCentralManager *)mockCentralManager
+- (instancetype)initWithMockCentralManager:(CBCentralManager<RZBMockedCentralManager> *)mockCentralManager
 {
     NSParameterAssert(mockCentralManager);
     self = [super init];
@@ -44,7 +42,7 @@
     return nil;
 }
 
-- (void)addSimulatedDeviceWithIdentifier:(NSUUID *)peripheralUUID peripheralManager:(RZBMockPeripheralManager *)peripheralManager
+- (void)addSimulatedDeviceWithIdentifier:(NSUUID *)peripheralUUID peripheralManager:(CBPeripheralManager<RZBMockedPeripheralManager> *)peripheralManager
 {
     NSAssert([self connectionForIdentifier:peripheralUUID] == nil, @"%@ is already registered", peripheralUUID);
     RZBSimulatedConnection *connection = [[RZBSimulatedConnection alloc] initWithIdentifier:peripheralUUID
@@ -59,12 +57,12 @@
     [self.connections removeObject:connection];
 }
 
-- (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager retrievePeripheralsWithIdentifiers:(NSArray *)identifiers
+- (void)mockCentralManager:(CBCentralManager<RZBMockedCentralManager> *)mockCentralManager retrievePeripheralsWithIdentifiers:(NSArray *)identifiers
 {
     // Nothing to do here.
 }
 
-- (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager scanForPeripheralsWithServices:(NSArray *)services options:(NSDictionary *)options
+- (void)mockCentralManager:(CBCentralManager<RZBMockedCentralManager> *)mockCentralManager scanForPeripheralsWithServices:(NSArray *)services options:(NSDictionary *)options
 {
     NSParameterAssert(mockCentralManager);
     self.servicesToScan = services;
@@ -80,7 +78,7 @@
     }
 }
 
-- (void)mockCentralManagerStopScan:(RZBMockCentralManager *)mockCentralManager
+- (void)mockCentralManagerStopScan:(CBCentralManager<RZBMockedCentralManager> *)mockCentralManager
 {
     NSParameterAssert(mockCentralManager);
     self.servicesToScan = nil;
@@ -89,7 +87,7 @@
     }
 }
 
-- (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager connectPeripheral:(RZBMockPeripheral *)peripheral options:(NSDictionary *)options
+- (void)mockCentralManager:(CBCentralManager<RZBMockedCentralManager> *)mockCentralManager connectPeripheral:(CBPeripheral<RZBMockedPeripheral> *)peripheral options:(NSDictionary *)options
 {
     NSParameterAssert(mockCentralManager);
     NSParameterAssert(peripheral);
@@ -101,7 +99,7 @@
     }];
 }
 
-- (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager cancelPeripheralConnection:(RZBMockPeripheral *)peripheral
+- (void)mockCentralManager:(CBCentralManager<RZBMockedCentralManager> *)mockCentralManager cancelPeripheralConnection:(CBPeripheral<RZBMockedPeripheral> *)peripheral
 {
     NSParameterAssert(mockCentralManager);
     NSParameterAssert(peripheral);

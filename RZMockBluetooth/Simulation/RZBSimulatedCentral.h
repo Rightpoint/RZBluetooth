@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-#import "RZBMockCentralManager.h"
+#import "RZBMockedCentralManager.h"
+#import "RZBMockedPeripheralManager.h"
 
-@class RZBMockPeripheralManager;
 @class RZBSimulatedConnection;
 
 /**
@@ -17,12 +17,12 @@
  */
 @interface RZBSimulatedCentral : NSObject <RZBMockCentralManagerDelegate>
 
-- (instancetype)initWithMockCentralManager:(RZBMockCentralManager *)centralManager;
+- (instancetype)initWithMockCentralManager:(CBCentralManager<RZBMockedCentralManager> *)centralManager;
 
-@property (strong, nonatomic, readonly) RZBMockCentralManager *mockCentralManager;
+@property (strong, nonatomic, readonly) CBCentralManager<RZBMockedCentralManager> *mockCentralManager;
 @property (assign, nonatomic) NSUInteger maximumUpdateValueLength;
 
-- (void)addSimulatedDeviceWithIdentifier:(NSUUID *)peripheralUUID peripheralManager:(RZBMockPeripheralManager *)peripheralManager;
+- (void)addSimulatedDeviceWithIdentifier:(NSUUID *)peripheralUUID peripheralManager:(CBPeripheralManager<RZBMockedPeripheralManager> *)peripheralManager;
 
 - (void)removeSimulatedDevice:(NSUUID *)peripheralUUID;
 
