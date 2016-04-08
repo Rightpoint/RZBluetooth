@@ -84,35 +84,36 @@ NS_ASSUME_NONNULL_BEGIN
                    serviceUUID:(CBUUID *)serviceUUID
                     completion:(RZBCharacteristicBlock)completion;
 /**
- * Add an observer to monitor a characteristic for changes in value. The onChange block will be
- * triggered every time the characteristic changes.
+ * Enable notification on the specified characteristic and call the completion block when the notify
+ * has been set on the device. The onUpdate block will be triggered when the characteristic value is
+ * updated by the peripheral for the entire life of the connection. When the connection is torn down,
+ * all of the change blocks will be invalidated, and the notify block should be registered when the
+ * connection occurs.
  *
- * @note if a value is already present for the characteristic, the onChange block will be triggered
- *       immediately. This will happen if the bluetooth service already has a cached value. If this
- *       behavior is not desired, call RZBShouldTriggerInitialValue(false)
+ * @note CoreBluetooth may already have a value for the characteristic when the notify block is
+ *       registered, but the onUpdate block will not be triggered with this value. If this value is
+ *       of interest, check the characteristic for a non-nil value object when the completion block fires.
  */
-- (void)addObserverForCharacteristicUUID:(CBUUID *)characteristicUUID
-                             serviceUUID:(CBUUID *)serviceUUID
-                                onChange:(RZBCharacteristicBlock)onChange
-                              completion:(RZBCharacteristicBlock __nullable)completion;
+- (void)enableNotifyForCharacteristicUUID:(CBUUID *)characteristicUUID
+                              serviceUUID:(CBUUID *)serviceUUID
+                                 onUpdate:(RZBCharacteristicBlock)onUpdate
+                               completion:(RZBCharacteristicBlock __nullable)completion;
 
 /**
- * Remove the observer monitoring the characteristic for changes in value. The onChange block
- * will be removed immediately apon invocation. The completion block will be triggered
- * once the peripheral has been notified that it no longer needs to send updates to this central.
+ * Set notify value to NO, and clear the notification block for the specified characteristic. The onUpdate
+ * block that was registered in enable notify will be removed immediately apon invocation. The completion 
+ * block will be triggered once the peripheral has been notified that it no longer needs to send updates to this central.
  */
-- (void)removeObserverForCharacteristicUUID:(CBUUID *)characteristicUUID
-                                serviceUUID:(CBUUID *)serviceUUID
-                                 completion:(RZBCharacteristicBlock __nullable)completion;
-
-
+- (void)clearNotifyBlockForCharacteristicUUID:(CBUUID *)characteristicUUID
+                                  serviceUUID:(CBUUID *)serviceUUID
+                                   completion:(RZBCharacteristicBlock __nullable)completion;
 
 /**
  * Write the data to a specific characteristic.
  *
  * @param data The data to write to the characteristic.
  *
- * @note If the length of data is greater than the MTU Length (Default is 20bytes),
+ * @note If the length of data is greater than the MTU Length (Default is 20 bytes),
  *       CoreBluetooth will perform a staged write, which can have throughput
  *       implications.
  */
@@ -124,7 +125,7 @@ characteristicUUID:(CBUUID *)characteristicUUID
  * Write the data to a specific characteristic and wait for a response from the
  * device. This is the same as the above command with a completion block.
  *
- * @note the completion block requires a notification from the device and may also
+ * @note The completion block requires a notification from the device and may also
  *       impact throughput. It shouldn't be used unless required.
  */
 - (void)writeData:(NSData *)data

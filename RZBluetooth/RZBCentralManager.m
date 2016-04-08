@@ -188,10 +188,8 @@ static BOOL s_useMockCoreBluetooth = NO;
         case CBCentralManagerStateResetting:
             [self.dispatch resetCommands];
             break;
-        case CBCentralManagerStatePoweredOn:
+        default:
             [self.dispatch dispatchPendingCommands];
-            break;
-        default: {}
     }
 }
 
@@ -267,6 +265,8 @@ static BOOL s_useMockCoreBluetooth = NO;
     for (RZBCommand *command in commands) {
         [self.dispatch completeCommand:command withObject:nil error:error];
     }
+    // Clear out any onUpdate blocks
+    [peripheral.notifyBlockByUUID removeAllObjects];
     [peripheral connectionEvent:RZBPeripheralStateEventDisconnected error:error];
 }
 
