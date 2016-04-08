@@ -286,8 +286,8 @@ static BOOL s_useMockCoreBluetooth = NO;
     for (RZBCommand *command in commands) {
         [self.dispatch completeCommand:command withObject:nil error:error];
     }
-    // Clear out any onUpdate: blocks
-    peripheral.notifyBlockByUUID.removeAllObjects
+    // Clear out any onUpdate blocks
+    [peripheral.notifyBlockByUUID removeAllObjects];
     [self triggerAutomaticConnectionForPeripheral:peripheral];
 }
 
