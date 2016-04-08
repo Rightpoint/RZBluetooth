@@ -87,10 +87,8 @@
 - (void)cancelConnectionWithCompletion:(RZBErrorBlock)completion
 {
     completion = completion ?: ^(NSError *error) {};
-#warning More proof a delegate is the correct route.
     self.maintainConnection = NO;
     self.onConnection = nil;
-    self.onDisconnection = nil;
     if (self.corePeripheral.state == CBPeripheralStateDisconnected) {
         dispatch_async(self.dispatch.queue, ^() {
             completion(nil);

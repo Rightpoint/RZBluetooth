@@ -46,12 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * The block to execute on connection
  */
-@property (copy, nonatomic, nullable) RZBErrorBlock onConnection;
-
-/**
- * The block to execute on disconnection
- */
-@property (copy, nonatomic, nullable) RZBErrorBlock onDisconnection;
+@property (copy, nonatomic, nullable) RZBConnectionBlock onConnection;
 
 /**
  * This will make the central manager maintain a connection to this peripheral at

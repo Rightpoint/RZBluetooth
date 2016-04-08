@@ -112,11 +112,16 @@
     XCTAssert(p.state == CBPeripheralStateDisconnected);
     self.connection.connectable = NO;
 
-    p.onConnection = ^(NSError *error) {
-        connectCount++;
-    };
-    p.onDisconnection = ^(NSError *error) {
-        disconnectCount++;
+    p.onConnection = ^(RZBPeripheralStateEvent event, NSError *error) {
+        if (event == RZBPeripheralStateEventConnectSuccess) {
+            connectCount++;
+        }
+        else if (event == RZBPeripheralStateEventDisconnected) {
+            disconnectCount++;
+        }
+        else {
+            XCTFail("Incorrect connection event");
+        }
     };
     p.maintainConnection = YES;
 

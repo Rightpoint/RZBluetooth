@@ -15,6 +15,7 @@
 #import "RZBErrors.h"
 #import "RZBScanInfo.h"
 #import "RZBLog+Private.h"
+#import "RZBPeripheralStateEvent.h"
 
 static BOOL s_useMockCoreBluetooth = NO;
 
@@ -239,7 +240,7 @@ static BOOL s_useMockCoreBluetooth = NO;
     RZBLogDelegate(@"%@ - %@ %@", NSStringFromSelector(_cmd), central, RZBLogIdentifier(corePeripheral));
     RZBPeripheral *peripheral = [self peripheralForCorePeripheral:corePeripheral];
     if (peripheral.onConnection) {
-        peripheral.onConnection(nil);
+        peripheral.onConnection(RZBPeripheralStateEventConnectSuccess, nil);
     }
 
     [self completeFirstCommandOfClass:[RZBConnectCommand class]
@@ -253,6 +254,10 @@ static BOOL s_useMockCoreBluetooth = NO;
     RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), central, RZBLogIdentifier(corePeripheral), error);
     RZBPeripheral *peripheral = [self peripheralForCorePeripheral:corePeripheral];
 
+    if (peripheral.onConnection) {
+        peripheral.onConnection(RZBPeripheralStateEventConnectFailure, error);
+    }
+
     [self completeFirstCommandOfClass:[RZBConnectCommand class]
                      matchingUUIDPath:RZBUUIDP(corePeripheral.identifier)
                            withObject:peripheral
@@ -265,8 +270,8 @@ static BOOL s_useMockCoreBluetooth = NO;
     RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), central, RZBLogIdentifier(corePeripheral), error);
     RZBPeripheral *peripheral = [self peripheralForCorePeripheral:corePeripheral];
 
-    if (peripheral.onDisconnection) {
-        peripheral.onDisconnection(error);
+    if (peripheral.onConnection) {
+        peripheral.onConnection(RZBPeripheralStateEventDisconnected, error);
     }
     
     [self completeFirstCommandOfClass:[RZBCancelConnectionCommand class]

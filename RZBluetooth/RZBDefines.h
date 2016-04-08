@@ -7,6 +7,8 @@
 //
 
 @import CoreBluetooth;
+#import "RZBPeripheralStateEvent.h"
+
 @class RZBPeripheral;
 @class RZBScanInfo;
 #define RZB_KEYPATH(c, p) ({\
@@ -25,6 +27,7 @@ typedef void(^RZBErrorBlock)(NSError *__nullable error);
 typedef void(^RZBStateBlock)(CBCentralManagerState state);
 typedef void(^RZBRestorationBlock)(NSArray<RZBPeripheral *> *peripherals);
 typedef void(^RZBRSSIBlock)(NSNumber *__nullable RSSI, NSError *__nullable error);
+typedef void(^RZBConnectionBlock)(RZBPeripheralStateEvent state, NSError *__nullable error);
 
 typedef void(^RZBServiceBlock)(CBService *__nullable service, NSError *__nullable error);
 typedef void(^RZBCharacteristicBlock)(CBCharacteristic *__nullable characteristic, NSError *__nullable error);
