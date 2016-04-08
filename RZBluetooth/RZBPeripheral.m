@@ -138,33 +138,28 @@
     [self.dispatch dispatchCommand:cmd];
 }
 
-- (void)addObserverForCharacteristicUUID:(CBUUID *)characteristicUUID
-                             serviceUUID:(CBUUID *)serviceUUID
-                                onChange:(RZBCharacteristicBlock)onChange
-                              completion:(RZBCharacteristicBlock)completion;
+- (void)enableNotifyForCharacteristicUUID:(CBUUID *)characteristicUUID
+                              serviceUUID:(CBUUID *)serviceUUID
+                                 onUpdate:(RZBCharacteristicBlock)onUpdate
+                               completion:(RZBCharacteristicBlock)completion
 {
-    NSParameterAssert(onChange);
+    NSParameterAssert(onUpdate);
     RZB_DEFAULT_BLOCK(completion);
     RZBUUIDPath *path = RZBUUIDP(self.identifier, serviceUUID, characteristicUUID);
     RZBNotifyCharacteristicCommand *cmd = [[RZBNotifyCharacteristicCommand alloc] initWithUUIDPath:path];
     cmd.notify = YES;
     [cmd addCallbackBlock:^(CBCharacteristic *characteristic, NSError *error) {
         if (characteristic != nil) {
-            [self setNotifyBlock:onChange forCharacteristicUUID:characteristic.UUID];
+            [self setNotifyBlock:onUpdate forCharacteristicUUID:characteristic.UUID];
         }
-        // REMOVE FOR NOW!!!
-        //        if (//RZBExtensionShouldTriggerInitialValue &&
-        //            characteristic.value && error == nil) {
-        //            onChange(characteristic, nil);
-        //        }
         completion(characteristic, error);
     }];
     [self.dispatch dispatchCommand:cmd];
 }
 
-- (void)removeObserverForCharacteristicUUID:(CBUUID *)characteristicUUID
-                                serviceUUID:(CBUUID *)serviceUUID
-                                 completion:(RZBCharacteristicBlock)completion;
+- (void)clearNotifyBlockForCharacteristicUUID:(CBUUID *)characteristicUUID
+                                  serviceUUID:(CBUUID *)serviceUUID
+                                   completion:(RZBCharacteristicBlock)completion
 {
     RZB_DEFAULT_BLOCK(completion);
     RZBUUIDPath *path = RZBUUIDP(self.identifier, serviceUUID, characteristicUUID);

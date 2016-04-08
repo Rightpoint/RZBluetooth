@@ -33,9 +33,9 @@ typedef NS_ENUM(uint8_t, RZBHeartRateControl) {
 {
     NSParameterAssert(update);
     NSParameterAssert(completion);
-    [self addObserverForCharacteristicUUID:[CBUUID rzb_UUIDForHeartRateMeasurementCharacteristic]
+    [self enableNotifyForCharacteristicUUID:[CBUUID rzb_UUIDForHeartRateMeasurementCharacteristic]
                                serviceUUID:[CBUUID rzb_UUIDForHeartRateService]
-                                  onChange:^(CBCharacteristic *characteristic, NSError *error) {
+                                  onUpdate:^(CBCharacteristic *characteristic, NSError *error) {
                                       RZBHeartRateMeasurement *m = [[RZBHeartRateMeasurement alloc] initWithBluetoothData:characteristic.value];
                                       update(m, error);
                                   } completion:^(CBCharacteristic *characteristic, NSError *error) {
@@ -46,7 +46,7 @@ typedef NS_ENUM(uint8_t, RZBHeartRateControl) {
 - (void)removeHeartRateObserver:(RZBHeartRateCompletion)completion
 {
     NSParameterAssert(completion);
-    [self removeObserverForCharacteristicUUID:[CBUUID rzb_UUIDForHeartRateMeasurementCharacteristic]
+    [self clearNotifyBlockForCharacteristicUUID:[CBUUID rzb_UUIDForHeartRateMeasurementCharacteristic]
                                   serviceUUID:[CBUUID rzb_UUIDForHeartRateService]
                                    completion:^(CBCharacteristic *characteristic, NSError *error) {
                                        completion(error);

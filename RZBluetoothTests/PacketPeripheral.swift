@@ -12,7 +12,7 @@ class PacketPeripheral: RZBPeripheral {
     var packets: [Packet] = []
 
     func setPacketObserver(newPacket: (Packet) -> Void) {
-        addObserverForCharacteristicUUID(PacketUUID.fromDevice, serviceUUID: PacketUUID.service, onChange: { characteristic, error in
+        enableNotifyForCharacteristicUUID(PacketUUID.fromDevice, serviceUUID: PacketUUID.service, onUpdate: { characteristic, error in
             if let characteristic = characteristic, data = characteristic.value {
                 newPacket(Packet.fromData(data))
             }
