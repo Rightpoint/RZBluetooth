@@ -13,6 +13,15 @@
 #import "RZBMockCentralManager.h"
 #import "RZBMockPeripheralManager.h"
 
+/*
+ * The following two functions are IMPs used to over-ride alloc for 
+ * CBCentralManager and CBPeripheralManager. I don't have a clear reason
+ * why the CFBridgingRetain is needed. The best theory I have is that ARC
+ * has some magic around alloc that the swizzling breaks. Either way,
+ * the objects created by these methods have the retain count set correctly
+ * and do properly dealloc.
+ */
+
 id RZBMockCentralManagerAlloc(id self, SEL cmd) {
     id obj = [RZBMockCentralManager alloc];
     CFBridgingRetain(obj);

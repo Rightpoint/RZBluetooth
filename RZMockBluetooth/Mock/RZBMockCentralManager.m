@@ -84,7 +84,7 @@
                            advInfo:(NSDictionary *)info
                               RSSI:(NSNumber *)RSSI
 {
-    RZBMockPeripheral *peripheral = [self peripheralForUUID:peripheralUUID];
+    CBPeripheral<RZBMockedPeripheral> *peripheral = [self peripheralForUUID:peripheralUUID];
     dispatch_async(self.queue, ^{
         [self.delegate centralManager:(id)self didDiscoverPeripheral:(id)peripheral advertisementData:info RSSI:RSSI];
     });
@@ -92,7 +92,7 @@
 
 - (void)fakeConnectPeripheralWithUUID:(NSUUID *)peripheralUUID error:(NSError *)error
 {
-    RZBMockPeripheral *peripheral = [self peripheralForUUID:peripheralUUID];
+    CBPeripheral<RZBMockedPeripheral> *peripheral = [self peripheralForUUID:peripheralUUID];
     dispatch_async(self.queue, ^{
         peripheral.state = error ? CBPeripheralStateDisconnected : CBPeripheralStateConnected;
         if (error) {
@@ -106,7 +106,7 @@
 
 - (void)fakeDisconnectPeripheralWithUUID:(NSUUID *)peripheralUUID error:(NSError *)error
 {
-    RZBMockPeripheral *peripheral = [self peripheralForUUID:peripheralUUID];
+    CBPeripheral<RZBMockedPeripheral> *peripheral = [self peripheralForUUID:peripheralUUID];
     dispatch_async(self.queue, ^{
         peripheral.state = CBPeripheralStateDisconnected;
         [self.delegate centralManager:(id)self didDisconnectPeripheral:(id)peripheral error:error];

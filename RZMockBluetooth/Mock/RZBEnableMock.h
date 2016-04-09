@@ -14,5 +14,7 @@
  * in the consumer side. Once RZBEnableMock(YES) is called, the object returned by
  * [CBCentralManager alloc] will conform to RZBMockedCentralManager, and the object
  * returned by [CBPeripheralManager alloc] will conform to RZBMockedPeripheralManager.
+ *
+ * I know this sounds terrifying but it works great.
  */
 extern void RZBEnableMock(BOOL enableMock);

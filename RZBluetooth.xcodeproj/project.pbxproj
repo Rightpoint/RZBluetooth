@@ -410,14 +410,6 @@
 				ABD0C5891CB8450F0058ACB7 /* RZBMockedPeripheralManager.h */,
 				ABD0C58B1CB84DE60058ACB7 /* RZBEnableMock.h */,
 				ABD0C58C1CB84DE60058ACB7 /* RZBEnableMock.m */,
-				ABD0C58A1CB84B980058ACB7 /* Private */,
-			);
-			path = Mock;
-			sourceTree = "<group>";
-		};
-		ABD0C58A1CB84B980058ACB7 /* Private */ = {
-			isa = PBXGroup;
-			children = (
 				ABCD83721B71D1F900DA1162 /* RZBMockCentralManager.h */,
 				ABCD83731B71D1F900DA1162 /* RZBMockCentralManager.m */,
 				ABCD83741B71D1F900DA1162 /* RZBMockPeripheral.h */,
@@ -425,7 +417,7 @@
 				ABCD83761B71D1F900DA1162 /* RZBMockPeripheralManager.h */,
 				ABCD83771B71D1F900DA1162 /* RZBMockPeripheralManager.m */,
 			);
-			name = Private;
+			path = Mock;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

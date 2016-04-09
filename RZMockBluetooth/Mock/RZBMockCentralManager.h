@@ -32,7 +32,5 @@
 
 - (void)cancelPeripheralConnection:(CBPeripheral *)peripheral;
 
-- (RZBMockPeripheral *)peripheralForUUID:(NSUUID *)uuid;
-
 @end
 
