@@ -1,12 +1,12 @@
 //
-//  CBPeripheral+RZBBattery.m
+//  RZBPeripheral+RZBBattery.m
 //  RZBluetooth
 //
 //  Created by Brian King on 8/6/15.
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-#import "CBPeripheral+RZBBattery.h"
+#import "RZBPeripheral+RZBBattery.h"
 #import "CBUUID+RZBPublic.h"
 
 @implementation RZBPeripheral (RZBBattery)

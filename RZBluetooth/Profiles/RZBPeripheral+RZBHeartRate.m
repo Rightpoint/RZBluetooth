@@ -6,7 +6,7 @@
 //  Copyright © 2015 Raizlabs. All rights reserved.
 //
 
-#import "CBPeripheral+RZBHeartRate.h"
+#import "RZBPeripheral+RZBHeartRate.h"
 #import "RZBPeripheral.h"
 #import "RZBHeartRateMeasurement.h"
 #import "CBUUID+RZBPublic.h"

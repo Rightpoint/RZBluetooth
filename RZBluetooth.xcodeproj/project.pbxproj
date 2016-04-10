@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AB0E299D1B7E19E100A1ADA9 /* CBPeripheral+RZBHeartRate.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0E299C1B7E19E100A1ADA9 /* CBPeripheral+RZBHeartRate.m */; };
+		AB0E299D1B7E19E100A1ADA9 /* RZBPeripheral+RZBHeartRate.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0E299C1B7E19E100A1ADA9 /* RZBPeripheral+RZBHeartRate.m */; };
 		AB0E29A01B7E2CE200A1ADA9 /* CBUUID+RZBPublic.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0E299F1B7E2CE200A1ADA9 /* CBUUID+RZBPublic.m */; };
 		AB0E29A31B7E2D3F00A1ADA9 /* RZBHeartRateMeasurement.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0E29A21B7E2D3F00A1ADA9 /* RZBHeartRateMeasurement.m */; };
 		AB14AF031CA59CDA00D1436D /* RZBScanInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AB14AF021CA59CDA00D1436D /* RZBScanInfo.m */; };
@@ -49,7 +49,7 @@
 		ABCD83791B71D1F900DA1162 /* RZBMockPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCD83751B71D1F900DA1162 /* RZBMockPeripheral.m */; };
 		ABCD837A1B71D1F900DA1162 /* RZBMockPeripheralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCD83771B71D1F900DA1162 /* RZBMockPeripheralManager.m */; };
 		ABCD837D1B726C2D00DA1162 /* NSRunLoop+RZBWaitFor.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCD837C1B726C2D00DA1162 /* NSRunLoop+RZBWaitFor.m */; };
-		ABCD83801B73D77C00DA1162 /* CBPeripheral+RZBBattery.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCD837F1B73D77C00DA1162 /* CBPeripheral+RZBBattery.m */; };
+		ABCD83801B73D77C00DA1162 /* RZBPeripheral+RZBBattery.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCD837F1B73D77C00DA1162 /* RZBPeripheral+RZBBattery.m */; };
 		ABCD83821B73DD2600DA1162 /* RZBSimulatedTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCD83811B73DD2600DA1162 /* RZBSimulatedTests.m */; };
 		ABCD83841B73DE5D00DA1162 /* RZBProfileBatteryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCD83831B73DE5D00DA1162 /* RZBProfileBatteryTests.m */; };
 		ABCD83AE1B7ACF9E00DA1162 /* RZBSimulatedDevice+RZBBatteryLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCD83AD1B7ACF9E00DA1162 /* RZBSimulatedDevice+RZBBatteryLevel.m */; };
@@ -99,8 +99,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		AB0E299B1B7E19E100A1ADA9 /* CBPeripheral+RZBHeartRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBPeripheral+RZBHeartRate.h"; sourceTree = "<group>"; };
-		AB0E299C1B7E19E100A1ADA9 /* CBPeripheral+RZBHeartRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBPeripheral+RZBHeartRate.m"; sourceTree = "<group>"; };
+		AB0E299B1B7E19E100A1ADA9 /* RZBPeripheral+RZBHeartRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RZBPeripheral+RZBHeartRate.h"; sourceTree = "<group>"; };
+		AB0E299C1B7E19E100A1ADA9 /* RZBPeripheral+RZBHeartRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RZBPeripheral+RZBHeartRate.m"; sourceTree = "<group>"; };
 		AB0E299E1B7E2CE200A1ADA9 /* CBUUID+RZBPublic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBUUID+RZBPublic.h"; sourceTree = "<group>"; };
 		AB0E299F1B7E2CE200A1ADA9 /* CBUUID+RZBPublic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBUUID+RZBPublic.m"; sourceTree = "<group>"; };
 		AB0E29A11B7E2D3F00A1ADA9 /* RZBHeartRateMeasurement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZBHeartRateMeasurement.h; sourceTree = "<group>"; };
@@ -179,8 +179,8 @@
 		ABCD83771B71D1F900DA1162 /* RZBMockPeripheralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBMockPeripheralManager.m; sourceTree = "<group>"; };
 		ABCD837B1B726C2D00DA1162 /* NSRunLoop+RZBWaitFor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRunLoop+RZBWaitFor.h"; sourceTree = "<group>"; };
 		ABCD837C1B726C2D00DA1162 /* NSRunLoop+RZBWaitFor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRunLoop+RZBWaitFor.m"; sourceTree = "<group>"; };
-		ABCD837E1B73D77C00DA1162 /* CBPeripheral+RZBBattery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBPeripheral+RZBBattery.h"; sourceTree = "<group>"; };
-		ABCD837F1B73D77C00DA1162 /* CBPeripheral+RZBBattery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBPeripheral+RZBBattery.m"; sourceTree = "<group>"; };
+		ABCD837E1B73D77C00DA1162 /* RZBPeripheral+RZBBattery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RZBPeripheral+RZBBattery.h"; sourceTree = "<group>"; };
+		ABCD837F1B73D77C00DA1162 /* RZBPeripheral+RZBBattery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RZBPeripheral+RZBBattery.m"; sourceTree = "<group>"; };
 		ABCD83811B73DD2600DA1162 /* RZBSimulatedTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBSimulatedTests.m; sourceTree = "<group>"; };
 		ABCD83831B73DE5D00DA1162 /* RZBProfileBatteryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBProfileBatteryTests.m; sourceTree = "<group>"; };
 		ABCD83AB1B7ACD5900DA1162 /* RZBluetooth.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = RZBluetooth.podspec; sourceTree = "<group>"; };
@@ -366,10 +366,10 @@
 				AB4135FB1B71AB91002F450F /* RZBDeviceInfo.m */,
 				AB0E29A11B7E2D3F00A1ADA9 /* RZBHeartRateMeasurement.h */,
 				AB0E29A21B7E2D3F00A1ADA9 /* RZBHeartRateMeasurement.m */,
-				ABCD837E1B73D77C00DA1162 /* CBPeripheral+RZBBattery.h */,
-				ABCD837F1B73D77C00DA1162 /* CBPeripheral+RZBBattery.m */,
-				AB0E299B1B7E19E100A1ADA9 /* CBPeripheral+RZBHeartRate.h */,
-				AB0E299C1B7E19E100A1ADA9 /* CBPeripheral+RZBHeartRate.m */,
+				ABCD837E1B73D77C00DA1162 /* RZBPeripheral+RZBBattery.h */,
+				ABCD837F1B73D77C00DA1162 /* RZBPeripheral+RZBBattery.m */,
+				AB0E299B1B7E19E100A1ADA9 /* RZBPeripheral+RZBHeartRate.h */,
+				AB0E299C1B7E19E100A1ADA9 /* RZBPeripheral+RZBHeartRate.m */,
 			);
 			path = Profiles;
 			sourceTree = "<group>";
@@ -542,8 +542,8 @@
 				AB4A45141CA22AE300C82703 /* RZBCentralManager+CommandHelper.m in Sources */,
 				ABA4827C1C18B44400709F8F /* RZBLog.m in Sources */,
 				AB0E29A31B7E2D3F00A1ADA9 /* RZBHeartRateMeasurement.m in Sources */,
-				ABCD83801B73D77C00DA1162 /* CBPeripheral+RZBBattery.m in Sources */,
-				AB0E299D1B7E19E100A1ADA9 /* CBPeripheral+RZBHeartRate.m in Sources */,
+				ABCD83801B73D77C00DA1162 /* RZBPeripheral+RZBBattery.m in Sources */,
+				AB0E299D1B7E19E100A1ADA9 /* RZBPeripheral+RZBHeartRate.m in Sources */,
 				AB4A45101CA223B200C82703 /* RZBPeripheral.m in Sources */,
 				AB45C4CB1B6BF88B00CC0166 /* RZBCommandDispatch.m in Sources */,
 				AB45C5511B70F8D800CC0166 /* CBService+RZBExtension.m in Sources */,

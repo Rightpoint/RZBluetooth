@@ -18,5 +18,5 @@
 #import "CBUUID+RZBPublic.h"
 #import "RZBDeviceInfo.h"
 #import "RZBHeartRateMeasurement.h"
-#import "CBPeripheral+RZBHeartRate.h"
-#import "CBPeripheral+RZBBattery.h"
+#import "RZBPeripheral+RZBHeartRate.h"
+#import "RZBPeripheral+RZBBattery.h"
