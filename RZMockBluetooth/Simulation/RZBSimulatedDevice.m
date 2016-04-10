@@ -7,7 +7,6 @@
 //
 
 #import "RZBSimulatedDevice.h"
-#import "RZBMockPeripheralManager.h"
 #import "RZBSimulatedCentral.h"
 
 @interface RZBSimulatedDevice ()
@@ -91,21 +90,21 @@
     [self addService:service];
 }
 
-- (void)addReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBSimulatedDeviceRead)handler;
+- (void)addReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBATTRequestHandler)handler;
 {
     NSParameterAssert(characteristicUUID);
     NSParameterAssert(handler);
     self.readHandlers[characteristicUUID] = [handler copy];
 }
 
-- (void)addWriteCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBSimulatedDeviceRead)handler;
+- (void)addWriteCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBATTRequestHandler)handler;
 {
     NSParameterAssert(characteristicUUID);
     NSParameterAssert(handler);
     self.writeHandlers[characteristicUUID] = [handler copy];
 }
 
-- (void)addSubscribeCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBSimulatedDeviceSubscribe)handler
+- (void)addSubscribeCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBNotificationHandler)handler
 {
     NSParameterAssert(characteristicUUID);
     NSParameterAssert(handler);
@@ -141,7 +140,7 @@
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didSubscribeToCharacteristic:(CBCharacteristic *)characteristic
 {
-    RZBSimulatedDeviceSubscribe handler = self.subscribeHandlers[characteristic.UUID];
+    RZBNotificationHandler handler = self.subscribeHandlers[characteristic.UUID];
     if (handler) {
         handler(YES);
     }
@@ -149,7 +148,7 @@
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didUnsubscribeFromCharacteristic:(CBCharacteristic *)characteristic
 {
-    RZBSimulatedDeviceSubscribe handler = self.subscribeHandlers[characteristic.UUID];
+    RZBNotificationHandler handler = self.subscribeHandlers[characteristic.UUID];
     if (handler) {
         handler(NO);
     }
@@ -157,7 +156,7 @@
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveReadRequest:(CBATTRequest *)request
 {
-    RZBSimulatedDeviceRead read = self.readHandlers[request.characteristic.UUID];
+    RZBATTRequestHandler read = self.readHandlers[request.characteristic.UUID];
     CBATTError result = CBATTErrorRequestNotSupported;
     if (read) {
         result = read(request);
@@ -172,7 +171,7 @@
 {
     CBATTError result = CBATTErrorSuccess;
     for (CBATTRequest *request in requests) {
-        RZBSimulatedDeviceRead write = self.writeHandlers[request.characteristic.UUID];
+        RZBATTRequestHandler write = self.writeHandlers[request.characteristic.UUID];
         if (write) {
             result = MAX(result, write(request));
         }

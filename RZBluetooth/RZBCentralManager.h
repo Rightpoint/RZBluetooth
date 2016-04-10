@@ -86,8 +86,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * This is the CoreBluetooth central manager that backs this central manager.
+ * This is exposed for informational and testing purposes only. Directly invoking
+ * methods on this object may cause un-expected behavior.
  */
-@property (strong, nonatomic, readonly) CBCentralManager *centralManager;
+@property (strong, nonatomic, readonly) CBCentralManager *coreCentralManager;
 
 @end
 

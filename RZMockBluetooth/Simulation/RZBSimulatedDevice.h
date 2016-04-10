@@ -7,12 +7,11 @@
 //
 
 #import "RZBBluetoothRepresentable.h"
-#import "RZBMockedPeripheralManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef CBATTError (^RZBSimulatedDeviceRead)(CBATTRequest *request);
-typedef void (^RZBSimulatedDeviceSubscribe)(BOOL isNotifying);
+typedef CBATTError (^RZBATTRequestHandler)(CBATTRequest *request);
+typedef void (^RZBNotificationHandler)(BOOL isNotifying);
 
 /**
  *  The simulated device is a peripheral manager delegate that is intended to mock
@@ -86,19 +85,19 @@ typedef void (^RZBSimulatedDeviceSubscribe)(BOOL isNotifying);
  *  Block based API for adding read callback handlers for a characteristic with a specific UUID. Subclasses
  *  can also over-ride CBPeripheralManagerDelegate methods, as long as super is called.
  */
-- (void)addReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBSimulatedDeviceRead)handler;
+- (void)addReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBATTRequestHandler)handler;
 
 /**
  *  Block based API for adding write callback handlers for a characteristic with a specific UUID. Subclasses
  *  can also over-ride CBPeripheralManagerDelegate methods, as long as super is called.
  */
-- (void)addWriteCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBSimulatedDeviceRead)handler;
+- (void)addWriteCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBATTRequestHandler)handler;
 
 /**
  *  Block based API for adding subscribe callback handlers for a characteristic with a specific UUID. Subclasses
  *  can also over-ride CBPeripheralManagerDelegate methods, as long as super is called.
  */
-- (void)addSubscribeCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBSimulatedDeviceSubscribe)handler;
+- (void)addSubscribeCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBNotificationHandler)handler;
 
 /**
  *  Add a RZBBluetoothRepresentable object to the simulated device.

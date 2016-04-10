@@ -36,7 +36,7 @@
     if (self) {
         NSDictionary *options = @{};
         _peripheralClass = peripheralClass ?: [RZBPeripheral class];
-        _centralManager = [[CBCentralManager alloc] initWithDelegate:self
+        _coreCentralManager = [[CBCentralManager alloc] initWithDelegate:self
                                                                queue:queue
                                                              options:options];
         _dispatch = [[RZBCommandDispatch alloc] initWithQueue:queue context:self];
@@ -47,7 +47,7 @@
 
 - (CBCentralManagerState)state
 {
-    return self.centralManager.state;
+    return self.coreCentralManager.state;
 }
 
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs
@@ -74,8 +74,8 @@
 {
     self.activeScanBlock = nil;
     [self completeScanCommand];
-    if (self.centralManager.state == CBCentralManagerStatePoweredOn) {
-        [self.centralManager stopScan];
+    if (self.coreCentralManager.state == CBCentralManagerStatePoweredOn) {
+        [self.coreCentralManager stopScan];
     }
 }
 
@@ -84,7 +84,7 @@
 - (CBPeripheral *)corePeripheralForUUID:(NSUUID *)peripheralUUID
 {
     NSParameterAssert(peripheralUUID);
-    NSArray *peripherals = [self.centralManager retrievePeripheralsWithIdentifiers:@[peripheralUUID]];
+    NSArray *peripherals = [self.coreCentralManager retrievePeripheralsWithIdentifiers:@[peripheralUUID]];
     CBPeripheral *peripheral = [peripherals lastObject];
     peripheral.delegate = self;
     return peripheral;

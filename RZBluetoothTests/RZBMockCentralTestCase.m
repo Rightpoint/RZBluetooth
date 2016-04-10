@@ -21,7 +21,7 @@
 
 - (CBCentralManager<RZBMockedCentralManager> *)mockCentralManager
 {
-    CBCentralManager<RZBMockedCentralManager> *mockCentral = (id)self.centralManager.centralManager;
+    CBCentralManager<RZBMockedCentralManager> *mockCentral = (id)self.centralManager.coreCentralManager;
     NSAssert([mockCentral conformsToProtocol:@protocol(RZBMockedCentralManager)], @"Invalid central");
     return mockCentral;
 }

@@ -48,7 +48,7 @@
 
 - (BOOL)executeCommandWithContext:(RZBCentralManager *)context error:(inout NSError **)error
 {
-    CBCentralManagerState state = context.centralManager.state;
+    CBCentralManagerState state = context.coreCentralManager.state;
     BOOL bluetoothReady = (state == CBCentralManagerStatePoweredOn);
     *error = RZBluetoothErrorForState(state);
     return bluetoothReady;
@@ -154,7 +154,7 @@
     if (isReady) {
         RZBLogCommand(@"connectPeripheral:%@ options:%@", RZBLogIdentifier(peripheral), self.connectOptions);
 
-        [context.centralManager connectPeripheral:peripheral options:self.connectOptions];
+        [context.coreCentralManager connectPeripheral:peripheral options:self.connectOptions];
     }
     return isReady;
 }
@@ -171,7 +171,7 @@
     if (peripheral.state == CBPeripheralStateConnected ||
         peripheral.state == CBPeripheralStateConnecting) {
         RZBLogCommand(@"cancelPeripheralConnection: %@", RZBLogIdentifier(peripheral));
-        [context.centralManager cancelPeripheralConnection:peripheral];
+        [context.coreCentralManager cancelPeripheralConnection:peripheral];
     }
     else {
         RZBLogCommand(@"Already Cancelled: %@", RZBLogIdentifier(peripheral));
@@ -422,7 +422,7 @@
     if (isReady) {
         RZBLogCommand(@"scanForPeripheralsWithServices:%@ options:%@", RZBLogArray(self.serviceUUIDs), self.scanOptions);
 
-        [context.centralManager scanForPeripheralsWithServices:self.serviceUUIDs
+        [context.coreCentralManager scanForPeripheralsWithServices:self.serviceUUIDs
                                                        options:self.scanOptions];
     }
     return isReady;
