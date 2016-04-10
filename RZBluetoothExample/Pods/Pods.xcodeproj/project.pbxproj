@@ -10,6 +10,37 @@
 	<string>46</string>
 	<key>objects</key>
 	<dict>
+		<key>00B261D021E9D372831554CBBD933B66</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>E0BC90A3434D444AB1B5DC1786164CCB</string>
+				<string>23DD5680C69460B0724AD29811023BC6</string>
+				<string>EFF3ED325F6D232E1AD147F7ACBA741B</string>
+				<string>14D6AF4F0DC1411C2A43893A1961F09A</string>
+				<string>1DE09C9B5BDDAB0F8FD4CA7C2215A00A</string>
+				<string>DE43FDBD0D8ABFF238970D64C9DAB732</string>
+				<string>42E1DC000D83A1529D612C80DF8D7963</string>
+				<string>170DCD3A933C81E50C4E07AD47A329E8</string>
+				<string>332C0D786F02DE2B81EBEF178EBAF3D8</string>
+				<string>FBF8421A8A612E89F169752631CA610D</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Profiles</string>
+			<key>path</key>
+			<string>Profiles</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>01784A1C8CFDAA1D66485CEA7BE42771</key>
+		<dict>
+			<key>fileRef</key>
+			<string>FBF8421A8A612E89F169752631CA610D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
 		<key>03E8DBB0243C577D594180FF800152D0</key>
 		<dict>
 			<key>buildConfigurations</key>
@@ -39,19 +70,12 @@
 			<key>sourceTree</key>
 			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
-		<key>06C87285D5F80F2A0FD061EC6CB07882</key>
+		<key>05E321A8DF315349B656C8EA7B4AE544</key>
 		<dict>
 			<key>fileRef</key>
-			<string>3C2DFDD31CE90241109C262B1B355EF3</string>
+			<string>E1A2C5CD31C1177CE868FF5961459686</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
 		</dict>
 		<key>08793DF334F5EC67F201E371500133E6</key>
 		<dict>
@@ -74,30 +98,43 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>090A52B96D9D3049F0ABB446122D156F</key>
-		<dict>
-			<key>fileRef</key>
-			<string>141C9FF4087692301E2A5C8AF17F98CE</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Private</string>
-				</array>
-			</dict>
-		</dict>
-		<key>0B84E2D539BC2735D7DF30023230E20B</key>
+		<key>08B349B70AA26FAA4539EDF66702E3D3</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
+			<string>sourcecode.c.h</string>
 			<key>path</key>
-			<string>RZBMockPeripheral.m</string>
+			<string>NSError+RZBMock.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>094C9FEBA15E3C6F20CD57471BD8E600</key>
+		<dict>
+			<key>fileRef</key>
+			<string>6E36AAE75FB16240CB8E1A9985565284</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>0A1D14B771C887016F76ADBF54BFAE0A</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>RZBMockedCentralManager.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -128,13 +165,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>0D97BA0A2DBE1F9099917E236E1178D6</key>
-		<dict>
-			<key>fileRef</key>
-			<string>800CBB848C0C8414BFB27125DD565789</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
 		<key>0DDA38BF0385C879E07D5C3DD6899578</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -148,30 +178,23 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>0EF52153BB731C421BEA90ABB3EB3920</key>
+		<key>0E7CD15AA8DE94B330BB093CE7920483</key>
 		<dict>
 			<key>fileRef</key>
-			<string>BCA9CC8D95251984E60063C338AB116E</string>
+			<string>AC5A987D6F81A1559168B1743EB3D31C</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>10B9C2955BF7FA0E63D85921FA659961</key>
-		<dict>
-			<key>fileRef</key>
-			<string>5A15211CC1EB0BA5491EBD2D52FE1E5E</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>11234191B1CEA919B6B829975C4000CF</key>
+		<key>11004FB5397EAB7AF2567CF977F86E1E</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
+			<string>sourcecode.c.objc</string>
 			<key>path</key>
-			<string>RZBSimulatedCentral.h</string>
+			<string>RZBSimulatedDevice.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -207,10 +230,10 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>123195EC2A4F0F7E91F2B1AD0BF44DCE</key>
+		<key>118D9F45C72C84D803457646E30FECD3</key>
 		<dict>
 			<key>fileRef</key>
-			<string>5DDE3C1AFAA68803517782F531EE4332</string>
+			<string>29A3C458D9685F7112B7877452B734EA</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -234,59 +257,36 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>15AD1778286954747C0C975B8A463D4D</key>
+		<key>14D6AF4F0DC1411C2A43893A1961F09A</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>RZBDeviceInfo.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1621AAD1206331227DEFABBE6D864E03</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>RZBMockPeripheralManager.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>16D4F4A6A473AC76743B3A93D5FE10CC</key>
 		<dict>
 			<key>fileRef</key>
-			<string>4B9AF91251B8872666F4FB74CD39278C</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>16E985F4C9CE12A0621D358B734638B9</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>BE371E67998CF0FBC1C68A55192352E7</string>
-				<string>DA892D9DDED0E999F848ECA06DFABDB8</string>
-				<string>219965D2639E4A30399CE4805B5FFBD7</string>
-				<string>EF5FF1B9F4BB363CB4E58FDB0793EF61</string>
-				<string>653F74437895D4470977B8D7322D12E5</string>
-				<string>090A52B96D9D3049F0ABB446122D156F</string>
-				<string>34FDDB1326D436E16481DEED9A9DE0D2</string>
-				<string>F81C0C2E1F18F2E0AABC93491DF7DC10</string>
-				<string>C0AA6134D0D18AEAE10C67132E21B824</string>
-				<string>3681275149D068F25A5F23DFEB659742</string>
-				<string>A35070561B8855503E3A97BECB5D7794</string>
-				<string>1FD1F8438E0073E76346BA611AD86E26</string>
-				<string>8F84D4E35F80BED689960B78495406FB</string>
-				<string>F3FCA18090B4FAA110A0F7582C8D57AB</string>
-				<string>CDA79C22BF4B64A33FE56E7F864CD0C4</string>
-				<string>D6F2C92ED55406C0D420AF00D85DD308</string>
-				<string>E497FF5BC4881649239AF6CB337F78D2</string>
-				<string>E0F561B869601C549DFD14FDEBE57AB5</string>
-				<string>B4F9B136E24FD46840DFA37C59243ECD</string>
-				<string>515769B441CD0E4D2338966B7F38CC12</string>
-				<string>7F7774BC37A09FAE9B5276859F042CC9</string>
-				<string>17C6B8115067824C26C3CA24C404B03E</string>
-				<string>BDB44EF29D137F3B16753852BD42451F</string>
-			</array>
-			<key>isa</key>
-			<string>PBXHeadersBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>177BD7F50CEC19D5CB22A20925CD73A4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>C16B18B12F2C385E5E3E562F60BAC94A</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>17C6B8115067824C26C3CA24C404B03E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>3C2DFDD31CE90241109C262B1B355EF3</string>
+			<string>ECDF8B5A9C98397D90EABAE696D9B92D</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -296,6 +296,19 @@
 					<string>Public</string>
 				</array>
 			</dict>
+		</dict>
+		<key>170DCD3A933C81E50C4E07AD47A329E8</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>RZBPeripheral+RZBBattery.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>1808C4F1E74EB525AFB3262ACAA5EE3E</key>
 		<dict>
@@ -323,84 +336,26 @@
 			<key>productType</key>
 			<string>com.apple.product-type.library.static</string>
 		</dict>
-		<key>185380AB545F8AF1D62B92BD7B03060D</key>
+		<key>1943462A40DACA7D76D386A4A88FFC01</key>
 		<dict>
 			<key>fileRef</key>
-			<string>F5200A0DFCB3498C0945E330D9DF5F04</string>
+			<string>69560E72ECB9125063895B80D1B99648</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>1BFF66FD5FCD8B02047CE36DE198325A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>D0748A7E15475D73752F1AF04E7D5B44</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
 			<dict>
 				<key>ATTRIBUTES</key>
 				<array>
-					<string>Public</string>
+					<string>Private</string>
 				</array>
 			</dict>
-		</dict>
-		<key>185D23CFB241E4767C8BCC80EFB103BE</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>19564358BC45D9B945261064F057E952</string>
-				<string>570813B65896E944F839F7A8036FCDB2</string>
-				<string>60436180CD2732DA8173F153A446F5D1</string>
-				<string>9D6877FFE840BB4DD98CE4CF5BC8C95D</string>
-				<string>F5200A0DFCB3498C0945E330D9DF5F04</string>
-				<string>9E39EB5D97F57A9ADB170507708B7859</string>
-				<string>2E401C22179163491BC556995DF90748</string>
-				<string>212348AB9B0F5F1BB671B3347E6A740C</string>
-				<string>EB8AAC2612388DCBEE7AB3BE251FA606</string>
-				<string>C16B18B12F2C385E5E3E562F60BAC94A</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Profiles</string>
-			<key>path</key>
-			<string>Profiles</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>19564358BC45D9B945261064F057E952</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>CBPeripheral+RZBBattery.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1A92294CF95318514C2BF9EB51378ACB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>9E41A60DB98AC866B5B1D767F70C1653</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>1B10A28821208BFAB8B7FC9F1412DD8C</key>
-		<dict>
-			<key>fileRef</key>
-			<string>570813B65896E944F839F7A8036FCDB2</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>1B5A19F8DF2A5A909054A69BED10542D</key>
-		<dict>
-			<key>fileRef</key>
-			<string>DD92EC47233BECFA47C627082A5FE33D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
 		</dict>
 		<key>1C28506C47967BEA3D67EEF772BDD9E9</key>
 		<dict>
@@ -442,9 +397,9 @@
 			<string>03E8DBB0243C577D594180FF800152D0</string>
 			<key>buildPhases</key>
 			<array>
-				<string>B8F5E7FF1FC3ABE8F8CD107812D707A6</string>
+				<string>C2B427C0B0CCDFCBBD12EEBDA27874F9</string>
 				<string>380F9515DC16A874F5D8252C3D1F2CB1</string>
-				<string>16E985F4C9CE12A0621D358B734638B9</string>
+				<string>705698D198E5C607AB0E84107B8348A8</string>
 			</array>
 			<key>buildRules</key>
 			<array/>
@@ -461,6 +416,19 @@
 			<key>productType</key>
 			<string>com.apple.product-type.library.static</string>
 		</dict>
+		<key>1DE09C9B5BDDAB0F8FD4CA7C2215A00A</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>RZBHeartRateMeasurement.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>1F8C46C8BD3CD6DD0AF0C6072DEB0608</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -474,75 +442,14 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>1FD1F8438E0073E76346BA611AD86E26</key>
+		<key>1FA071C69F4149BB345B9D1CA07DEF0D</key>
 		<dict>
 			<key>fileRef</key>
-			<string>2E401C22179163491BC556995DF90748</string>
+			<string>D6446A2A0368B8D9736B2620A639BB59</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
 		</dict>
-		<key>203CAF5A983D7CB9AC6C89C6294A97C8</key>
-		<dict>
-			<key>fileRef</key>
-			<string>36FFDB5DA6DAA1B8D31BD84D6A779732</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>212348AB9B0F5F1BB671B3347E6A740C</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>RZBDeviceInfo.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>219965D2639E4A30399CE4805B5FFBD7</key>
-		<dict>
-			<key>fileRef</key>
-			<string>9E41A60DB98AC866B5B1D767F70C1653</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>21F22F936D0725EB32802A20D5496DC4</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>RZBSimulatedDevice.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>222EB4405209F2DCC3E6FB11F3F99B0E</key>
+		<key>1FC774F2AEDF3F3418C93AB152569560</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -551,16 +458,57 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
 			<key>path</key>
-			<string>RZBMockPeripheralManager.h</string>
+			<string>RZBSimulatedConnection+Private.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>228B20F0DE6C4EC7DC87B5128EA81081</key>
+		<key>2109FE667E45B0875B7A5403B02AE6F9</key>
 		<dict>
 			<key>fileRef</key>
-			<string>5C72AB8AB7DAA52681758551A7EDB037</string>
+			<string>3AA747D50247F762E1D5EBD784BCA268</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>225B3508BF10AD888887CEB37CDE8505</key>
+		<dict>
+			<key>fileRef</key>
+			<string>996E7549D39FA2259A7CF6EE4B284CA6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>23DD5680C69460B0724AD29811023BC6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>CBUUID+RZBPublic.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>23F36F0F479AA541FC294399152D1260</key>
+		<dict>
+			<key>fileRef</key>
+			<string>70B8059A9FE3BB6264649CA957FCA501</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Private</string>
+				</array>
+			</dict>
 		</dict>
 		<key>23F4B5E6A2A02ED8E6D6D6DE33DDA58C</key>
 		<dict>
@@ -588,12 +536,32 @@
 			<key>productType</key>
 			<string>com.apple.product-type.library.static</string>
 		</dict>
-		<key>2749E25944765C12FF7B307B8113E596</key>
+		<key>254AC2D822AD4BBEBEB36F4A0954AF04</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>NSError+RZBMock.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>270674D00D2613CA9BEFFD540B3E2C33</key>
 		<dict>
 			<key>fileRef</key>
-			<string>AC5A987D6F81A1559168B1743EB3D31C</string>
+			<string>332C0D786F02DE2B81EBEF178EBAF3D8</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
 		</dict>
 		<key>279AA6492631DEFA8C439A9C088EEB8A</key>
 		<dict>
@@ -608,38 +576,23 @@
 			<key>sourceTree</key>
 			<string>DEVELOPER_DIR</string>
 		</dict>
-		<key>280E7B704EC58962D444025639CFF607</key>
+		<key>29A3C458D9685F7112B7877452B734EA</key>
 		<dict>
-			<key>fileRef</key>
-			<string>E87CE77BA21D15D3CD243E7009E27DAE</string>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>RZBSimulatedDevice.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
-		<key>2A4AA318843F631BACEA18B7A9C8F90A</key>
+		<key>2BD58113D2A9BCE5FD14E16D7859FD86</key>
 		<dict>
 			<key>fileRef</key>
-			<string>E73C48FA3198F5ED0A8B2F5B39C57B89</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Private</string>
-				</array>
-			</dict>
-		</dict>
-		<key>2BCF25C8C67266D9B9A7175D520C741B</key>
-		<dict>
-			<key>fileRef</key>
-			<string>EB8AAC2612388DCBEE7AB3BE251FA606</string>
+			<string>8A72AA941A29998BDAA86AF8A2492D4D</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -664,25 +617,40 @@
 			<key>isa</key>
 			<string>XCConfigurationList</string>
 		</dict>
-		<key>2E1CEEA38E62396AEB0FF87B4DF535B9</key>
+		<key>2EEA0BE1FE2805324C949E40FA25FB90</key>
 		<dict>
 			<key>fileRef</key>
-			<string>4433981B538AE6F6FDF18C8792071E4B</string>
+			<string>381FB294E9C285A56A7E5EA5D0CC0315</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>2E401C22179163491BC556995DF90748</key>
+		<key>2F7F0EE2FBCCCEB05C9F1AF3EF890485</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>fileRef</key>
+			<string>D0748A7E15475D73752F1AF04E7D5B44</string>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>RZBDeviceInfo.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Private</string>
+				</array>
+			</dict>
+		</dict>
+		<key>3111B5F24435DAD6BEF70FE398986CC6</key>
+		<dict>
+			<key>fileRef</key>
+			<string>D9B75A6813C682945A6805F09E877303</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
 		</dict>
 		<key>31CA2EEC582DB1C599EF7985CDBA5E63</key>
 		<dict>
@@ -699,12 +667,31 @@
 			<key>sourceTree</key>
 			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
-		<key>32909679BA2188F3D1FA2507E435518D</key>
+		<key>323351793978C94992E6E2B3FF7DB2CC</key>
 		<dict>
-			<key>fileRef</key>
-			<string>570813B65896E944F839F7A8036FCDB2</string>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>PBXBuildFile</string>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>RZBSimulatedCallback.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>332C0D786F02DE2B81EBEF178EBAF3D8</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>RZBPeripheral+RZBHeartRate.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>333C44B8477695C1928C9E07D8565E06</key>
 		<dict>
@@ -718,6 +705,20 @@
 			<string>Pods-RZBluetoothExampleUITests.debug.xcconfig</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>3376AF04F39ECC38DC9F75E96ABEF997</key>
+		<dict>
+			<key>fileRef</key>
+			<string>3C2DFDD31CE90241109C262B1B355EF3</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
 		</dict>
 		<key>33C6C320427F9620F3018E7C4F7266A0</key>
 		<dict>
@@ -760,7 +761,7 @@
 				<string>3C2DFDD31CE90241109C262B1B355EF3</string>
 				<string>5A15211CC1EB0BA5491EBD2D52FE1E5E</string>
 				<string>5524087DBEA9EC1B051C11E0F20654AB</string>
-				<string>185D23CFB241E4767C8BCC80EFB103BE</string>
+				<string>00B261D021E9D372831554CBBD933B66</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -771,59 +772,53 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>34FDDB1326D436E16481DEED9A9DE0D2</key>
+		<key>355279CFA7EF269D37B570C1AD3FA7DE</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>FC4E6AD8F7EE507B5908CCE96F7B7CF6</string>
+				<string>3EAE02A24C0A3152773F9D5850CB1A78</string>
+				<string>E67AA52C915D9D7B478B90574D4E373C</string>
+				<string>0E7CD15AA8DE94B330BB093CE7920483</string>
+				<string>698E64BA420634440D8160C7508A23F7</string>
+				<string>55611679E69D77E0D2E58A62E4C7122B</string>
+				<string>F9E5D41ED69171832861A7432A74A150</string>
+				<string>ABC0EAFF18837076BB39F0C3FA5BC23B</string>
+				<string>A59B52E1D07900B8D722FEDDE67F49C5</string>
+				<string>99849E74C432378AADE4B5153D3648CD</string>
+				<string>BDE3CD1F0012351DFD714589AC899DF0</string>
+				<string>BFC90C302D8BAF58BF3D49CC4B0CC4FE</string>
+				<string>A7FD55ED48665A29EA41AD5CD2414459</string>
+				<string>7E8E9906044C3EDFD0017D9E03564CBE</string>
+				<string>225B3508BF10AD888887CEB37CDE8505</string>
+				<string>5CFF6008575AC7E83CF4458C87F56903</string>
+				<string>36AA3244D93C080CBB40D4B072BA1703</string>
+				<string>37D1E2AFEEA11FB31A46D43935766ACC</string>
+				<string>CA5CC5223E7DE98F09FC7721727B6E13</string>
+				<string>D180C60472AB633A2F2AFFA12CC3C974</string>
+				<string>2EEA0BE1FE2805324C949E40FA25FB90</string>
+				<string>5D0F050BCA05DD660835CC0A32E3E1B7</string>
+				<string>1FA071C69F4149BB345B9D1CA07DEF0D</string>
+				<string>1943462A40DACA7D76D386A4A88FFC01</string>
+				<string>05E321A8DF315349B656C8EA7B4AE544</string>
+				<string>9DF46CE74E256D3B4EB28AB69458AB03</string>
+				<string>5997EDBCB6B720332DCA961A46BF3CEC</string>
+				<string>B813D9A65B46F3EE24527132790BAC6F</string>
+				<string>7338184A376BF377533E505270D34322</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>36AA3244D93C080CBB40D4B072BA1703</key>
 		<dict>
 			<key>fileRef</key>
-			<string>70B8059A9FE3BB6264649CA957FCA501</string>
+			<string>1621AAD1206331227DEFABBE6D864E03</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Private</string>
-				</array>
-			</dict>
-		</dict>
-		<key>35E6B0B84868DDE0DB2B5223F91A454B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>RZBSimulatedConnection.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>3681275149D068F25A5F23DFEB659742</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B016D3506CE66A80F4330610090F41D5</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Private</string>
-				</array>
-			</dict>
-		</dict>
-		<key>36FFDB5DA6DAA1B8D31BD84D6A779732</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>RZBMockCentralManager.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>37CD256CF5163651CD16DE7B1EDF1C2E</key>
 		<dict>
@@ -837,6 +832,13 @@
 			<string>Pods-RZBluetoothExampleUITests-acknowledgements.plist</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>37D1E2AFEEA11FB31A46D43935766ACC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>170DCD3A933C81E50C4E07AD47A329E8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
 		</dict>
 		<key>380F9515DC16A874F5D8252C3D1F2CB1</key>
 		<dict>
@@ -864,13 +866,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>38D8F3E90A54C2221291004B28077E7C</key>
-		<dict>
-			<key>fileRef</key>
-			<string>381FB294E9C285A56A7E5EA5D0CC0315</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
 		<key>39E3D6D7CF988F2584CB68160CA33A02</key>
 		<dict>
 			<key>buildActionMask</key>
@@ -884,12 +879,46 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>3A2E3338C40E5650995AAFD41FFA4A41</key>
+		<key>3A26AEE8C611AD984D20EA9B7B4B33CD</key>
 		<dict>
 			<key>fileRef</key>
-			<string>D6F50813776C80A3432F655332CE44E9</string>
+			<string>40C0A6B14F61520F50F754004CB12DEC</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>3AA747D50247F762E1D5EBD784BCA268</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>RZBMockedPeripheral.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>3B02D75268EA142F344E181AAB7DCE08</key>
+		<dict>
+			<key>fileRef</key>
+			<string>3E14533277E2CAFBD3A78661A94C8B3B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Private</string>
+				</array>
+			</dict>
 		</dict>
 		<key>3B5778DBF0B2AC7A84CF78B4A1FE8555</key>
 		<dict>
@@ -904,17 +933,17 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>3BAA4BFE262CDCCD696C72FE3D2CD1BD</key>
+		<key>3BD20F226EBDAEE145E34090894850BC</key>
 		<dict>
 			<key>fileRef</key>
-			<string>E82579340DAD92A1B0BBAE7D6560E1BD</string>
+			<string>C8D41C85E4E7567E6EAFBE7F12B34F94</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
 			<dict>
 				<key>ATTRIBUTES</key>
 				<array>
-					<string>Public</string>
+					<string>Private</string>
 				</array>
 			</dict>
 		</dict>
@@ -944,10 +973,17 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>42BFA6A342E7A3E0D48BAEE440343EEF</key>
+		<key>3EAE02A24C0A3152773F9D5850CB1A78</key>
 		<dict>
 			<key>fileRef</key>
-			<string>D9B75A6813C682945A6805F09E877303</string>
+			<string>23DD5680C69460B0724AD29811023BC6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>3F81E66489AAD3A8493DBFA06DABB899</key>
+		<dict>
+			<key>fileRef</key>
+			<string>5BFB057377713F16C4C4F4790EEC705B</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -957,6 +993,46 @@
 					<string>Public</string>
 				</array>
 			</dict>
+		</dict>
+		<key>406AFF7B627747C1CF2ACD1F319096C4</key>
+		<dict>
+			<key>fileRef</key>
+			<string>70B8059A9FE3BB6264649CA957FCA501</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Private</string>
+				</array>
+			</dict>
+		</dict>
+		<key>40C0A6B14F61520F50F754004CB12DEC</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>RZBSimulatedCallback.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>42E1DC000D83A1529D612C80DF8D7963</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>RZBPeripheral+RZBBattery.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>433CD3331B6C3787F473C941B61FC68F</key>
 		<dict>
@@ -984,46 +1060,19 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>4433981B538AE6F6FDF18C8792071E4B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>RZBCentralManager+Mock.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>456A26AB4A32D0B9601233A42C209CA6</key>
+		<key>46D5E774932721E738479D58A7BD2FE8</key>
 		<dict>
 			<key>fileRef</key>
-			<string>C8D41C85E4E7567E6EAFBE7F12B34F94</string>
+			<string>5A15211CC1EB0BA5491EBD2D52FE1E5E</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Private</string>
-				</array>
-			</dict>
 		</dict>
-		<key>482D35306546261B0626A83464799689</key>
+		<key>491EF8895F4D109E53BCE7F3916F51DC</key>
 		<dict>
 			<key>fileRef</key>
-			<string>8A72AA941A29998BDAA86AF8A2492D4D</string>
+			<string>8FFB3AC1F965286EB3FF4CC797193091</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
 		</dict>
 		<key>49411B2911F9B25147BCB516E3F570B8</key>
 		<dict>
@@ -1051,21 +1100,7 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>4987EF48A07241319E6E11E43A851D7E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>EE8B69F243D4E28D3116C82109560A20</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>4B9AF91251B8872666F4FB74CD39278C</key>
+		<key>4A7E103426F6407BA831C3AC13CEF087</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -1074,28 +1109,14 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.objc</string>
 			<key>path</key>
-			<string>RZBMockCentralManager.m</string>
+			<string>RZBMockPeripheral.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>4F52770A4BE7D9BF48E3FB8D55E13E79</key>
+		<key>4A9289984832C887D7194B582D61F6E5</key>
 		<dict>
 			<key>fileRef</key>
-			<string>BCA9CC8D95251984E60063C338AB116E</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>4F5329FF67443D259069445393E9ACF9</key>
-		<dict>
-			<key>fileRef</key>
-			<string>9D6877FFE840BB4DD98CE4CF5BC8C95D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>4F8B27DB65AA95204DA375B05DD08993</key>
-		<dict>
-			<key>fileRef</key>
-			<string>60436180CD2732DA8173F153A446F5D1</string>
+			<string>08B349B70AA26FAA4539EDF66702E3D3</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1106,54 +1127,33 @@
 				</array>
 			</dict>
 		</dict>
-		<key>50057D63EB69902FFD1B1F807D10C222</key>
+		<key>4CDCB5E8A8A22C73C1603322D0FCD236</key>
 		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>C672B25E7D7EF21DEA3C56A47723E313</string>
-				<string>4F8B27DB65AA95204DA375B05DD08993</string>
-				<string>1A92294CF95318514C2BF9EB51378ACB</string>
-				<string>185380AB545F8AF1D62B92BD7B03060D</string>
-				<string>FC730C1378028F32E39926E66FFAC2CB</string>
-				<string>E6581A6C96A3AA7689696B230216D354</string>
-				<string>D03AE56DAF708A081F41AA035D1E5097</string>
-				<string>5D84D704CCDE2D97AA96B7155E4BD166</string>
-				<string>280E7B704EC58962D444025639CFF607</string>
-				<string>7E470FD8811D5DFC754756D472FC0681</string>
-				<string>42BFA6A342E7A3E0D48BAEE440343EEF</string>
-				<string>456A26AB4A32D0B9601233A42C209CA6</string>
-				<string>54AC460FF72004D12CE1E56B2FB70982</string>
-				<string>B4CAB94FABC168EAA83900246BDECC0D</string>
-				<string>E8608277DBA2D8AB56E8EFC36C83DB07</string>
-				<string>123195EC2A4F0F7E91F2B1AD0BF44DCE</string>
-				<string>2BCF25C8C67266D9B9A7175D520C741B</string>
-				<string>2A4AA318843F631BACEA18B7A9C8F90A</string>
-				<string>56429CC844B27D6C656FB7BEC8412CF4</string>
-				<string>909064C3B92F6F3130D35C8C3C111E9E</string>
-				<string>203CAF5A983D7CB9AC6C89C6294A97C8</string>
-				<string>4987EF48A07241319E6E11E43A851D7E</string>
-				<string>AD185EEF5BE67E68DDEFD0D63100C5B5</string>
-				<string>8307DC3BD5A0A2B1AA958AFC9280392E</string>
-				<string>B69934B0DEEB3AF2116044FCF2E0C726</string>
-				<string>3BAA4BFE262CDCCD696C72FE3D2CD1BD</string>
-				<string>482D35306546261B0626A83464799689</string>
-				<string>C79005FFA662F4C1840251909F150FEB</string>
-				<string>863C89844E3B417EF097D3647BB2CB5D</string>
-				<string>F2627E5B5BEE43CCB96BE8FFFB48FD36</string>
-				<string>6363B81E9E78292C79D5BB47EF3A51D8</string>
-				<string>CEDD954114434E75424A0C4AA7652DFF</string>
-				<string>BDAE9DF185E308B45F02ACF9AC579708</string>
-				<string>84A612E171AA38C4145D7058CC7ABDD5</string>
-				<string>06C87285D5F80F2A0FD061EC6CB07882</string>
-				<string>C0C687CC27F79B4BD81E7F9B45549795</string>
-				<string>B10F683990A352466F72E876C5316762</string>
-			</array>
+			<key>fileRef</key>
+			<string>800CBB848C0C8414BFB27125DD565789</string>
 			<key>isa</key>
-			<string>PBXHeadersBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4D9E290ACB32539A6FDC736FD49526F4</key>
+		<dict>
+			<key>fileRef</key>
+			<string>818B9FFA24CF8C6BB7E4217AD2A1BB63</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>4FAD9F4F61CB96ADB3A53B112F3CF8D0</key>
+		<dict>
+			<key>fileRef</key>
+			<string>E73C48FA3198F5ED0A8B2F5B39C57B89</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Private</string>
+				</array>
+			</dict>
 		</dict>
 		<key>5139ABF0562793E83BAC5AC00765E5BA</key>
 		<dict>
@@ -1168,40 +1168,57 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>515769B441CD0E4D2338966B7F38CC12</key>
+		<key>549048EE68DD0470D4D1B1660C095FAF</key>
 		<dict>
-			<key>fileRef</key>
-			<string>E82579340DAD92A1B0BBAE7D6560E1BD</string>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>FFC9DB18AB35AB33B8AA70188029F251</string>
+				<string>7A444E407DF8F5038B4C3DCA37C04FAA</string>
+				<string>4A9289984832C887D7194B582D61F6E5</string>
+				<string>7FD2724953097E012AB82B0E2C0FC906</string>
+				<string>6C424AE28BCE40722027B38A38C11B04</string>
+				<string>750B48A3905919ECFF46EF7C85783C28</string>
+				<string>406AFF7B627747C1CF2ACD1F319096C4</string>
+				<string>9B3537CB4550B2D42FC6FB8969183ABF</string>
+				<string>DE937049C760C22DFAC73F86A3E6595C</string>
+				<string>7B861A516C5E87EA6CB5BDE633F85EE9</string>
+				<string>E03807543AD197D86961ABB7A2752403</string>
+				<string>79561B9881A559C7684515063022EE10</string>
+				<string>094C9FEBA15E3C6F20CD57471BD8E600</string>
+				<string>BA2E0CA3E8CFC59CE1426A1A730F8E56</string>
+				<string>DF7FECC9A8BA6B96DE8D7F3C9DCBC07E</string>
+				<string>6BE78C8E2AE33F4DC3D395670B049A17</string>
+				<string>DFFA4FE27A54CCF8B2FAC6E3E2D55484</string>
+				<string>F33AF1684DBB2ADC713D8734CFAABEFC</string>
+				<string>6A741AB4AFAEC2E90C08CFF95D73FC7C</string>
+				<string>F86BACC554C7E76F473D061C7569329D</string>
+				<string>2109FE667E45B0875B7A5403B02AE6F9</string>
+				<string>8BD390FAFF9D4A288AE85A5A36213641</string>
+				<string>9ED23509453E133360566AD58BF16A04</string>
+				<string>610871AC1C7438D1EAFE884F7F89532F</string>
+				<string>1BFF66FD5FCD8B02047CE36DE198325A</string>
+				<string>9CF3BDCC84A18BF7FDD96636C4BB7514</string>
+				<string>270674D00D2613CA9BEFFD540B3E2C33</string>
+				<string>9921B87EB82F98A8873C7394CEFACD91</string>
+				<string>5E71E2B8E854610F5CE011B2224CC191</string>
+				<string>2BD58113D2A9BCE5FD14E16D7859FD86</string>
+				<string>3A26AEE8C611AD984D20EA9B7B4B33CD</string>
+				<string>8C859C2D04EB19F734F596295C1F5262</string>
+				<string>C40B625A18FF820D97A6B226D00832FE</string>
+				<string>D79FF5C3F0C7A88679287D9A0E2B06AF</string>
+				<string>66B566B58594718C0A30E4BF70CDCE1D</string>
+				<string>118D9F45C72C84D803457646E30FECD3</string>
+				<string>CF0A176C359EC1BF465F8E56E845A8FF</string>
+				<string>3376AF04F39ECC38DC9F75E96ABEF997</string>
+				<string>B22EFCBFACECB08357FCA1F5FB5B8C79</string>
+				<string>3F81E66489AAD3A8493DBFA06DABB899</string>
+			</array>
 			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>53663E6A4678165A26E55D5070BC2037</key>
-		<dict>
-			<key>fileRef</key>
-			<string>818B9FFA24CF8C6BB7E4217AD2A1BB63</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>54AC460FF72004D12CE1E56B2FB70982</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B016D3506CE66A80F4330610090F41D5</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Private</string>
-				</array>
-			</dict>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
 		</dict>
 		<key>5524087DBEA9EC1B051C11E0F20654AB</key>
 		<dict>
@@ -1223,10 +1240,17 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>56429CC844B27D6C656FB7BEC8412CF4</key>
+		<key>55611679E69D77E0D2E58A62E4C7122B</key>
 		<dict>
 			<key>fileRef</key>
-			<string>CB3907F5DF86254815D153AED82643E5</string>
+			<string>33C6C320427F9620F3018E7C4F7266A0</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>58270ABEFA7B76D95EAF917FF6BF6F00</key>
+		<dict>
+			<key>fileRef</key>
+			<string>1DE09C9B5BDDAB0F8FD4CA7C2215A00A</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -1236,19 +1260,6 @@
 					<string>Public</string>
 				</array>
 			</dict>
-		</dict>
-		<key>570813B65896E944F839F7A8036FCDB2</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>CBPeripheral+RZBBattery.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>59531F75E9D7736365A5F978E34C7323</key>
 		<dict>
@@ -1264,6 +1275,13 @@
 			<key>isa</key>
 			<string>XCConfigurationList</string>
 		</dict>
+		<key>5997EDBCB6B720332DCA961A46BF3CEC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>495B78AA5EE5990DA0D5BA88F08BB204</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
 		<key>5A15211CC1EB0BA5491EBD2D52FE1E5E</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -1277,16 +1295,16 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>5C72AB8AB7DAA52681758551A7EDB037</key>
+		<key>5BFB057377713F16C4C4F4790EEC705B</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
+			<string>sourcecode.c.h</string>
 			<key>path</key>
-			<string>NSError+RZBMock.m</string>
+			<string>RZMockBluetooth.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1318,19 +1336,19 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>5D84D704CCDE2D97AA96B7155E4BD166</key>
+		<key>5CFF6008575AC7E83CF4458C87F56903</key>
 		<dict>
 			<key>fileRef</key>
-			<string>141C9FF4087692301E2A5C8AF17F98CE</string>
+			<string>4A7E103426F6407BA831C3AC13CEF087</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Private</string>
-				</array>
-			</dict>
+		</dict>
+		<key>5D0F050BCA05DD660835CC0A32E3E1B7</key>
+		<dict>
+			<key>fileRef</key>
+			<string>323351793978C94992E6E2B3FF7DB2CC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
 		</dict>
 		<key>5DDE3C1AFAA68803517782F531EE4332</key>
 		<dict>
@@ -1370,7 +1388,42 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>60436180CD2732DA8173F153A446F5D1</key>
+		<key>5E71E2B8E854610F5CE011B2224CC191</key>
+		<dict>
+			<key>fileRef</key>
+			<string>E82579340DAD92A1B0BBAE7D6560E1BD</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>60B1D35501485A1ED733488968A477B8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>170DCD3A933C81E50C4E07AD47A329E8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>610871AC1C7438D1EAFE884F7F89532F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>C015821DB55C7F273B76717A59D857A1</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>613570C9391B2C3C8A7ECBE2B75D5E26</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -1379,44 +1432,9 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
 			<key>path</key>
-			<string>CBPeripheral+RZBHeartRate.h</string>
+			<string>RZBSimulatedCentral.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>6363B81E9E78292C79D5BB47EF3A51D8</key>
-		<dict>
-			<key>fileRef</key>
-			<string>9C63860C30D1D0FC750E2D578979841F</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>64BB59BE83433E70E525ABB0F11BF18C</key>
-		<dict>
-			<key>fileRef</key>
-			<string>C16B18B12F2C385E5E3E562F60BAC94A</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>653F74437895D4470977B8D7322D12E5</key>
-		<dict>
-			<key>fileRef</key>
-			<string>9710FB2D75B07CC11584DD6F958B4BEB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
 		</dict>
 		<key>6584BBC849E702A7C880433C15FB29FF</key>
 		<dict>
@@ -1431,18 +1449,35 @@
 			<key>remoteInfo</key>
 			<string>Pods-RZBluetooth</string>
 		</dict>
-		<key>67D755639F13B59EDC3D0C66AD0E1322</key>
+		<key>66B566B58594718C0A30E4BF70CDCE1D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>A839406F73009722D2E6F78DFEE6C3B2</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>6702CB1B34BB19703D5AA5A06B7418CA</key>
 		<dict>
 			<key>children</key>
 			<array>
-				<string>E87CE77BA21D15D3CD243E7009E27DAE</string>
-				<string>4433981B538AE6F6FDF18C8792071E4B</string>
-				<string>36FFDB5DA6DAA1B8D31BD84D6A779732</string>
-				<string>4B9AF91251B8872666F4FB74CD39278C</string>
-				<string>EE8B69F243D4E28D3116C82109560A20</string>
-				<string>0B84E2D539BC2735D7DF30023230E20B</string>
-				<string>222EB4405209F2DCC3E6FB11F3F99B0E</string>
-				<string>C8D2215B8E97BD76C50A16172437EDB3</string>
+				<string>6E36AAE75FB16240CB8E1A9985565284</string>
+				<string>B5FFFFA1459911F7538935B7D7D615B2</string>
+				<string>89B639DB924673C80412037E5AF3528F</string>
+				<string>996E7549D39FA2259A7CF6EE4B284CA6</string>
+				<string>0A1D14B771C887016F76ADBF54BFAE0A</string>
+				<string>3AA747D50247F762E1D5EBD784BCA268</string>
+				<string>C37B297AD55BD4D64CBE90A2EEB41D5F</string>
+				<string>8317B03156D9E14EAEC61496AE1BB1B7</string>
+				<string>4A7E103426F6407BA831C3AC13CEF087</string>
+				<string>C015821DB55C7F273B76717A59D857A1</string>
+				<string>1621AAD1206331227DEFABBE6D864E03</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -1452,6 +1487,40 @@
 			<string>Mock</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>676343031F2B7527CC37A57645B0D2BF</key>
+		<dict>
+			<key>fileRef</key>
+			<string>9E41A60DB98AC866B5B1D767F70C1653</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>69560E72ECB9125063895B80D1B99648</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>RZBSimulatedConnection.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>698E64BA420634440D8160C7508A23F7</key>
+		<dict>
+			<key>fileRef</key>
+			<string>5CBD0B313E4AC7E95BFD77AC3FCA02C6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
 		</dict>
 		<key>6A02D406CD5F71D24887B8D621F82E6B</key>
 		<dict>
@@ -1464,12 +1533,95 @@
 			<key>targetProxy</key>
 			<string>C018484E9A80B87B2852FA070E6BC82A</string>
 		</dict>
-		<key>6B9600012B7A35DA72AD3FB93F8F74E6</key>
+		<key>6A741AB4AFAEC2E90C08CFF95D73FC7C</key>
 		<dict>
 			<key>fileRef</key>
-			<string>5CBD0B313E4AC7E95BFD77AC3FCA02C6</string>
+			<string>89B639DB924673C80412037E5AF3528F</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>6BE78C8E2AE33F4DC3D395670B049A17</key>
+		<dict>
+			<key>fileRef</key>
+			<string>E73C48FA3198F5ED0A8B2F5B39C57B89</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Private</string>
+				</array>
+			</dict>
+		</dict>
+		<key>6C424AE28BCE40722027B38A38C11B04</key>
+		<dict>
+			<key>fileRef</key>
+			<string>9710FB2D75B07CC11584DD6F958B4BEB</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>6E36AAE75FB16240CB8E1A9985565284</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>RZBEnableMock.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>705698D198E5C607AB0E84107B8348A8</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>676343031F2B7527CC37A57645B0D2BF</string>
+				<string>E63EAE35D01E02B9EA38FAAC566A616A</string>
+				<string>FC5E237BC110D87410F8D973629865E6</string>
+				<string>AA89EA19C251B029725C9E8BCAC8EE50</string>
+				<string>23F36F0F479AA541FC294399152D1260</string>
+				<string>3111B5F24435DAD6BEF70FE398986CC6</string>
+				<string>3BD20F226EBDAEE145E34090894850BC</string>
+				<string>9040F34FC77BAEFC12FCC45867BFF783</string>
+				<string>C3781080D88C2E0D2B18A7CA799FAE44</string>
+				<string>7989BED253AE50575D7D91F34E45494C</string>
+				<string>ED7C5F6C87BFD8800C6E20DB7D66AB21</string>
+				<string>58270ABEFA7B76D95EAF917FF6BF6F00</string>
+				<string>4FAD9F4F61CB96ADB3A53B112F3CF8D0</string>
+				<string>9D64B423C51CAA58B4BEC20AEC8E195A</string>
+				<string>16D4F4A6A473AC76743B3A93D5FE10CC</string>
+				<string>2F7F0EE2FBCCCEB05C9F1AF3EF890485</string>
+				<string>ABC610492800D5D486EA665ACAF5A546</string>
+				<string>CBCC8032085C94C0C2578CDE41329E77</string>
+				<string>AF9A973004474746A3A7B9B0C4EFBA8C</string>
+				<string>9636A2412A3B418C8157475F9962FFF1</string>
+				<string>D435B4B575EA7F45F92C5E6FA2D92432</string>
+				<string>7D52708BAC80462B0452275DA882ED42</string>
+				<string>3B02D75268EA142F344E181AAB7DCE08</string>
+			</array>
+			<key>isa</key>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
 		</dict>
 		<key>70B8059A9FE3BB6264649CA957FCA501</key>
 		<dict>
@@ -1484,18 +1636,12 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>72D7C549F693E466145DF497C5A88E54</key>
+		<key>7338184A376BF377533E505270D34322</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>fileRef</key>
+			<string>BCA9CC8D95251984E60063C338AB116E</string>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>RZBSimulatedCallback.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
+			<string>PBXBuildFile</string>
 		</dict>
 		<key>747C3F6978E5DB4A6DDC291014FF258A</key>
 		<dict>
@@ -1525,12 +1671,75 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>7817D9190DA2E8A72636D689F9659204</key>
+		<key>750B48A3905919ECFF46EF7C85783C28</key>
 		<dict>
 			<key>fileRef</key>
-			<string>5CCE52610BFD3557798C72ECAB9884F3</string>
+			<string>141C9FF4087692301E2A5C8AF17F98CE</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Private</string>
+				</array>
+			</dict>
+		</dict>
+		<key>772BD6C7896E744BEDF3F5CCB8CED163</key>
+		<dict>
+			<key>fileRef</key>
+			<string>FD54D346D2C60D009809CAFEC4CA3E2E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>794E4DCE4A4BB84F984623431CF80251</key>
+		<dict>
+			<key>fileRef</key>
+			<string>BCA9CC8D95251984E60063C338AB116E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>79561B9881A559C7684515063022EE10</key>
+		<dict>
+			<key>fileRef</key>
+			<string>EFF3ED325F6D232E1AD147F7ACBA741B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>7989BED253AE50575D7D91F34E45494C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>EFF3ED325F6D232E1AD147F7ACBA741B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>7A444E407DF8F5038B4C3DCA37C04FAA</key>
+		<dict>
+			<key>fileRef</key>
+			<string>E0BC90A3434D444AB1B5DC1786164CCB</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
 		</dict>
 		<key>7AF0C17ED08AFEDB15E6875C9DF189D1</key>
 		<dict>
@@ -1546,6 +1755,27 @@
 			<key>isa</key>
 			<string>XCConfigurationList</string>
 		</dict>
+		<key>7B861A516C5E87EA6CB5BDE633F85EE9</key>
+		<dict>
+			<key>fileRef</key>
+			<string>B016D3506CE66A80F4330610090F41D5</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Private</string>
+				</array>
+			</dict>
+		</dict>
+		<key>7C3F20BDCE8706518E704136EF4253A1</key>
+		<dict>
+			<key>fileRef</key>
+			<string>23DD5680C69460B0724AD29811023BC6</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
 		<key>7C4EAA298163CD8F920B233FEEF50FFF</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -1559,12 +1789,26 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>7D3749736AE8B09C866B52B0BFEC0FE1</key>
+		<key>7C8B4BEAF32E7C28B9913DB1CC9F14B4</key>
 		<dict>
 			<key>fileRef</key>
-			<string>212348AB9B0F5F1BB671B3347E6A740C</string>
+			<string>33C6C320427F9620F3018E7C4F7266A0</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
+		</dict>
+		<key>7D52708BAC80462B0452275DA882ED42</key>
+		<dict>
+			<key>fileRef</key>
+			<string>3C2DFDD31CE90241109C262B1B355EF3</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
 		</dict>
 		<key>7D66CE65B00D7BFEF7E37D4D93A42644</key>
 		<dict>
@@ -1592,45 +1836,24 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>7DD098B8725F4546858EED7609994A88</key>
+		<key>7E8E9906044C3EDFD0017D9E03564CBE</key>
 		<dict>
 			<key>fileRef</key>
 			<string>DD92EC47233BECFA47C627082A5FE33D</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>7E470FD8811D5DFC754756D472FC0681</key>
+		<key>7FD2724953097E012AB82B0E2C0FC906</key>
 		<dict>
 			<key>fileRef</key>
-			<string>70B8059A9FE3BB6264649CA957FCA501</string>
+			<string>0CFED9CD143CC6350F9D0A51EF2552B1</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
 			<dict>
 				<key>ATTRIBUTES</key>
 				<array>
-					<string>Private</string>
-				</array>
-			</dict>
-		</dict>
-		<key>7EDBFA512534ADFEEF28D371E408F767</key>
-		<dict>
-			<key>fileRef</key>
-			<string>818B9FFA24CF8C6BB7E4217AD2A1BB63</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>7F7774BC37A09FAE9B5276859F042CC9</key>
-		<dict>
-			<key>fileRef</key>
-			<string>8A72AA941A29998BDAA86AF8A2492D4D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
+					<string>Project</string>
 				</array>
 			</dict>
 		</dict>
@@ -1690,54 +1913,7 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>826AAB2CA0A41A1EB14AC593C275D300</key>
-		<dict>
-			<key>fileRef</key>
-			<string>33C6C320427F9620F3018E7C4F7266A0</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>82EC5EDE78925FF42A737480D5D78702</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>837E93244E6CC97D8645FC2AECD68C00</string>
-				<string>5C72AB8AB7DAA52681758551A7EDB037</string>
-				<string>92662843FAB965B8C83BCF7D753F3DA1</string>
-				<string>67D755639F13B59EDC3D0C66AD0E1322</string>
-				<string>C9E8829D6A060DE23DED66596B9F8659</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>RZMockBluetooth</string>
-			<key>path</key>
-			<string>RZMockBluetooth</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8307DC3BD5A0A2B1AA958AFC9280392E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D0748A7E15475D73752F1AF04E7D5B44</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Private</string>
-				</array>
-			</dict>
-		</dict>
-		<key>835B40B8DEF1C173BDBE2084243EA24D</key>
-		<dict>
-			<key>fileRef</key>
-			<string>FD54D346D2C60D009809CAFEC4CA3E2E</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>837E93244E6CC97D8645FC2AECD68C00</key>
+		<key>8317B03156D9E14EAEC61496AE1BB1B7</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -1746,37 +1922,22 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
 			<key>path</key>
-			<string>NSError+RZBMock.h</string>
+			<string>RZBMockPeripheral.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>84A612E171AA38C4145D7058CC7ABDD5</key>
+		<key>848C8156717A20D2F9547CF7F94FA66E</key>
 		<dict>
-			<key>fileRef</key>
-			<string>A6F0488A279703C0045FEA18E11D875C</string>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>863C89844E3B417EF097D3647BB2CB5D</key>
-		<dict>
-			<key>fileRef</key>
-			<string>11234191B1CEA919B6B829975C4000CF</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>RZBSimulatedConnection.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>876537478BDFBC95BE1795F40B34CE56</key>
 		<dict>
@@ -1790,6 +1951,19 @@
 			<string>Pods-RZBluetoothExampleUITests-RZBluetooth-prefix.pch</string>
 			<key>path</key>
 			<string>../Pods-RZBluetoothExampleUITests-RZBluetooth/Pods-RZBluetoothExampleUITests-RZBluetooth-prefix.pch</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>89B639DB924673C80412037E5AF3528F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>RZBMockCentralManager.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1810,7 +1984,7 @@
 		<dict>
 			<key>children</key>
 			<array>
-				<string>82EC5EDE78925FF42A737480D5D78702</string>
+				<string>9150004FD8C7162B144B5EF622BCC40E</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -1818,6 +1992,27 @@
 			<string>Mock</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>8BD390FAFF9D4A288AE85A5A36213641</key>
+		<dict>
+			<key>fileRef</key>
+			<string>C37B297AD55BD4D64CBE90A2EEB41D5F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>8C3452874D0464E9DC4FBD27889524D7</key>
+		<dict>
+			<key>fileRef</key>
+			<string>5CCE52610BFD3557798C72ECAB9884F3</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
 		</dict>
 		<key>8C5B14CF1F0387F93B172416E1BD31A5</key>
 		<dict>
@@ -1850,6 +2045,20 @@
 			<string>XCBuildConfiguration</string>
 			<key>name</key>
 			<string>Release</string>
+		</dict>
+		<key>8C859C2D04EB19F734F596295C1F5262</key>
+		<dict>
+			<key>fileRef</key>
+			<string>613570C9391B2C3C8A7ECBE2B75D5E26</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
 		</dict>
 		<key>8D214A23BD3C54E72150941DE48B424F</key>
 		<dict>
@@ -1899,27 +2108,6 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>8EBB97AF86DBE3AD0F9D46BE46E9D90C</key>
-		<dict>
-			<key>fileRef</key>
-			<string>8FFB3AC1F965286EB3FF4CC797193091</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>8F84D4E35F80BED689960B78495406FB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>5DDE3C1AFAA68803517782F531EE4332</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
 		<key>8FFB3AC1F965286EB3FF4CC797193091</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -1933,17 +2121,17 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>909064C3B92F6F3130D35C8C3C111E9E</key>
+		<key>9040F34FC77BAEFC12FCC45867BFF783</key>
 		<dict>
 			<key>fileRef</key>
-			<string>ECDF8B5A9C98397D90EABAE696D9B92D</string>
+			<string>B016D3506CE66A80F4330610090F41D5</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
 			<dict>
 				<key>ATTRIBUTES</key>
 				<array>
-					<string>Public</string>
+					<string>Private</string>
 				</array>
 			</dict>
 		</dict>
@@ -1968,39 +2156,24 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>918AB8C81F624146D3980E6CDEBD65F1</key>
+		<key>9150004FD8C7162B144B5EF622BCC40E</key>
 		<dict>
-			<key>fileRef</key>
-			<string>9E39EB5D97F57A9ADB170507708B7859</string>
+			<key>children</key>
+			<array>
+				<string>08B349B70AA26FAA4539EDF66702E3D3</string>
+				<string>254AC2D822AD4BBEBEB36F4A0954AF04</string>
+				<string>5BFB057377713F16C4C4F4790EEC705B</string>
+				<string>6702CB1B34BB19703D5AA5A06B7418CA</string>
+				<string>9A51348AEC70DD411E60DBF28C52C317</string>
+			</array>
 			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>91EBACD1D618F7889E9A01D0168A608F</key>
-		<dict>
-			<key>fileRef</key>
-			<string>FD54D346D2C60D009809CAFEC4CA3E2E</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>92662843FAB965B8C83BCF7D753F3DA1</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>RZMockBluetooth</string>
 			<key>path</key>
-			<string>RZMockBluetooth.h</string>
+			<string>RZMockBluetooth</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>933EA5FB377554BB676CC2101F31CC87</key>
-		<dict>
-			<key>fileRef</key>
-			<string>33C6C320427F9620F3018E7C4F7266A0</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
 		</dict>
 		<key>93785E722705C7865CE24B9A5DD14341</key>
 		<dict>
@@ -2014,6 +2187,27 @@
 			<string>Pods-RZBluetoothExampleUITests-frameworks.sh</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>94A78A662ACD5A4BB31917B26CE6632E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>E76496A9B785E637C33806BE040DA46A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>9636A2412A3B418C8157475F9962FFF1</key>
+		<dict>
+			<key>fileRef</key>
+			<string>E82579340DAD92A1B0BBAE7D6560E1BD</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
 		</dict>
 		<key>9710FB2D75B07CC11584DD6F958B4BEB</key>
 		<dict>
@@ -2043,7 +2237,21 @@
 			<key>sourceTree</key>
 			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
-		<key>9AB2933FF235B73AE807B9108ECD4495</key>
+		<key>9921B87EB82F98A8873C7394CEFACD91</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7C4EAA298163CD8F920B233FEEF50FFF</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>996E7549D39FA2259A7CF6EE4B284CA6</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -2052,9 +2260,55 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.objc</string>
 			<key>path</key>
-			<string>RZBSimulatedCallback.m</string>
+			<string>RZBMockCentralManager.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>99849E74C432378AADE4B5153D3648CD</key>
+		<dict>
+			<key>fileRef</key>
+			<string>14D6AF4F0DC1411C2A43893A1961F09A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>9A51348AEC70DD411E60DBF28C52C317</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>40C0A6B14F61520F50F754004CB12DEC</string>
+				<string>323351793978C94992E6E2B3FF7DB2CC</string>
+				<string>613570C9391B2C3C8A7ECBE2B75D5E26</string>
+				<string>D6446A2A0368B8D9736B2620A639BB59</string>
+				<string>848C8156717A20D2F9547CF7F94FA66E</string>
+				<string>69560E72ECB9125063895B80D1B99648</string>
+				<string>1FC774F2AEDF3F3418C93AB152569560</string>
+				<string>29A3C458D9685F7112B7877452B734EA</string>
+				<string>11004FB5397EAB7AF2567CF977F86E1E</string>
+				<string>A839406F73009722D2E6F78DFEE6C3B2</string>
+				<string>E1A2C5CD31C1177CE868FF5961459686</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Simulation</string>
+			<key>path</key>
+			<string>Simulation</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>9B3537CB4550B2D42FC6FB8969183ABF</key>
+		<dict>
+			<key>fileRef</key>
+			<string>D9B75A6813C682945A6805F09E877303</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
 		</dict>
 		<key>9B4760585AD40474C7CAAC59E96651C8</key>
 		<dict>
@@ -2088,19 +2342,6 @@
 			<key>name</key>
 			<string>Release</string>
 		</dict>
-		<key>9C63860C30D1D0FC750E2D578979841F</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>RZBSimulatedConnection.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>9C99B0F7180F0FECB0763A5B39A3E9EC</key>
 		<dict>
 			<key>children</key>
@@ -2128,31 +2369,40 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>9D6877FFE840BB4DD98CE4CF5BC8C95D</key>
+		<key>9CF3BDCC84A18BF7FDD96636C4BB7514</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>fileRef</key>
+			<string>42E1DC000D83A1529D612C80DF8D7963</string>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>CBPeripheral+RZBHeartRate.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
 		</dict>
-		<key>9E39EB5D97F57A9ADB170507708B7859</key>
+		<key>9D64B423C51CAA58B4BEC20AEC8E195A</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>fileRef</key>
+			<string>CB3907F5DF86254815D153AED82643E5</string>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>CBUUID+RZBPublic.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>9DF46CE74E256D3B4EB28AB69458AB03</key>
+		<dict>
+			<key>fileRef</key>
+			<string>11004FB5397EAB7AF2567CF977F86E1E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
 		</dict>
 		<key>9E41A60DB98AC866B5B1D767F70C1653</key>
 		<dict>
@@ -2240,6 +2490,20 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
+		<key>9ED23509453E133360566AD58BF16A04</key>
+		<dict>
+			<key>fileRef</key>
+			<string>8317B03156D9E14EAEC61496AE1BB1B7</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
 		<key>9FB78228A209B0D0D9D37D893FF01E26</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -2252,54 +2516,6 @@
 			<string>Pods-resources.sh</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>A0A4A3993AB603C12BF49192C5CD8EFC</key>
-		<dict>
-			<key>fileRef</key>
-			<string>5CCE52610BFD3557798C72ECAB9884F3</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>A130D4DD3EDFB00AC83D4CBA1DDFD708</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>RZBSimulatedConnection+Private.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>A15959B2B2647FEDE80E868BE30A1AD3</key>
-		<dict>
-			<key>fileRef</key>
-			<string>9AB2933FF235B73AE807B9108ECD4495</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>A35070561B8855503E3A97BECB5D7794</key>
-		<dict>
-			<key>fileRef</key>
-			<string>7FF0B34B2B671A15F910B351510FA2BE</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>A45B80F58B7601775E52FC01F7F1A96F</key>
-		<dict>
-			<key>fileRef</key>
-			<string>E76496A9B785E637C33806BE040DA46A</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
 		</dict>
 		<key>A471386C728D4182BD8059FA31FD1613</key>
 		<dict>
@@ -2314,10 +2530,10 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>A47B234607A8B36633A4F0164EAE12DF</key>
+		<key>A59B52E1D07900B8D722FEDDE67F49C5</key>
 		<dict>
 			<key>fileRef</key>
-			<string>381FB294E9C285A56A7E5EA5D0CC0315</string>
+			<string>DB002F3250F4416B9A292208F283119F</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -2331,6 +2547,26 @@
 			<string>sourcecode.c.h</string>
 			<key>path</key>
 			<string>RZBSimulatedTestCase.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A7FD55ED48665A29EA41AD5CD2414459</key>
+		<dict>
+			<key>fileRef</key>
+			<string>DE43FDBD0D8ABFF238970D64C9DAB732</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>A839406F73009722D2E6F78DFEE6C3B2</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>RZBSimulatedDevice+RZBBatteryLevel.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -2379,13 +2615,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>A9333160FA2C1900438FFE5886E5D442</key>
-		<dict>
-			<key>fileRef</key>
-			<string>21F22F936D0725EB32802A20D5496DC4</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
 		<key>A9782BD5A4905B388EB390D45F45DE80</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -2412,6 +2641,41 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>AA89EA19C251B029725C9E8BCAC8EE50</key>
+		<dict>
+			<key>fileRef</key>
+			<string>141C9FF4087692301E2A5C8AF17F98CE</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Private</string>
+				</array>
+			</dict>
+		</dict>
+		<key>ABC0EAFF18837076BB39F0C3FA5BC23B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>818B9FFA24CF8C6BB7E4217AD2A1BB63</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>ABC610492800D5D486EA665ACAF5A546</key>
+		<dict>
+			<key>fileRef</key>
+			<string>42E1DC000D83A1529D612C80DF8D7963</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
 		<key>AC5A987D6F81A1559168B1743EB3D31C</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -2424,20 +2688,6 @@
 			<string>NSRunLoop+RZBWaitFor.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>AD185EEF5BE67E68DDEFD0D63100C5B5</key>
-		<dict>
-			<key>fileRef</key>
-			<string>222EB4405209F2DCC3E6FB11F3F99B0E</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
 		</dict>
 		<key>AD32946B88AFBE259621BAC3AC10A6C1</key>
 		<dict>
@@ -2473,6 +2723,27 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
+		<key>ADEFD042AECAA07A885C90A2187C0C5A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>DE43FDBD0D8ABFF238970D64C9DAB732</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>AF9A973004474746A3A7B9B0C4EFBA8C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7C4EAA298163CD8F920B233FEEF50FFF</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
 		<key>B016D3506CE66A80F4330610090F41D5</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -2485,20 +2756,6 @@
 			<string>RZBCommandDispatch.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B10F683990A352466F72E876C5316762</key>
-		<dict>
-			<key>fileRef</key>
-			<string>92662843FAB965B8C83BCF7D753F3DA1</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
 		</dict>
 		<key>B1965E7FD22FD20A4812FB09E1B04326</key>
 		<dict>
@@ -2513,6 +2770,20 @@
 			<string>E351727CD07BB90B2A3CAE2C2433F6C5</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
+		</dict>
+		<key>B22EFCBFACECB08357FCA1F5FB5B8C79</key>
+		<dict>
+			<key>fileRef</key>
+			<string>3E14533277E2CAFBD3A78661A94C8B3B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Private</string>
+				</array>
+			</dict>
 		</dict>
 		<key>B3F3A3AB99178114F26DBD73AFB1576B</key>
 		<dict>
@@ -2561,54 +2832,18 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>B4CAB94FABC168EAA83900246BDECC0D</key>
+		<key>B5FFFFA1459911F7538935B7D7D615B2</key>
 		<dict>
-			<key>fileRef</key>
-			<string>7FF0B34B2B671A15F910B351510FA2BE</string>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>B4F9B136E24FD46840DFA37C59243ECD</key>
-		<dict>
-			<key>fileRef</key>
-			<string>7C4EAA298163CD8F920B233FEEF50FFF</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>B69934B0DEEB3AF2116044FCF2E0C726</key>
-		<dict>
-			<key>fileRef</key>
-			<string>7C4EAA298163CD8F920B233FEEF50FFF</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>B6C653023BBDB6DA3227D8FC761CD9AA</key>
-		<dict>
-			<key>fileRef</key>
-			<string>DB002F3250F4416B9A292208F283119F</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>RZBEnableMock.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>B7970019F40D392788A03FFD018D0FF6</key>
 		<dict>
@@ -2623,34 +2858,26 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>B8F5E7FF1FC3ABE8F8CD107812D707A6</key>
+		<key>B813D9A65B46F3EE24527132790BAC6F</key>
 		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>32909679BA2188F3D1FA2507E435518D</string>
-				<string>FCA70A58277EA2029D973F622EC81D50</string>
-				<string>835B40B8DEF1C173BDBE2084243EA24D</string>
-				<string>918AB8C81F624146D3980E6CDEBD65F1</string>
-				<string>A45B80F58B7601775E52FC01F7F1A96F</string>
-				<string>826AAB2CA0A41A1EB14AC593C275D300</string>
-				<string>A0A4A3993AB603C12BF49192C5CD8EFC</string>
-				<string>7EDBFA512534ADFEEF28D371E408F767</string>
-				<string>B6C653023BBDB6DA3227D8FC761CD9AA</string>
-				<string>D3152F8001F319770099BFCBFF6D9CC1</string>
-				<string>CE6EFFF5DAB75BDFE7AB34217F08AD74</string>
-				<string>64BB59BE83433E70E525ABB0F11BF18C</string>
-				<string>7DD098B8725F4546858EED7609994A88</string>
-				<string>DDD905B23E9AE800AD3DE171ACDB88BB</string>
-				<string>A47B234607A8B36633A4F0164EAE12DF</string>
-				<string>10B9C2955BF7FA0E63D85921FA659961</string>
-				<string>0EF52153BB731C421BEA90ABB3EB3920</string>
-			</array>
+			<key>fileRef</key>
+			<string>5A15211CC1EB0BA5491EBD2D52FE1E5E</string>
 			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>BA2E0CA3E8CFC59CE1426A1A730F8E56</key>
+		<dict>
+			<key>fileRef</key>
+			<string>5DDE3C1AFAA68803517782F531EE4332</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
 		</dict>
 		<key>BA6428E9F66FD5A23C0A2E06ED26CD2F</key>
 		<dict>
@@ -2682,34 +2909,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>BDAE9DF185E308B45F02ACF9AC579708</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F8233672DDBB5B47B179925D0C228B08</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>BDB44EF29D137F3B16753852BD42451F</key>
-		<dict>
-			<key>fileRef</key>
-			<string>3E14533277E2CAFBD3A78661A94C8B3B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Private</string>
-				</array>
-			</dict>
-		</dict>
 		<key>BDC5C441D2846FF47C2122B4CFC2DFB5</key>
 		<dict>
 			<key>children</key>
@@ -2726,19 +2925,32 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>BE371E67998CF0FBC1C68A55192352E7</key>
+		<key>BDE3CD1F0012351DFD714589AC899DF0</key>
 		<dict>
 			<key>fileRef</key>
-			<string>19564358BC45D9B945261064F057E952</string>
+			<string>B5FFFFA1459911F7538935B7D7D615B2</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
+		</dict>
+		<key>BFC90C302D8BAF58BF3D49CC4B0CC4FE</key>
+		<dict>
+			<key>fileRef</key>
+			<string>800CBB848C0C8414BFB27125DD565789</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>C015821DB55C7F273B76717A59D857A1</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>RZBMockPeripheralManager.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>C018484E9A80B87B2852FA070E6BC82A</key>
 		<dict>
@@ -2753,65 +2965,39 @@
 			<key>remoteInfo</key>
 			<string>Pods-RZBluetoothExampleUITests-RZBluetooth</string>
 		</dict>
-		<key>C0AA6134D0D18AEAE10C67132E21B824</key>
+		<key>C2B427C0B0CCDFCBBD12EEBDA27874F9</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>772BD6C7896E744BEDF3F5CCB8CED163</string>
+				<string>7C3F20BDCE8706518E704136EF4253A1</string>
+				<string>94A78A662ACD5A4BB31917B26CE6632E</string>
+				<string>7C8B4BEAF32E7C28B9913DB1CC9F14B4</string>
+				<string>8C3452874D0464E9DC4FBD27889524D7</string>
+				<string>4D9E290ACB32539A6FDC736FD49526F4</string>
+				<string>D156584EDDE6E69B754F8832C467E921</string>
+				<string>F5F657FD041B494F6B416EE9D5C38241</string>
+				<string>4CDCB5E8A8A22C73C1603322D0FCD236</string>
+				<string>ADEFD042AECAA07A885C90A2187C0C5A</string>
+				<string>F2A1EEB8A4DB6E917168FC4062DE33B5</string>
+				<string>60B1D35501485A1ED733488968A477B8</string>
+				<string>01784A1C8CFDAA1D66485CEA7BE42771</string>
+				<string>491EF8895F4D109E53BCE7F3916F51DC</string>
+				<string>E39EEB4EB3C6DD2FAE6E2C3AE36D84CE</string>
+				<string>46D5E774932721E738479D58A7BD2FE8</string>
+				<string>794E4DCE4A4BB84F984623431CF80251</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>C3781080D88C2E0D2B18A7CA799FAE44</key>
 		<dict>
 			<key>fileRef</key>
-			<string>C8D41C85E4E7567E6EAFBE7F12B34F94</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Private</string>
-				</array>
-			</dict>
-		</dict>
-		<key>C0C687CC27F79B4BD81E7F9B45549795</key>
-		<dict>
-			<key>fileRef</key>
-			<string>3E14533277E2CAFBD3A78661A94C8B3B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Private</string>
-				</array>
-			</dict>
-		</dict>
-		<key>C16B18B12F2C385E5E3E562F60BAC94A</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>RZBHeartRateMeasurement.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>C18F51E4FD43C387036727649A2F3600</key>
-		<dict>
-			<key>fileRef</key>
-			<string>5A15211CC1EB0BA5491EBD2D52FE1E5E</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>C607D0D9D4688AE0FEFB07E3A6F440FE</key>
-		<dict>
-			<key>fileRef</key>
-			<string>DB002F3250F4416B9A292208F283119F</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>C672B25E7D7EF21DEA3C56A47723E313</key>
-		<dict>
-			<key>fileRef</key>
-			<string>19564358BC45D9B945261064F057E952</string>
+			<string>7FF0B34B2B671A15F910B351510FA2BE</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -2819,6 +3005,33 @@
 				<key>ATTRIBUTES</key>
 				<array>
 					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>C37B297AD55BD4D64CBE90A2EEB41D5F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>RZBMockedPeripheralManager.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C40B625A18FF820D97A6B226D00832FE</key>
+		<dict>
+			<key>fileRef</key>
+			<string>1FC774F2AEDF3F3418C93AB152569560</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Private</string>
 				</array>
 			</dict>
 		</dict>
@@ -2835,33 +3048,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>C79005FFA662F4C1840251909F150FEB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>72D7C549F693E466145DF497C5A88E54</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>C8D2215B8E97BD76C50A16172437EDB3</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>RZBMockPeripheralManager.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>C8D41C85E4E7567E6EAFBE7F12B34F94</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -2875,30 +3061,12 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>C9E8829D6A060DE23DED66596B9F8659</key>
+		<key>CA5CC5223E7DE98F09FC7721727B6E13</key>
 		<dict>
-			<key>children</key>
-			<array>
-				<string>72D7C549F693E466145DF497C5A88E54</string>
-				<string>9AB2933FF235B73AE807B9108ECD4495</string>
-				<string>11234191B1CEA919B6B829975C4000CF</string>
-				<string>DE7B2E0BA7A1929B36E75C0DE822B191</string>
-				<string>9C63860C30D1D0FC750E2D578979841F</string>
-				<string>35E6B0B84868DDE0DB2B5223F91A454B</string>
-				<string>A130D4DD3EDFB00AC83D4CBA1DDFD708</string>
-				<string>F8233672DDBB5B47B179925D0C228B08</string>
-				<string>21F22F936D0725EB32802A20D5496DC4</string>
-				<string>D6C2EFE535296AD6A00F1616B678F9CD</string>
-				<string>D6F50813776C80A3432F655332CE44E9</string>
-			</array>
+			<key>fileRef</key>
+			<string>FBF8421A8A612E89F169752631CA610D</string>
 			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Simulation</string>
-			<key>path</key>
-			<string>Simulation</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
+			<string>PBXBuildFile</string>
 		</dict>
 		<key>CB3907F5DF86254815D153AED82643E5</key>
 		<dict>
@@ -2913,6 +3081,20 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>CBCC8032085C94C0C2578CDE41329E77</key>
+		<dict>
+			<key>fileRef</key>
+			<string>332C0D786F02DE2B81EBEF178EBAF3D8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
 		<key>CC1B3496F9857A24D08F7C4AD6F3DE92</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -2926,38 +3108,10 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>CDA79C22BF4B64A33FE56E7F864CD0C4</key>
+		<key>CF0A176C359EC1BF465F8E56E845A8FF</key>
 		<dict>
 			<key>fileRef</key>
-			<string>E73C48FA3198F5ED0A8B2F5B39C57B89</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Private</string>
-				</array>
-			</dict>
-		</dict>
-		<key>CE660CCF7AF799DAA0B7C31C57C085B2</key>
-		<dict>
-			<key>fileRef</key>
-			<string>0B84E2D539BC2735D7DF30023230E20B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>CE6EFFF5DAB75BDFE7AB34217F08AD74</key>
-		<dict>
-			<key>fileRef</key>
-			<string>800CBB848C0C8414BFB27125DD565789</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>CEDD954114434E75424A0C4AA7652DFF</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D6C2EFE535296AD6A00F1616B678F9CD</string>
+			<string>A6F0488A279703C0045FEA18E11D875C</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -2967,13 +3121,6 @@
 					<string>Public</string>
 				</array>
 			</dict>
-		</dict>
-		<key>CF511B5BAFAC8B3E08BF1878F84C4B28</key>
-		<dict>
-			<key>fileRef</key>
-			<string>C8D2215B8E97BD76C50A16172437EDB3</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
 		</dict>
 		<key>CF6CD3C8F751FDC0CFD2B86822B64BCF</key>
 		<dict>
@@ -2991,61 +3138,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>D03AE56DAF708A081F41AA035D1E5097</key>
-		<dict>
-			<key>fileRef</key>
-			<string>9710FB2D75B07CC11584DD6F958B4BEB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>D043BE42F21C32A53A756A655C514F87</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>1B10A28821208BFAB8B7FC9F1412DD8C</string>
-				<string>4F5329FF67443D259069445393E9ACF9</string>
-				<string>91EBACD1D618F7889E9A01D0168A608F</string>
-				<string>D20B3EBF2D9CA4A66FA0D35911B0BC7D</string>
-				<string>228B20F0DE6C4EC7DC87B5128EA81081</string>
-				<string>2749E25944765C12FF7B307B8113E596</string>
-				<string>6B9600012B7A35DA72AD3FB93F8F74E6</string>
-				<string>933EA5FB377554BB676CC2101F31CC87</string>
-				<string>2E1CEEA38E62396AEB0FF87B4DF535B9</string>
-				<string>7817D9190DA2E8A72636D689F9659204</string>
-				<string>53663E6A4678165A26E55D5070BC2037</string>
-				<string>C607D0D9D4688AE0FEFB07E3A6F440FE</string>
-				<string>7D3749736AE8B09C866B52B0BFEC0FE1</string>
-				<string>0D97BA0A2DBE1F9099917E236E1178D6</string>
-				<string>177BD7F50CEC19D5CB22A20925CD73A4</string>
-				<string>1B5A19F8DF2A5A909054A69BED10542D</string>
-				<string>15AD1778286954747C0C975B8A463D4D</string>
-				<string>CE660CCF7AF799DAA0B7C31C57C085B2</string>
-				<string>CF511B5BAFAC8B3E08BF1878F84C4B28</string>
-				<string>8EBB97AF86DBE3AD0F9D46BE46E9D90C</string>
-				<string>38D8F3E90A54C2221291004B28077E7C</string>
-				<string>A15959B2B2647FEDE80E868BE30A1AD3</string>
-				<string>EBF27C78FECFC73FAC97ECF37D3F321F</string>
-				<string>DF63C8AA843A62EF07EF025CBB5E0DCB</string>
-				<string>3A2E3338C40E5650995AAFD41FFA4A41</string>
-				<string>A9333160FA2C1900438FFE5886E5D442</string>
-				<string>E66438A78B5787EB9AEBEE8803EC4A16</string>
-				<string>C18F51E4FD43C387036727649A2F3600</string>
-				<string>4F52770A4BE7D9BF48E3FB8D55E13E79</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
 		<key>D0748A7E15475D73752F1AF04E7D5B44</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -3059,10 +3151,17 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>D20B3EBF2D9CA4A66FA0D35911B0BC7D</key>
+		<key>D156584EDDE6E69B754F8832C467E921</key>
 		<dict>
 			<key>fileRef</key>
-			<string>9E39EB5D97F57A9ADB170507708B7859</string>
+			<string>DB002F3250F4416B9A292208F283119F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>D180C60472AB633A2F2AFFA12CC3C974</key>
+		<dict>
+			<key>fileRef</key>
+			<string>8FFB3AC1F965286EB3FF4CC797193091</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -3070,13 +3169,6 @@
 		<dict>
 			<key>fileRef</key>
 			<string>0DDA38BF0385C879E07D5C3DD6899578</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D3152F8001F319770099BFCBFF6D9CC1</key>
-		<dict>
-			<key>fileRef</key>
-			<string>212348AB9B0F5F1BB671B3347E6A740C</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -3121,23 +3213,10 @@
 				<string>EDDA87610B681B0AF5065BA23F6C8642</string>
 			</array>
 		</dict>
-		<key>D6C2EFE535296AD6A00F1616B678F9CD</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>RZBSimulatedDevice+RZBBatteryLevel.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D6F2C92ED55406C0D420AF00D85DD308</key>
+		<key>D435B4B575EA7F45F92C5E6FA2D92432</key>
 		<dict>
 			<key>fileRef</key>
-			<string>CB3907F5DF86254815D153AED82643E5</string>
+			<string>8A72AA941A29998BDAA86AF8A2492D4D</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -3148,7 +3227,7 @@
 				</array>
 			</dict>
 		</dict>
-		<key>D6F50813776C80A3432F655332CE44E9</key>
+		<key>D6446A2A0368B8D9736B2620A639BB59</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -3157,9 +3236,23 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.objc</string>
 			<key>path</key>
-			<string>RZBSimulatedDevice+RZBBatteryLevel.m</string>
+			<string>RZBSimulatedCentral.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>D79FF5C3F0C7A88679287D9A0E2B06AF</key>
+		<dict>
+			<key>fileRef</key>
+			<string>848C8156717A20D2F9547CF7F94FA66E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
 		</dict>
 		<key>D9B75A6813C682945A6805F09E877303</key>
 		<dict>
@@ -3173,20 +3266,6 @@
 			<string>RZBCentralManager.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>DA892D9DDED0E999F848ECA06DFABDB8</key>
-		<dict>
-			<key>fileRef</key>
-			<string>60436180CD2732DA8173F153A446F5D1</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
 		</dict>
 		<key>DB002F3250F4416B9A292208F283119F</key>
 		<dict>
@@ -3214,14 +3293,7 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>DDD905B23E9AE800AD3DE171ACDB88BB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>8FFB3AC1F965286EB3FF4CC797193091</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>DE7B2E0BA7A1929B36E75C0DE822B191</key>
+		<key>DE43FDBD0D8ABFF238970D64C9DAB732</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -3230,21 +3302,14 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.objc</string>
 			<key>path</key>
-			<string>RZBSimulatedCentral.m</string>
+			<string>RZBHeartRateMeasurement.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>DF63C8AA843A62EF07EF025CBB5E0DCB</key>
+		<key>DE937049C760C22DFAC73F86A3E6595C</key>
 		<dict>
 			<key>fileRef</key>
-			<string>35E6B0B84868DDE0DB2B5223F91A454B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>E0F561B869601C549DFD14FDEBE57AB5</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D0748A7E15475D73752F1AF04E7D5B44</string>
+			<string>C8D41C85E4E7567E6EAFBE7F12B34F94</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -3254,6 +3319,74 @@
 					<string>Private</string>
 				</array>
 			</dict>
+		</dict>
+		<key>DF7FECC9A8BA6B96DE8D7F3C9DCBC07E</key>
+		<dict>
+			<key>fileRef</key>
+			<string>1DE09C9B5BDDAB0F8FD4CA7C2215A00A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>DFFA4FE27A54CCF8B2FAC6E3E2D55484</key>
+		<dict>
+			<key>fileRef</key>
+			<string>CB3907F5DF86254815D153AED82643E5</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>E03807543AD197D86961ABB7A2752403</key>
+		<dict>
+			<key>fileRef</key>
+			<string>7FF0B34B2B671A15F910B351510FA2BE</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>E0BC90A3434D444AB1B5DC1786164CCB</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>CBUUID+RZBPublic.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E1A2C5CD31C1177CE868FF5961459686</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>RZBSimulatedDevice+RZBBatteryLevel.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>E351727CD07BB90B2A3CAE2C2433F6C5</key>
 		<dict>
@@ -3336,10 +3469,17 @@
 			<key>name</key>
 			<string>Release</string>
 		</dict>
-		<key>E497FF5BC4881649239AF6CB337F78D2</key>
+		<key>E39EEB4EB3C6DD2FAE6E2C3AE36D84CE</key>
 		<dict>
 			<key>fileRef</key>
-			<string>ECDF8B5A9C98397D90EABAE696D9B92D</string>
+			<string>381FB294E9C285A56A7E5EA5D0CC0315</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>E63EAE35D01E02B9EA38FAAC566A616A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>E0BC90A3434D444AB1B5DC1786164CCB</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -3350,24 +3490,10 @@
 				</array>
 			</dict>
 		</dict>
-		<key>E6581A6C96A3AA7689696B230216D354</key>
+		<key>E67AA52C915D9D7B478B90574D4E373C</key>
 		<dict>
 			<key>fileRef</key>
-			<string>0CFED9CD143CC6350F9D0A51EF2552B1</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Project</string>
-				</array>
-			</dict>
-		</dict>
-		<key>E66438A78B5787EB9AEBEE8803EC4A16</key>
-		<dict>
-			<key>fileRef</key>
-			<string>495B78AA5EE5990DA0D5BA88F08BB204</string>
+			<string>254AC2D822AD4BBEBEB36F4A0954AF04</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -3409,53 +3535,6 @@
 			<string>RZBPeripheralStateEvent.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E8608277DBA2D8AB56E8EFC36C83DB07</key>
-		<dict>
-			<key>fileRef</key>
-			<string>2E401C22179163491BC556995DF90748</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>E87CE77BA21D15D3CD243E7009E27DAE</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>RZBCentralManager+Mock.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>EB8AAC2612388DCBEE7AB3BE251FA606</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>RZBHeartRateMeasurement.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>EBF27C78FECFC73FAC97ECF37D3F321F</key>
-		<dict>
-			<key>fileRef</key>
-			<string>DE7B2E0BA7A1929B36E75C0DE822B191</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
 		</dict>
 		<key>EC641FBAB0C447F2653E32DC3D42AEDF</key>
 		<dict>
@@ -3499,15 +3578,29 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
+		<key>ED7C5F6C87BFD8800C6E20DB7D66AB21</key>
+		<dict>
+			<key>fileRef</key>
+			<string>5DDE3C1AFAA68803517782F531EE4332</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
 		<key>EDDA87610B681B0AF5065BA23F6C8642</key>
 		<dict>
 			<key>buildConfigurationList</key>
 			<string>59531F75E9D7736365A5F978E34C7323</string>
 			<key>buildPhases</key>
 			<array>
-				<string>D043BE42F21C32A53A756A655C514F87</string>
+				<string>355279CFA7EF269D37B570C1AD3FA7DE</string>
 				<string>ECF63A4FFBC07C7DD04613B2F9A18C85</string>
-				<string>50057D63EB69902FFD1B1F807D10C222</string>
+				<string>549048EE68DD0470D4D1B1660C095FAF</string>
 			</array>
 			<key>buildRules</key>
 			<array/>
@@ -3524,19 +3617,6 @@
 			<key>productType</key>
 			<string>com.apple.product-type.library.static</string>
 		</dict>
-		<key>EE8B69F243D4E28D3116C82109560A20</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>RZBMockPeripheral.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>EE8CF2E002D37BF0D10F62C9E08ACBA4</key>
 		<dict>
 			<key>fileRef</key>
@@ -3544,49 +3624,7 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>EF5FF1B9F4BB363CB4E58FDB0793EF61</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F5200A0DFCB3498C0945E330D9DF5F04</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>F2627E5B5BEE43CCB96BE8FFFB48FD36</key>
-		<dict>
-			<key>fileRef</key>
-			<string>A130D4DD3EDFB00AC83D4CBA1DDFD708</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Private</string>
-				</array>
-			</dict>
-		</dict>
-		<key>F3FCA18090B4FAA110A0F7582C8D57AB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>EB8AAC2612388DCBEE7AB3BE251FA606</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>F5200A0DFCB3498C0945E330D9DF5F04</key>
+		<key>EFF3ED325F6D232E1AD147F7ACBA741B</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -3595,14 +3633,21 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.h</string>
 			<key>path</key>
-			<string>CBUUID+RZBPublic.h</string>
+			<string>RZBDeviceInfo.h</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>F81C0C2E1F18F2E0AABC93491DF7DC10</key>
+		<key>F2A1EEB8A4DB6E917168FC4062DE33B5</key>
 		<dict>
 			<key>fileRef</key>
-			<string>D9B75A6813C682945A6805F09E877303</string>
+			<string>DD92EC47233BECFA47C627082A5FE33D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F33AF1684DBB2ADC713D8734CFAABEFC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>ECDF8B5A9C98397D90EABAE696D9B92D</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -3613,18 +3658,26 @@
 				</array>
 			</dict>
 		</dict>
-		<key>F8233672DDBB5B47B179925D0C228B08</key>
+		<key>F5F657FD041B494F6B416EE9D5C38241</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>fileRef</key>
+			<string>14D6AF4F0DC1411C2A43893A1961F09A</string>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>RZBSimulatedDevice.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F86BACC554C7E76F473D061C7569329D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>0A1D14B771C887016F76ADBF54BFAE0A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
 		</dict>
 		<key>F8E6E07D2BF42DBA1477CF0C28B7AE44</key>
 		<dict>
@@ -3673,10 +3726,37 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>FC730C1378028F32E39926E66FFAC2CB</key>
+		<key>F9E5D41ED69171832861A7432A74A150</key>
 		<dict>
 			<key>fileRef</key>
-			<string>837E93244E6CC97D8645FC2AECD68C00</string>
+			<string>5CCE52610BFD3557798C72ECAB9884F3</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>FBF8421A8A612E89F169752631CA610D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>RZBPeripheral+RZBHeartRate.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>FC4E6AD8F7EE507B5908CCE96F7B7CF6</key>
+		<dict>
+			<key>fileRef</key>
+			<string>FD54D346D2C60D009809CAFEC4CA3E2E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>FC5E237BC110D87410F8D973629865E6</key>
+		<dict>
+			<key>fileRef</key>
+			<string>9710FB2D75B07CC11584DD6F958B4BEB</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -3686,13 +3766,6 @@
 					<string>Public</string>
 				</array>
 			</dict>
-		</dict>
-		<key>FCA70A58277EA2029D973F622EC81D50</key>
-		<dict>
-			<key>fileRef</key>
-			<string>9D6877FFE840BB4DD98CE4CF5BC8C95D</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
 		</dict>
 		<key>FD54D346D2C60D009809CAFEC4CA3E2E</key>
 		<dict>
@@ -3719,6 +3792,20 @@
 			<string>Pods-acknowledgements.markdown</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>FFC9DB18AB35AB33B8AA70188029F251</key>
+		<dict>
+			<key>fileRef</key>
+			<string>9E41A60DB98AC866B5B1D767F70C1653</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
 		</dict>
 	</dict>
 	<key>rootObject</key>
