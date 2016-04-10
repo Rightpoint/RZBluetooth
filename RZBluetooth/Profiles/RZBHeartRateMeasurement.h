@@ -8,13 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(uint8_t, RZBHeartRateSensorContact) {
-    RZBHeartRateSensorContactNotSupported = 0,
-    // 1 is a duplicate of 0 in the spec. Internally this is mapped to NotSupported.
-    RZBHeartRateSensorContactNotDetected = 2,
-    RZBHeartRateSensorContactDetected,
-};
-
 typedef NS_ENUM(uint8_t, RZBBodyLocation) {
     RZBBodyLocationOther,
     RZBBodyLocationChest,
@@ -34,8 +27,8 @@ typedef NS_ENUM(uint8_t, RZBBodyLocation) {
  */
 @interface RZBRRInterval : NSObject
 
-@property (assign, nonatomic) uint8_t start;
-@property (assign, nonatomic) uint8_t end;
+@property (assign, nonatomic) UInt16 start;
+@property (assign, nonatomic) UInt16 end;
 
 @end
 
@@ -43,9 +36,10 @@ typedef NS_ENUM(uint8_t, RZBBodyLocation) {
 
 - (instancetype)initWithBluetoothData:(NSData *)data;
 
-@property (assign, nonatomic) NSUInteger heartRate; // Beats per minute
-@property (assign, nonatomic) NSUInteger energyExpended; // Kilo Joules
-@property (assign, nonatomic) RZBHeartRateSensorContact sensorContact;
+@property (assign, nonatomic) UInt16 heartRate; // Beats per minute
+@property (assign, nonatomic) UInt16 energyExpended; // Kilo Joules
+@property (assign, nonatomic) BOOL contactDetectionSupported;
+@property (assign, nonatomic) BOOL contactDetected;
 @property (strong, nonatomic) NSArray *rrIntervals;
 
 @end
