@@ -29,33 +29,33 @@ typedef NS_ENUM(uint8_t, RZBHeartRateControl) {
                       }];
 }
 
-- (void)addHeartRateObserver:(RZBHeartRateUpdateCompletion)update completion:(RZBHeartRateCompletion)completion
+- (void)addHeartRateObserver:(RZBHeartRateUpdateCompletion)update completion:(RZBErrorBlock)completion
 {
     NSParameterAssert(update);
-    NSParameterAssert(completion);
+    RZB_DEFAULT_ERROR_BLOCK(completion);
     [self enableNotifyForCharacteristicUUID:[CBUUID rzb_UUIDForHeartRateMeasurementCharacteristic]
-                               serviceUUID:[CBUUID rzb_UUIDForHeartRateService]
-                                  onUpdate:^(CBCharacteristic *characteristic, NSError *error) {
-                                      RZBHeartRateMeasurement *m = [[RZBHeartRateMeasurement alloc] initWithBluetoothData:characteristic.value];
-                                      update(m, error);
-                                  } completion:^(CBCharacteristic *characteristic, NSError *error) {
-                                      completion(error);
-                                  }];
-}
-
-- (void)removeHeartRateObserver:(RZBHeartRateCompletion)completion
-{
-    NSParameterAssert(completion);
-    [self clearNotifyBlockForCharacteristicUUID:[CBUUID rzb_UUIDForHeartRateMeasurementCharacteristic]
-                                  serviceUUID:[CBUUID rzb_UUIDForHeartRateService]
-                                   completion:^(CBCharacteristic *characteristic, NSError *error) {
+                                serviceUUID:[CBUUID rzb_UUIDForHeartRateService]
+                                   onUpdate:^(CBCharacteristic *characteristic, NSError *error) {
+                                       RZBHeartRateMeasurement *m = [[RZBHeartRateMeasurement alloc] initWithBluetoothData:characteristic.value];
+                                       update(m, error);
+                                   } completion:^(CBCharacteristic *characteristic, NSError *error) {
                                        completion(error);
                                    }];
 }
 
-- (void)resetHeartRateEnergyExpended:(RZBHeartRateCompletion)completion
+- (void)removeHeartRateObserver:(RZBErrorBlock)completion
 {
-    NSParameterAssert(completion);
+    RZB_DEFAULT_ERROR_BLOCK(completion);
+    [self clearNotifyBlockForCharacteristicUUID:[CBUUID rzb_UUIDForHeartRateMeasurementCharacteristic]
+                                    serviceUUID:[CBUUID rzb_UUIDForHeartRateService]
+                                     completion:^(CBCharacteristic *characteristic, NSError *error) {
+                                         completion(error);
+                                     }];
+}
+
+- (void)resetHeartRateEnergyExpended:(RZBErrorBlock)completion
+{
+    RZB_DEFAULT_ERROR_BLOCK(completion);
     RZBHeartRateControl control = RZBHeartRateControlResetEnergyExpended;
     [self writeData:[NSData dataWithBytes:&control length:sizeof(RZBHeartRateControl)]
  characteristicUUID:[CBUUID rzb_UUIDForHeartRateControlCharacteristic]

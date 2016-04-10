@@ -19,6 +19,7 @@ typeof(object.p) property __unused; \
 
 #define RZB_OVERLOADED FOUNDATION_EXTERN __attribute__((overloadable))
 #define RZB_DEFAULT_BLOCK(block) block = block ?: ^(id obj, NSError *error) {}
+#define RZB_DEFAULT_ERROR_BLOCK(block) block = block ?: ^(NSError *error) {}
 
 NS_ASSUME_NONNULL_BEGIN
 

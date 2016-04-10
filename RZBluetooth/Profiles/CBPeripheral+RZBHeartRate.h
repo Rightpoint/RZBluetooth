@@ -9,9 +9,10 @@
 #import "RZBPeripheral.h"
 #import "RZBHeartRateMeasurement.h"
 
-typedef void(^RZBHeartRateCompletion)(NSError *error);
-typedef void(^RZBHeartRateUpdateCompletion)(RZBHeartRateMeasurement *measurement, NSError *error);
+typedef void(^RZBHeartRateUpdateCompletion)(RZBHeartRateMeasurement *__nullable measurement, NSError *__nullable error);
 typedef void(^RZBHeartRateSensorLocationCompletion)(RZBBodyLocation location);
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface RZBPeripheral (RZBHeartRate)
 
@@ -21,10 +22,12 @@ typedef void(^RZBHeartRateSensorLocationCompletion)(RZBBodyLocation location);
  */
 - (void)readSensorLocation:(RZBHeartRateSensorLocationCompletion)completion;
 
-- (void)addHeartRateObserver:(RZBHeartRateUpdateCompletion)update completion:(RZBHeartRateCompletion)completion;
+- (void)addHeartRateObserver:(RZBHeartRateUpdateCompletion)update completion:(RZBErrorBlock __nullable)completion;
 
-- (void)removeHeartRateObserver:(RZBHeartRateCompletion)completion;
+- (void)removeHeartRateObserver:(RZBErrorBlock)completion;
 
-- (void)resetHeartRateEnergyExpended:(RZBHeartRateCompletion)completion;
+- (void)resetHeartRateEnergyExpended:(RZBErrorBlock)completion;
 
 @end
+
+NS_ASSUME_NONNULL_END
