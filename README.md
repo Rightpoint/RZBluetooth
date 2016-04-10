@@ -27,8 +27,11 @@ Alternatively in Swift:
 
 ```swift
 centralManager = RZBCentralManager()
-
-centralManager!.scanForPeripheralsWithServices([CBUUID.rzb_UUIDForHeartRateService()], options: nil, onDiscoveredPeripheral: { (scanInfo: RZBScanInfo?, error: NSError?) in
+centralManager.scanForPeripheralsWithServices([CBUUID.rzb_UUIDForHeartRateService()], options: nil) { scanInfo, error in
+    guard error == nil else {
+        print("ERROR: \(error!)")
+        return
+    }
     guard let centralManager = self.centralManager, peripheral = scanInfo.peripheral else { return }
     centralManager.stopScan()
     self.peripheral = peripheral
@@ -39,10 +42,7 @@ centralManager!.scanForPeripheralsWithServices([CBUUID.rzb_UUIDForHeartRateServi
         guard let error = error else { return }
         print("ERROR: \(error)")
     })
-}, onError: { (error: NSError?) in
-    guard let error = error else { return }
-    print("ERROR: \(error)")
-})
+}
  ```
 
 This block will wait for bluetooth to power on and scan for a new peripheral supporting the heart rate service. When one is found, the app will connect to the peripheral, discover the heart rate service and observe the characteristic. When the characteristic is notified, the `NSData*` object is serialized into a more developer friendly object. All of these details are nicely encapsulated for you, and the pattern of CBPeripheral categories should be easily extendable to your devices domain space.
