@@ -9,7 +9,7 @@
 #import "RZBUUIDPath.h"
 
 @interface RZBUUIDPath () {
-    @public
+@public
     NSUUID *_peripheralUUID;
     CBUUID *_serviceUUID;
     CBUUID *_characteristicUUID;

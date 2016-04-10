@@ -71,7 +71,7 @@ struct RZBHeartRateFlags {
             _contactDetectionSupported = NO;
             _contactDetected = NO;
         }
-        
+
         if (flags.format == RZBHeartRateValueFormatUInt8) {
             UInt8 heartRate = 0;
             [data getBytes:&heartRate range:NSMakeRange(offset, sizeof(UInt8))];
@@ -85,14 +85,14 @@ struct RZBHeartRateFlags {
             // Profile specifies little-endian byte order; fix up 16-bit values if necessary.
             _heartRate = CFSwapInt16LittleToHost(heartRate);
         }
-        
+
         if (flags.supportEnergyExpended) {
             [data getBytes:&_energyExpended range:NSMakeRange(offset, sizeof(UInt16))];
             offset += sizeof(UInt16);
             // Profile specifies little-endian byte order; fix up 16-bit values if necessary.
             _energyExpended = CFSwapInt16LittleToHost(_energyExpended);
         }
-        
+
         if (flags.supportRRInterval) {
             NSMutableArray *rrIntervals = @[].mutableCopy;
             while (offset < data.length) {
@@ -103,7 +103,7 @@ struct RZBHeartRateFlags {
                 [data getBytes:&end   range:NSMakeRange(offset, sizeof(UInt16))];
                 offset += sizeof(UInt16);
                 RZBRRInterval *interval = [[RZBRRInterval alloc] init];
-            	// Profile specifies little-endian byte order; fix up 16-bit values if necessary.
+                // Profile specifies little-endian byte order; fix up 16-bit values if necessary.
                 interval.start = CFSwapInt16LittleToHost(start);
                 interval.end   = CFSwapInt16LittleToHost(end);
                 [rrIntervals addObject:interval];

@@ -37,8 +37,8 @@
         NSDictionary *options = @{};
         _peripheralClass = peripheralClass ?: [RZBPeripheral class];
         _coreCentralManager = [[CBCentralManager alloc] initWithDelegate:self
-                                                               queue:queue
-                                                             options:options];
+                                                                   queue:queue
+                                                                 options:options];
         _dispatch = [[RZBCommandDispatch alloc] initWithQueue:queue context:self];
         _peripheralsByUUID = [NSMutableDictionary dictionary];
     }

@@ -423,7 +423,7 @@
         RZBLogCommand(@"scanForPeripheralsWithServices:%@ options:%@", RZBLogArray(self.serviceUUIDs), self.scanOptions);
 
         [context.coreCentralManager scanForPeripheralsWithServices:self.serviceUUIDs
-                                                       options:self.scanOptions];
+                                                           options:self.scanOptions];
     }
     return isReady;
 }
