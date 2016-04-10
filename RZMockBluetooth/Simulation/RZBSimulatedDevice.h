@@ -24,18 +24,6 @@ typedef void (^RZBSimulatedDeviceSubscribe)(BOOL isNotifying);
 @interface RZBSimulatedDevice : NSObject <CBPeripheralManagerDelegate>
 
 /**
- *  Create a new simulated device connected to a mock peripheral manager. The UUID specified
- *  is equivelent to the identifier seen by CBPeripheral on the client side.
- *
- *  @param identifier The UUID to expose this device as to the CBCentralManager
- *  @param queue The dispatch queue to trigger the delegate on
- *  @param options The option dictionary to pass to the CBPeripheralManager
- */
-- (instancetype)initMockWithIdentifier:(NSUUID *)identifier
-                                 queue:(dispatch_queue_t __nullable)queue
-                               options:(NSDictionary *)options;
-
-/**
  *  Create a new device connected to a true CBPeripheralManager instance.
  *
  *  @param queue The dispatch queue to trigger the delegate on
@@ -43,12 +31,6 @@ typedef void (^RZBSimulatedDeviceSubscribe)(BOOL isNotifying);
  */
 - (instancetype)initWithQueue:(dispatch_queue_t __nullable)queue
                       options:(NSDictionary *)options;
-
-/**
- *  The identifier that identifies this device. This property is only valid when connected to a mock
- *  peripheral manager.
- */
-@property (strong, nonatomic, readonly) NSUUID *identifier;
 
 /**
  *  The peripheralManager associated with this device. Note that this can be either a CBPeripheralManager
@@ -83,7 +65,7 @@ typedef void (^RZBSimulatedDeviceSubscribe)(BOOL isNotifying);
  *
  *  @note This should be replaced by checking for isPrimary on the array of services.
  */
-@property (strong, nonatomic) NSArray *advertisedServices;
+@property (strong, nonatomic, readonly) NSArray *advertisedServices;
 
 /**
  *  Start advertising the device.

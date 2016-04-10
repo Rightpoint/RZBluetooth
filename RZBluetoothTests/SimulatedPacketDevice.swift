@@ -16,8 +16,8 @@ class SimulatedPacketDevice: RZBSimulatedDevice {
     let toDevice = CBMutableCharacteristic(type: PacketUUID.toDevice, properties: [.Write], value: nil, permissions: [.Writeable])
     let fromDevice = CBMutableCharacteristic(type: PacketUUID.fromDevice, properties: [.Notify], value: nil, permissions: [.Readable])
 
-    override init(mockWithIdentifier identifier: NSUUID, queue: dispatch_queue_t?, options: [NSObject : AnyObject]) {
-        super.init(mockWithIdentifier: identifier, queue: queue, options: options)
+    override init(queue: dispatch_queue_t?, options: [NSObject : AnyObject]) {
+        super.init(queue: queue, options: options)
 
         service.characteristics = [toDevice, fromDevice]
         addService(service)
@@ -56,6 +56,5 @@ class SimulatedPacketDevice: RZBSimulatedDevice {
 
     func writePacket(packet: Packet) {
         peripheralManager.updateValue(packet.data, forCharacteristic: fromDevice, onSubscribedCentrals: nil)
-
     }
 }

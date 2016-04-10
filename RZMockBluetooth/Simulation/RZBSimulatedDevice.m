@@ -20,25 +20,6 @@
 
 @implementation RZBSimulatedDevice
 
-- (instancetype)initMockWithIdentifier:(NSUUID *)identifier
-                                 queue:(dispatch_queue_t)queue
-                               options:(NSDictionary *)options;
-{
-    self = [super init];
-    if (self) {
-        _queue = queue ?: dispatch_get_main_queue();
-        _identifier = identifier;
-        _readHandlers = [NSMutableDictionary dictionary];
-        _writeHandlers = [NSMutableDictionary dictionary];
-        _subscribeHandlers = [NSMutableDictionary dictionary];
-        _peripheralManager = (id)[[RZBMockPeripheralManager alloc] initWithDelegate:self
-                                                                              queue:queue
-                                                                            options:options];
-        _values = [NSMutableDictionary dictionary];
-    }
-    return self;
-}
-
 - (instancetype)initWithQueue:(dispatch_queue_t)queue
                       options:(NSDictionary *)options;
 {
@@ -55,13 +36,6 @@
     }
     return self;
 }
-
-//- (RZBMockPeripheralManager *)mockPeripheralManager
-//{
-//    RZBMockPeripheralManager *mockPeripheralManager = (id)self.peripheralManager;
-//    NSAssert([mockPeripheralManager isKindOfClass:[RZBMockPeripheralManager class]], @"%@ is not configured with a mock peripheral manager", self);
-//    return mockPeripheralManager;
-//}
 
 - (CBMutableService *)serviceForRepresentable:(id<RZBBluetoothRepresentable>)representable isPrimary:(BOOL)isPrimary
 {
@@ -90,13 +64,18 @@
 - (void)startAdvertising
 {
     NSAssert(self.peripheralManager.isAdvertising == NO, @"Already Advertising");
-    NSAssert([self advertisedServices] != nil, @"Must Specify the services that should be advertised by setting the advertisedServices property prior to advertising");
+    NSAssert([self advertisedServices].count == 0, @"The device has no primary services");
     [self.peripheralManager startAdvertising:@{CBAdvertisementDataServiceUUIDsKey:[self advertisedServices]}];
 }
 
 - (void)stopAdvertising
 {
     [self.peripheralManager stopAdvertising];
+}
+
+- (NSArray *)advertisedServices
+{
+    return [self.services filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isPrimary == YES"]];
 }
 
 - (void)addService:(CBMutableService *)service
@@ -146,7 +125,7 @@
 }
 
 
-#pragma mark - CBPeripheralDelegate
+#pragma mark - CBPeripheralManagerDelegate
 
 - (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral
 {

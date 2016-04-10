@@ -43,7 +43,7 @@
 
 - (RZBPeripheral *)peripheral
 {
-    return [self.centralManager peripheralForUUID:self.device.identifier];
+    return [self.centralManager peripheralForUUID:self.connection.identifier];
 }
 
 - (void)configureCentralManager
@@ -56,13 +56,13 @@
     [super setUp];
     [self configureCentralManager];
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
-    self.device = [[self.class.simulatedDeviceClass alloc] initMockWithIdentifier:[NSUUID UUID]
-                                                                            queue:self.mockCentralManager.queue
-                                                                          options:@{}];
+    NSUUID *identifier = [NSUUID UUID];
+    self.device = [[self.class.simulatedDeviceClass alloc] initWithQueue:self.mockCentralManager.queue
+                                                                 options:@{}];
     self.central = [[RZBSimulatedCentral alloc] initWithMockCentralManager:self.mockCentralManager];
-    [self.central addSimulatedDeviceWithIdentifier:self.device.identifier
+    [self.central addSimulatedDeviceWithIdentifier:identifier
                                  peripheralManager:(id)self.device.peripheralManager];
-    self.connection = [self.central connectionForIdentifier:self.device.identifier];
+    self.connection = [self.central connectionForIdentifier:identifier];
 }
 
 - (void)tearDown
