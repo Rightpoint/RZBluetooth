@@ -19,6 +19,17 @@
 
 @implementation RZBCentralManager
 
++ (NSDictionary *)optionsForIdentifier:(NSString *)identifier
+{
+    NSArray *backgroundModes = [[NSBundle mainBundle] infoDictionary][@"UIBackgroundModes"];
+
+    BOOL backgroundSupport = [backgroundModes containsObject:@"bluetooth-central"];
+    if (backgroundSupport == NO) {
+        NSLog(@"Background central support is not enabled. Add 'bluetooth-central' to UIBackgroundModes to enable background support");
+    }
+    return backgroundSupport ? @{CBCentralManagerOptionRestoreIdentifierKey: identifier} : @{};
+}
+
 - (instancetype)init
 {
     return [self initWithIdentifier:@"com.raizlabs.bluetooth" queue:nil];
@@ -34,8 +45,8 @@
     NSParameterAssert(identifier);
     self = [super init];
     if (self) {
-        NSDictionary *options = @{};
         _peripheralClass = peripheralClass ?: [RZBPeripheral class];
+        NSDictionary *options = [self.class optionsForIdentifier:identifier];
         _coreCentralManager = [[CBCentralManager alloc] initWithDelegate:self
                                                                    queue:queue
                                                                  options:options];
