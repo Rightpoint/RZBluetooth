@@ -1,0 +1,41 @@
+msc {
+  hscale = "2";
+ 
+  CM[label="App"], CBC[label="Mock CBCentralManager"],
+  BLE[label="Simulated Connection\nand Central"],
+  CBP[label="Mock CBPeripheralManager"],PM[label="Simulated Device\n(Another App)"];
+  
+  
+  ---     [label = "Read Request", ID="*" ];
+  CM=>>CBC[label = "connectPeripheral:X options:"];
+  CBC-xBLE[label = "mockCentralManager: X connectPeripheral: options:"];
+  PM=>>CBP[label = "addService:Y[Characteristic=Z]"];
+  ...;
+  ...     [label = "Time Passes"];
+  PM=>>CBP[label = "startAdvertising:"];
+  CBP=>>BLE[label = "mockPeripheralManager: startAdvertising:"];
+
+  BLE=>>CBC[label = "fakeConnectPeripheralWithUUID: error:"];
+  CBC=>CM [label = "centralManager:didConnectPeripheral:X"];
+
+  CM=>>CBC[label = "X.discoverServices:[Y]"];
+  CBC=>>BLE[label = "mockPeripheral:X discoverServices:Y"];
+  BLE<<=>>CBP[label = "Lookup Service Y"];
+  BLE=>>CBC[label = "fakeDiscoverServices:Y"];
+  CBC=>CM [label = "peripheral:X didDiscoverServices: Y"];
+
+  CM=>>CBC[label = "X.discoverCharacteristics:Z forService: Y"];
+  CBC=>>BLE[label = "mockPeripheral:X discoveryCharacteristics:Z forService:Y"];
+  BLE<<=>>CBP[label = "Lookup Characteristic Z in service Y"];
+  BLE=>>CBC[label = "fakeDiscoverCharacteristicsZ forService: Y"];
+  CBC=>CM [label = "peripheral:X didDiscoverCharacteristicsForService: Y\n\n"];
+
+  CM=>>CBC[label = "X.readValueForCharacteristic:Z"];
+  CBC=>>BLE[label = "mockPeripheral:X readValueForCharacteristic:Z"];
+  BLE=>>CBP[label = "fakeReadRequest:"];
+  CBP=>PM [label = "peripheralManager:didReceiveReadRequest:"];
+  PM=>>CBP[label = "respondToRequest:withResult:(Payload)"];
+  CBP=>>CBC[label = "GAP Update Characteristic Z(Payload)"];
+  CBC=>CM [label = "peripheral:X didUpdateValueForCharacteristic: Z\n\n"];
+  CM=>CM  [label = "Decode (Payload)"];
+}

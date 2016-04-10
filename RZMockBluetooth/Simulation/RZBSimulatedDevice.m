@@ -19,6 +19,12 @@
 
 @implementation RZBSimulatedDevice
 
+- (instancetype)init
+{
+    self = [self initWithQueue:nil options:@{}];
+    return self;
+}
+
 - (instancetype)initWithQueue:(dispatch_queue_t)queue
                       options:(NSDictionary *)options;
 {

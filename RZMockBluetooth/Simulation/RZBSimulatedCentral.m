@@ -23,6 +23,7 @@
 - (instancetype)initWithMockCentralManager:(CBCentralManager<RZBMockedCentralManager> *)mockCentralManager
 {
     NSParameterAssert(mockCentralManager);
+    NSAssert(_mockCentralManager.mockDelegate == nil, @"Can only attach one simulated central to a mocked central manager.");
     self = [super init];
     if (self) {
         _connections = [NSMutableArray array];

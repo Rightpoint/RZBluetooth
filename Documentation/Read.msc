@@ -1,0 +1,40 @@
+msc {
+  hscale = "2";
+ 
+  CM[label="App"], CBC[label="CBCentralManager"],
+  BLE[label="BLE"],
+  CBP[label="CBPeripheralManager"],PM[label="Simulated Device\n(Another App)"];
+  
+  
+  ---     [label = "Read Request", ID="*" ];
+  CM=>>CBC[label = "connectPeripheral:X options:"];
+  CBC-xBLE[label = "Listen for Connectable Peripheral X"];
+  PM=>>CBP[label = "addService:Y[Characteristic=Z]"];
+  ...;
+  ...     [label = "Time Passes"];
+  PM=>>CBP[label = "startAdvertising:"];
+  CBP->BLE[label = "Connectable & Scannable Advertisement"];
+  BLE->CBC[label = "Connected Peripheral X found"];
+  CBC=>CM [label = "centralManager:didConnectPeripheral:X"];
+  
+  CM=>>CBC[label = "X.discoverServices:[Y]"];
+  CBC->CBP[label = "GAP Discover Service UUID Y"];
+  CBP->CBP[label = "Lookup Service Y"];
+  CBP->CBC[label = "GAP Service Handle"];
+  CBC=>CM [label = "peripheral:X didDiscoverServices: Y"];
+
+  CM=>>CBC[label = "X.discoverCharacteristics:Z forService: Y"];
+  CBC->CBP[label = "GAP Discover Characteristic Z for service Y"];
+  CBP->CBP[label = "Lookup Characteristic Z in service Y"];
+  CBP->CBC[label = "GAP Characteristic Handle"];
+  CBC=>CM [label = "peripheral:X didDiscoverCharacteristicsForService: Y\n\n"];
+
+  CM=>>CBC[label = "X.readValueForCharacteristic:Z"];
+  CBC->CBP[label = "GAP Read Characteristic Z"];
+
+  CBP=>PM [label = "peripheralManager:didReceiveReadRequest:"];
+  PM=>>CBP[label = "respondToRequest:withResult:(Payload)"];
+  CBP->CBC[label = "GAP Update Characteristic Z(Payload)"];
+  CBC=>CM [label = "peripheral:X didUpdateValueForCharacteristic: Z\n\n"];
+  CM=>CM  [label = "Decode (Payload)"];
+}

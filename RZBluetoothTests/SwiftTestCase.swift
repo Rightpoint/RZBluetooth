@@ -41,9 +41,4 @@ class SwiftTestCase: RZBSimulatedTestCase {
             return
         }
     }
-
-    func testRead() {
-        
-    }
-
 }
