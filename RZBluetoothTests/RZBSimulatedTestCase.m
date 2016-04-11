@@ -74,6 +74,7 @@
     RZBAssertCommandCount(0);
     self.centralManager = nil;
     self.device = nil;
+    self.central = nil;
     [super tearDown];
 }
 
