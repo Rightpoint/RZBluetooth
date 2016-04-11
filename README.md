@@ -83,7 +83,7 @@ Internally, RZBluetooth uses a command pattern to simplify the delegate manageme
 This hides a lot of the delegate callback pain. Commonly in Core Bluetooth implementations, more characteristics cause tightly coupled chains in the delegate. The command pattern loosens up that coupling to allow different bluetooth services to be developed and supported in isolation. This allows the development of isolated "Profile" level APIs.
 
 
-# Profile level APIs
+# Profile Level APIs
 Application level code does not want to read and write `NSData` blobs, it wants Profile level APIs that work with whatever domain knowledge the services and characteristics encapsulate. RZBluetooth comes with APIs for many of the standard bluetooth profiles, and these provide a pattern for developers to extend RZBluetooth to support their own proprietary profiles.
 
 ```objc
@@ -116,10 +116,10 @@ If an action is performed on a peripheral and the service or characteristic does
 If an action is performed with `RZBUserInteraction` enabled, and the action takes longer than the timeout, the command will fail, and the completion block will be triggered with an error object. The error code will be `RZBluetoothTimeoutError`.
 
 # Bluetooth Usage Patterns
-There are a few patterns of behavior that most Bluetooth application use:
+There are a few patterns of behavior that most Bluetooth applications use:
 
 1. Scanning for peripherals that the application can interact with.
-2. Availability Interactions with a known peripheral
+2. Availability Interactions with a known peripheral.
 3. User interaction with a known peripheral.
 
 ## Scanning
@@ -145,10 +145,10 @@ peripheral.onConnection = ^(RZBPeripheral *peripheral, NSError *error) {
 peripheral.maintainConnection = YES;
 ```
 
-All action performed here will occur every time the device becomes connectable. This usage pattern is extremely important for low power devices that can not maintain a constant connection.
+All actions performed here will occur every time the device becomes connectable. This usage pattern is extremely important for low power devices that can not maintain a constant connection.
 
 ## User Interactions
-Core Bluetooth and RZBluetooth actions do not time out by default. User initiated actions however do need to timeout so the UI can inform the user that there's an issue. This behavior can be easily enabled via the `RZBUserInteraction` object:
+Core Bluetooth and RZBluetooth actions do not timeout by default. User initiated actions however do need to timeout so the UI can inform the user that there's an issue. This behavior can be easily enabled via the `RZBUserInteraction` object:
 
 ```objc
 [RZBUserInteraction setTimeout:5.0];
