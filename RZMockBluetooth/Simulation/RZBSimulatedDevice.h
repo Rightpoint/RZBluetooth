@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef CBATTError (^RZBATTRequestHandler)(CBATTRequest *request);
 typedef void (^RZBNotificationHandler)(BOOL isNotifying);
+typedef void (^RZBPeripheralManagerStateBlock)(CBPeripheralManagerState state);
 
 /**
  *  The simulated device is a peripheral manager delegate that is intended to mock
@@ -51,7 +52,7 @@ typedef void (^RZBNotificationHandler)(BOOL isNotifying);
  *  A block to be triggered on peripheral manager state change. When connecting to a real CBPeripheralManager
  *  services can only be configured when state is CBPeripheralManagerStatePoweredOn.
  */
-@property (copy, nonatomic, nullable) void (^onStateChange)(CBPeripheralManagerState);
+@property (copy, nullable) RZBPeripheralManagerStateBlock onStateChange;
 
 /**
  * Shared storage for categories. This is a hack that allows categories to define storage. I'm not sure

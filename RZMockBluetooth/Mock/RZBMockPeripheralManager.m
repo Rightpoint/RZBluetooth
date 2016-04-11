@@ -77,6 +77,14 @@
     return [self.mockDelegate mockPeripheralManager:(id)self updateValue:value forCharacteristic:characteristic onSubscribedCentrals:centrals];
 }
 
+- (void)fakeStateChange:(CBPeripheralManagerState)state
+{
+    dispatch_async(self.queue, ^{
+        self.state = state;
+        [self.delegate peripheralManagerDidUpdateState:(id)self];
+    });
+}
+
 - (void)fakeReadRequest:(CBATTRequest *)request
 {
     dispatch_async(self.queue, ^{

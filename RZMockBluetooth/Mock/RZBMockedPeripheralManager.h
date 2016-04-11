@@ -17,6 +17,7 @@
 @property (copy, nonatomic) NSDictionary *advInfo;
 @property (strong, nonatomic, readonly) NSMutableArray *services;
 
+- (void)fakeStateChange:(CBPeripheralManagerState)state;
 - (void)fakeReadRequest:(CBATTRequest *)request;
 - (void)fakeWriteRequest:(CBATTRequest *)request;
 - (void)fakeNotifyState:(BOOL)enabled central:(CBCentral *)central characteristic:(CBMutableCharacteristic *)characteristic;

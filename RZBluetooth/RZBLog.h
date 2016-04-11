@@ -13,6 +13,8 @@ typedef NS_ENUM(NSUInteger, RZBLogLevel) {
     RZBLogLevelWriteCommandData = 1 << 2,
     RZBLogLevelDelegate = 1 << 3,
     RZBLogLevelDelegateValue = 1 << 4,
+    RZBLogLevelConfiguration = 1 << 5,
+    RZBLogLevelSimulatedDevice = 1 << 6,
 };
 
 typedef void(^RZBLogHandler)(RZBLogLevel logLevel, NSString *format, va_list args);

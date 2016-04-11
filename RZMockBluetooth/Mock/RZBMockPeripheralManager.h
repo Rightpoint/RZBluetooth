@@ -20,7 +20,7 @@
 - (instancetype)initWithDelegate:(id<CBPeripheralManagerDelegate>)delegate queue:(dispatch_queue_t)queue options:(NSDictionary *)options;
 
 @property (weak, nonatomic, readonly) id<CBPeripheralManagerDelegate>delegate;
-@property (readonly) CBPeripheralManagerState state;
+@property () CBPeripheralManagerState state;
 @property (readonly) BOOL isAdvertising;
 
 - (void)startAdvertising:(NSDictionary *)advertisementData;

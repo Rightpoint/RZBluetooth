@@ -25,7 +25,7 @@
 
     BOOL backgroundSupport = [backgroundModes containsObject:@"bluetooth-central"];
     if (backgroundSupport == NO) {
-        NSLog(@"Background central support is not enabled. Add 'bluetooth-central' to UIBackgroundModes to enable background support");
+        RZBLog(RZBLogLevelConfiguration, @"Background central support is not enabled. Add 'bluetooth-central' to UIBackgroundModes to enable background support");
     }
     return backgroundSupport ? @{CBCentralManagerOptionRestoreIdentifierKey: identifier} : @{};
 }
