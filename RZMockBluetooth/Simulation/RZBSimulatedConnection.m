@@ -41,6 +41,7 @@
         self.readCharacteristicCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
         self.writeCharacteristicCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
         self.notifyCharacteristicCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
+        self.requestCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
     }
     return self;
 }
@@ -221,21 +222,23 @@
 
 - (void)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager respondToRequest:(CBATTRequest *)request withResult:(CBATTError)result
 {
-    NSError *error = [self errorForResult:result];
     NSAssert([request.characteristic isKindOfClass:[CBMutableCharacteristic class]], @"Invalid characteristic");
-    
-    if ([self.readRequests containsObject:request]) {
-        [self.readRequests removeObject:request];
-        if (self.peripheral.state == CBPeripheralStateConnected) {
-            [self.peripheral fakeCharacteristic:(CBMutableCharacteristic *)request.characteristic updateValue:request.value error:error];
+    [self.requestCallback dispatch:^(NSError * _Nullable injectedError) {
+        NSError *error = injectedError ?: [self errorForResult:result];
+
+        if ([self.readRequests containsObject:request]) {
+            [self.readRequests removeObject:request];
+            if (self.peripheral.state == CBPeripheralStateConnected) {
+                [self.peripheral fakeCharacteristic:(CBMutableCharacteristic *)request.characteristic updateValue:request.value error:error];
+            }
         }
-    }
-    else if ([self.writeRequests containsObject:request]) {
-        [self.writeRequests removeObject:request];
-        if (self.peripheral.state == CBPeripheralStateConnected) {
-            [self.peripheral fakeCharacteristic:(CBMutableCharacteristic *)request.characteristic writeResponseWithError:error];
+        else if ([self.writeRequests containsObject:request]) {
+            [self.writeRequests removeObject:request];
+            if (self.peripheral.state == CBPeripheralStateConnected) {
+                [self.peripheral fakeCharacteristic:(CBMutableCharacteristic *)request.characteristic writeResponseWithError:error];
+            }
         }
-    }
+    }];
 }
 
 - (BOOL)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager updateValue:(NSData *)value forCharacteristic:(CBMutableCharacteristic *)characteristic onSubscribedCentrals:(NSArray *)centrals
