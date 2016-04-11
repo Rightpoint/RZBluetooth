@@ -68,6 +68,7 @@ static NSString *const RZBTestString = @"StringValue";
     // the proper CB method
     [self.mockCentralManager fakeStateChange:state];
     [self waitForQueueFlush];
+    XCTAssert(self.centralManager.state == state);
     XCTAssertNotNil(readError);
     XCTAssert([readError.domain isEqualToString:RZBluetoothErrorDomain]);
     XCTAssert(readError.code == state);

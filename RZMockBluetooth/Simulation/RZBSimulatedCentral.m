@@ -83,7 +83,7 @@
 {
     NSParameterAssert(mockCentralManager);
     self.servicesToScan = nil;
-    for (__weak RZBSimulatedConnection *connection in self.connections) {
+    for (RZBSimulatedConnection *connection in self.connections) {
         [connection.scanCallback cancel];
     }
 }

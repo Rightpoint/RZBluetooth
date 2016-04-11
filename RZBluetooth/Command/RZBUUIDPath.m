@@ -19,11 +19,6 @@
 
 @implementation RZBUUIDPath
 
-+ (BOOL)accessInstanceVariablesDirectly
-{
-    return NO; // Slightly paranoid, to ensure that setValue:forKey: can't work.
-}
-
 + (NSArray *)UUIDkeys
 {
     return @[NSStringFromSelector(@selector(peripheralUUID)),

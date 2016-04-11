@@ -82,4 +82,20 @@
     XCTAssertThrows([pUUIDPath enumerateUUIDsUsingBlock:nil]);
 }
 
+- (void)testDescription
+{
+    NSUUID *nsUUID = [NSUUID UUID];
+    CBUUID *sUUID = [CBUUID UUIDWithString:@"01234567"];
+    CBUUID *cUUID = [CBUUID UUIDWithString:@"12345678"];
+
+    RZBUUIDPath *pUUIDPath = RZBUUIDP(nsUUID);
+    RZBUUIDPath *sUUIDPath = RZBUUIDP(nsUUID, sUUID);
+    RZBUUIDPath *cUUIDPath = RZBUUIDP(nsUUID, sUUID, cUUID);
+
+    XCTAssert([pUUIDPath.description containsString:@"RZBUUIDPath"]);
+    XCTAssert([sUUIDPath.description containsString:@"RZBUUIDPath"]);
+    XCTAssert([cUUIDPath.description containsString:@"RZBUUIDPath"]);
+}
+
+
 @end
