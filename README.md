@@ -43,7 +43,7 @@ centralManager.scanForPeripheralsWithServices([CBUUID.rzb_UUIDForHeartRateServic
 }
  ```
 
-This block will wait for bluetooth to power on and scan for a new peripheral supporting the heart rate service. When one is found, the app will connect to the peripheral, discover the heart rate service and observe the characteristic. When the characteristic is notified, the `NSData*` object is serialized into a more developer friendly object. All of these details are nicely encapsulated for you, and the pattern of CBPeripheral categories should be easily extendable to your devices domain space.
+This block will wait for bluetooth to power on and scan for a new peripheral supporting the heart rate service. When one is found, the app will connect to the peripheral, discover the heart rate service and observe the characteristic. When the characteristic is notified, the `NSData*` object is serialized into a more developer friendly object. All of these details are nicely encapsulated for you, and the pattern of extending `RZBPeripheral` via categories should easily extend to your devices domain space.
 
 # Install
 RZBluetooth is available through CocoaPods. To install it, add the following line to your Podfile:
@@ -80,7 +80,7 @@ Internally, RZBluetooth uses a command pattern to simplify the delegate manageme
  - Multiple read and write calls will not cause more connect or discover events than required. The discover events are batched up and triggered on the next runloop iteration.
 
 
-This hides a lot of the delegate callback pain. Commonly in Core Bluetooth implementations, more characteristics cause tightly coupled chains in the delegate. The command pattern loosens up that coupling to allow different bluetooth services to be developed and supported in isolation. This allows the development of isolated "Profile" level APIs.
+This hides a lot of the delegate callback pain. Commonly in Core Bluetooth implementations, more characteristics cause tightly coupled chains in the delegate. The command pattern loosens up that coupling to allow different bluetooth services to be developed and supported in isolation. This allows the development of "Profile" level APIs.
 
 
 # Profile Level APIs
@@ -136,16 +136,29 @@ Once a device has been selected, the peripheral UUID can be persisted between ap
 
 
 ## Availability Interactions
-Availability Interactions are a set of actions that should be performed every time the device becomes available. Device Sync is usually built on top of this. All transport layer errors should be ignored, and most other errors would be considered fatal. RZBluetooth provides a helper for this functionality:
+Availability Interactions are a set of actions that should be performed every time the device becomes available. Device Sync is usually built on top of this. RZBPeripheral provides a connection delegate to help manage these sorts of interactions.
 
 ```objc
-peripheral.onConnection = ^(RZBPeripheral *peripheral, NSError *error) {
-    // Perform actions here
-};
-peripheral.maintainConnection = YES;
-```
+    peripheral.connectionDelegate = self
+    peripheral.maintainConnection = YES;
+}
 
-All actions performed here will occur every time the device becomes connectable. This usage pattern is extremely important for low power devices that can not maintain a constant connection.
+//
+- (void)peripheral:(RZBPeripheral *)peripheral connectionEvent:(RZBPeripheralStateEvent)event error:(NSError *)error;
+{
+    if (event == RZBPeripheralStateEventConnectSuccess) {
+        // perform any connection set up here that should occur on every connection
+    }
+    else {
+        // The device is disconnected. maintainConnection will attempt a connection event
+	// immediately after this. This default maintainConnection behavior may not be
+	// desired for your application. A backoff timer or other behavior could be
+	// implemented here.
+    }
+}
+
+```
+Usually all transport layer errors should be ignored, and most other errors would be considered fatal.
 
 ## User Interactions
 Core Bluetooth and RZBluetooth actions do not timeout by default. User initiated actions however do need to timeout so the UI can inform the user that there's an issue. This behavior can be easily enabled via the `RZBUserInteraction` object:
@@ -158,6 +171,15 @@ Core Bluetooth and RZBluetooth actions do not timeout by default. User initiated
     }];
 }];
 ```
+
+## Background Support
+RZBluetooth will specify a `CBCentralManagerOptionRestoreIdentifierKey` if the application has `bluetooth-central` specified in the background mode. This key will cause the application to be restored if a connection attempt succeeds. `RZBCentralManager` has a property `restorationHandler` which is triggered when the peripherals are restored.
+
+## Logging Support
+RZBluetooth provides the ability to print log messages out that describe all of the CoreBluetooth interactions via the method `RZBSetLogHandler`. Usually this can be sent straight to NSLog, but if your application has a special logger, the integration should be simple.
+
+## RZBPeripheral Subclass
+For more complicated peripherals, it's often required to have more complex associated state and handler callbacks. If you believe a subclass will help your implementation, you can use a special initializer on `RZBCentralManager` that will create your subclass when a new peripheral is found.
 
 # Testing
 Core Bluetooth can be challenging to test. RZBluetooth comes with a library, `RZMockBluetooth`, that allows you to use mock Core Bluetooth objects to test your bluetooth and application code. Using the mock library you can fake the bluetooth device events programmatically, and the Core Bluetooth objects seen by your application will consistently manage their mocked state. All of your application code will use the same API provided by Core Bluetooth even though the objects are actually equivalent `RZBMock` objects.
@@ -186,7 +208,7 @@ The following mock objects are available:
 As a developer, you can use `RZBMockCentralManager` or `RZBMockPeripheralManager`  directly, or you can use `RZBMockEnable(YES)`. This will swizzle alloc of `CBCentralManager` and `CBPeripheralManager` and return the equivolent RZBMock object instead. RZBMockCentralManager will create `RZBMockPeripheral` objects instead of `CBPeripheral` objects.
 
 # Fake Peripheral
-Another great testing strategy with Bluetooth is to implement a fake peripheral using the CBPeripheralManager API. This allows the developer to test against the same bluetooth profile while the hardware is still under development.
+Another great testing strategy with Bluetooth is to implement a fake peripheral using the CBPeripheralManager API. This allows the developer to test against the same Bluetooth profile while the hardware is still under development.
 
 RZBluetooth provides a base class `RZBSimulatedDevice` to help simplify the `CBPeripheralManager` API. This object is a delegate of `CBPeripheralManager`, and provides a few helpers for working with `CBPeripheralManager`. It also provides support for some common profiles, like battery level, and device info. A small shell of an iOS or Mac application can be quickly written to exercise this peripheral.
 
