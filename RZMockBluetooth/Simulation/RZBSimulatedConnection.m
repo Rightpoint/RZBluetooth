@@ -78,7 +78,7 @@
         [self.peripheralManager fakeNotifyState:NO central:(id)self.central characteristic:characteristic];
     }
     [self.subscribedCharacteristics removeAllObjects];
-    self.peripheral.state = CBPeripheralStateDisconnecting;
+
     [self.cancelConncetionCallback dispatch:^(NSError *injectedError) {
         [self.central.mockCentralManager fakeDisconnectPeripheralWithUUID:self.identifier
                                                                     error:injectedError];
