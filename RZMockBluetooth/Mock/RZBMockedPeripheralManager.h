@@ -26,16 +26,16 @@
 
 @protocol RZBMockPeripheralManagerDelegate <NSObject>
 
-- (void)mockPeripheralManager:(CBPeripheralManager<RZBMockedPeripheralManager> *)peripheralManager startAdvertising:(NSDictionary *)advertisementData;
-- (void)mockPeripheralManagerStopAdvertising:(CBPeripheralManager<RZBMockedPeripheralManager> *)peripheralManager;
+- (void)mockPeripheralManager:(id<RZBMockedPeripheralManager>)peripheralManager startAdvertising:(NSDictionary *)advertisementData;
+- (void)mockPeripheralManagerStopAdvertising:(id<RZBMockedPeripheralManager>)peripheralManager;
 
-- (void)mockPeripheralManager:(CBPeripheralManager<RZBMockedPeripheralManager> *)peripheralManager setDesiredConnectionLatency:(CBPeripheralManagerConnectionLatency)latency forCentral:(CBCentral *)central;
-- (void)mockPeripheralManager:(CBPeripheralManager<RZBMockedPeripheralManager> *)peripheralManager addService:(CBMutableService *)service;
-- (void)mockPeripheralManager:(CBPeripheralManager<RZBMockedPeripheralManager> *)peripheralManager removeService:(CBMutableService *)service;
-- (void)mockPeripheralManagerRemoveAllServices:(CBPeripheralManager<RZBMockedPeripheralManager> *)peripheralManager;
+- (void)mockPeripheralManager:(id<RZBMockedPeripheralManager>)peripheralManager setDesiredConnectionLatency:(CBPeripheralManagerConnectionLatency)latency forCentral:(CBCentral *)central;
+- (void)mockPeripheralManager:(id<RZBMockedPeripheralManager>)peripheralManager addService:(CBMutableService *)service;
+- (void)mockPeripheralManager:(id<RZBMockedPeripheralManager>)peripheralManager removeService:(CBMutableService *)service;
+- (void)mockPeripheralManagerRemoveAllServices:(id<RZBMockedPeripheralManager>)peripheralManager;
 
-- (void)mockPeripheralManager:(CBPeripheralManager<RZBMockedPeripheralManager> *)peripheralManager respondToRequest:(CBATTRequest *)request withResult:(CBATTError)result;
-- (BOOL)mockPeripheralManager:(CBPeripheralManager<RZBMockedPeripheralManager> *)peripheralManager updateValue:(NSData *)value forCharacteristic:(CBMutableCharacteristic *)characteristic onSubscribedCentrals:(NSArray *)centrals;
+- (void)mockPeripheralManager:(id<RZBMockedPeripheralManager>)peripheralManager respondToRequest:(CBATTRequest *)request withResult:(CBATTError)result;
+- (BOOL)mockPeripheralManager:(id<RZBMockedPeripheralManager>)peripheralManager updateValue:(NSData *)value forCharacteristic:(CBMutableCharacteristic *)characteristic onSubscribedCentrals:(NSArray *)centrals;
 
 
 @end

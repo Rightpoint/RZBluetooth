@@ -14,7 +14,7 @@
 @implementation RZBSimulatedConnection
 
 - (instancetype)initWithIdentifier:(NSUUID *)identifier
-                 peripheralManager:(CBPeripheralManager<RZBMockedPeripheralManager> *)peripheralManager
+                 peripheralManager:(id<RZBMockedPeripheralManager>)peripheralManager
                            central:(RZBSimulatedCentral *)central
 {
     NSParameterAssert(identifier);
