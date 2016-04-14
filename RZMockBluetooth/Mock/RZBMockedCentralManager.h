@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)connectPeripheral:(CBPeripheral *)peripheral options:(nullable NSDictionary<NSString *, id> *)options;
 - (void)cancelPeripheralConnection:(CBPeripheral *)peripheral;
 
-- (CBPeripheral<RZBMockedPeripheral> *)peripheralForUUID:(NSUUID *)uuid;
+- (id<RZBMockedPeripheral>)peripheralForUUID:(NSUUID *)uuid;
 
 @property(weak, nonatomic) id<RZBMockCentralManagerDelegate> mockDelegate;
 @property(strong, nonatomic) dispatch_queue_t queue;
@@ -38,8 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)mockCentralManager:(CBCentralManager<RZBMockedCentralManager> *)mockCentralManager scanForPeripheralsWithServices:(NSArray *)services options:(NSDictionary *)options;
 - (void)mockCentralManagerStopScan:(CBCentralManager<RZBMockedCentralManager> *)mockCentralManager;
 
-- (void)mockCentralManager:(CBCentralManager<RZBMockedCentralManager> *)mockCentralManager connectPeripheral:(CBPeripheral<RZBMockedPeripheral> *)peripheral options:(NSDictionary *)options;
-- (void)mockCentralManager:(CBCentralManager<RZBMockedCentralManager> *)mockCentralManager cancelPeripheralConnection:(CBPeripheral<RZBMockedPeripheral> *)peripheral;
+- (void)mockCentralManager:(CBCentralManager<RZBMockedCentralManager> *)mockCentralManager connectPeripheral:(id<RZBMockedPeripheral>)peripheral options:(NSDictionary *)options;
+- (void)mockCentralManager:(CBCentralManager<RZBMockedCentralManager> *)mockCentralManager cancelPeripheralConnection:(id<RZBMockedPeripheral>)peripheral;
 
 @end
 

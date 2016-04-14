@@ -112,7 +112,7 @@
 
 #pragma mark - RZBMockPeripheralDelegate
 
-- (void)mockPeripheral:(CBPeripheral<RZBMockedPeripheral> *)peripheral discoverServices:(NSArray *)serviceUUIDs
+- (void)mockPeripheral:(id<RZBMockedPeripheral>)peripheral discoverServices:(NSArray *)serviceUUIDs
 {
     NSMutableArray *services = [NSMutableArray array];
     for (CBMutableService *service in self.peripheralManager.services) {
@@ -125,7 +125,7 @@
     }];
 }
 
-- (void)mockPeripheral:(CBPeripheral<RZBMockedPeripheral> *)peripheral discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(CBMutableService *)service
+- (void)mockPeripheral:(id<RZBMockedPeripheral>)peripheral discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(CBMutableService *)service
 {
     NSAssert([service isKindOfClass:[CBMutableService class]], @"");
 
@@ -141,7 +141,7 @@
     }];
 }
 
-- (void)mockPeripheral:(CBPeripheral<RZBMockedPeripheral> *)peripheral readValueForCharacteristic:(CBMutableCharacteristic *)characteristic
+- (void)mockPeripheral:(id<RZBMockedPeripheral>)peripheral readValueForCharacteristic:(CBMutableCharacteristic *)characteristic
 {
     NSAssert([characteristic isKindOfClass:[CBMutableCharacteristic class]], @"");
 
@@ -162,7 +162,7 @@
     }];
 }
 
-- (void)mockPeripheral:(CBPeripheral<RZBMockedPeripheral> *)peripheral writeValue:(NSData *)data forCharacteristic:(CBMutableCharacteristic *)characteristic type:(CBCharacteristicWriteType)type
+- (void)mockPeripheral:(id<RZBMockedPeripheral>)peripheral writeValue:(NSData *)data forCharacteristic:(CBMutableCharacteristic *)characteristic type:(CBCharacteristicWriteType)type
 {
     NSAssert([characteristic isKindOfClass:[CBMutableCharacteristic class]], @"");
 
@@ -182,7 +182,7 @@
     }];
 }
 
-- (void)mockPeripheral:(CBPeripheral<RZBMockedPeripheral> *)peripheral setNotifyValue:(BOOL)enabled forCharacteristic:(CBMutableCharacteristic *)characteristic
+- (void)mockPeripheral:(id<RZBMockedPeripheral>)peripheral setNotifyValue:(BOOL)enabled forCharacteristic:(CBMutableCharacteristic *)characteristic
 {
     NSAssert([characteristic isKindOfClass:[CBMutableCharacteristic class]], @"");
 
@@ -201,7 +201,7 @@
     }];
 }
 
-- (void)mockPeripheralReadRSSI:(CBPeripheral<RZBMockedPeripheral> *)peripheral
+- (void)mockPeripheralReadRSSI:(id<RZBMockedPeripheral>)peripheral
 {
     [self.readRSSICallback dispatch:^(NSError *injectedError) {
         [peripheral fakeRSSI:self.RSSI error:injectedError];

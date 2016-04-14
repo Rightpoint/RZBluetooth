@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol RZBMockedPeripheral <NSObject>
 
+@property(readonly, nonatomic) NSUUID *identifier;
 @property(assign, nonatomic, nullable) id<CBPeripheralDelegate> delegate;
 @property(retain, readonly, nullable) NSString *name;
 @property(readonly) CBPeripheralState state;
@@ -44,12 +45,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol RZBMockPeripheralDelegate <NSObject>
 
-- (void)mockPeripheral:(CBPeripheral<RZBMockedPeripheral> *)peripheral discoverServices:(NSArray *)serviceUUIDs;
-- (void)mockPeripheral:(CBPeripheral<RZBMockedPeripheral> *)peripheral discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(CBService *)service;
-- (void)mockPeripheral:(CBPeripheral<RZBMockedPeripheral> *)peripheral readValueForCharacteristic:(CBCharacteristic *)characteristic;
-- (void)mockPeripheral:(CBPeripheral<RZBMockedPeripheral> *)peripheral writeValue:(NSData *)data forCharacteristic:(CBCharacteristic *)characteristic type:(CBCharacteristicWriteType)type;
-- (void)mockPeripheral:(CBPeripheral<RZBMockedPeripheral> *)peripheral setNotifyValue:(BOOL)enabled forCharacteristic:(CBCharacteristic *)characteristic;
-- (void)mockPeripheralReadRSSI:(CBPeripheral<RZBMockedPeripheral> *)peripheral;
+- (void)mockPeripheral:(id<RZBMockedPeripheral>)peripheral discoverServices:(NSArray *)serviceUUIDs;
+- (void)mockPeripheral:(id<RZBMockedPeripheral>)peripheral discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(CBService *)service;
+- (void)mockPeripheral:(id<RZBMockedPeripheral>)peripheral readValueForCharacteristic:(CBCharacteristic *)characteristic;
+- (void)mockPeripheral:(id<RZBMockedPeripheral>)peripheral writeValue:(NSData *)data forCharacteristic:(CBCharacteristic *)characteristic type:(CBCharacteristicWriteType)type;
+- (void)mockPeripheral:(id<RZBMockedPeripheral>)peripheral setNotifyValue:(BOOL)enabled forCharacteristic:(CBCharacteristic *)characteristic;
+- (void)mockPeripheralReadRSSI:(id<RZBMockedPeripheral>)peripheral;
 
 @end
 
