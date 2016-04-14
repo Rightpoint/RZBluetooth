@@ -14,6 +14,7 @@ void RZBLog(RZBLogLevel level, NSString *format, ...) NS_FORMAT_FUNCTION(2,3);
 #define RZBLogDelegateValue(fmt, ...) RZBLog(RZBLogLevelDelegateValue, fmt, ##__VA_ARGS__)
 #define RZBLogCommand(fmt, ...) RZBLog(RZBLogLevelCommand, fmt, ##__VA_ARGS__)
 #define RZBLogSimulatedDevice(fmt, ...) RZBLog(RZBLogLevelSimulatedDevice, fmt, ##__VA_ARGS__)
+#define RZBLogSimulation(fmt, ...) RZBLog(RZBLogLevelSimulatedDevice, fmt, ##__VA_ARGS__)
 
 #define RZBLogBool(expr) expr ? @"YES" : @"NO"
 #define RZBLogArray(array) [NSString stringWithFormat:@"@[%@]", [array componentsJoinedByString:@", "]]

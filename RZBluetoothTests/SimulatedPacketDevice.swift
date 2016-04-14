@@ -23,8 +23,7 @@ class SimulatedPacketDevice: RZBSimulatedDevice {
         addService(service)
 
         addWriteCallbackForCharacteristicUUID(PacketUUID.toDevice) { [weak self] request -> CBATTError in
-            if let strongSelf = self,
-                let value = request.value {
+            if let strongSelf = self, value = request.value {
                 let pkt = Packet.fromData(value)
                 strongSelf.handlePacket(pkt)
             }
