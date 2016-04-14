@@ -73,7 +73,7 @@
 - (void)startAdvertising
 {
     NSAssert(self.peripheralManager.isAdvertising == NO, @"Already Advertising");
-    NSAssert([self advertisedServices].count == 0, @"The device has no primary services");
+    NSAssert([self advertisedServices].count > 0, @"The device has no primary services");
     [self.operationQueue addOperationWithBlock:^{
         [self.peripheralManager startAdvertising:@{CBAdvertisementDataServiceUUIDsKey:[self advertisedServices]}];
     }];
