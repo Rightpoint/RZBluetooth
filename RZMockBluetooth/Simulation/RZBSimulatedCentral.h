@@ -17,9 +17,9 @@
  */
 @interface RZBSimulatedCentral : NSObject <RZBMockCentralManagerDelegate>
 
-- (instancetype)initWithMockCentralManager:(CBCentralManager<RZBMockedCentralManager> *)centralManager;
+- (instancetype)initWithMockCentralManager:(id<RZBMockedCentralManager>)centralManager;
 
-@property (weak, nonatomic, readonly) CBCentralManager<RZBMockedCentralManager> *mockCentralManager;
+@property (weak, nonatomic, readonly) id<RZBMockedCentralManager>mockCentralManager;
 @property (assign, nonatomic) NSUInteger maximumUpdateValueLength;
 
 - (void)addSimulatedDeviceWithIdentifier:(NSUUID *)peripheralUUID peripheralManager:(CBPeripheralManager<RZBMockedPeripheralManager> *)peripheralManager;

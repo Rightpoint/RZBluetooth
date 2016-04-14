@@ -34,9 +34,9 @@
     XCTAssertTrue(ok, @"Dispatch queue did not complete");
 }
 
-- (CBCentralManager<RZBMockedCentralManager> *)mockCentralManager
+- (id<RZBMockedCentralManager>)mockCentralManager
 {
-    CBCentralManager<RZBMockedCentralManager> *mockCentral = (id)self.centralManager.coreCentralManager;
+    id<RZBMockedCentralManager>mockCentral = (id)self.centralManager.coreCentralManager;
     NSAssert([mockCentral conformsToProtocol:@protocol(RZBMockedCentralManager)], @"Invalid central manager");
     return mockCentral;
 }
