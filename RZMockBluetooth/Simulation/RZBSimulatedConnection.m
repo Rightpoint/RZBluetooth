@@ -42,6 +42,7 @@
         self.writeCharacteristicCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
         self.notifyCharacteristicCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
         self.requestCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
+        self.updateCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
     }
     return self;
 }
@@ -243,9 +244,11 @@
 
 - (BOOL)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager updateValue:(NSData *)value forCharacteristic:(CBMutableCharacteristic *)characteristic onSubscribedCentrals:(NSArray *)centrals
 {
-    if (self.peripheral.state == CBPeripheralStateConnected) {
-        [self.peripheral fakeCharacteristic:characteristic updateValue:value error:nil];
-    }
+    [self.updateCallback dispatch:^(NSError * _Nullable injectedError) {
+        if (self.peripheral.state == CBPeripheralStateConnected) {
+            [self.peripheral fakeCharacteristic:characteristic updateValue:value error:injectedError];
+        }
+    }];
     // We don't have any buffer mechanism, so always return YES
     return YES;
 }

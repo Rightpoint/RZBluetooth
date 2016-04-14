@@ -75,4 +75,22 @@
     XCTAssert(self.isNotifying == NO);
 }
 
+- (void)testPeripheralManagerUpdateErrorInjection
+{
+    __block NSError *injectedError = nil;
+    [self.peripheral addBatteryLevelObserver:^(NSUInteger level, NSError *error) {
+        injectedError = error;
+    } completion:^(NSError *error) {
+    }];
+    [self waitForQueueFlush];
+    XCTAssert(self.peripheral.state == CBPeripheralStateConnected);
+    XCTAssert(self.isNotifying);
+    self.connection.updateCallback.injectError = (id)[NSNull null];
+
+    self.device.batteryLevel = 42;
+
+    [self waitForQueueFlush];
+    XCTAssertNotNil(injectedError);
+}
+
 @end

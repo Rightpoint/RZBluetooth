@@ -53,5 +53,6 @@
 @property (strong, nonatomic) RZBSimulatedCallback *notifyCharacteristicCallback;
 
 @property (strong, nonatomic) RZBSimulatedCallback *requestCallback;
+@property (strong, nonatomic) RZBSimulatedCallback *updateCallback;
 
 @end
