@@ -157,7 +157,6 @@
 		AB45C4DC1B6BF8AB00CC0166 /* RZTestCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZTestCommands.m; sourceTree = "<group>"; };
 		AB45C4EB1B6BF8BA00CC0166 /* NSError+RZBMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+RZBMock.h"; sourceTree = "<group>"; };
 		AB45C4EC1B6BF8BA00CC0166 /* NSError+RZBMock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+RZBMock.m"; sourceTree = "<group>"; };
-		AB45C4ED1B6BF8BA00CC0166 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		AB45C5051B6BF8D300CC0166 /* libRZMockBluetooth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRZMockBluetooth.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB45C5071B6BF8D300CC0166 /* RZMockBluetooth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZMockBluetooth.h; sourceTree = "<group>"; };
 		AB45C5451B6C09FD00CC0166 /* RZBInvocationLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZBInvocationLog.h; sourceTree = "<group>"; };
@@ -395,7 +394,6 @@
 		AB45C4E51B6BF8BA00CC0166 /* RZMockBluetooth */ = {
 			isa = PBXGroup;
 			children = (
-				AB45C4ED1B6BF8BA00CC0166 /* README.md */,
 				AB45C5071B6BF8D300CC0166 /* RZMockBluetooth.h */,
 				ABCD83711B71D1F900DA1162 /* Mock */,
 				AB4135E61B718C94002F450F /* Simulation */,

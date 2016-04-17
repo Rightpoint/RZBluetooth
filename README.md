@@ -205,6 +205,8 @@ The following mock objects are available:
 |CBPeripheral        | RZBMockPeripheral        | RZBMockedPeripheral        |
 |CBPeripheralManager | RZBMockPeripheralManager | RZBMockedPeripheralManager |
 
+The mock objects mirror the CoreBluetooth stack and support the same public-facing API as their CoreBluetooth equivilents. All of the mock objects objects follow two patterns. When a Core Bluetooth API is invoked on the mock object, it will relay that method call out to the `mockDelegate` immediately. The mock objects also support a large number of methods with the prefix `fake`. Every one of these fake methods are associated with a delegate method on the delegate of that object. When the method is invoked, it will dispatch a delegate trigger to the objects dispatch queue.
+
 As a developer, you can use `RZBMockCentralManager` or `RZBMockPeripheralManager`  directly, or you can use `RZBMockEnable(YES)`. This will swizzle alloc of `CBCentralManager` and `CBPeripheralManager` and return the equivolent RZBMock object instead. RZBMockCentralManager will create `RZBMockPeripheral` objects instead of `CBPeripheral` objects.
 
 # Fake Peripheral
@@ -218,11 +220,11 @@ This may sound like a lot of effort for little pay off. But the development valu
 RZBMockBluetooth provides a few simulation objects that use the mock objects to connect the `CBCentralManager` and the `CBPeripheralManager` APIs. This allows the developer to take the fake peripheral developed above and simulate a fully functioning bluetooth stack inside the application. This also works inside the simulator, which has traditionally be useless for Core Bluetooth development. It is also easy to integrate into unit tests, or a debug menu inside the application.
 
 ## Sequence Diagrams
-To help understand how simulation compares against real bluetooth usage, here is a sequence diagram of a read using Bluetooth:
+To help understand how simulation compares against real bluetooth usage, here is a [sequence diagram](Documentation/Read.msc) of a read using Bluetooth:
 
 ![Bluetooth Sequence Diagram](Documentation/Read.png)
 
-Here is the same read request going through simulation:
+Here is a [sequence diagram](Documentation/Simulated-Read.msc) of the same read request going through simulation:
 
 ![Bluetooth Sequence Diagram](Documentation/Simulated-Read.png)
 
