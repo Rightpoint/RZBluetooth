@@ -9,12 +9,14 @@
 @import CoreBluetooth;
 
 #import "RZBCentralManager.h"
-#import "CBPeripheral+RZBExtension.h"
-#import "CBService+RZBExtension.h"
+#import "RZBPeripheral.h"
+#import "RZBScanInfo.h"
 #import "RZBErrors.h"
-#import "CBUUID+RZBPublic.h"
 #import "RZBUserInteraction.h"
+#import "RZBLog.h"
 
+#import "CBUUID+RZBPublic.h"
 #import "RZBDeviceInfo.h"
-#import "CBPeripheral+RZBHeartRate.h"
-#import "CBPeripheral+RZBBattery.h"
+#import "RZBHeartRateMeasurement.h"
+#import "RZBPeripheral+RZBHeartRate.h"
+#import "RZBPeripheral+RZBBattery.h"

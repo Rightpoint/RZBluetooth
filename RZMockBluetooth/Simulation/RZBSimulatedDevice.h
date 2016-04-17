@@ -8,10 +8,11 @@
 
 #import "RZBBluetoothRepresentable.h"
 
-@class RZBMockPeripheralManager;
+NS_ASSUME_NONNULL_BEGIN
 
-typedef CBATTError (^RZBSimulatedDeviceRead)(CBATTRequest *request);
-typedef void (^RZBSimulatedDeviceSubscribe)(BOOL isNotifying);
+typedef CBATTError (^RZBATTRequestHandler)(CBATTRequest *request);
+typedef void (^RZBNotificationHandler)(BOOL isNotifying);
+typedef void (^RZBPeripheralManagerStateBlock)(CBPeripheralManagerState state);
 
 /**
  *  The simulated device is a peripheral manager delegate that is intended to mock
@@ -23,31 +24,13 @@ typedef void (^RZBSimulatedDeviceSubscribe)(BOOL isNotifying);
 @interface RZBSimulatedDevice : NSObject <CBPeripheralManagerDelegate>
 
 /**
- *  Create a new simulated device connected to a mock peripheral manager. The UUID specified
- *  is equivelent to the identifier seen by CBPeripheral on the client side.
- *
- *  @param identifier The UUID to expose this device as to the CBCentralManager
- *  @param queue The dispatch queue to trigger the delegate on
- *  @param options The option dictionary to pass to the CBPeripheralManager
- */
-- (instancetype)initMockWithIdentifier:(NSUUID *)identifier
-                                 queue:(dispatch_queue_t)queue
-                               options:(NSDictionary *)options;
-
-/**
  *  Create a new device connected to a true CBPeripheralManager instance.
  *
  *  @param queue The dispatch queue to trigger the delegate on
  *  @param options The option dictionary to pass to the CBPeripheralManager
  */
-- (instancetype)initWithQueue:(dispatch_queue_t)queue
+- (instancetype)initWithQueue:(dispatch_queue_t __nullable)queue
                       options:(NSDictionary *)options;
-
-/**
- *  The identifier that identifies this device. This property is only valid when connected to a mock
- *  peripheral manager.
- */
-@property (strong, nonatomic, readonly) NSUUID *identifier;
 
 /**
  *  The peripheralManager associated with this device. Note that this can be either a CBPeripheralManager
@@ -63,13 +46,13 @@ typedef void (^RZBSimulatedDeviceSubscribe)(BOOL isNotifying);
 /**
  *  All of the services added to the peripheral
  */
-@property (strong, nonatomic, readonly) NSArray *services;
+@property (strong, nonatomic, readonly) NSArray<CBMutableService *> *services;
 
 /**
  *  A block to be triggered on peripheral manager state change. When connecting to a real CBPeripheralManager
  *  services can only be configured when state is CBPeripheralManagerStatePoweredOn.
  */
-@property (copy, nonatomic) void (^onStateChange)(CBPeripheralManagerState);
+@property (copy, nullable) RZBPeripheralManagerStateBlock onStateChange;
 
 /**
  * Shared storage for categories. This is a hack that allows categories to define storage. I'm not sure
@@ -82,7 +65,7 @@ typedef void (^RZBSimulatedDeviceSubscribe)(BOOL isNotifying);
  *
  *  @note This should be replaced by checking for isPrimary on the array of services.
  */
-@property (strong, nonatomic) NSArray *advertisedServices;
+@property (strong, nonatomic, readonly) NSArray *advertisedServices;
 
 /**
  *  Start advertising the device.
@@ -103,19 +86,19 @@ typedef void (^RZBSimulatedDeviceSubscribe)(BOOL isNotifying);
  *  Block based API for adding read callback handlers for a characteristic with a specific UUID. Subclasses
  *  can also over-ride CBPeripheralManagerDelegate methods, as long as super is called.
  */
-- (void)addReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBSimulatedDeviceRead)handler;
+- (void)addReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBATTRequestHandler)handler;
 
 /**
  *  Block based API for adding write callback handlers for a characteristic with a specific UUID. Subclasses
  *  can also over-ride CBPeripheralManagerDelegate methods, as long as super is called.
  */
-- (void)addWriteCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBSimulatedDeviceRead)handler;
+- (void)addWriteCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBATTRequestHandler)handler;
 
 /**
  *  Block based API for adding subscribe callback handlers for a characteristic with a specific UUID. Subclasses
  *  can also over-ride CBPeripheralManagerDelegate methods, as long as super is called.
  */
-- (void)addSubscribeCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBSimulatedDeviceSubscribe)handler;
+- (void)addSubscribeCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBNotificationHandler)handler;
 
 /**
  *  Add a RZBBluetoothRepresentable object to the simulated device.
@@ -128,3 +111,5 @@ typedef void (^RZBSimulatedDeviceSubscribe)(BOOL isNotifying);
 - (CBMutableCharacteristic *)characteristicForUUID:(CBUUID *)characteristicUUID;
 
 @end
+
+NS_ASSUME_NONNULL_END

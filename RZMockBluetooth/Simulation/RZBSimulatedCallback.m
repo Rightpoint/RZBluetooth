@@ -51,15 +51,16 @@ static NSTimeInterval __defaultDelay = 0;
         dispatchCounter = self.dispatchCounter;
         self.dispatchCounter += 1;
     }
+    __weak typeof(self) wself = self;
 
     dispatch_group_enter(self.group);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.delay * NSEC_PER_SEC)), self.queue, ^{
-        dispatch_group_leave(self.group);
+        dispatch_group_leave(wself.group);
     });
 
     dispatch_group_notify(self.group, self.queue, ^{
-        if (dispatchCounter >= self.cancelCounter) {
-            block(self.injectError);
+        if (dispatchCounter >= wself.cancelCounter) {
+            block(wself.injectError);
         }
     });
 }

@@ -9,23 +9,9 @@
 #import "ScanListViewController.h"
 #import "PeripheralViewController.h"
 
-@interface ScanListViewModel : NSObject
-
-@property (strong, nonatomic) CBPeripheral *peripheral;
-@property (strong, nonatomic) NSNumber *RSSI;
-@property (strong, nonatomic) NSDictionary *advInfo;
-
-
-@end
-
-@implementation ScanListViewModel
-
-
-@end
-
 @interface ScanListViewController ()
 
-@property (strong, nonatomic) NSMutableArray *scannedDevices;
+@property (strong, nonatomic) NSMutableArray<RZBScanInfo *> *scannedDevices;
 @property (strong, nonatomic) RZBCentralManager *centralManager;
 @property (strong, nonatomic) CBUUID *scanUUID;
 @property (strong, nonatomic) Class discoveredViewControllerClass;
@@ -49,47 +35,43 @@
     return self;
 }
 
+- (void)addScanInfo:(RZBScanInfo *)scanInfo {
+
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
 }
 
-- (ScanListViewModel *)scanListViewModelForPeripheral:(CBPeripheral *)peripheral
-{
-    for (ScanListViewModel *viewModel in self.scannedDevices) {
-        if ([viewModel.peripheral.identifier isEqual:peripheral.identifier]) {
-            return viewModel;
-        }
-    }
-    return nil;
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.centralManager scanForPeripheralsWithServices:@[self.scanUUID] options:@{} onDiscoveredPeripheral:^(CBPeripheral *peripheral, NSDictionary *advInfo, NSNumber *RSSI) {
-        ScanListViewModel *viewModel = [self scanListViewModelForPeripheral:peripheral];
-        NSUInteger index = [self.scannedDevices indexOfObject:viewModel];
-        if (viewModel == nil) {
-            viewModel = [[ScanListViewModel alloc] init];
-            viewModel.peripheral = peripheral;
+    [self.centralManager scanForPeripheralsWithServices:@[self.scanUUID] options:@{} onDiscoveredPeripheral:^(RZBScanInfo *scanInfo, NSError *error) {
+        if (error) {
+            NSLog(@"Error scanning: %@", error);
+            return;
         }
-        viewModel.advInfo = advInfo;
-        viewModel.RSSI = RSSI;
-        NSLog(@"%@ - %@", [peripheral.identifier UUIDString], advInfo);
+        __block NSUInteger existingIndex = 0;
+        [self.scannedDevices enumerateObjectsUsingBlock:^(RZBScanInfo * info, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([info.peripheral.identifier isEqual:scanInfo.peripheral.identifier]) {
+                info.advInfo = scanInfo.advInfo;
+                info.RSSI = scanInfo.RSSI;
+                existingIndex = idx;
+            }
+        }];
 
-        if (index == NSNotFound) {
-            [self.scannedDevices addObject:viewModel];
+        NSLog(@"%@ - %@", [scanInfo.peripheral.identifier UUIDString], scanInfo.advInfo);
+
+        if (existingIndex == NSNotFound) {
             [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.scannedDevices.count - 1 inSection:0]]
                                   withRowAnimation:UITableViewRowAnimationAutomatic];
         }
         else {
-            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:existingIndex inSection:0]]
                                   withRowAnimation:UITableViewRowAnimationAutomatic];
         }
-    } onError:^(NSError *error) {
-        NSLog(@"Error scanning: %@", error);
     }];
 }
 
@@ -112,14 +94,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
-    ScanListViewModel *object = self.scannedDevices[indexPath.row];
+    RZBScanInfo *object = self.scannedDevices[indexPath.row];
     cell.textLabel.text = object.peripheral.name;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ScanListViewModel *object = self.scannedDevices[indexPath.row];
+    RZBScanInfo *object = self.scannedDevices[indexPath.row];
     UIViewController *scanViewController = [[self.discoveredViewControllerClass alloc] initWithPeripheral:object.peripheral];
     [self.navigationController pushViewController:scanViewController animated:YES];
 }

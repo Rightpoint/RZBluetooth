@@ -25,8 +25,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.peripheral rzb_addHeartRateObserver:^(RZBHeartRateMeasurement *measurement, NSError *error) {
-        self.heartRate.text = [NSString stringWithFormat:@"%lu", (unsigned long) measurement.heartRate];
+    __weak typeof(self) weakSelf = self;
+    [self.peripheral addHeartRateObserver:^(RZBHeartRateMeasurement *measurement, NSError *error) {
+        weakSelf.heartRate.text = [NSString stringWithFormat:@"%lu", (unsigned long) measurement.heartRate];
         NSLog(@"%@", measurement);
     } completion:^(NSError *error) {
         NSLog(@"Error=%@", error);

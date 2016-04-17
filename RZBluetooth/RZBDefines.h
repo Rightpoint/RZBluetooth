@@ -7,7 +7,10 @@
 //
 
 @import CoreBluetooth;
+#import "RZBPeripheralStateEvent.h"
 
+@class RZBPeripheral;
+@class RZBScanInfo;
 #define RZB_KEYPATH(c, p) ({\
 c *object __unused; \
 typeof(object.p) property __unused; \
@@ -16,16 +19,17 @@ typeof(object.p) property __unused; \
 
 #define RZB_OVERLOADED FOUNDATION_EXTERN __attribute__((overloadable))
 #define RZB_DEFAULT_BLOCK(block) block = block ?: ^(id obj, NSError *error) {}
+#define RZB_DEFAULT_ERROR_BLOCK(block) block = block ?: ^(NSError *error) {}
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^RZBScanBlock)(CBPeripheral *peripheral, NSDictionary *advInfo, NSNumber *RSSI);
+typedef void(^RZBScanBlock)(RZBScanInfo *__nullable scanInfo, NSError *__nullable error);
 typedef void(^RZBErrorBlock)(NSError *__nullable error);
 typedef void(^RZBStateBlock)(CBCentralManagerState state);
-typedef void(^RZBRestorationBlock)(NSArray *peripherals);
-typedef void(^RZBRSSIBlock)(NSNumber *RSSI, NSError *__nullable error);
+typedef void(^RZBRestorationBlock)(NSArray<RZBPeripheral *> *peripherals);
+typedef void(^RZBRSSIBlock)(NSNumber *__nullable RSSI, NSError *__nullable error);
+typedef void(^RZBConnectionBlock)(RZBPeripheralStateEvent state, NSError *__nullable error);
 
-typedef void(^RZBPeripheralBlock)(CBPeripheral *__nullable peripheral, NSError *__nullable error);
 typedef void(^RZBServiceBlock)(CBService *__nullable service, NSError *__nullable error);
 typedef void(^RZBCharacteristicBlock)(CBCharacteristic *__nullable characteristic, NSError *__nullable error);
 

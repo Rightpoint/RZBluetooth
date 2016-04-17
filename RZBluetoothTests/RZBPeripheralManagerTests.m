@@ -7,7 +7,7 @@
 //
 
 #import "RZBSimulatedTestCase.h"
-#import "CBPeripheral+RZBBattery.h"
+#import "RZBPeripheral+RZBBattery.h"
 #import "RZBSimulatedDevice+RZBBatteryLevel.h"
 #import "CBUUID+RZBPublic.h"
 #import "XCTestCase+Helpers.h"
@@ -41,10 +41,11 @@
 - (void)testPeripheralManagerDisconnectionViaSimulatedConnectionDisconnection
 {
     typeof(self) welf = self;
-    [self.peripheral rzb_addBatteryLevelObserver:^(NSUInteger level, NSError *error) {
+    [self.peripheral addBatteryLevelObserver:^(NSUInteger level, NSError *error) {
         welf.level = level;
     } completion:^(NSError *error) {
     }];
+    [self waitForQueueFlush];
     [self waitForQueueFlush];
     XCTAssert(self.peripheral.state == CBPeripheralStateConnected);
     XCTAssert(self.isNotifying);
@@ -60,7 +61,7 @@
 - (void)testPeripheralManagerDisconnectionViaCancelConnection
 {
     typeof(self) welf = self;
-    [self.peripheral rzb_addBatteryLevelObserver:^(NSUInteger level, NSError *error) {
+    [self.peripheral addBatteryLevelObserver:^(NSUInteger level, NSError *error) {
         welf.level = level;
     } completion:^(NSError *error) {
     }];
@@ -68,11 +69,28 @@
     XCTAssert(self.peripheral.state == CBPeripheralStateConnected);
     XCTAssert(self.isNotifying);
 
-    [self.centralManager cancelConnectionFromPeripheralUUID:self.peripheral.identifier completion:^(CBPeripheral *peripheral, NSError *error) {
-
+    [self.peripheral cancelConnectionWithCompletion:^(NSError * _Nullable error) {
     }];
     [self waitForQueueFlush];
     XCTAssert(self.isNotifying == NO);
+}
+
+- (void)testPeripheralManagerUpdateErrorInjection
+{
+    __block NSError *injectedError = nil;
+    [self.peripheral addBatteryLevelObserver:^(NSUInteger level, NSError *error) {
+        injectedError = error;
+    } completion:^(NSError *error) {
+    }];
+    [self waitForQueueFlush];
+    XCTAssert(self.peripheral.state == CBPeripheralStateConnected);
+    XCTAssert(self.isNotifying);
+    self.connection.updateCallback.injectError = (id)[NSNull null];
+
+    self.device.batteryLevel = 42;
+
+    [self waitForQueueFlush];
+    XCTAssertNotNil(injectedError);
 }
 
 @end

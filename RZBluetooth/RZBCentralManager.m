@@ -8,14 +8,27 @@
 
 #import "RZBCentralManager+Private.h"
 #import "CBService+RZBExtension.h"
-#import "CBPeripheral+RZBExtension.h"
+#import "RZBPeripheral+Private.h"
 #import "RZBCommandDispatch.h"
 #import "RZBCommand.h"
 #import "RZBUUIDPath.h"
 #import "RZBErrors.h"
+#import "RZBScanInfo.h"
 #import "RZBLog+Private.h"
+#import "RZBPeripheralStateEvent.h"
 
 @implementation RZBCentralManager
+
++ (NSDictionary *)optionsForIdentifier:(NSString *)identifier
+{
+    NSArray *backgroundModes = [[NSBundle mainBundle] infoDictionary][@"UIBackgroundModes"];
+
+    BOOL backgroundSupport = [backgroundModes containsObject:@"bluetooth-central"];
+    if (backgroundSupport == NO) {
+        RZBLog(RZBLogLevelConfiguration, @"Background central support is not enabled. Add 'bluetooth-central' to UIBackgroundModes to enable background support");
+    }
+    return backgroundSupport ? @{CBCentralManagerOptionRestoreIdentifierKey: identifier} : @{};
+}
 
 - (instancetype)init
 {
@@ -24,33 +37,33 @@
 
 - (instancetype)initWithIdentifier:(NSString *)identifier queue:(dispatch_queue_t)queue
 {
-    return [self initWithIdentifier:identifier queue:queue centralClass:[CBCentralManager class]];
+    return [self initWithIdentifier:identifier peripheralClass:[RZBPeripheral class] queue:queue];
 }
 
-- (instancetype)initWithIdentifier:(NSString *)identifier queue:(dispatch_queue_t)queue centralClass:(Class)centralClass
+- (instancetype)initWithIdentifier:(NSString *)identifier peripheralClass:(Class)peripheralClass queue:(dispatch_queue_t __nullable)queue;
 {
     NSParameterAssert(identifier);
     self = [super init];
     if (self) {
-        NSDictionary *options = @{};
-        _centralManager = [[centralClass alloc] initWithDelegate:self
-                                                           queue:queue
-                                                         options:options];
+        _peripheralClass = peripheralClass ?: [RZBPeripheral class];
+        NSDictionary *options = [self.class optionsForIdentifier:identifier];
+        _coreCentralManager = [[CBCentralManager alloc] initWithDelegate:self
+                                                                   queue:queue
+                                                                 options:options];
         _dispatch = [[RZBCommandDispatch alloc] initWithQueue:queue context:self];
-        _managerState = [[RZBCentralManagerState alloc] init];
+        _peripheralsByUUID = [NSMutableDictionary dictionary];
     }
     return self;
 }
 
 - (CBCentralManagerState)state
 {
-    return self.centralManager.state;
+    return self.coreCentralManager.state;
 }
 
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs
                                options:(NSDictionary *)options
                 onDiscoveredPeripheral:(RZBScanBlock)scanBlock
-                               onError:(RZBErrorBlock)onError
 {
     NSParameterAssert(scanBlock);
     self.activeScanBlock = scanBlock;
@@ -60,8 +73,8 @@
                                               createNew:YES];
     cmd.serviceUUIDs = serviceUUIDs;
     [cmd addCallbackBlock:^(id object, NSError *error) {
-        if (onError && error) {
-            onError(error);
+        if (error) {
+            scanBlock(nil, error);
         }
     }];
 
@@ -72,104 +85,47 @@
 {
     self.activeScanBlock = nil;
     [self completeScanCommand];
-    if (self.centralManager.state == CBCentralManagerStatePoweredOn) {
-        [self.centralManager stopScan];
+    if (self.coreCentralManager.state == CBCentralManagerStatePoweredOn) {
+        [self.coreCentralManager stopScan];
     }
 }
 
-#pragma mark - Command Generation
+#pragma mark - Lookup Helpers
 
-- (void)maintainConnectionToPeripheralUUID:(NSUUID *)peripheralUUID
+- (CBPeripheral *)corePeripheralForUUID:(NSUUID *)peripheralUUID
 {
     NSParameterAssert(peripheralUUID);
-    CBPeripheral *peripheral = [self peripheralForUUID:peripheralUUID];
-    [self.managerState stateForIdentifier:peripheralUUID].maintainConnection = YES;
-    [self triggerAutomaticConnectionForPeripheral:peripheral];
-}
-
-- (void)setConnectionHandlerForPeripheralUUID:(NSUUID *)peripheralUUID
-                                      handler:(RZBPeripheralBlock)onConnection;
-{
-    [self.managerState stateForIdentifier:peripheralUUID].onConnection = onConnection;
-}
-
-- (void)setDisconnectionHandlerForPeripheralUUID:(NSUUID *)peripheralUUID
-                                         handler:(RZBPeripheralBlock)onDisconnection;
-{
-    [self.managerState stateForIdentifier:peripheralUUID].onDisconnection = onDisconnection;
-}
-
-- (void)cancelConnectionFromPeripheralUUID:(NSUUID *)peripheralUUID
-                                completion:(RZBPeripheralBlock)completion
-{
-    NSParameterAssert(peripheralUUID);
-    CBPeripheral *peripheral = [self peripheralForUUID:peripheralUUID];
-    [self.managerState stateForIdentifier:peripheralUUID].onConnection = nil;
-    [self.managerState stateForIdentifier:peripheralUUID].onDisconnection = nil;
-    [self.managerState stateForIdentifier:peripheralUUID].maintainConnection = NO;
-    if (peripheral.state == CBPeripheralStateDisconnected) {
-        dispatch_async(self.dispatch.queue, ^() {
-            if (completion) {
-                completion(peripheral, nil);
-            }
-        });
-    }
-    else {
-        RZBConnectCommand *cmd = [self.dispatch commandOfClass:[RZBCancelConnectionCommand class]
-                                              matchingUUIDPath:RZBUUIDP(peripheralUUID)
-                                                     createNew:YES];
-        [cmd addCallbackBlock:completion];
-        [self.dispatch dispatchCommand:cmd];
-    }
-}
-
-- (void)connectToPeripheralUUID:(NSUUID *)peripheralUUID
-                     completion:(RZBPeripheralBlock)completion
-{
-    NSParameterAssert(peripheralUUID);
-    CBPeripheral *peripheral = [self peripheralForUUID:peripheralUUID];
-    [self.managerState stateForIdentifier:peripheralUUID].peripheral = peripheral;
-    if (peripheral.state == CBPeripheralStateConnected) {
-        dispatch_async(self.dispatch.queue, ^() {
-            if (completion) {
-                completion(peripheral, nil);
-            }
-        });
-    }
-    else {
-        // Add our callback to the current executing command
-        RZBConnectCommand *cmd = [self.dispatch commandOfClass:[RZBConnectCommand class]
-                                              matchingUUIDPath:RZBUUIDP(peripheralUUID)
-                                                     createNew:YES];
-        [cmd addCallbackBlock:completion];
-        [self.dispatch dispatchCommand:cmd];
-    }
-}
-
-#pragma mark - Command Helpers
-
-- (CBPeripheral *)peripheralForUUID:(NSUUID *)peripheralUUID
-{
-    NSParameterAssert(peripheralUUID);
-    NSArray *peripherals = [self.centralManager retrievePeripheralsWithIdentifiers:@[peripheralUUID]];
+    NSArray *peripherals = [self.coreCentralManager retrievePeripheralsWithIdentifiers:@[peripheralUUID]];
     CBPeripheral *peripheral = [peripherals lastObject];
     peripheral.delegate = self;
     return peripheral;
 }
 
-- (CBPeripheral *)connectedPeripheralForUUID:(NSUUID *)peripheralUUID
-                          triggeredByCommand:(RZBCommand *)triggeringCommand
+- (RZBPeripheral *)peripheralForCorePeripheral:(CBPeripheral *)corePeripheral
+{
+    NSParameterAssert(corePeripheral);
+    RZBPeripheral *peripheral = [self.peripheralsByUUID objectForKey:corePeripheral.identifier];
+    if (peripheral == nil) {
+        peripheral = [[self.peripheralClass alloc] initWithCorePeripheral:corePeripheral
+                                                           centralManager:self];
+        [self.peripheralsByUUID setObject:peripheral forKey:corePeripheral.identifier];
+    }
+
+    return peripheral;
+}
+
+- (RZBPeripheral *)peripheralForUUID:(NSUUID *)peripheralUUID
 {
     NSParameterAssert(peripheralUUID);
-    CBPeripheral *peripheral = [self peripheralForUUID:peripheralUUID];
-    BOOL connected = peripheral.state == CBPeripheralStateConnected;
-    if (!connected) {
-        RZBConnectCommand *cmd = [self.dispatch commandOfClass:[RZBConnectCommand class]
-                                              matchingUUIDPath:RZBUUIDP(peripheralUUID)
-                                                     createNew:YES];
-        triggeringCommand.retryAfter = cmd;
+    RZBPeripheral *peripheral = [self.peripheralsByUUID objectForKey:peripheralUUID];
+    if (peripheral == nil) {
+        CBPeripheral *corePeripheral = [self corePeripheralForUUID:peripheralUUID];
+        peripheral = [[self.peripheralClass alloc] initWithCorePeripheral:corePeripheral
+                                                           centralManager:self];
+        [self.peripheralsByUUID setObject:peripheral forKey:peripheralUUID];
     }
-    return connected ? peripheral : nil;
+
+    return peripheral;
 }
 
 - (CBService *)serviceForUUID:(CBUUID *)serviceUUID onPeripheral:(CBPeripheral *)peripheral
@@ -182,48 +138,6 @@
         }
     }
     return nil;
-}
-
-- (CBService *)serviceForUUID:(CBUUID *)serviceUUID
-                 onPeripheral:(CBPeripheral *)peripheral
-           triggeredByCommand:(RZBCommand *)triggeringCommand;
-{
-    NSParameterAssert(serviceUUID);
-    if (peripheral == nil) {
-        return nil;
-    }
-    CBService *service = [self serviceForUUID:serviceUUID onPeripheral:peripheral];
-    if (service == nil) {
-        RZBDiscoverServiceCommand *cmd = [self.dispatch commandOfClass:[RZBDiscoverServiceCommand class]
-                                                      matchingUUIDPath:RZBUUIDP(peripheral.identifier)
-                                                            isExecuted:NO
-                                                             createNew:YES];
-        [cmd addServiceUUID:serviceUUID];
-        triggeringCommand.retryAfter = cmd;
-    }
-    return service;
-}
-
-- (CBCharacteristic *)characteristicForUUID:(CBUUID *)characteristicUUID
-                                  onService:(CBService *)service
-                         triggeredByCommand:(RZBCommand *)triggeringCommand;
-{
-    NSParameterAssert(characteristicUUID);
-    if (service == nil) {
-        return nil;
-    }
-    CBCharacteristic *characteristic = [service rzb_characteristicForUUID:characteristicUUID];
-    if (characteristic == nil) {
-        CBPeripheral *peripheral = service.peripheral;
-        NSParameterAssert(peripheral);
-        RZBDiscoverCharacteristicCommand *cmd = [self.dispatch commandOfClass:[RZBDiscoverCharacteristicCommand class]
-                                                             matchingUUIDPath:RZBUUIDP(peripheral.identifier, service.UUID)
-                                                                   isExecuted:NO
-                                                                    createNew:YES];
-        [cmd addCharacteristicUUID:characteristicUUID];
-        triggeringCommand.retryAfter = cmd;
-    }
-    return characteristic;
 }
 
 /**
@@ -241,17 +155,6 @@
     [self.dispatch completeCommand:command withObject:object error:error];
 
     return commands.count > 0;
-}
-
-- (void)triggerAutomaticConnectionForPeripheral:(CBPeripheral *)peripheral;
-{
-    RZBPeripheralState *state = [self.managerState stateForIdentifier:peripheral.identifier];
-    if (peripheral.state == CBPeripheralStateDisconnected && state.maintainConnection) {
-        RZBConnectCommand *cmd = [self.dispatch commandOfClass:[RZBConnectCommand class]
-                                              matchingUUIDPath:RZBUUIDP(peripheral.identifier)
-                                                     createNew:YES];
-        [self.dispatch dispatchCommand:cmd];
-    }
 }
 
 - (void)completeScanCommand
@@ -279,10 +182,8 @@
         case CBCentralManagerStateResetting:
             [self.dispatch resetCommands];
             break;
-        case CBCentralManagerStatePoweredOn:
+        default:
             [self.dispatch dispatchPendingCommands];
-            break;
-        default: {}
     }
 }
 
@@ -291,77 +192,76 @@
     RZBLogDelegate(@"%@ - %@", NSStringFromSelector(_cmd), central);
     RZBLogDelegateValue(@"Restore State=%@", dict);
 
-    NSArray *peripherals = dict[CBCentralManagerRestoredStatePeripheralsKey];
-    for (CBPeripheral *peripheral in peripherals) {
+    NSMutableArray *peripherals = [NSMutableArray array];
+    for (CBPeripheral *peripheral in dict[CBCentralManagerRestoredStatePeripheralsKey]) {
         peripheral.delegate = self;
-        [self.managerState stateForIdentifier:peripheral.identifier].peripheral = peripheral;
+        [peripherals addObject:[self peripheralForCorePeripheral:peripheral]];
     }
     if (self.restorationHandler) {
         self.restorationHandler(peripherals);
     }
 }
 
-- (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
+- (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)corePeripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
-    RZBLogDelegate(@"%@ - %@ %@", NSStringFromSelector(_cmd), central, RZBLogIdentifier(peripheral));
+    RZBLogDelegate(@"%@ - %@ %@", NSStringFromSelector(_cmd), central, RZBLogIdentifier(corePeripheral));
     RZBLogDelegateValue(@"advertisementData=%@", advertisementData);
     RZBLogDelegateValue(@"RSSI=%@", RSSI);
 
     if (self.activeScanBlock) {
-        peripheral.delegate = self;
-        self.activeScanBlock(peripheral, advertisementData, RSSI);
+        RZBScanInfo *scanInfo = [[RZBScanInfo alloc] init];
+        scanInfo.RSSI = RSSI;
+        scanInfo.advInfo = advertisementData;
+        scanInfo.peripheral = [self peripheralForCorePeripheral:corePeripheral];
+        self.activeScanBlock(scanInfo, nil);
     }
 }
 
-- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
+- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)corePeripheral
 {
-    RZBLogDelegate(@"%@ - %@ %@", NSStringFromSelector(_cmd), central, RZBLogIdentifier(peripheral));
-    RZBPeripheralBlock onConnection = [self.managerState stateForIdentifier:peripheral.identifier].onConnection;
-    if (onConnection) {
-        onConnection(peripheral, nil);
-    }
+    RZBLogDelegate(@"%@ - %@ %@", NSStringFromSelector(_cmd), central, RZBLogIdentifier(corePeripheral));
+    RZBPeripheral *peripheral = [self peripheralForCorePeripheral:corePeripheral];
 
     [self completeFirstCommandOfClass:[RZBConnectCommand class]
                      matchingUUIDPath:RZBUUIDP(peripheral.identifier)
                            withObject:peripheral
                                 error:nil];
+    [peripheral connectionEvent:RZBPeripheralStateEventConnectSuccess error:nil];
 }
 
-- (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
+- (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)corePeripheral error:(NSError *)error
 {
-    RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), central, RZBLogIdentifier(peripheral), error);
+    RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), central, RZBLogIdentifier(corePeripheral), error);
+    RZBPeripheral *peripheral = [self peripheralForCorePeripheral:corePeripheral];
+
     [self completeFirstCommandOfClass:[RZBConnectCommand class]
-                     matchingUUIDPath:RZBUUIDP(peripheral.identifier)
+                     matchingUUIDPath:RZBUUIDP(corePeripheral.identifier)
                            withObject:peripheral
                                 error:error];
-    [self triggerAutomaticConnectionForPeripheral:peripheral];
+    [peripheral connectionEvent:RZBPeripheralStateEventConnectFailure error:error];
 }
 
-- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
+- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)corePeripheral error:(NSError *)error
 {
-    RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), central, RZBLogIdentifier(peripheral), error);
-    RZBPeripheralBlock onDisconnection = [self.managerState stateForIdentifier:peripheral.identifier].onDisconnection;
-    if (onDisconnection) {
-        onDisconnection(peripheral, error);
-    }
-
-    // Clear out the strong storage of the peripheral.
-    [self.managerState stateForIdentifier:peripheral.identifier].peripheral = nil;
+    RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), central, RZBLogIdentifier(corePeripheral), error);
+    RZBPeripheral *peripheral = [self peripheralForCorePeripheral:corePeripheral];
 
     [self completeFirstCommandOfClass:[RZBCancelConnectionCommand class]
-                     matchingUUIDPath:RZBUUIDP(peripheral.identifier)
-                           withObject:peripheral
+                     matchingUUIDPath:RZBUUIDP(corePeripheral.identifier)
+                           withObject:corePeripheral
                                 error:error];
 
     // This delegate method can terminate any outstanding command, and is often the terminal event
     // for a connection. Fail all commands to this peripheral
     NSArray *commands = [self.dispatch commandsOfClass:nil
-                                      matchingUUIDPath:RZBUUIDP(peripheral.identifier)
+                                      matchingUUIDPath:RZBUUIDP(corePeripheral.identifier)
                                             isExecuted:YES];
     for (RZBCommand *command in commands) {
         [self.dispatch completeCommand:command withObject:nil error:error];
     }
-    [self triggerAutomaticConnectionForPeripheral:peripheral];
+    // Clear out any onUpdate blocks
+    [peripheral.notifyBlockByUUID removeAllObjects];
+    [peripheral connectionEvent:RZBPeripheralStateEventDisconnected error:error];
 }
 
 #pragma mark CBPeripheralDelegate
@@ -382,10 +282,12 @@
                                 error:error];
 }
 
-- (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
+- (void)peripheral:(CBPeripheral *)corePeripheral didDiscoverServices:(NSError *)error
 {
-    RZBLogDelegate(@"%@ - %@ %@", NSStringFromSelector(_cmd), RZBLogIdentifier(peripheral), error);
-    RZBLogDelegateValue(@"Services=%@", RZBLogUUIDArray(peripheral.services));
+    RZBLogDelegate(@"%@ - %@ %@", NSStringFromSelector(_cmd), RZBLogIdentifier(corePeripheral), error);
+    RZBLogDelegateValue(@"Services=%@", RZBLogUUIDArray(corePeripheral.services));
+
+    RZBPeripheral *peripheral = [self peripheralForCorePeripheral:corePeripheral];
 
     [self completeFirstCommandOfClass:[RZBDiscoverServiceCommand class]
                      matchingUUIDPath:RZBUUIDP(peripheral.identifier)
@@ -393,38 +295,40 @@
                                 error:error];
 }
 
-- (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
+- (void)peripheral:(CBPeripheral *)corePeripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
-    RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), RZBLogIdentifier(peripheral), RZBLogUUID(service), error);
+    RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), RZBLogIdentifier(corePeripheral), RZBLogUUID(service), error);
     RZBLogDelegateValue(@"Characteristics=%@", RZBLogUUIDArray(service.characteristics));
 
     [self completeFirstCommandOfClass:[RZBDiscoverCharacteristicCommand class]
-                     matchingUUIDPath:RZBUUIDP(peripheral.identifier, service.UUID)
+                     matchingUUIDPath:RZBUUIDP(corePeripheral.identifier, service.UUID)
                            withObject:service
                                 error:error];
 }
 
-- (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
+- (void)peripheral:(CBPeripheral *)corePeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), RZBLogIdentifier(peripheral), RZBLogUUID(characteristic), error);
+    RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), RZBLogIdentifier(corePeripheral), RZBLogUUID(characteristic), error);
     RZBLogDelegateValue(@"Value=%@", characteristic.value);
 
-    RZBUUIDPath *path = RZBUUIDP(peripheral.identifier, characteristic.service.UUID, characteristic.UUID);
+    RZBUUIDPath *path = RZBUUIDP(corePeripheral.identifier, characteristic.service.UUID, characteristic.UUID);
     BOOL complete = [self completeFirstCommandOfClass:[RZBReadCharacteristicCommand class]
                                      matchingUUIDPath:path
                                            withObject:characteristic
                                                 error:error];
-    RZBCharacteristicBlock notifyBlock = [[self.managerState stateForIdentifier:peripheral.identifier] notifyBlockForCharacteristicUUID:characteristic.UUID];
+
+    RZBPeripheral *peripheral = [self peripheralForCorePeripheral:corePeripheral];
+    RZBCharacteristicBlock notifyBlock = [peripheral notifyBlockForCharacteristicUUID:characteristic.UUID];
 
     if (!complete && characteristic.isNotifying && notifyBlock) {
         notifyBlock(characteristic, error);
     }
 }
 
-- (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
+- (void)peripheral:(CBPeripheral *)corePeripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), RZBLogIdentifier(peripheral), RZBLogUUID(characteristic), error);
-    RZBUUIDPath *path = RZBUUIDP(peripheral.identifier, characteristic.service.UUID, characteristic.UUID);
+    RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), RZBLogIdentifier(corePeripheral), RZBLogUUID(characteristic), error);
+    RZBUUIDPath *path = RZBUUIDP(corePeripheral.identifier, characteristic.service.UUID, characteristic.UUID);
     [self completeFirstCommandOfClass:[RZBWriteWithReplyCharacteristicCommand class]
                      matchingUUIDPath:path
                            withObject:characteristic

@@ -8,11 +8,13 @@
 
 #import "RZBMockCentralManager.h"
 #import "RZBMockPeripheral.h"
-#import "CBPeripheral+RZBExtension.h"
 
 @import ObjectiveC.runtime;
 
 @implementation RZBMockPeripheral
+
+@synthesize mockDelegate = _mockDelegate;
+@synthesize state = _state;
 
 + (BOOL)resolveInstanceMethod:(SEL)aSelector
 {
@@ -36,32 +38,32 @@
 
 - (void)readRSSI
 {
-    [self.mockDelegate mockPeripheralReadRSSI:self];
+    [self.mockDelegate mockPeripheralReadRSSI:(id)self];
 }
 
 - (void)discoverServices:(NSArray *)serviceUUIDs
 {
-    [self.mockDelegate mockPeripheral:self discoverServices:serviceUUIDs];
+    [self.mockDelegate mockPeripheral:(id)self discoverServices:serviceUUIDs];
 }
 
 - (void)discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(CBService *)service
 {
-    [self.mockDelegate mockPeripheral:self discoverCharacteristics:characteristicUUIDs forService:service];
+    [self.mockDelegate mockPeripheral:(id)self discoverCharacteristics:characteristicUUIDs forService:service];
 }
 
 - (void)readValueForCharacteristic:(CBCharacteristic *)characteristic
 {
-    [self.mockDelegate mockPeripheral:self readValueForCharacteristic:characteristic];
+    [self.mockDelegate mockPeripheral:(id)self readValueForCharacteristic:characteristic];
 }
 
 - (void)writeValue:(NSData *)data forCharacteristic:(CBCharacteristic *)characteristic type:(CBCharacteristicWriteType)type
 {
-    [self.mockDelegate mockPeripheral:self writeValue:data forCharacteristic:characteristic type:type];
+    [self.mockDelegate mockPeripheral:(id)self writeValue:data forCharacteristic:characteristic type:type];
 }
 
 - (void)setNotifyValue:(BOOL)enabled forCharacteristic:(CBCharacteristic *)characteristic
 {
-    [self.mockDelegate mockPeripheral:self setNotifyValue:enabled forCharacteristic:characteristic];
+    [self.mockDelegate mockPeripheral:(id)self setNotifyValue:enabled forCharacteristic:characteristic];
 }
 
 - (CBMutableService *)newServiceForUUID:(CBUUID *)serviceUUID

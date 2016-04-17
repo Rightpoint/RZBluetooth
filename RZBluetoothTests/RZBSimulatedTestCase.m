@@ -8,8 +8,14 @@
 
 #import "RZBSimulatedTestCase.h"
 #import "NSRunLoop+RZBWaitFor.h"
+#import "RZBCentralManager+Private.h"
 
 @implementation RZBSimulatedTestCase
+
++ (void)load
+{
+    RZBEnableMock(YES);
+}
 
 + (Class)simulatedDeviceClass
 {
@@ -28,27 +34,38 @@
     XCTAssertTrue(ok, @"Dispatch queue did not complete");
 }
 
-- (RZBMockCentralManager *)mockCentralManager
+- (id<RZBMockedCentralManager>)mockCentralManager
 {
-    return self.centralManager.mockCentralManager;
+    id<RZBMockedCentralManager>mockCentral = (id)self.centralManager.coreCentralManager;
+    NSAssert([mockCentral conformsToProtocol:@protocol(RZBMockedCentralManager)], @"Invalid central manager");
+    return mockCentral;
 }
 
-- (CBPeripheral *)peripheral
+- (RZBPeripheral *)peripheral
 {
-    return [self.centralManager peripheralForUUID:self.device.identifier];
+    return [self.centralManager peripheralForUUID:self.connection.identifier];
+}
+
+- (void)configureCentralManager
+{
+    self.centralManager = [[RZBCentralManager alloc] init];
 }
 
 - (void)setUp
 {
     [super setUp];
-    self.centralManager = [[RZBTestableCentralManager alloc] init];
+    [self configureCentralManager];
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
-    self.device = [[self.class.simulatedDeviceClass alloc] initMockWithIdentifier:[NSUUID UUID]
-                                                                            queue:self.mockCentralManager.queue
-                                                                          options:@{}];
-    [self.centralManager.simulatedCentral addSimulatedDeviceWithIdentifier:self.device.identifier
-                                                         peripheralManager:(id)self.device.peripheralManager];
-    self.connection = [self.centralManager.simulatedCentral connectionForIdentifier:self.device.identifier];
+    NSUUID *identifier = [NSUUID UUID];
+    self.device = [[self.class.simulatedDeviceClass alloc] initWithQueue:self.mockCentralManager.queue
+                                                                 options:@{}];
+    id<RZBMockedPeripheralManager> peripheralManager = (id)self.device.peripheralManager;
+    [peripheralManager fakeStateChange:CBPeripheralManagerStatePoweredOn];
+    self.central = [[RZBSimulatedCentral alloc] initWithMockCentralManager:self.mockCentralManager];
+    [self.central addSimulatedDeviceWithIdentifier:identifier
+                                 peripheralManager:(id)self.device.peripheralManager];
+    self.connection = [self.central connectionForIdentifier:identifier];
+    [self waitForQueueFlush];
 }
 
 - (void)tearDown
@@ -57,6 +74,7 @@
     RZBAssertCommandCount(0);
     self.centralManager = nil;
     self.device = nil;
+    self.central = nil;
     [super tearDown];
 }
 

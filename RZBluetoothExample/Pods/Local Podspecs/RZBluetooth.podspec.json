@@ -2,7 +2,7 @@
   "name": "RZBluetooth",
   "version": "0.1",
   "summary": "A Core Bluetooth helper library to simplify the development and testing of Core Bluetooth applications.",
-  "description": "",
+  "description": "RZBluetooth is a Core Bluetooth helper with 3 primary goals:\n\n- Simplify the delegate callbacks and encourage best practices\n- Provide a pattern for Profile level APIs, with support for public profiles\n- Simplify and encourage testing - including unit tests, automated integration tests, and manual tests.",
   "homepage": "http://github.com/Raizlabs/RZBluetooth",
   "license": {
     "type": "MIT",
@@ -24,7 +24,12 @@
     {
       "name": "Core",
       "source_files": "RZBluetooth/**/*.{h,m}",
-      "public_header_files": "RZBluetooth/**/*.h"
+      "public_header_files": "RZBluetooth/**/*.h",
+      "private_header_files": [
+        "RZBluetooth/**/*+Private.h",
+        "RZBluetooth/Command/*.h",
+        "RZBluetooth/RZBCentralManager+CommandHelper.h"
+      ]
     },
     {
       "name": "Mock",
@@ -34,7 +39,8 @@
         ]
       },
       "source_files": "RZMockBluetooth/**/*.{h,m}",
-      "public_header_files": "RZMockBluetooth/**/*.h"
+      "public_header_files": "RZMockBluetooth/**/*.h",
+      "private_header_files": "RZMockBluetooth/**/*+Private.h"
     },
     {
       "name": "Test",

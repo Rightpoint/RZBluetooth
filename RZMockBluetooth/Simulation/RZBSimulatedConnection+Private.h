@@ -11,7 +11,7 @@
 @interface RZBSimulatedConnection ()
 
 - (instancetype)initWithIdentifier:(NSUUID *)identifier
-                 peripheralManager:(RZBMockPeripheralManager *)peripheralManager
+                 peripheralManager:(id<RZBMockedPeripheralManager>)peripheralManager
                            central:(RZBSimulatedCentral *)central;
 
 - (BOOL)isDiscoverableWithServices:(NSArray *)services;
@@ -20,8 +20,8 @@
 @property (strong, nonatomic, readonly) NSMutableArray *writeRequests;
 @property (strong, nonatomic, readonly) NSMutableArray *subscribedCharacteristics;
 
-@property (strong, nonatomic, readonly) RZBMockPeripheralManager *peripheralManager;
+@property (strong, nonatomic, readonly) id<RZBMockedPeripheralManager> peripheralManager;
 @property (weak, nonatomic, readonly) RZBSimulatedCentral *central;
-@property (strong, nonatomic) RZBMockPeripheral *peripheral;
+@property (strong, nonatomic) id<RZBMockedPeripheral> peripheral;
 
 @end

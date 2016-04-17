@@ -8,6 +8,10 @@
 
 @import CoreBluetooth;
 
+/**
+ * This protocol is used to represent an object as a service with a characteristic
+ * for each property of the object. It is only used in the framework by RZBDeviceInfo
+ */
 @protocol RZBBluetoothRepresentable <NSObject>
 
 + (CBUUID *)serviceUUID;

@@ -10,11 +10,12 @@
 #import "RZBMockPeripheralManager.h"
 #import "RZBSimulatedCallback.h"
 #import "RZBSimulatedCentral.h"
+#import "RZBLog+Private.h"
 
 @implementation RZBSimulatedConnection
 
 - (instancetype)initWithIdentifier:(NSUUID *)identifier
-                 peripheralManager:(RZBMockPeripheralManager *)peripheralManager
+                 peripheralManager:(id<RZBMockedPeripheralManager>)peripheralManager
                            central:(RZBSimulatedCentral *)central
 {
     NSParameterAssert(identifier);
@@ -41,6 +42,8 @@
         self.readCharacteristicCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
         self.writeCharacteristicCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
         self.notifyCharacteristicCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
+        self.requestCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
+        self.updateCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
     }
     return self;
 }
@@ -77,7 +80,7 @@
         [self.peripheralManager fakeNotifyState:NO central:(id)self.central characteristic:characteristic];
     }
     [self.subscribedCharacteristics removeAllObjects];
-    self.peripheral.state = CBPeripheralStateDisconnecting;
+
     [self.cancelConncetionCallback dispatch:^(NSError *injectedError) {
         [self.central.mockCentralManager fakeDisconnectPeripheralWithUUID:self.identifier
                                                                     error:injectedError];
@@ -111,7 +114,7 @@
 
 #pragma mark - RZBMockPeripheralDelegate
 
-- (void)mockPeripheral:(RZBMockPeripheral *)peripheral discoverServices:(NSArray *)serviceUUIDs
+- (void)mockPeripheral:(id<RZBMockedPeripheral>)peripheral discoverServices:(NSArray *)serviceUUIDs
 {
     NSMutableArray *services = [NSMutableArray array];
     for (CBMutableService *service in self.peripheralManager.services) {
@@ -124,7 +127,7 @@
     }];
 }
 
-- (void)mockPeripheral:(RZBMockPeripheral *)peripheral discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(CBMutableService *)service
+- (void)mockPeripheral:(id<RZBMockedPeripheral>)peripheral discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(CBMutableService *)service
 {
     NSAssert([service isKindOfClass:[CBMutableService class]], @"");
 
@@ -140,7 +143,7 @@
     }];
 }
 
-- (void)mockPeripheral:(RZBMockPeripheral *)peripheral readValueForCharacteristic:(CBMutableCharacteristic *)characteristic
+- (void)mockPeripheral:(id<RZBMockedPeripheral>)peripheral readValueForCharacteristic:(CBMutableCharacteristic *)characteristic
 {
     NSAssert([characteristic isKindOfClass:[CBMutableCharacteristic class]], @"");
 
@@ -161,12 +164,19 @@
     }];
 }
 
-- (void)mockPeripheral:(RZBMockPeripheral *)peripheral writeValue:(NSData *)data forCharacteristic:(CBMutableCharacteristic *)characteristic type:(CBCharacteristicWriteType)type
+- (void)mockPeripheral:(id<RZBMockedPeripheral>)peripheral writeValue:(NSData *)data forCharacteristic:(CBMutableCharacteristic *)characteristic type:(CBCharacteristicWriteType)type
 {
     NSAssert([characteristic isKindOfClass:[CBMutableCharacteristic class]], @"");
 
     [self.writeCharacteristicCallback dispatch:^(NSError *injectedError) {
-        if (injectedError == nil) {
+        if (type == CBCharacteristicWriteWithResponse && injectedError) {
+            [peripheral fakeCharacteristic:characteristic writeResponseWithError:injectedError];
+        }
+        else {
+            if (injectedError) {
+                RZBLogSimulation(@"writeCharacteristicCallback can not inject an error for a write without response.");
+                RZBLogSimulation(@"If the write will cause an update, use updateCallback to inject an error in response to the write");
+            }
             // FEATURE: The inbound data could be broken up into an array of write requests based on maximumUpdateValueLength.
             CBATTRequest *writeRequest = [self requestForCharacteristic:characteristic];
             writeRequest.value = data;
@@ -175,13 +185,10 @@
             }
             [self.peripheralManager fakeWriteRequest:writeRequest];
         }
-        else if (type == CBCharacteristicWriteWithResponse) {
-            [peripheral fakeCharacteristic:characteristic writeResponseWithError:injectedError];
-        }
     }];
 }
 
-- (void)mockPeripheral:(RZBMockPeripheral *)peripheral setNotifyValue:(BOOL)enabled forCharacteristic:(CBMutableCharacteristic *)characteristic
+- (void)mockPeripheral:(id<RZBMockedPeripheral>)peripheral setNotifyValue:(BOOL)enabled forCharacteristic:(CBMutableCharacteristic *)characteristic
 {
     NSAssert([characteristic isKindOfClass:[CBMutableCharacteristic class]], @"");
 
@@ -200,7 +207,7 @@
     }];
 }
 
-- (void)mockPeripheralReadRSSI:(RZBMockPeripheral *)peripheral
+- (void)mockPeripheralReadRSSI:(id<RZBMockedPeripheral>)peripheral
 {
     [self.readRSSICallback dispatch:^(NSError *injectedError) {
         [peripheral fakeRSSI:self.RSSI error:injectedError];
@@ -211,38 +218,56 @@
 
 - (void)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager startAdvertising:(NSDictionary *)advertisementData
 {
+    RZBLogSimulation(@"PeripheralManager is not discoverable");
     self.scanCallback.paused = NO;
 }
 
 - (void)mockPeripheralManagerStopAdvertising:(RZBMockPeripheralManager *)peripheralManager
 {
+    RZBLogSimulation(@"PeripheralManager is discoverable");
     self.scanCallback.paused = YES;
 }
 
 - (void)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager respondToRequest:(CBATTRequest *)request withResult:(CBATTError)result
 {
-    NSError *error = [self errorForResult:result];
     NSAssert([request.characteristic isKindOfClass:[CBMutableCharacteristic class]], @"Invalid characteristic");
-    
-    if ([self.readRequests containsObject:request]) {
-        [self.readRequests removeObject:request];
-        if (self.peripheral.state == CBPeripheralStateConnected) {
-            [self.peripheral fakeCharacteristic:(CBMutableCharacteristic *)request.characteristic updateValue:request.value error:error];
+    [self.requestCallback dispatch:^(NSError * _Nullable injectedError) {
+        NSError *error = injectedError ?: [self errorForResult:result];
+
+        if ([self.readRequests containsObject:request]) {
+            [self.readRequests removeObject:request];
+            if (self.peripheral.state == CBPeripheralStateConnected) {
+                [self.peripheral fakeCharacteristic:(CBMutableCharacteristic *)request.characteristic updateValue:request.value error:error];
+            }
+            else {
+                RZBLogSimulation(@"Ignoring RZBMockPeripheralManager read response since the peripheral is not connected");
+            }
         }
-    }
-    else if ([self.writeRequests containsObject:request]) {
-        [self.writeRequests removeObject:request];
-        if (self.peripheral.state == CBPeripheralStateConnected) {
-            [self.peripheral fakeCharacteristic:(CBMutableCharacteristic *)request.characteristic writeResponseWithError:error];
+        else if ([self.writeRequests containsObject:request]) {
+            [self.writeRequests removeObject:request];
+            if (self.peripheral.state == CBPeripheralStateConnected) {
+                [self.peripheral fakeCharacteristic:(CBMutableCharacteristic *)request.characteristic writeResponseWithError:error];
+            }
+            else {
+                RZBLogSimulation(@"Ignoring RZBMockPeripheralManager write response since the peripheral is not connected");
+            }
         }
-    }
+        else {
+            RZBLogSimulation(@"Not responding to write without response");
+        }
+    }];
 }
 
 - (BOOL)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager updateValue:(NSData *)value forCharacteristic:(CBMutableCharacteristic *)characteristic onSubscribedCentrals:(NSArray *)centrals
 {
-    if (self.peripheral.state == CBPeripheralStateConnected) {
-        [self.peripheral fakeCharacteristic:characteristic updateValue:value error:nil];
-    }
+    [self.updateCallback dispatch:^(NSError * _Nullable injectedError) {
+        if (self.peripheral.state == CBPeripheralStateConnected) {
+            [self.peripheral fakeCharacteristic:characteristic updateValue:value error:injectedError];
+        }
+        else {
+            RZBLogSimulation(@"Ignoring RZBMockPeripheralManager updateValue since the peripheral is not connected");
+        }
+    }];
     // We don't have any buffer mechanism, so always return YES
     return YES;
 }

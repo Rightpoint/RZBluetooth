@@ -8,17 +8,11 @@
 
 @import XCTest;
 
-#import "RZBTestableCentralManager.h"
-#import "RZBCentralManager+Private.h"
+#import "RZBCentralManager.h"
+#import "RZBPeripheral.h"
+#import "RZBScanInfo.h"
+#import "RZMockBluetooth.h"
 
-#import "RZBMockCentralManager.h"
-#import "RZBMockPeripheralManager.h"
-#import "RZBMockPeripheralManager.h"
-
-#import "RZBSimulatedDevice.h"
-#import "RZBSimulatedCentral.h"
-#import "RZBSimulatedConnection.h"
-#import "RZBSimulatedCallback.h"
 
 #import "NSError+RZBMock.h"
 
@@ -29,13 +23,24 @@
  */
 @interface RZBSimulatedTestCase : XCTestCase
 
-+ (Class)simulatedDeviceClass;
+@property (strong, nonatomic) RZBCentralManager *centralManager;
+@property (strong, nonatomic, readonly) RZBPeripheral *peripheral;
+@property (strong, nonatomic, readonly) id<RZBMockedCentralManager>mockCentralManager;
 
-@property (strong, nonatomic) RZBTestableCentralManager *centralManager;
-@property (strong, nonatomic, readonly) CBPeripheral *peripheral;
-@property (strong, nonatomic, readonly) RZBMockCentralManager *mockCentralManager;
+@property (strong, nonatomic) RZBSimulatedCentral *central;
 @property (strong, nonatomic) RZBSimulatedDevice *device;
 @property (strong, nonatomic) RZBSimulatedConnection *connection;
+
+/**
+ * Over-ride in a test subclass to use a specific RZBSimulatedDevice subclass
+ */
++ (Class)simulatedDeviceClass;
+
+/**
+ * Over-ride in a test subclass to instantiate RZBCentralManager
+ */
+- (void)configureCentralManager;
+
 
 - (void)waitForQueueFlush;
 
