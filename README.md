@@ -307,7 +307,7 @@ Examples:
 RZBEnableMock(YES);
 
 // Obtain the existing application CBCentralManager, which is really an RZBMockCentralManager since mocking is enabled.
-id<RZBMockedCentralManager>centralManager = ...;
+CBCentralManager<RZBMockedCentralManager> *centralManager = ...;
 
 // Create a fake peripheral
 self.fakePeripheral = [[RZBSimulatedDevice alloc] init];

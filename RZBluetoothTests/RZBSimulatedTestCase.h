@@ -25,7 +25,7 @@
 
 @property (strong, nonatomic) RZBCentralManager *centralManager;
 @property (strong, nonatomic, readonly) RZBPeripheral *peripheral;
-@property (strong, nonatomic, readonly) id<RZBMockedCentralManager>mockCentralManager;
+@property (strong, nonatomic, readonly) CBCentralManager<RZBMockedCentralManager> *mockCentralManager;
 
 @property (strong, nonatomic) RZBSimulatedCentral *central;
 @property (strong, nonatomic) RZBSimulatedDevice *device;
