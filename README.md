@@ -1,8 +1,13 @@
+[![Build Status](https://travis-ci.org/Raizlabs/RZBluetooth.svg)](https://travis-ci.org/Raizlabs/RZBluetooth)
+[![Version](https://img.shields.io/cocoapods/v/RZBluetooth.svg?style=flat)](http://cocoapods.org/pods/RZBluetooth)
+[![License](https://img.shields.io/cocoapods/l/RZBluetooth.svg?style=flat)](http://cocoapods.org/pods/RZBluetooth)
+[![Platform](https://img.shields.io/cocoapods/p/RZBluetooth.svg?style=flat)](http://cocoapods.org/pods/RZBluetooth)
+
 # RZBluetooth
-The goal of RZBluetooth is to make Core Bluetooth easy to use and test. It provides a block based API with state management, automatic discovery, and support for public protocols. RZMockBluetooth contains a set of Core Bluetooth mock objects that enables over the air and in-app device simulation by connecting the CBCentralManager and CBPeripheralManager API's.'
+The goal of RZBluetooth is to make Core Bluetooth easy to use and test. It provides a block based API with state management, automatic discovery, and support for public protocols. RZMockBluetooth contains a set of Core Bluetooth mock objects that enables in-app device simulation by connecting the CBCentralManager and CBPeripheralManager API's.'
 
 # Quick Start
-To emphasize how easy RZBluetooth is, the following block of code will print out the heart rate of the first heart rate monitor that comes nearby, every time a new reading is available. Also note that this code can be ran in unit tests.
+To emphasize how easy RZBluetooth is, the following block of code will print out the heart rate of the first heart rate monitor that comes nearby, every time a new reading is available. Also note that this code can run in your unit test target.
 
 ```objc
 self.centralManager = [[RZBCentralManager alloc] init];
