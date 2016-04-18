@@ -31,7 +31,7 @@
         dispatchFlushed = YES;
     });
     BOOL ok = [[NSRunLoop currentRunLoop] rzb_waitWithTimeout:10.0 forCheck:^BOOL{
-        return dispatchFlushed && self.centralManager.dispatch.dispatchCounter == 0;
+        return dispatchFlushed && self.device.isReady && self.centralManager.dispatch.dispatchCounter == 0;
     }];
     XCTAssertTrue(ok, @"Dispatch queue did not complete");
 }

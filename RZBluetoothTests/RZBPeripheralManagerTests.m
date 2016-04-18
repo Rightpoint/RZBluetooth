@@ -51,8 +51,6 @@
 
     self.connection.connectable = NO;
     [self waitForQueueFlush];
-    // This test is intermittently failing. This is here to help determine if it's a timing scenario.
-    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
     XCTAssert(self.isNotifying == NO);
 }
 
@@ -73,8 +71,6 @@
     [self.peripheral cancelConnectionWithCompletion:^(NSError * _Nullable error) {
     }];
     [self waitForQueueFlush];
-    // This test is intermittently failing. This is here to help determine if it's a timing scenario.
-    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
     XCTAssert(self.isNotifying == NO);
 }
 
@@ -93,8 +89,6 @@
     self.device.batteryLevel = 42;
 
     [self waitForQueueFlush];
-    // This test is intermittently failing. This is here to help determine if it's a timing scenario.
-    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
     XCTAssertNotNil(injectedError);
 }
 
