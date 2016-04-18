@@ -11,6 +11,8 @@
 @class RZBMockPeripheralManager;
 @class RZBSimulatedConnection;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  *  The simulated central is an internal object for managing the association of a connection and a peripheral
  *  manager.
@@ -20,12 +22,14 @@
 - (instancetype)initWithMockCentralManager:(RZBMockCentralManager *)centralManager;
 
 @property (strong, nonatomic, readonly) RZBMockCentralManager *mockCentralManager;
-@property (assign, nonatomic) NSUInteger maximumUpdateValueLength;
+@property (nonatomic) NSUInteger maximumUpdateValueLength;
 
 - (void)addSimulatedDeviceWithIdentifier:(NSUUID *)peripheralUUID peripheralManager:(RZBMockPeripheralManager *)peripheralManager;
 
 - (void)removeSimulatedDevice:(NSUUID *)peripheralUUID;
 
-- (RZBSimulatedConnection *)connectionForIdentifier:(NSUUID *)identifier;
+- (RZBSimulatedConnection *__nullable)connectionForIdentifier:(NSUUID *)identifier;
 
 @end
+
+NS_ASSUME_NONNULL_END

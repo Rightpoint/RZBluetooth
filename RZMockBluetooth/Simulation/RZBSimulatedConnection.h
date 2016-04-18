@@ -15,6 +15,8 @@
 @class RZBSimulatedCentral;
 @class CBATTRequest;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  *  A simulated connection controls the interactions between a CBPeripheralManager
  *  and the client facing CBPeripheral.
@@ -140,3 +142,5 @@
 @property (strong, nonatomic) RZBSimulatedCallback *updateCallback;
 
 @end
+
+NS_ASSUME_NONNULL_END

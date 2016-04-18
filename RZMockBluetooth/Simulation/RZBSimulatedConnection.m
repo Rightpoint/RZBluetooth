@@ -81,10 +81,21 @@
     }
     [self.subscribedCharacteristics removeAllObjects];
     self.peripheral.state = CBPeripheralStateDisconnecting;
+    typeof(self) weakSelf = self;
     [self.cancelConncetionCallback dispatch:^(NSError *injectedError) {
-        [self.central.mockCentralManager fakeDisconnectPeripheralWithUUID:self.identifier
+        [weakSelf.central.mockCentralManager fakeDisconnectPeripheralWithUUID:weakSelf.identifier
                                                                     error:injectedError];
     }];
+}
+
+- (void)cancelSimulatedCallbacks
+{
+    NSMutableArray *allCallbacks = [self.connectionDependentCallbacks mutableCopy];
+    [allCallbacks addObject:self.scanCallback];
+    [allCallbacks addObject:self.cancelConncetionCallback];
+    for (RZBSimulatedCallback *callback in allCallbacks) {
+        [callback cancel];
+    }
 }
 
 - (NSArray *)connectionDependentCallbacks
@@ -95,7 +106,9 @@
              self.readRSSICallback,
              self.readCharacteristicCallback,
              self.writeCharacteristicCallback,
-             self.notifyCharacteristicCallback];
+             self.notifyCharacteristicCallback,
+             self.requestCallback,
+             self.updateCallback];
 }
 
 - (NSError *)errorForResult:(CBATTError)result
@@ -147,12 +160,13 @@
 {
     NSAssert([characteristic isKindOfClass:[CBMutableCharacteristic class]], @"");
 
+    typeof(self) weakSelf = self;
     [self.readCharacteristicCallback dispatch:^(NSError *injectedError) {
         if (injectedError == nil) {
             if (characteristic.value == nil) {
-                CBATTRequest *readRequest = [self requestForCharacteristic:characteristic];
-                [self.readRequests addObject:readRequest];
-                [self.peripheralManager fakeReadRequest:readRequest];
+                CBATTRequest *readRequest = [weakSelf requestForCharacteristic:characteristic];
+                [weakSelf.readRequests addObject:readRequest];
+                [weakSelf.peripheralManager fakeReadRequest:readRequest];
             }
             else {
                 [peripheral fakeCharacteristic:characteristic updateValue:characteristic.value error:nil];
@@ -168,6 +182,7 @@
 {
     NSAssert([characteristic isKindOfClass:[CBMutableCharacteristic class]], @"");
 
+    typeof(self) weakSelf = self;
     [self.writeCharacteristicCallback dispatch:^(NSError *injectedError) {
         if (type == CBCharacteristicWriteWithResponse && injectedError) {
             [peripheral fakeCharacteristic:characteristic writeResponseWithError:injectedError];
@@ -178,12 +193,12 @@
                 RZBLogSimulation(@"If the write will cause an update, use updateCallback to inject an error in response to the write");
             }
             // FEATURE: The inbound data could be broken up into an array of write requests based on maximumUpdateValueLength.
-            CBATTRequest *writeRequest = [self requestForCharacteristic:characteristic];
+            CBATTRequest *writeRequest = [weakSelf requestForCharacteristic:characteristic];
             writeRequest.value = data;
             if (type == CBCharacteristicWriteWithResponse) {
-                [self.writeRequests addObject:writeRequest];
+                [weakSelf.writeRequests addObject:writeRequest];
             }
-            [self.peripheralManager fakeWriteRequest:writeRequest];
+            [weakSelf.peripheralManager fakeWriteRequest:writeRequest];
         }
     }];
 }
@@ -192,16 +207,19 @@
 {
     NSAssert([characteristic isKindOfClass:[CBMutableCharacteristic class]], @"");
 
+    typeof(self) weakSelf = self;
     [self.notifyCharacteristicCallback dispatch:^(NSError *injectedError) {
         if (enabled) {
-            [self.subscribedCharacteristics addObject:characteristic];
+            [weakSelf.subscribedCharacteristics addObject:characteristic];
         }
         else {
-            [self.subscribedCharacteristics removeObject:characteristic];
+            [weakSelf.subscribedCharacteristics removeObject:characteristic];
         }
 
         if (injectedError == nil) {
-            [self.peripheralManager fakeNotifyState:enabled central:(id)self.central characteristic:(id)characteristic];
+            [weakSelf.peripheralManager fakeNotifyState:enabled
+                                                central:(id)weakSelf.central
+                                         characteristic:(id)characteristic];
         }
         [peripheral fakeCharacteristic:characteristic notify:enabled error:injectedError];
     }];
@@ -209,8 +227,9 @@
 
 - (void)mockPeripheralReadRSSI:(RZBMockPeripheral *)peripheral
 {
+    typeof(self) weakSelf = self;
     [self.readRSSICallback dispatch:^(NSError *injectedError) {
-        [peripheral fakeRSSI:self.RSSI error:injectedError];
+        [peripheral fakeRSSI:weakSelf.RSSI error:injectedError];
     }];
 }
 
@@ -230,23 +249,24 @@
 
 - (void)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager respondToRequest:(CBATTRequest *)request withResult:(CBATTError)result
 {
+    typeof(self) weakSelf = self;
     NSAssert([request.characteristic isKindOfClass:[CBMutableCharacteristic class]], @"Invalid characteristic");
     [self.requestCallback dispatch:^(NSError * _Nullable injectedError) {
-        NSError *error = injectedError ?: [self errorForResult:result];
+        NSError *error = injectedError ?: [weakSelf errorForResult:result];
 
-        if ([self.readRequests containsObject:request]) {
-            [self.readRequests removeObject:request];
-            if (self.peripheral.state == CBPeripheralStateConnected) {
-                [self.peripheral fakeCharacteristic:(CBMutableCharacteristic *)request.characteristic updateValue:request.value error:error];
+        if ([weakSelf.readRequests containsObject:request]) {
+            [weakSelf.readRequests removeObject:request];
+            if (weakSelf.peripheral.state == CBPeripheralStateConnected) {
+                [weakSelf.peripheral fakeCharacteristic:(CBMutableCharacteristic *)request.characteristic updateValue:request.value error:error];
             }
             else {
                 RZBLogSimulation(@"Ignoring RZBMockPeripheralManager read response since the peripheral is not connected");
             }
         }
-        else if ([self.writeRequests containsObject:request]) {
-            [self.writeRequests removeObject:request];
-            if (self.peripheral.state == CBPeripheralStateConnected) {
-                [self.peripheral fakeCharacteristic:(CBMutableCharacteristic *)request.characteristic writeResponseWithError:error];
+        else if ([weakSelf.writeRequests containsObject:request]) {
+            [weakSelf.writeRequests removeObject:request];
+            if (weakSelf.peripheral.state == CBPeripheralStateConnected) {
+                [weakSelf.peripheral fakeCharacteristic:(CBMutableCharacteristic *)request.characteristic writeResponseWithError:error];
             }
             else {
                 RZBLogSimulation(@"Ignoring RZBMockPeripheralManager write response since the peripheral is not connected");
@@ -260,9 +280,10 @@
 
 - (BOOL)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager updateValue:(NSData *)value forCharacteristic:(CBMutableCharacteristic *)characteristic onSubscribedCentrals:(NSArray *)centrals
 {
+    typeof(self) weakSelf = self;
     [self.updateCallback dispatch:^(NSError * _Nullable injectedError) {
-        if (self.peripheral.state == CBPeripheralStateConnected) {
-            [self.peripheral fakeCharacteristic:characteristic updateValue:value error:injectedError];
+        if (weakSelf.peripheral.state == CBPeripheralStateConnected) {
+            [weakSelf.peripheral fakeCharacteristic:characteristic updateValue:value error:injectedError];
         }
         else {
             RZBLogSimulation(@"Ignoring RZBMockPeripheralManager updateValue since the peripheral is not connected");

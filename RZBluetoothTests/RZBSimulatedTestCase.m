@@ -33,7 +33,6 @@
     BOOL ok = [[NSRunLoop currentRunLoop] rzb_waitWithTimeout:10.0 forCheck:^BOOL{
         return dispatchFlushed && self.centralManager.dispatch.dispatchCounter == 0;
     }];
-    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     XCTAssertTrue(ok, @"Dispatch queue did not complete");
 }
 

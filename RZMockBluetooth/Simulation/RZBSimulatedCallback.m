@@ -38,6 +38,7 @@ static NSTimeInterval __defaultDelay = 0;
 
 - (void)dealloc
 {
+    _cancelCounter = NSNotFound;
     if (_paused) {
         dispatch_group_leave(_group);
     }

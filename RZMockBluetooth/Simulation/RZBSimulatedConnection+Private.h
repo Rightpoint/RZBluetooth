@@ -16,6 +16,8 @@
 
 - (BOOL)isDiscoverableWithServices:(NSArray *)services;
 
+- (void)cancelSimulatedCallbacks;
+
 @property (strong, nonatomic, readonly) NSMutableArray *readRequests;
 @property (strong, nonatomic, readonly) NSMutableArray *writeRequests;
 @property (strong, nonatomic, readonly) NSMutableArray *subscribedCharacteristics;

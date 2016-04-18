@@ -27,6 +27,8 @@ NSTimeInterval const kFRYRunLoopSpinInterval = 0.05;
         ok = checkBlock();
         remainingTimeout = [endDate timeIntervalSinceNow];
     }
+    [self rzb_handleSources];
+
     return ok;
 }
 
