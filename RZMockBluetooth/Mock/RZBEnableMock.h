@@ -6,7 +6,9 @@
 //  Copyright © 2016 Raizlabs. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import CoreBluetooth;
+
+@class RZBMockCentralManager, RZBMockPeripheral, RZBMockPeripheralManager;
 
 /**
  * RZBEnableMock swizzles [CBCentralManager alloc] and [CBPeripheralManager alloc] 
@@ -18,3 +20,33 @@
  * I know this sounds terrifying but it works great.
  */
 extern void RZBEnableMock(BOOL enableMock);
+
+/**
+ * Extension to access the mocked API that is backing this object. If the object is actualy
+ * a mock it will return self, otherwise the property will return nil.
+ */
+@interface CBCentralManager (RZBEnableMock)
+
+@property (strong, nonatomic, readonly, nullable) RZBMockCentralManager *mock;
+
+@end
+
+/**
+ * Extension to access the mocked API that is backing this object. If the object is actualy
+ * a mock it will return self, otherwise the property will return nil.
+ */
+@interface CBPeripheral (RZBEnableMock)
+
+@property (strong, nonatomic, readonly, nullable) RZBMockPeripheral *mock;
+
+@end
+
+/**
+ * Extension to access the mocked API that is backing this object. If the object is actualy
+ * a mock it will return self, otherwise the property will return nil.
+ */
+@interface CBPeripheralManager (RZBEnableMock)
+
+@property (strong, nonatomic, readonly, nullable) RZBMockPeripheralManager *mock;
+
+@end

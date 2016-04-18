@@ -11,6 +11,7 @@
 @import CoreBluetooth;
 @import ObjectiveC.runtime;
 #import "RZBMockCentralManager.h"
+#import "RZBMockPeripheral.h"
 #import "RZBMockPeripheralManager.h"
 
 /*
@@ -52,3 +53,56 @@ void RZBEnableMock(BOOL enableMock)
         method_setImplementation(peripheralManagerAlloc, method_getImplementation(defaultAlloc));
     }
 }
+
+@implementation CBCentralManager (RZBEnableMock)
+
+- (RZBMockCentralManager *)mock
+{
+    return nil;
+}
+
+@end
+
+@implementation CBPeripheral (RZBEnableMock)
+
+- (RZBMockPeripheral *)mock
+{
+    return nil;
+}
+
+@end
+@implementation CBPeripheralManager (RZBEnableMock)
+
+- (RZBMockPeripheralManager *)mock
+{
+    return nil;
+}
+
+@end
+
+@implementation RZBMockCentralManager (RZBEnableMock)
+
+- (RZBMockCentralManager *)mock
+{
+    return self;
+}
+
+@end
+
+@implementation RZBMockPeripheral (RZBEnableMock)
+
+- (RZBMockPeripheral *)mock
+{
+    return self;
+}
+
+@end
+
+@implementation RZBMockPeripheralManager (RZBEnableMock)
+
+- (RZBMockPeripheralManager *)mock
+{
+    return self;
+}
+
+@end

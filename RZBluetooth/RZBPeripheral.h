@@ -194,6 +194,13 @@ characteristicUUID:(CBUUID *)characteristicUUID
  */
 - (void)connectionEvent:(RZBPeripheralStateEvent)event error:(NSError * __nullable)error;
 
+/**
+ * This is the CoreBluetooth central manager that backs this central manager.
+ * This is exposed for informational and testing purposes only. Directly invoking
+ * methods on this object may cause un-expected behavior.
+ */
+@property (strong, nonatomic, readonly) CBPeripheral *corePeripheral;
+
 @end
 
 NS_ASSUME_NONNULL_END

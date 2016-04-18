@@ -12,6 +12,7 @@
 @interface RZBCentralManager () <CBCentralManagerDelegate, CBPeripheralDelegate>
 
 @property (strong, nonatomic, readonly) RZBCommandDispatch *dispatch;
+@property (strong, nonatomic, readonly) CBCentralManager *centralManager;
 @property (strong, nonatomic, readonly) NSMutableDictionary<NSUUID *, RZBPeripheral *> *peripheralsByUUID;
 @property (strong, nonatomic, readonly) Class peripheralClass;
 

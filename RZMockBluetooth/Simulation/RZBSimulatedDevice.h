@@ -8,6 +8,8 @@
 
 #import "RZBBluetoothRepresentable.h"
 
+@class RZBMockPeripheralManager;
+
 NS_ASSUME_NONNULL_BEGIN
 
 typedef CBATTError (^RZBATTRequestHandler)(CBATTRequest *request);
@@ -37,6 +39,8 @@ typedef void (^RZBPeripheralManagerStateBlock)(CBPeripheralManagerState state);
  *  or an API compatible RZBMockPeripheralManager, depending on how the simulated device was created.
  */
 @property (strong, nonatomic, readonly) CBPeripheralManager *peripheralManager;
+
+@property (strong, nonatomic, readonly) RZBMockPeripheralManager *mockPeripheralManager;
 
 /**
  *  The dispatch queue passed to the constructor.

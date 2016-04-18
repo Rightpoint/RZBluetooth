@@ -6,15 +6,17 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
+#import "RZMockBluetooth.h"
 #import "RZBSimulatedTestCase.h"
 #import "NSRunLoop+RZBWaitFor.h"
 #import "RZBCentralManager+Private.h"
 
 @implementation RZBSimulatedTestCase
 
-+ (void)load
++ (void)setUp
 {
     RZBEnableMock(YES);
+    [super setUp];
 }
 
 + (Class)simulatedDeviceClass
@@ -34,10 +36,10 @@
     XCTAssertTrue(ok, @"Dispatch queue did not complete");
 }
 
-- (CBCentralManager<RZBMockedCentralManager> *)mockCentralManager
+- (RZBMockCentralManager *)mockCentralManager
 {
-    CBCentralManager<RZBMockedCentralManager> *mockCentral = (id)self.centralManager.coreCentralManager;
-    NSAssert([mockCentral conformsToProtocol:@protocol(RZBMockedCentralManager)], @"Invalid central manager");
+    RZBMockCentralManager *mockCentral = (id)self.centralManager.coreCentralManager;
+    NSAssert([mockCentral isKindOfClass:[RZBMockCentralManager class]], @"Invalid central");
     return mockCentral;
 }
 
@@ -59,7 +61,7 @@
     NSUUID *identifier = [NSUUID UUID];
     self.device = [[self.class.simulatedDeviceClass alloc] initWithQueue:self.mockCentralManager.queue
                                                                  options:@{}];
-    CBPeripheralManager<RZBMockedPeripheralManager> *peripheralManager = (id)self.device.peripheralManager;
+    RZBMockPeripheralManager *peripheralManager = (id)self.device.peripheralManager;
     [peripheralManager fakeStateChange:CBPeripheralManagerStatePoweredOn];
     self.central = [[RZBSimulatedCentral alloc] initWithMockCentralManager:self.mockCentralManager];
     [self.central addSimulatedDeviceWithIdentifier:identifier

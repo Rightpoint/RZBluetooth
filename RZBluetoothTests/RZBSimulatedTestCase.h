@@ -11,8 +11,15 @@
 #import "RZBCentralManager.h"
 #import "RZBPeripheral.h"
 #import "RZBScanInfo.h"
-#import "RZMockBluetooth.h"
 
+#import "RZBMockCentralManager.h"
+#import "RZBMockPeripheralManager.h"
+#import "RZBMockPeripheralManager.h"
+
+#import "RZBSimulatedDevice.h"
+#import "RZBSimulatedCentral.h"
+#import "RZBSimulatedConnection.h"
+#import "RZBSimulatedCallback.h"
 
 #import "NSError+RZBMock.h"
 
@@ -25,7 +32,7 @@
 
 @property (strong, nonatomic) RZBCentralManager *centralManager;
 @property (strong, nonatomic, readonly) RZBPeripheral *peripheral;
-@property (strong, nonatomic, readonly) CBCentralManager<RZBMockedCentralManager> *mockCentralManager;
+@property (strong, nonatomic, readonly) RZBMockCentralManager *mockCentralManager;
 
 @property (strong, nonatomic) RZBSimulatedCentral *central;
 @property (strong, nonatomic) RZBSimulatedDevice *device;

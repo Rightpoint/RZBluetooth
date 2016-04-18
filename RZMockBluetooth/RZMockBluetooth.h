@@ -9,9 +9,6 @@
 @import CoreBluetooth;
 
 #import "RZBEnableMock.h"
-#import "RZBMockedCentralManager.h"
-#import "RZBMockedPeripheral.h"
-#import "RZBMockedPeripheralManager.h"
 
 #import "RZBMockPeripheral.h"
 #import "RZBMockCentralManager.h"
@@ -21,4 +18,5 @@
 #import "RZBSimulatedCentral.h"
 #import "RZBSimulatedConnection.h"
 #import "RZBSimulatedCallback.h"
+#import "RZBCentralManager+Mock.h"
 #import "NSError+RZBMock.h"

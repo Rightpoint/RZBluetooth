@@ -8,14 +8,14 @@
 
 @import CoreBluetooth;
 
-#import "RZBMockedCentralManager.h"
-
 @class RZBMockPeripheral;
 @protocol RZBMockCentralManagerDelegate;
 
-@interface RZBMockCentralManager : NSObject <RZBMockedCentralManager>
+@interface RZBMockCentralManager : NSObject
 
 @property(weak, nonatomic) id<CBCentralManagerDelegate> delegate;
+@property(weak, nonatomic) id<RZBMockCentralManagerDelegate> mockDelegate;
+@property(strong, nonatomic) dispatch_queue_t queue;
 @property(assign) CBCentralManagerState state;
 @property(strong) NSDictionary *options;
 @property(strong) NSMutableDictionary *peripheralsByUUID;
@@ -32,5 +32,23 @@
 
 - (void)cancelPeripheralConnection:(CBPeripheral *)peripheral;
 
+- (RZBMockPeripheral *)peripheralForUUID:(NSUUID *)uuid;
+
+- (void)fakeStateChange:(CBCentralManagerState)state;
+- (void)fakeScanPeripheralWithUUID:(NSUUID *)peripheralUUID advInfo:(NSDictionary *)info RSSI:(NSNumber *)RSSI;
+
+- (void)fakeConnectPeripheralWithUUID:(NSUUID *)peripheralUUID error:(NSError *)error;
+- (void)fakeDisconnectPeripheralWithUUID:(NSUUID *)peripheralUUID error:(NSError *)error;
+
 @end
 
+@protocol RZBMockCentralManagerDelegate <NSObject>
+
+- (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager retrievePeripheralsWithIdentifiers:(NSArray *)identifiers;
+- (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager scanForPeripheralsWithServices:(NSArray *)services options:(NSDictionary *)options;
+- (void)mockCentralManagerStopScan:(RZBMockCentralManager *)mockCentralManager;
+
+- (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager connectPeripheral:(RZBMockPeripheral *)peripheral options:(NSDictionary *)options;
+- (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager cancelPeripheralConnection:(RZBMockPeripheral *)peripheral;
+
+@end

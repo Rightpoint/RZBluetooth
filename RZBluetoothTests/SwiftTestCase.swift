@@ -36,9 +36,8 @@ class SwiftTestCase: RZBSimulatedTestCase {
     }
 
     func testProperties() {
-        guard let _ = centralManager.coreCentralManager as? RZBMockedCentralManager else {
-            XCTFail("Unable to cast to RZBMockedCentralManager")
-            return
-        }
+        XCTAssertNotNil(centralManager.coreCentralManager.mock)
+        XCTAssertNotNil(device.peripheralManager.mock)
+        XCTAssertNotNil(peripheral.corePeripheral.mock)
     }
 }
