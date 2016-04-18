@@ -47,7 +47,7 @@
     [self waitForQueueFlush];
     RZBAssertHasCommand(RZBConnectCommand, RZBUUIDP(peripheralUUID), YES);
 
-    id<RZBMockedPeripheral>mockPeripheral = [self.mockCentralManager peripheralForUUID:peripheralUUID];
+    CBPeripheral<RZBMockedPeripheral> *mockPeripheral = [self.mockCentralManager peripheralForUUID:peripheralUUID];
     XCTAssertEqualObjects([self.invocationLog argumentAtIndex:0 forSelector:@selector(connectPeripheral:options:)], mockPeripheral);
 
     // Fake the connection, and ensure the discover commands occurred.
@@ -60,7 +60,7 @@
     [self waitForQueueFlush];
     RZBAssertHasCommand(RZBDiscoverServiceCommand, self.class.pUUIDPath, YES);
 
-    id<RZBMockedPeripheral>mockPeripheral = [self.mockCentralManager peripheralForUUID:peripheralUUID];
+    CBPeripheral<RZBMockedPeripheral> *mockPeripheral = [self.mockCentralManager peripheralForUUID:peripheralUUID];
     XCTAssertEqualObjects([self.invocationLog argumentAtIndex:0 forSelector:@selector(discoverServices:)], @[serviceUUID]);
 
     // Fake the service discovery
@@ -73,7 +73,7 @@
     [self waitForQueueFlush];
     RZBAssertHasCommand(RZBDiscoverCharacteristicCommand, RZBUUIDP(peripheralUUID, serviceUUID), YES);
 
-    id<RZBMockedPeripheral>mockPeripheral = [self.mockCentralManager peripheralForUUID:peripheralUUID];
+    CBPeripheral<RZBMockedPeripheral> *mockPeripheral = [self.mockCentralManager peripheralForUUID:peripheralUUID];
     CBMutableService *s = [mockPeripheral serviceForUUID:serviceUUID];
     XCTAssertEqualObjects([self.invocationLog argumentAtIndex:0 forSelector:@selector(discoverCharacteristics:forService:)], @[characteristicUUID]);
     XCTAssertEqualObjects([self.invocationLog argumentAtIndex:1 forSelector:@selector(discoverCharacteristics:forService:)], s);
@@ -125,7 +125,7 @@
 - (void)mockCentralManager:(CBCentralManager<RZBMockedCentralManager> *)mockCentralManager retrievePeripheralsWithIdentifiers:(NSArray *)identifiers;
 {
     for (NSUUID *identifier in identifiers) {
-        id<RZBMockedPeripheral>mockPeripheral = [mockCentralManager peripheralForUUID:identifier];
+        CBPeripheral<RZBMockedPeripheral> *mockPeripheral = [mockCentralManager peripheralForUUID:identifier];
         mockPeripheral.mockDelegate = self;
     }
     [self.invocationLog logSelector:C_CMD arguments:identifiers];
@@ -140,42 +140,42 @@
     [self.invocationLog logSelector:@selector(stopScan) arguments:nil];
 }
 
-- (void)mockCentralManager:(CBCentralManager<RZBMockedCentralManager> *)mockCentralManager connectPeripheral:(id<RZBMockedPeripheral>)mockPeripheral options:(NSDictionary *)options
+- (void)mockCentralManager:(CBCentralManager<RZBMockedCentralManager> *)mockCentralManager connectPeripheral:(CBPeripheral<RZBMockedPeripheral> *)mockPeripheral options:(NSDictionary *)options
 {
     [self.invocationLog logSelector:C_CMD arguments:mockPeripheral, options];
 }
 
-- (void)mockCentralManager:(CBCentralManager<RZBMockedCentralManager> *)mockCentralManager cancelPeripheralConnection:(id<RZBMockedPeripheral>)mockPeripheral
+- (void)mockCentralManager:(CBCentralManager<RZBMockedCentralManager> *)mockCentralManager cancelPeripheralConnection:(CBPeripheral<RZBMockedPeripheral> *)mockPeripheral
 {
     [self.invocationLog logSelector:C_CMD arguments:mockPeripheral];
 }
 
-- (void)mockPeripheral:(id<RZBMockedPeripheral>)mockPeripheral discoverServices:(NSArray *)serviceUUIDs
+- (void)mockPeripheral:(CBPeripheral<RZBMockedPeripheral> *)mockPeripheral discoverServices:(NSArray *)serviceUUIDs
 {
     [self.invocationLog logSelector:P_CMD arguments:serviceUUIDs];
 }
 
-- (void)mockPeripheral:(id<RZBMockedPeripheral>)mockPeripheral discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(CBService *)service
+- (void)mockPeripheral:(CBPeripheral<RZBMockedPeripheral> *)mockPeripheral discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(CBService *)service
 {
     [self.invocationLog logSelector:P_CMD arguments:characteristicUUIDs, service];
 }
 
-- (void)mockPeripheral:(id<RZBMockedPeripheral>)mockPeripheral readValueForCharacteristic:(CBCharacteristic *)characteristic
+- (void)mockPeripheral:(CBPeripheral<RZBMockedPeripheral> *)mockPeripheral readValueForCharacteristic:(CBCharacteristic *)characteristic
 {
     [self.invocationLog logSelector:P_CMD arguments:characteristic];
 }
 
-- (void)mockPeripheral:(id<RZBMockedPeripheral>)mockPeripheral writeValue:(NSData *)data forCharacteristic:(CBCharacteristic *)characteristic type:(CBCharacteristicWriteType)type
+- (void)mockPeripheral:(CBPeripheral<RZBMockedPeripheral> *)mockPeripheral writeValue:(NSData *)data forCharacteristic:(CBCharacteristic *)characteristic type:(CBCharacteristicWriteType)type
 {
     [self.invocationLog logSelector:P_CMD arguments:data, characteristic, @(type)];
 }
 
-- (void)mockPeripheral:(id<RZBMockedPeripheral>)mockPeripheral setNotifyValue:(BOOL)enabled forCharacteristic:(CBCharacteristic *)characteristic
+- (void)mockPeripheral:(CBPeripheral<RZBMockedPeripheral> *)mockPeripheral setNotifyValue:(BOOL)enabled forCharacteristic:(CBCharacteristic *)characteristic
 {
     [self.invocationLog logSelector:P_CMD arguments:@(enabled), characteristic];
 }
 
-- (void)mockPeripheralReadRSSI:(id<RZBMockedPeripheral>)mockPeripheral
+- (void)mockPeripheralReadRSSI:(CBPeripheral<RZBMockedPeripheral> *)mockPeripheral
 {
     [self.invocationLog logSelector:@selector(readRSSI) arguments:nil];
 }

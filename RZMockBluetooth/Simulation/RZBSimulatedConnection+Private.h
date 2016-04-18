@@ -22,6 +22,6 @@
 
 @property (strong, nonatomic, readonly) CBPeripheralManager<RZBMockedPeripheralManager> *peripheralManager;
 @property (weak, nonatomic, readonly) RZBSimulatedCentral *central;
-@property (strong, nonatomic) id<RZBMockedPeripheral> peripheral;
+@property (strong, nonatomic) CBPeripheral<RZBMockedPeripheral> *peripheral;
 
 @end

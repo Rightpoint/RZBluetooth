@@ -89,7 +89,7 @@
                            advInfo:(NSDictionary *)info
                               RSSI:(NSNumber *)RSSI
 {
-    id<RZBMockedPeripheral> peripheral = [self peripheralForUUID:peripheralUUID];
+    CBPeripheral<RZBMockedPeripheral> *peripheral = [self peripheralForUUID:peripheralUUID];
     dispatch_async(self.queue, ^{
         [self.delegate centralManager:(id)self didDiscoverPeripheral:(id)peripheral advertisementData:info RSSI:RSSI];
     });

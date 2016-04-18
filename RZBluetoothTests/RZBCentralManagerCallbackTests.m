@@ -92,7 +92,7 @@ static NSString *const RZBTestString = @"StringValue";
 - (void)testRead
 {
     RZBPeripheral *peripheral = [self.centralManager peripheralForUUID:self.class.pUUID];
-    id <RZBMockedPeripheral> mockPeripheral = [self.mockCentralManager peripheralForUUID:self.class.pUUID];
+    CBPeripheral<RZBMockedPeripheral> *mockPeripheral = [self.mockCentralManager peripheralForUUID:self.class.pUUID];
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
     __block NSString *value = nil;
     [peripheral readCharacteristicUUID:self.class.cUUID
@@ -119,7 +119,7 @@ static NSString *const RZBTestString = @"StringValue";
 - (void)testWrite
 {
     RZBPeripheral *peripheral = [self.centralManager peripheralForUUID:self.class.pUUID];
-    id <RZBMockedPeripheral> mockPeripheral = [self.mockCentralManager peripheralForUUID:self.class.pUUID];
+    CBPeripheral<RZBMockedPeripheral> *mockPeripheral = [self.mockCentralManager peripheralForUUID:self.class.pUUID];
     NSData *writeValue = [RZBTestString dataUsingEncoding:NSUTF8StringEncoding];
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
     [peripheral writeData:writeValue
@@ -141,7 +141,7 @@ static NSString *const RZBTestString = @"StringValue";
 - (void)testWriteWithReply
 {
     RZBPeripheral *peripheral = [self.centralManager peripheralForUUID:self.class.pUUID];
-    id <RZBMockedPeripheral> mockPeripheral = [self.mockCentralManager peripheralForUUID:self.class.pUUID];
+    CBPeripheral<RZBMockedPeripheral> *mockPeripheral = [self.mockCentralManager peripheralForUUID:self.class.pUUID];
     NSData *writeValue = [RZBTestString dataUsingEncoding:NSUTF8StringEncoding];
     __block BOOL completed = NO;
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
@@ -192,7 +192,7 @@ static NSString *const RZBTestString = @"StringValue";
 - (void)testNotify
 {
     RZBPeripheral *peripheral = [self.centralManager peripheralForUUID:self.class.pUUID];
-    id <RZBMockedPeripheral> mockPeripheral = [self.mockCentralManager peripheralForUUID:self.class.pUUID];
+    CBPeripheral<RZBMockedPeripheral> *mockPeripheral = [self.mockCentralManager peripheralForUUID:self.class.pUUID];
     NSMutableArray *values = [NSMutableArray array];
     __block BOOL completed = NO;
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
@@ -295,7 +295,7 @@ static NSString *const RZBTestString = @"StringValue";
 - (void)testMultipleServiceDiscoveries
 {
     RZBPeripheral *peripheral = [self.centralManager peripheralForUUID:self.class.pUUID];
-    id <RZBMockedPeripheral> mockPeripheral = [self.mockCentralManager peripheralForUUID:self.class.pUUID];
+    CBPeripheral<RZBMockedPeripheral> *mockPeripheral = [self.mockCentralManager peripheralForUUID:self.class.pUUID];
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
     NSMutableArray *values = [NSMutableArray array];
     [peripheral readCharacteristicUUID:self.class.cUUID
@@ -351,7 +351,7 @@ static NSString *const RZBTestString = @"StringValue";
 - (void)testMultipleCharacteristicDiscoveries
 {
     RZBPeripheral *peripheral = [self.centralManager peripheralForUUID:self.class.pUUID];
-    id <RZBMockedPeripheral> mockPeripheral = [self.mockCentralManager peripheralForUUID:self.class.pUUID];
+    CBPeripheral<RZBMockedPeripheral> *mockPeripheral = [self.mockCentralManager peripheralForUUID:self.class.pUUID];
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
     NSMutableArray *values = [NSMutableArray array];
     [peripheral readCharacteristicUUID:self.class.cUUID
@@ -407,7 +407,7 @@ static NSString *const RZBTestString = @"StringValue";
 - (void)testUndiscoveredService
 {
     RZBPeripheral *peripheral = [self.centralManager peripheralForUUID:self.class.pUUID];
-    id <RZBMockedPeripheral> mockPeripheral = [self.mockCentralManager peripheralForUUID:self.class.pUUID];
+    CBPeripheral<RZBMockedPeripheral> *mockPeripheral = [self.mockCentralManager peripheralForUUID:self.class.pUUID];
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
     NSMutableArray *errors = [NSMutableArray array];
     [peripheral readCharacteristicUUID:self.class.cUUID
@@ -438,7 +438,7 @@ static NSString *const RZBTestString = @"StringValue";
 - (void)testUndiscoveredCharacteristic
 {
     RZBPeripheral *peripheral = [self.centralManager peripheralForUUID:self.class.pUUID];
-    id <RZBMockedPeripheral> mockPeripheral = [self.mockCentralManager peripheralForUUID:self.class.pUUID];
+    CBPeripheral<RZBMockedPeripheral> *mockPeripheral = [self.mockCentralManager peripheralForUUID:self.class.pUUID];
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
     NSMutableArray *errors = [NSMutableArray array];
     [peripheral readCharacteristicUUID:self.class.cUUID
@@ -510,7 +510,7 @@ static NSString *const RZBTestString = @"StringValue";
 {
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
     RZBPeripheral *peripheral = [self.centralManager peripheralForUUID:self.class.pUUID];
-    id <RZBMockedPeripheral> mockPeripheral = [self.mockCentralManager peripheralForUUID:self.class.pUUID];
+    CBPeripheral<RZBMockedPeripheral> *mockPeripheral = [self.mockCentralManager peripheralForUUID:self.class.pUUID];
     XCTestExpectation *read = [self expectationWithDescription:@"Read RSSI"];
     [peripheral readRSSI:^(NSNumber *RSSI, NSError *error) {
         XCTAssertNil(error);

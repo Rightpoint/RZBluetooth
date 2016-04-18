@@ -88,7 +88,7 @@
     }
 }
 
-- (void)mockCentralManager:(CBCentralManager<RZBMockedCentralManager> *)mockCentralManager connectPeripheral:(id<RZBMockedPeripheral>)peripheral options:(NSDictionary *)options
+- (void)mockCentralManager:(CBCentralManager<RZBMockedCentralManager> *)mockCentralManager connectPeripheral:(CBPeripheral<RZBMockedPeripheral> *)peripheral options:(NSDictionary *)options
 {
     NSParameterAssert(mockCentralManager);
     NSParameterAssert(peripheral);
@@ -100,7 +100,7 @@
     }];
 }
 
-- (void)mockCentralManager:(CBCentralManager<RZBMockedCentralManager> *)mockCentralManager cancelPeripheralConnection:(id<RZBMockedPeripheral>)peripheral
+- (void)mockCentralManager:(CBCentralManager<RZBMockedCentralManager> *)mockCentralManager cancelPeripheralConnection:(CBPeripheral<RZBMockedPeripheral> *)peripheral
 {
     NSParameterAssert(mockCentralManager);
     NSParameterAssert(peripheral);
