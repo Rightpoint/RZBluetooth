@@ -43,7 +43,7 @@ typedef void(^RZBCallbackBlock)(id object, NSError *error);
 
 - (void)addCallbackBlock:(RZBCallbackBlock)callbackBlock;
 
-- (void)completeWithObject:(id)object error:(inout NSError **)error;
+- (BOOL)completeWithObject:(id)object error:(inout NSError **)error;
 
 @end
 

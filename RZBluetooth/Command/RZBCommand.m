@@ -50,7 +50,9 @@
 {
     CBCentralManagerState state = context.coreCentralManager.state;
     BOOL bluetoothReady = (state == CBCentralManagerStatePoweredOn);
-    *error = RZBluetoothErrorForState(state);
+    if (*error) {
+        *error = RZBluetoothErrorForState(state);
+    }
     return bluetoothReady;
 }
 
@@ -113,12 +115,13 @@
     }
 }
 
-- (void)completeWithObject:(id)object error:(inout NSError **)error;
+- (BOOL)completeWithObject:(id)object error:(inout NSError **)error;
 {
     if (self.callbackBlock) {
         self.callbackBlock(object, *error);
     }
     self.isCompleted = YES;
+    return *error == nil;
 }
 
 - (NSString *)description
@@ -240,7 +243,7 @@
     return undiscoveredUUIDs;
 }
 
-- (void)completeWithObject:(RZBPeripheral *)peripheral error:(inout NSError **)error
+- (BOOL)completeWithObject:(RZBPeripheral *)peripheral error:(inout NSError **)error
 {
     NSArray *undiscoveredUUIDs = [self undiscoveredUUIDsInPeripheral:peripheral.corePeripheral];
     if (*error == nil && undiscoveredUUIDs.count > 0) {
@@ -248,7 +251,7 @@
                                      code:RZBluetoothDiscoverServiceError
                                  userInfo:@{RZBluetoothUndiscoveredUUIDsKey: undiscoveredUUIDs}];
     }
-    [super completeWithObject:peripheral error:error];
+    return [super completeWithObject:peripheral error:error];
 }
 
 @end
@@ -300,7 +303,7 @@
     return undiscoveredUUIDs;
 }
 
-- (void)completeWithObject:(CBService *)service error:(inout NSError **)error
+- (BOOL)completeWithObject:(CBService *)service error:(inout NSError **)error
 {
     NSArray *undiscoveredUUIDs = [self undiscoveredUUIDsInService:service];
     if (*error == nil && undiscoveredUUIDs.count > 0) {
@@ -308,7 +311,7 @@
                                      code:RZBluetoothDiscoverCharacteristicError
                                  userInfo:@{RZBluetoothUndiscoveredUUIDsKey: undiscoveredUUIDs}];
     }
-    [super completeWithObject:service error:error];
+    return [super completeWithObject:service error:error];
 }
 
 @end
