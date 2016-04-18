@@ -54,11 +54,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * This block will be triggered whenever the central manager state changes.
+ * You can also use NSNotificationCenter to watch for notifications named RZBCentralManagerStateChangeNotification.
  */
 @property (nonatomic, copy) RZBStateBlock centralStateHandler;
 
 /**
- * This block will be triggered when restored with an array of CBPeripheral objects
+ * This block will be triggered when restored with an array of RZBPeripheral objects.
+ * You can also use NSNotificationCenter to watch for notifications named RZBCentralManagerRestorePeripheralNotification.
  */
 @property (nonatomic, copy) RZBRestorationBlock restorationHandler;
 
@@ -92,5 +94,20 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, readonly) CBCentralManager *coreCentralManager;
 
 @end
+
+/**
+ * This notification is posted every time the state changes on the central manager.
+ * The object is the RZBCentralManager object associated with the state change.
+ */
+extern NSString *const RZBCentralManagerStateChangeNotification;
+
+/**
+ * This notification is posted when state restoration restores peripherals.
+ * The object is the RZBCentralManager object associated with the state change.
+ * The RZBPeripheral objects that were restored are in the userInfo dictionary
+ * behind the RZBCentralManagerPeripheralKey.
+ */
+extern NSString *const RZBCentralManagerRestorePeripheralNotification;
+extern NSString *const RZBCentralManagerPeripheralKey;
 
 NS_ASSUME_NONNULL_END

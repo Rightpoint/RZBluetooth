@@ -174,6 +174,8 @@
     RZBLogDelegate(@"%@ - %@", NSStringFromSelector(_cmd), central);
     RZBLogDelegateValue(@"State=%d", (unsigned int)central.state);
 
+    [[NSNotificationCenter defaultCenter] postNotificationName:RZBCentralManagerStateChangeNotification
+                                                        object:self];
     if (self.centralStateHandler) {
         self.centralStateHandler(central.state);
     }
@@ -197,6 +199,10 @@
         peripheral.delegate = self;
         [peripherals addObject:[self peripheralForCorePeripheral:peripheral]];
     }
+    NSDictionary *userInfo = @{RZBCentralManagerPeripheralKey: peripherals};
+    [[NSNotificationCenter defaultCenter] postNotificationName:RZBCentralManagerRestorePeripheralNotification
+                                                        object:self
+                                                      userInfo:userInfo];
     if (self.restorationHandler) {
         self.restorationHandler(peripherals);
     }
@@ -348,3 +354,7 @@
 }
 
 @end
+
+NSString *const RZBCentralManagerStateChangeNotification = @"RZBCentralManagerStateChangeNotification";
+NSString *const RZBCentralManagerRestorePeripheralNotification  = @"RZBCentralManagerRestorePeripheralNotification";
+NSString *const RZBCentralManagerPeripheralKey  = @"RZBCentralManagerPeripheralKey";
