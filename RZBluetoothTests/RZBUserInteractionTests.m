@@ -68,7 +68,7 @@
     [RZBUserInteraction perform:^{
         [self.peripheral fetchBatteryLevel:^(NSUInteger level, NSError *error) {
             [read fulfill];
-            XCTAssert(error);
+            XCTAssertNotNil(error);
             XCTAssert(error.code == RZBluetoothPoweredOff);
         }];
     }];

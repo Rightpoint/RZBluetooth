@@ -50,7 +50,7 @@
 {
     CBCentralManagerState state = context.coreCentralManager.state;
     BOOL bluetoothReady = (state == CBCentralManagerStatePoweredOn);
-    if (*error) {
+    if (error) {
         *error = RZBluetoothErrorForState(state);
     }
     return bluetoothReady;
