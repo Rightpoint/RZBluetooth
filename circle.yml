@@ -4,4 +4,4 @@ machine:
 
 test:
   override:
-    - build.sh
+    - . ./build.sh
