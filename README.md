@@ -199,11 +199,11 @@ For example:
 
 The following mock objects are available:
 
-|Core Bluetooth      | Mock Object              | Mocked Protocol            |
-|--------------------|--------------------------|----------------------------|
-|CBCentralManager    | RZBMockCentralManager    | RZBMockedCentralManager    |
-|CBPeripheral        | RZBMockPeripheral        | RZBMockedPeripheral        |
-|CBPeripheralManager | RZBMockPeripheralManager | RZBMockedPeripheralManager |
+|Core Bluetooth      | Mock Object                                                                 |
+|--------------------|-----------------------------------------------------------------------------|
+|CBCentralManager    | [RZBMockCentralManager](RZMockBluetooth/Mock/RZBMockCentralManager.h)       |
+|CBPeripheral        | [RZBMockPeripheral](RZMockBluetooth/Mock/RZBMockPeripheral.h)               |
+|CBPeripheralManager | [RZBMockPeripheralManager](RZMockBluetooth/Mock/RZBMockPeripheralManager.h) |
 
 The mock objects mirror the CoreBluetooth stack and support the same public-facing API as their CoreBluetooth equivilents. All of the mock objects objects follow two patterns. When a Core Bluetooth API is invoked on the mock object, it will relay that method call out to the `mockDelegate` immediately. The mock objects also support a large number of methods with the prefix `fake`. Every one of these fake methods are associated with a delegate method on the delegate of that object. When the method is invoked, it will dispatch a delegate trigger to the objects dispatch queue.
 
