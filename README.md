@@ -1,12 +1,8 @@
 # RZBluetooth
-RZBluetooth is a Core Bluetooth helper with 3 primary goals:
-
- - Simplify the delegate callbacks and encourage best practices
- - Provide a pattern for Profile level APIs, with support for public profiles
- - Simplify and encourage testing - including unit tests, automated integration tests, and manual tests.
+The goal of RZBluetooth is to make Core Bluetooth easy to use and test. It provides a block based API with state management, automatic discovery, and support for public protocols. RZMockBluetooth contains a set of Core Bluetooth mock objects that enables over the air and in-app device simulation by connecting the CBCentralManager and CBPeripheralManager API's.'
 
 # Quick Start
-To emphasize how easy RZBluetooth is, the following block of code will print out the heart rate of the first heart rate monitor that comes nearby, every time a new reading is available.
+To emphasize how easy RZBluetooth is, the following block of code will print out the heart rate of the first heart rate monitor that comes nearby, every time a new reading is available. Also note that this code can be ran in unit tests.
 
 ```objc
 self.centralManager = [[RZBCentralManager alloc] init];
@@ -43,13 +39,13 @@ centralManager.scanForPeripheralsWithServices([CBUUID.rzb_UUIDForHeartRateServic
 }
  ```
 
-This block will wait for bluetooth to power on and scan for a new peripheral supporting the heart rate service. When one is found, the app will connect to the peripheral, discover the heart rate service and observe the characteristic. When the characteristic is notified, the `NSData*` object is serialized into a more developer friendly object. All of these details are nicely encapsulated for you, and the pattern of extending `RZBPeripheral` via categories should easily extend to your devices domain space.
+This block will wait for bluetooth to power on and scan for a new peripheral supporting the heart rate service. When one is found, the app will connect to the peripheral, discover the heart rate service and observe the characteristic. When the characteristic is notified, the `NSData*` object is serialized into a more developer friendly object.
 
 # Install
 RZBluetooth is available through CocoaPods. To install it, add the following line to your Podfile:
 
 ```ruby
-pod 'RZBluetooth', :git => "https://github.com/Raizlabs/RZBluetooth"
+pod 'RZBluetooth'
 ```
 
 # Block Based API
