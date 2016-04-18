@@ -12,6 +12,7 @@
 #import "RZBUUIDPath.h"
 #import "XCTestCase+Helpers.h"
 #import "RZTestCommands.h"
+#import "CBUUID+TestUUIDs.h"
 
 @interface RZBCommandTests : XCTestCase
 
@@ -21,42 +22,42 @@
 
 - (void)testUUIDPathMatching
 {
-    RZBPTestCommand *pCommand = [[RZBPTestCommand alloc] initWithUUIDPath:self.class.pUUIDPath];
+    RZBPTestCommand *pCommand = [[RZBPTestCommand alloc] initWithUUIDPath:RZBUUIDPath.pUUIDPath];
 
-    XCTAssertTrue([pCommand matchesUUIDPath:self.class.pUUIDPath]);
-    XCTAssertFalse([pCommand matchesUUIDPath:self.class.sUUIDPath]);
-    XCTAssertFalse([pCommand matchesUUIDPath:self.class.cUUIDPath]);
+    XCTAssertTrue([pCommand matchesUUIDPath:RZBUUIDPath.pUUIDPath]);
+    XCTAssertFalse([pCommand matchesUUIDPath:RZBUUIDPath.sUUIDPath]);
+    XCTAssertFalse([pCommand matchesUUIDPath:RZBUUIDPath.cUUIDPath]);
 
-    XCTAssertFalse([pCommand matchesUUIDPath:RZBUUIDP(self.class.p2UUID)]);
+    XCTAssertFalse([pCommand matchesUUIDPath:RZBUUIDP(NSUUID.p2UUID)]);
 
-    RZBSTestCommand *sCommand = [[RZBSTestCommand alloc] initWithUUIDPath:self.class.sUUIDPath];
+    RZBSTestCommand *sCommand = [[RZBSTestCommand alloc] initWithUUIDPath:RZBUUIDPath.sUUIDPath];
 
-    XCTAssertTrue([sCommand matchesUUIDPath:self.class.pUUIDPath]);
-    XCTAssertTrue([sCommand matchesUUIDPath:self.class.sUUIDPath]);
-    XCTAssertFalse([sCommand matchesUUIDPath:self.class.cUUIDPath]);
+    XCTAssertTrue([sCommand matchesUUIDPath:RZBUUIDPath.pUUIDPath]);
+    XCTAssertTrue([sCommand matchesUUIDPath:RZBUUIDPath.sUUIDPath]);
+    XCTAssertFalse([sCommand matchesUUIDPath:RZBUUIDPath.cUUIDPath]);
 
-    XCTAssertFalse([pCommand matchesUUIDPath:RZBUUIDP(self.class.pUUID, self.class.s2UUID)]);
-    XCTAssertFalse([pCommand matchesUUIDPath:RZBUUIDP(self.class.p2UUID, self.class.sUUID)]);
+    XCTAssertFalse([pCommand matchesUUIDPath:RZBUUIDP(NSUUID.pUUID, CBUUID.s2UUID)]);
+    XCTAssertFalse([pCommand matchesUUIDPath:RZBUUIDP(NSUUID.p2UUID, CBUUID.sUUID)]);
 
-    RZBCTestCommand *cCommand = [[RZBCTestCommand alloc] initWithUUIDPath:self.class.cUUIDPath];
+    RZBCTestCommand *cCommand = [[RZBCTestCommand alloc] initWithUUIDPath:RZBUUIDPath.cUUIDPath];
 
-    XCTAssertTrue([cCommand matchesUUIDPath:self.class.pUUIDPath]);
-    XCTAssertTrue([cCommand matchesUUIDPath:self.class.sUUIDPath]);
-    XCTAssertTrue([cCommand matchesUUIDPath:self.class.cUUIDPath]);
+    XCTAssertTrue([cCommand matchesUUIDPath:RZBUUIDPath.pUUIDPath]);
+    XCTAssertTrue([cCommand matchesUUIDPath:RZBUUIDPath.sUUIDPath]);
+    XCTAssertTrue([cCommand matchesUUIDPath:RZBUUIDPath.cUUIDPath]);
 
-    XCTAssertFalse([pCommand matchesUUIDPath:RZBUUIDP(self.class.p2UUID, self.class.sUUID, self.class.cUUID)]);
-    XCTAssertFalse([pCommand matchesUUIDPath:RZBUUIDP(self.class.pUUID, self.class.s2UUID, self.class.cUUID)]);
-    XCTAssertFalse([pCommand matchesUUIDPath:RZBUUIDP(self.class.pUUID, self.class.sUUID, self.class.c2UUID)]);
+    XCTAssertFalse([pCommand matchesUUIDPath:RZBUUIDP(NSUUID.p2UUID, CBUUID.sUUID, CBUUID.cUUID)]);
+    XCTAssertFalse([pCommand matchesUUIDPath:RZBUUIDP(NSUUID.pUUID, CBUUID.s2UUID, CBUUID.cUUID)]);
+    XCTAssertFalse([pCommand matchesUUIDPath:RZBUUIDP(NSUUID.pUUID, CBUUID.sUUID, CBUUID.c2UUID)]);
 }
 
 - (void)testDescription
 {
-    RZBCTestCommand *cmd = [[RZBCTestCommand alloc] initWithUUIDPath:self.class.cUUIDPath];
+    RZBCTestCommand *cmd = [[RZBCTestCommand alloc] initWithUUIDPath:RZBUUIDPath.cUUIDPath];
     XCTAssertTrue([cmd.description containsString:@"isExecuted=NO, isCompleted=NO peripheralUUID="]);
     XCTAssertTrue([cmd.description containsString:@"serviceUUID=01234567 characteristicUUID=12345678"]);
     XCTAssertTrue([cmd.description containsString:[cmd.class description]]);
     XCTAssertFalse([cmd.description containsString:@"dependentCommand"]);
-    cmd.retryAfter = [[RZBCTestCommand alloc] initWithUUIDPath:self.class.sUUIDPath];
+    cmd.retryAfter = [[RZBCTestCommand alloc] initWithUUIDPath:RZBUUIDPath.sUUIDPath];
     XCTAssertTrue([cmd.description containsString:@"dependentCommand=<RZBCTestCommand:"]);
 }
 
@@ -65,7 +66,7 @@
     NSUUID *completionObject = [NSUUID UUID];
     NSError *completionError = [NSError errorWithDomain:NSCocoaErrorDomain code:22 userInfo:nil];
     __block NSUInteger triggerCount = 0;
-    RZBPTestCommand *pCommand = [[RZBPTestCommand alloc] initWithUUIDPath:self.class.pUUIDPath];
+    RZBPTestCommand *pCommand = [[RZBPTestCommand alloc] initWithUUIDPath:RZBUUIDPath.pUUIDPath];
     XCTAssertNoThrow([pCommand addCallbackBlock:nil]);
 
     [pCommand addCallbackBlock:^(id object, NSError *error) {

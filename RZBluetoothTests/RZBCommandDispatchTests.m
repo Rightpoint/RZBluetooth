@@ -12,6 +12,7 @@
 #import "RZTestCommands.h"
 #import "XCTestCase+Helpers.h"
 #import "NSRunLoop+RZBWaitFor.h"
+#import "CBUUID+TestUUIDs.h"
 
 @interface RZBCommandDispatchTests : XCTestCase
 
@@ -24,39 +25,39 @@
 - (void)testCommandLookup
 {
     self.dispatch = [[RZBCommandDispatch alloc] initWithQueue:nil context:self];
-    RZBCTestCommand *cCmd = [[RZBCTestCommand alloc] initWithUUIDPath:self.class.cUUIDPath];
+    RZBCTestCommand *cCmd = [[RZBCTestCommand alloc] initWithUUIDPath:RZBUUIDPath.cUUIDPath];
     [self.dispatch dispatchCommand:cCmd];
     NSArray *c = nil;
     // Ensure all UUIDPaths work
-    c = [self.dispatch commandsOfClass:[RZBCTestCommand class] matchingUUIDPath:self.class.cUUIDPath isExecuted:NO];
+    c = [self.dispatch commandsOfClass:[RZBCTestCommand class] matchingUUIDPath:RZBUUIDPath.cUUIDPath isExecuted:NO];
     XCTAssertTrue(c.count == 1);
-    c = [self.dispatch commandsOfClass:[RZBCTestCommand class] matchingUUIDPath:self.class.sUUIDPath isExecuted:NO];
+    c = [self.dispatch commandsOfClass:[RZBCTestCommand class] matchingUUIDPath:RZBUUIDPath.sUUIDPath isExecuted:NO];
     XCTAssertTrue(c.count == 1);
-    c = [self.dispatch commandsOfClass:[RZBCTestCommand class] matchingUUIDPath:self.class.pUUIDPath isExecuted:NO];
+    c = [self.dispatch commandsOfClass:[RZBCTestCommand class] matchingUUIDPath:RZBUUIDPath.pUUIDPath isExecuted:NO];
     XCTAssertTrue(c.count == 1);
-    c = [self.dispatch commandsOfClass:nil matchingUUIDPath:self.class.pUUIDPath isExecuted:NO];
+    c = [self.dispatch commandsOfClass:nil matchingUUIDPath:RZBUUIDPath.pUUIDPath isExecuted:NO];
     XCTAssertTrue(c.count == 1);
 
     [self waitForQueueFlush];
     // Check isExecuted
-    c = [self.dispatch commandsOfClass:[RZBCTestCommand class] matchingUUIDPath:self.class.cUUIDPath isExecuted:NO];
+    c = [self.dispatch commandsOfClass:[RZBCTestCommand class] matchingUUIDPath:RZBUUIDPath.cUUIDPath isExecuted:NO];
     XCTAssertTrue(c.count == 0);
-    c = [self.dispatch commandsOfClass:[RZBCTestCommand class] matchingUUIDPath:self.class.cUUIDPath isExecuted:YES];
+    c = [self.dispatch commandsOfClass:[RZBCTestCommand class] matchingUUIDPath:RZBUUIDPath.cUUIDPath isExecuted:YES];
     XCTAssertTrue(c.count == 1);
 
     // Check nil class
-    c = [self.dispatch commandsOfClass:nil matchingUUIDPath:self.class.cUUIDPath isExecuted:YES];
+    c = [self.dispatch commandsOfClass:nil matchingUUIDPath:RZBUUIDPath.cUUIDPath isExecuted:YES];
     XCTAssertTrue(c.count == 1);
 
     // Check non-matching class
-    c = [self.dispatch commandsOfClass:[RZBSTestCommand class] matchingUUIDPath:self.class.cUUIDPath isExecuted:YES];
+    c = [self.dispatch commandsOfClass:[RZBSTestCommand class] matchingUUIDPath:RZBUUIDPath.cUUIDPath isExecuted:YES];
     XCTAssertTrue(c.count == 0);
 }
 
 - (void)testCommandDispatchExecutionCancelation
 {
     self.dispatch = [[RZBCommandDispatch alloc] initWithQueue:nil context:self];
-    RZBCTestCommand *cCmd = [[RZBCTestCommand alloc] initWithUUIDPath:self.class.cUUIDPath];
+    RZBCTestCommand *cCmd = [[RZBCTestCommand alloc] initWithUUIDPath:RZBUUIDPath.cUUIDPath];
     cCmd.shouldExecute = NO;
     [self.dispatch dispatchCommand:cCmd];
     [self waitForQueueFlush];
@@ -73,9 +74,9 @@
 - (void)testDependentCommands
 {
     self.dispatch = [[RZBCommandDispatch alloc] initWithQueue:nil context:self];
-    RZBCTestCommand *cmd1 = [[RZBCTestCommand alloc] initWithUUIDPath:self.class.cUUIDPath];
-    RZBCTestCommand *cmd2 = [[RZBCTestCommand alloc] initWithUUIDPath:self.class.cUUIDPath];
-    RZBCTestCommand *cmd3 = [[RZBCTestCommand alloc] initWithUUIDPath:self.class.cUUIDPath];
+    RZBCTestCommand *cmd1 = [[RZBCTestCommand alloc] initWithUUIDPath:RZBUUIDPath.cUUIDPath];
+    RZBCTestCommand *cmd2 = [[RZBCTestCommand alloc] initWithUUIDPath:RZBUUIDPath.cUUIDPath];
+    RZBCTestCommand *cmd3 = [[RZBCTestCommand alloc] initWithUUIDPath:RZBUUIDPath.cUUIDPath];
     cmd3.retryAfter = cmd2;
     cmd2.retryAfter = cmd1;
 
@@ -106,9 +107,9 @@
 {
     NSMutableArray *errors = [NSMutableArray array];
     self.dispatch = [[RZBCommandDispatch alloc] initWithQueue:nil context:self];
-    RZBCTestCommand *cmd1 = [[RZBCTestCommand alloc] initWithUUIDPath:self.class.cUUIDPath];
-    RZBCTestCommand *cmd2 = [[RZBCTestCommand alloc] initWithUUIDPath:self.class.cUUIDPath];
-    RZBCTestCommand *cmd3 = [[RZBCTestCommand alloc] initWithUUIDPath:self.class.cUUIDPath];
+    RZBCTestCommand *cmd1 = [[RZBCTestCommand alloc] initWithUUIDPath:RZBUUIDPath.cUUIDPath];
+    RZBCTestCommand *cmd2 = [[RZBCTestCommand alloc] initWithUUIDPath:RZBUUIDPath.cUUIDPath];
+    RZBCTestCommand *cmd3 = [[RZBCTestCommand alloc] initWithUUIDPath:RZBUUIDPath.cUUIDPath];
     cmd3.retryAfter = cmd2;
     cmd2.retryAfter = cmd1;
 
@@ -139,7 +140,7 @@
     self.dispatch = [[RZBCommandDispatch alloc] initWithQueue:q context:self];
     dispatch_queue_t b = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_apply(ABUSE_COUNT, b, ^(size_t i) {
-        RZBCTestCommand *cmd = [[RZBCTestCommand alloc] initWithUUIDPath:self.class.cUUIDPath];
+        RZBCTestCommand *cmd = [[RZBCTestCommand alloc] initWithUUIDPath:RZBUUIDPath.cUUIDPath];
         [self.dispatch dispatchCommand:cmd];
         dispatch_async(b, ^{
             [self.dispatch completeCommand:cmd

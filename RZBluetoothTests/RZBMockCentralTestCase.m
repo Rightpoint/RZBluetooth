@@ -8,6 +8,7 @@
 
 #import "RZBMockCentralTestCase.h"
 #import "NSRunLoop+RZBWaitFor.h"
+#import "CBUUID+TestUUIDs.h"
 
 @implementation RZBMockCentralTestCase
 
@@ -59,13 +60,13 @@
 - (void)ensureAndCompleteDiscoveryOfService:(CBUUID *)serviceUUID peripheralUUID:(NSUUID *)peripheralUUID
 {
     [self waitForQueueFlush];
-    RZBAssertHasCommand(RZBDiscoverServiceCommand, self.class.pUUIDPath, YES);
+    RZBAssertHasCommand(RZBDiscoverServiceCommand, RZBUUIDPath.pUUIDPath, YES);
 
     RZBMockPeripheral *mockPeripheral = [self.mockCentralManager peripheralForUUID:peripheralUUID];
     XCTAssertEqualObjects([self.invocationLog argumentAtIndex:0 forSelector:@selector(discoverServices:)], @[serviceUUID]);
 
     // Fake the service discovery
-    [mockPeripheral fakeDiscoverServicesWithUUIDs:@[self.class.sUUID] error:nil];
+    [mockPeripheral fakeDiscoverServicesWithUUIDs:@[CBUUID.sUUID] error:nil];
     [self waitForQueueFlush];
 }
 
@@ -86,21 +87,21 @@
 
 - (void)triggerThreeCommandsAndStoreErrorsIn:(NSMutableArray *)errors
 {
-    RZBPeripheral *peripheral = [self.centralManager peripheralForUUID:self.class.pUUID];
-    [peripheral readCharacteristicUUID:self.class.cUUID
-                           serviceUUID:self.class.sUUID
+    RZBPeripheral *peripheral = [self.centralManager peripheralForUUID:NSUUID.pUUID];
+    [peripheral readCharacteristicUUID:CBUUID.cUUID
+                           serviceUUID:CBUUID.sUUID
                             completion:^(CBCharacteristic *characteristic, NSError *error) {
                                 XCTAssertNotNil(error);
                                 [errors addObject:error];
                             }];
-    [peripheral readCharacteristicUUID:self.class.cUUID
-                           serviceUUID:self.class.sUUID
+    [peripheral readCharacteristicUUID:CBUUID.cUUID
+                           serviceUUID:CBUUID.sUUID
                             completion:^(CBCharacteristic *characteristic, NSError *error) {
                                 XCTAssertNotNil(error);
                                 [errors addObject:error];
                             }];
-    [peripheral readCharacteristicUUID:self.class.cUUID
-                           serviceUUID:self.class.sUUID
+    [peripheral readCharacteristicUUID:CBUUID.cUUID
+                           serviceUUID:CBUUID.sUUID
                             completion:^(CBCharacteristic *characteristic, NSError *error) {
                                 XCTAssertNotNil(error);
                                 [errors addObject:error];
@@ -111,10 +112,10 @@
 - (void)setupConnectedPeripheral
 {
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
-    RZBPeripheral *peripheral = [self.centralManager peripheralForUUID:self.class.pUUID];
+    RZBPeripheral *peripheral = [self.centralManager peripheralForUUID:NSUUID.pUUID];
 
     [peripheral connectWithCompletion:^(NSError *error) {}];
-    [self ensureAndCompleteConnectionTo:self.class.pUUID];
+    [self ensureAndCompleteConnectionTo:NSUUID.pUUID];
 }
 
 #pragma mark Delegate -> Invocation Log.

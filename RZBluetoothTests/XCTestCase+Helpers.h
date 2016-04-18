@@ -7,25 +7,8 @@
 //
 
 @import XCTest;
-@import CoreBluetooth;
-
-#import "RZBUUIDPath.h"
-
-@class RZBCommandDispatch;
 
 @interface XCTestCase (Helpers)
-
-+ (NSUUID *)pUUID;
-+ (CBUUID *)sUUID;
-+ (CBUUID *)cUUID;
-
-+ (NSUUID *)p2UUID;
-+ (CBUUID *)s2UUID;
-+ (CBUUID *)c2UUID;
-
-+ (RZBUUIDPath *)pUUIDPath;
-+ (RZBUUIDPath *)sUUIDPath;
-+ (RZBUUIDPath *)cUUIDPath;
 
 - (void)waitForQueueFlush;
 
