@@ -46,11 +46,6 @@ typedef void (^RZBPeripheralManagerStateBlock)(CBPeripheralManagerState state);
 @property (strong, nonatomic, readonly) dispatch_queue_t queue;
 
 /**
- *  Returns YES if there are no queued operations in the device's operation queue.
- */
-@property (readonly) BOOL isReady;
-
-/**
  *  All of the services added to the peripheral
  */
 @property (strong, nonatomic, readonly) NSArray<CBMutableService *> *services;

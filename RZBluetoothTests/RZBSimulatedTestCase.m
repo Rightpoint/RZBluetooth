@@ -31,9 +31,9 @@
         dispatchFlushed = YES;
     });
     BOOL ok = [[NSRunLoop currentRunLoop] rzb_waitWithTimeout:10.0 forCheck:^BOOL{
-        return dispatchFlushed && self.device.isReady && self.centralManager.dispatch.dispatchCounter == 0;
+        return dispatchFlushed && self.connection.idle;
     }];
-    XCTAssertTrue(ok, @"Dispatch queue did not complete");
+    XCTAssertTrue(ok, @"The connection never idled");
 }
 
 - (RZBMockCentralManager *)mockCentralManager
@@ -58,11 +58,13 @@
     [super setUp];
     [self configureCentralManager];
     [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
+
     NSUUID *identifier = [NSUUID UUID];
     self.device = [[self.class.simulatedDeviceClass alloc] initWithQueue:self.mockCentralManager.queue
                                                                  options:@{}];
     RZBMockPeripheralManager *peripheralManager = (id)self.device.peripheralManager;
     [peripheralManager fakeStateChange:CBPeripheralManagerStatePoweredOn];
+
     self.central = [[RZBSimulatedCentral alloc] initWithMockCentralManager:self.mockCentralManager];
     [self.central addSimulatedDeviceWithIdentifier:identifier
                                  peripheralManager:(id)self.device.peripheralManager];

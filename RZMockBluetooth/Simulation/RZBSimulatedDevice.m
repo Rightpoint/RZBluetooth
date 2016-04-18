@@ -46,11 +46,6 @@
     return self;
 }
 
-- (BOOL)isReady
-{
-    return self.operationQueue.operationCount == 0;
-}
-
 - (CBMutableService *)serviceForRepresentable:(id<RZBBluetoothRepresentable>)representable isPrimary:(BOOL)isPrimary
 {
     CBMutableService *service = [[CBMutableService alloc] initWithType:[representable.class serviceUUID] primary:isPrimary];

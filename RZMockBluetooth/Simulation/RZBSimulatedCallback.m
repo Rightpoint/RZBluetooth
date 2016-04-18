@@ -15,6 +15,7 @@ static NSTimeInterval __defaultDelay = 0;
 @property (strong, nonatomic) dispatch_queue_t queue;
 @property (assign, nonatomic) NSUInteger dispatchCounter;
 @property (assign, nonatomic) NSUInteger cancelCounter;
+@property (assign, nonatomic) NSUInteger triggeredCounter;
 @end
 
 @implementation RZBSimulatedCallback
@@ -60,10 +61,22 @@ static NSTimeInterval __defaultDelay = 0;
     });
 
     dispatch_group_notify(self.group, self.queue, ^{
+        wself.triggeredCounter = dispatchCounter;
         if (dispatchCounter >= wself.cancelCounter) {
             block(wself.injectError);
         }
     });
+}
+
+- (BOOL)idle
+{
+    BOOL idle = YES;
+    // If the dispatchCounter is 0 the callback has never been triggered
+    if (self.dispatchCounter > 0) {
+        // Dispatch counter always holds the next counter, so compare to the previous value.
+        idle = (self.triggeredCounter == self.dispatchCounter - 1);
+    }
+    return idle;
 }
 
 - (void)setPaused:(BOOL)paused

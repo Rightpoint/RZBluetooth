@@ -51,7 +51,13 @@ NS_ASSUME_NONNULL_BEGIN
  * Do not dispatch any blocks while paused. This will not pause the delay that
  * the dispatch is invoked with.
  */
-@property (assign) BOOL paused;
+@property () BOOL paused;
+
+/**
+ * Determine if the callback is idle. A callback is idle when every block dispatched
+ * to the callback has been executed.
+ */
+@property (readonly) BOOL idle;
 
 /**
  * Dispatch a block that will be triggered when the delay passes, and the callback
