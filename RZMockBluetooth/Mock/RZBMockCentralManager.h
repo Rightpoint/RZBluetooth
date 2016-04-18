@@ -11,6 +11,8 @@
 @class RZBMockPeripheral;
 @protocol RZBMockCentralManagerDelegate;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface RZBMockCentralManager : NSObject
 
 @property(weak, nonatomic) id<CBCentralManagerDelegate> delegate;
@@ -37,8 +39,8 @@
 - (void)fakeStateChange:(CBCentralManagerState)state;
 - (void)fakeScanPeripheralWithUUID:(NSUUID *)peripheralUUID advInfo:(NSDictionary *)info RSSI:(NSNumber *)RSSI;
 
-- (void)fakeConnectPeripheralWithUUID:(NSUUID *)peripheralUUID error:(NSError *)error;
-- (void)fakeDisconnectPeripheralWithUUID:(NSUUID *)peripheralUUID error:(NSError *)error;
+- (void)fakeConnectPeripheralWithUUID:(NSUUID *)peripheralUUID error:(NSError *__nullable)error;
+- (void)fakeDisconnectPeripheralWithUUID:(NSUUID *)peripheralUUID error:(NSError *__nullable)error;
 
 @end
 
@@ -52,3 +54,5 @@
 - (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager cancelPeripheralConnection:(RZBMockPeripheral *)peripheral;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -11,6 +11,8 @@
 @class RZBMockCentralManager;
 @protocol RZBMockPeripheralDelegate;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * A fake peripheral object that behaves like a CBPeripheral.
  * This is not a subclass of CBPeripheral because of complications
@@ -41,16 +43,16 @@
 
 - (CBMutableCharacteristic *)newServiceForUUID:(CBUUID *)serviceUUID;
 
-- (void)fakeRSSI:(NSNumber *)RSSI error:(NSError *)error;
-- (void)fakeDiscoverService:(NSArray *)services error:(NSError *)error;
-- (void)fakeDiscoverServicesWithUUIDs:(NSArray *)serviceUUIDs error:(NSError *)error;
+- (void)fakeRSSI:(NSNumber *)RSSI error:(NSError *__nullable)error;
+- (void)fakeDiscoverService:(NSArray<CBMutableService *> *)services error:(NSError *__nullable)error;
+- (void)fakeDiscoverServicesWithUUIDs:(NSArray<CBUUID *> *)serviceUUIDs error:(NSError *__nullable)error;
 - (void)fakeUpdateName:(NSString *)name;
-- (void)fakeDiscoverCharacteristics:(NSArray *)services forService:(CBMutableService *)service error:(NSError *)error;
-- (void)fakeDiscoverCharacteristicsWithUUIDs:(NSArray *)serviceUUIDs forService:(CBMutableService *)service error:(NSError *)error;
+- (void)fakeDiscoverCharacteristics:(NSArray<CBCharacteristic *> *)characteristics forService:(CBMutableService *)service error:(NSError *__nullable)error;
+- (void)fakeDiscoverCharacteristicsWithUUIDs:(NSArray<CBUUID *> *)characteristicUUIDs forService:(CBMutableService *)service error:(NSError *__nullable)error;
 
-- (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic updateValue:(NSData *)value error:(NSError *)error;
-- (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic writeResponseWithError:(NSError *)error;
-- (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic notify:(BOOL)notifyState error:(NSError *)error;
+- (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic updateValue:(NSData *)value error:(NSError *__nullable)error;
+- (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic writeResponseWithError:(NSError *__nullable)error;
+- (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic notify:(BOOL)notifyState error:(NSError *__nullable)error;
 
 @end
 
@@ -64,3 +66,5 @@
 - (void)mockPeripheralReadRSSI:(RZBMockPeripheral *)peripheral;
 
 @end
+
+NS_ASSUME_NONNULL_END

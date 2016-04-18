@@ -95,7 +95,7 @@
     });
 }
 
-- (void)fakeDiscoverService:(NSArray *)services error:(NSError *)error
+- (void)fakeDiscoverService:(NSArray<CBMutableService *> *)services error:(NSError *)error
 {
     NSMutableSet *existing = self.services ? [NSMutableSet setWithArray:self.services] : [NSMutableSet set];
     if (services) {
@@ -110,7 +110,7 @@
     });
 }
 
-- (void)fakeDiscoverServicesWithUUIDs:(NSArray *)serviceUUIDs error:(NSError *)error
+- (void)fakeDiscoverServicesWithUUIDs:(NSArray<CBUUID *> *)serviceUUIDs error:(NSError *)error
 {
     NSMutableArray *services = [NSMutableArray array];
     for (CBUUID *serviceUUID in serviceUUIDs) {
@@ -127,7 +127,7 @@
     });
 }
 
-- (void)fakeDiscoverCharacteristicsWithUUIDs:(NSArray *)characteristicUUIDs forService:(CBMutableService *)service error:(NSError *)error
+- (void)fakeDiscoverCharacteristicsWithUUIDs:(NSArray<CBUUID *> *)characteristicUUIDs forService:(CBMutableService *)service error:(NSError *)error
 {
     NSMutableArray *characteristics = [NSMutableArray array];
     for (CBUUID *characteristicUUID in characteristicUUIDs) {
@@ -136,11 +136,11 @@
     [self fakeDiscoverCharacteristics:characteristics forService:service error:error];
 }
 
-- (void)fakeDiscoverCharacteristics:(NSArray *)services forService:(CBMutableService *)service error:(NSError *)error
+- (void)fakeDiscoverCharacteristics:(NSArray<CBCharacteristic *> *)characteristics forService:(CBMutableService *)service error:(NSError *)error
 {
     NSMutableSet *existing = service.characteristics ? [NSMutableSet setWithArray:service.characteristics] : [NSMutableSet set];
-    if (services) {
-        [existing addObjectsFromArray:services];
+    if (characteristics) {
+        [existing addObjectsFromArray:characteristics];
     }
     service.characteristics = [existing allObjects];
     dispatch_async(self.mockCentralManager.queue, ^{

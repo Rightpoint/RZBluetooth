@@ -10,6 +10,8 @@
 
 @protocol RZBMockPeripheralManagerDelegate;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * Mock API for CBPeripheralManager. This is not a direct subclass of CBPeripheralManager
  * because not all of the things can be controlled (like peripheralManagerDidUpdateState: signaling)
@@ -62,3 +64,5 @@
 
 
 @end
+
+NS_ASSUME_NONNULL_END
