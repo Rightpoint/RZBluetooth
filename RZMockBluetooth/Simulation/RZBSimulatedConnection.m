@@ -84,7 +84,7 @@
     typeof(self) weakSelf = self;
     [self.cancelConncetionCallback dispatch:^(NSError *injectedError) {
         [weakSelf.central.mockCentralManager fakeDisconnectPeripheralWithUUID:weakSelf.identifier
-                                                                    error:injectedError];
+                                                                        error:injectedError];
     }];
 }
 
