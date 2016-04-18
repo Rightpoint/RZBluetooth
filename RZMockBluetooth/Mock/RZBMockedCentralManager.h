@@ -10,14 +10,8 @@
 
 @protocol RZBMockCentralManagerDelegate, RZBMockedPeripheral;
 
-NS_ASSUME_NONNULL_BEGIN
 
 @protocol RZBMockedCentralManager <NSObject>
-
-- (void)scanForPeripheralsWithServices:(nullable NSArray<CBUUID *> *)serviceUUIDs options:(nullable NSDictionary<NSString *, id> *)options;
-- (void)stopScan;
-- (void)connectPeripheral:(CBPeripheral *)peripheral options:(nullable NSDictionary<NSString *, id> *)options;
-- (void)cancelPeripheralConnection:(CBPeripheral *)peripheral;
 
 - (CBPeripheral<RZBMockedPeripheral> *)peripheralForUUID:(NSUUID *)uuid;
 
@@ -27,8 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fakeStateChange:(CBCentralManagerState)state;
 - (void)fakeScanPeripheralWithUUID:(NSUUID *)peripheralUUID advInfo:(NSDictionary *)info RSSI:(NSNumber *)RSSI;
 
-- (void)fakeConnectPeripheralWithUUID:(NSUUID *)peripheralUUID error:(NSError *__nullable)error;
-- (void)fakeDisconnectPeripheralWithUUID:(NSUUID *)peripheralUUID error:(NSError *__nullable)error;
+- (void)fakeConnectPeripheralWithUUID:(NSUUID *)peripheralUUID error:(NSError *)error;
+- (void)fakeDisconnectPeripheralWithUUID:(NSUUID *)peripheralUUID error:(NSError *)error;
 
 @end
 
@@ -42,5 +36,3 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)mockCentralManager:(CBCentralManager<RZBMockedCentralManager> *)mockCentralManager cancelPeripheralConnection:(CBPeripheral<RZBMockedPeripheral> *)peripheral;
 
 @end
-
-NS_ASSUME_NONNULL_END

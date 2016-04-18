@@ -10,33 +10,21 @@
 
 @protocol RZBMockPeripheralDelegate;
 
-NS_ASSUME_NONNULL_BEGIN
-
 @protocol RZBMockedPeripheral <NSObject>
 
-@property(assign, nonatomic, nullable) id<CBPeripheralDelegate> delegate;
-@property(retain, readonly, nullable) NSString *name;
-@property(readonly) CBPeripheralState state;
-@property(retain, readonly, nullable) NSArray<CBService *> *services;
-- (void)readRSSI;
-- (void)discoverServices:(nullable NSArray<CBUUID *> *)serviceUUIDs;
-- (void)discoverCharacteristics:(nullable NSArray<CBUUID *> *)characteristicUUIDs forService:(CBService *)service;
-- (void)readValueForCharacteristic:(CBCharacteristic *)characteristic;
-- (void)writeValue:(NSData *)data forCharacteristic:(CBCharacteristic *)characteristic type:(CBCharacteristicWriteType)type;
-- (void)setNotifyValue:(BOOL)enabled forCharacteristic:(CBCharacteristic *)characteristic;
-
 @property(weak, nonatomic) id<RZBMockPeripheralDelegate> mockDelegate;
+@property(assign) CBPeripheralState state;
 
-- (void)fakeRSSI:(NSNumber *)RSSI error:(NSError *__nullable)error;
-- (void)fakeDiscoverService:(NSArray *)services error:(NSError *__nullable)error;
-- (void)fakeDiscoverServicesWithUUIDs:(NSArray *)serviceUUIDs error:(NSError *__nullable)error;
+- (void)fakeRSSI:(NSNumber *)RSSI error:(NSError *)error;
+- (void)fakeDiscoverService:(NSArray *)services error:(NSError *)error;
+- (void)fakeDiscoverServicesWithUUIDs:(NSArray *)serviceUUIDs error:(NSError *)error;
 - (void)fakeUpdateName:(NSString *)name;
-- (void)fakeDiscoverCharacteristics:(NSArray *)services forService:(CBMutableService *)service error:(NSError *__nullable)error;
-- (void)fakeDiscoverCharacteristicsWithUUIDs:(NSArray *)serviceUUIDs forService:(CBMutableService *)service error:(NSError *__nullable)error;
+- (void)fakeDiscoverCharacteristics:(NSArray *)services forService:(CBMutableService *)service error:(NSError *)error;
+- (void)fakeDiscoverCharacteristicsWithUUIDs:(NSArray *)serviceUUIDs forService:(CBMutableService *)service error:(NSError *)error;
 
-- (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic updateValue:(NSData *)value error:(NSError *__nullable)error;
-- (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic writeResponseWithError:(NSError *__nullable)error;
-- (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic notify:(BOOL)notifyState error:(NSError *__nullable)error;
+- (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic updateValue:(NSData *)value error:(NSError *)error;
+- (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic writeResponseWithError:(NSError *)error;
+- (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic notify:(BOOL)notifyState error:(NSError *)error;
 
 - (CBMutableService *)serviceForUUID:(CBUUID *)serviceUUID;
 
@@ -52,5 +40,3 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)mockPeripheralReadRSSI:(CBPeripheral<RZBMockedPeripheral> *)peripheral;
 
 @end
-
-NS_ASSUME_NONNULL_END

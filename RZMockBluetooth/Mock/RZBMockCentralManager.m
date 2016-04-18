@@ -30,11 +30,6 @@
 
 - (RZBMockPeripheral *)peripheralForUUID:(NSUUID *)uuid
 {
-    return (id)[self mockPeripheralForUUID:uuid];
-}
-
-- (RZBMockPeripheral *)mockPeripheralForUUID:(NSUUID *)uuid
-{
     RZBMockPeripheral *peripheral = self.peripheralsByUUID[uuid];
     if (peripheral == nil) {
         peripheral = [[RZBMockPeripheral alloc] init];
@@ -97,7 +92,7 @@
 
 - (void)fakeConnectPeripheralWithUUID:(NSUUID *)peripheralUUID error:(NSError *)error
 {
-    RZBMockPeripheral *peripheral = [self mockPeripheralForUUID:peripheralUUID];
+    CBPeripheral<RZBMockedPeripheral> *peripheral = [self peripheralForUUID:peripheralUUID];
     dispatch_async(self.queue, ^{
         peripheral.state = error ? CBPeripheralStateDisconnected : CBPeripheralStateConnected;
         if (error) {
@@ -111,8 +106,7 @@
 
 - (void)fakeDisconnectPeripheralWithUUID:(NSUUID *)peripheralUUID error:(NSError *)error
 {
-    RZBMockPeripheral *peripheral = [self mockPeripheralForUUID:peripheralUUID];
-    peripheral.state = CBPeripheralStateDisconnecting;
+    CBPeripheral<RZBMockedPeripheral> *peripheral = [self peripheralForUUID:peripheralUUID];
     dispatch_async(self.queue, ^{
         peripheral.state = CBPeripheralStateDisconnected;
         [self.delegate centralManager:(id)self didDisconnectPeripheral:(id)peripheral error:error];

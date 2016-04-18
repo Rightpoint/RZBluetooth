@@ -25,7 +25,7 @@
 @property(weak, nonatomic) id<CBPeripheralDelegate> delegate;
 
 @property(nonatomic) NSUUID *identifier;
-@property() NSString *name;
+@property(copy) NSString *name;
 @property(assign) CBPeripheralState state;
 @property(strong) NSArray *services;
 

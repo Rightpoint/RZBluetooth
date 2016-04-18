@@ -46,7 +46,6 @@
     } completion:^(NSError *error) {
     }];
     [self waitForQueueFlush];
-    [self waitForQueueFlush];
     XCTAssert(self.peripheral.state == CBPeripheralStateConnected);
     XCTAssert(self.isNotifying);
 
