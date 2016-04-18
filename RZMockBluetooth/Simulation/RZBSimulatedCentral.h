@@ -22,7 +22,7 @@
 @property (strong, nonatomic, readonly) id<RZBMockedCentralManager>mockCentralManager;
 @property (assign, nonatomic) NSUInteger maximumUpdateValueLength;
 
-- (void)addSimulatedDeviceWithIdentifier:(NSUUID *)peripheralUUID peripheralManager:(id<RZBMockedPeripheralManager>)peripheralManager;
+- (void)addSimulatedDeviceWithIdentifier:(NSUUID *)peripheralUUID peripheralManager:(CBPeripheralManager<RZBMockedPeripheralManager> *)peripheralManager;
 
 - (void)removeSimulatedDevice:(NSUUID *)peripheralUUID;
 

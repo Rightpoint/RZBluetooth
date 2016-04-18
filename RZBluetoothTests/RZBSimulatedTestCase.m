@@ -59,7 +59,7 @@
     NSUUID *identifier = [NSUUID UUID];
     self.device = [[self.class.simulatedDeviceClass alloc] initWithQueue:self.mockCentralManager.queue
                                                                  options:@{}];
-    id<RZBMockedPeripheralManager> peripheralManager = (id)self.device.peripheralManager;
+    CBPeripheralManager<RZBMockedPeripheralManager> *peripheralManager = (id)self.device.peripheralManager;
     [peripheralManager fakeStateChange:CBPeripheralManagerStatePoweredOn];
     self.central = [[RZBSimulatedCentral alloc] initWithMockCentralManager:self.mockCentralManager];
     [self.central addSimulatedDeviceWithIdentifier:identifier
