@@ -26,14 +26,7 @@
 
 - (void)waitForQueueFlush
 {
-    __block BOOL dispatchFlushed = NO;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        dispatchFlushed = YES;
-    });
-    BOOL ok = [[NSRunLoop currentRunLoop] rzb_waitWithTimeout:10.0 forCheck:^BOOL{
-        return dispatchFlushed && self.connection.idle;
-    }];
-    XCTAssertTrue(ok, @"The connection never idled");
+    XCTAssert([self.central waitForIdleWithTimeout:10.0]);
 }
 
 - (RZBMockCentralManager *)mockCentralManager

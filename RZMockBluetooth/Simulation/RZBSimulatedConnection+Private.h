@@ -22,7 +22,6 @@
 @property (strong, nonatomic, readonly) NSMutableArray *writeRequests;
 @property (strong, nonatomic, readonly) NSMutableArray *subscribedCharacteristics;
 
-@property (strong, nonatomic, readonly) RZBMockPeripheralManager *peripheralManager;
 @property (weak, nonatomic, readonly) RZBSimulatedCentral *central;
 @property (strong, nonatomic) RZBMockPeripheral *peripheral;
 

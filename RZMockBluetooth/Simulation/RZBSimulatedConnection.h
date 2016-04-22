@@ -38,6 +38,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, readonly) NSUUID *identifier;
 
 /**
+ *  The peripheral manager associated with the connection
+ */
+@property (strong, nonatomic, readonly) RZBMockPeripheralManager *peripheralManager;
+
+/**
  *  The RSSI to simulate for the peripheral.
  */
 @property (strong, nonatomic) NSNumber *RSSI;

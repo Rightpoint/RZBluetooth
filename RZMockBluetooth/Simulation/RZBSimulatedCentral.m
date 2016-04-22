@@ -14,8 +14,6 @@
 
 @interface RZBSimulatedCentral () <RZBMockCentralManagerDelegate>
 
-@property (strong, nonatomic, readonly) NSMutableArray *connections;
-
 @property (strong, nonatomic) NSArray *servicesToScan;
 
 @end
@@ -51,6 +49,42 @@
         }
     }
     return nil;
+}
+
+- (BOOL)idle
+{
+    BOOL idle = YES;
+    for (RZBSimulatedConnection *connection in self.connections) {
+        if (!connection.idle) {
+            idle = NO;
+        }
+    }
+    return idle;
+}
+
+- (BOOL)waitForIdleWithTimeout:(NSUInteger)timeout
+{
+    NSMutableSet *queues = [NSMutableSet setWithObject:self.mockCentralManager.queue];
+    for (RZBSimulatedConnection *connection in self.connections) {
+        dispatch_queue_t queue = connection.peripheralManager.queue;
+        [queues addObject:queue];
+    }
+
+    NSDate *endDate = [NSDate dateWithTimeIntervalSinceNow:timeout];
+    // Flush the dispatch queue to allow anything that was submitted to complete.
+    __block BOOL flushCount = 0;
+    for (dispatch_queue_t queue in queues) {
+        dispatch_barrier_async(queue, ^{
+            // Process all of the sources in the current threads runloop.
+            // When there's nothing left to process, continue.
+            while ( CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0, true) == kCFRunLoopRunHandledSource ) {}
+            flushCount++;
+        });
+    }
+    while(flushCount < queues.count && [endDate timeIntervalSinceNow] > 0) {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
+    }
+    return [endDate timeIntervalSinceNow] > 0;
 }
 
 - (void)addSimulatedDeviceWithIdentifier:(NSUUID *)peripheralUUID peripheralManager:(RZBMockPeripheralManager *)peripheralManager
