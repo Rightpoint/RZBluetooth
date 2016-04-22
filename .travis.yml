@@ -8,5 +8,5 @@ install:
 - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
 - export PYTHONUSERBASE=~/.local
 script:
-- build.sh
+- . ./build.sh
 
