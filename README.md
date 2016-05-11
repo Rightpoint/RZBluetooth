@@ -7,7 +7,7 @@
 The goal of RZBluetooth is to make Core Bluetooth easy to use and test. It provides a block based API with state management, automatic discovery, and support for public protocols. RZMockBluetooth contains a set of Core Bluetooth mock objects that enables in-app device simulation by connecting the CBCentralManager and CBPeripheralManager API's.
 
 # Quick Start
-To emphasize how easy RZBluetooth is, the following block of code will print out the heart rate of the first heart rate monitor that comes nearby, every time a new reading is available. Also note that this code can run in your unit test target.
+To get a feel for RZBluetooth, the following block of code will print out the heart rate of the first heart rate monitor that comes nearby, every time a new reading is available. Also note that this code can run in your unit test target.
 
 ```objc
 self.centralManager = [[RZBCentralManager alloc] init];
@@ -42,7 +42,7 @@ centralManager.scanForPeripheralsWithServices([CBUUID.rzb_UUIDForHeartRateServic
         print("ERROR: \(error)")
     })
 }
- ```
+```
 
 This block will wait for bluetooth to power on and scan for a new peripheral supporting the heart rate service. When one is found, the app will connect to the peripheral, discover the heart rate service and observe the characteristic. When the characteristic is notified, the `NSData*` object is serialized into a more developer friendly object.
 
@@ -55,7 +55,7 @@ pod 'RZBluetooth'
 
 # Block Based API
 
-RZBluetooth exposes a simple block based API for reading, writing, and being notified of changed values.
+RZBluetooth exposes a block based API for reading, writing, and being notified of changed values.
 
 ```obj-c
 RZBPeripheral *peripheral = [self.centralManager peripheralForUUID:uuid];
@@ -81,11 +81,11 @@ Internally, RZBluetooth uses a command pattern to simplify the delegate manageme
  - Multiple read and write calls will not cause more connect or discover events than required. The discover events are batched up and triggered on the next runloop iteration.
 
 
-This hides a lot of the delegate callback pain. Commonly in Core Bluetooth implementations, more characteristics cause tightly coupled chains in the delegate. The command pattern loosens up that coupling to allow different bluetooth services to be developed and supported in isolation. This allows the development of "Profile" level APIs.
+This hides a lot of the delegate callback pain. Commonly in Core Bluetooth implementations, the delegate callbacks cause tight coupling between different services. This makes writing re-usable code very challenging. The command pattern loosens up that coupling to allow different bluetooth services to be developed and supported in isolation. This enables the development of Service level APIs which can be developed and supported in the same code base, even if the peripheral does not support the service.
 
 
-# Profile Level APIs
-Application level code does not want to read and write `NSData` blobs, it wants Profile level APIs that work with whatever domain knowledge the services and characteristics encapsulate. RZBluetooth comes with APIs for many of the standard bluetooth profiles, and these provide a pattern for developers to extend RZBluetooth to support their own proprietary profiles.
+# Service Level APIs
+Developers connecting to Bluetooth devices do not want to read and write `NSData` blobs. Developers want to interact with expressive API's with real model objects that encapsulate the domain knowledge of the services and characteristics. RZBluetooth comes with APIs for many of the standard bluetooth services. These provide a pattern for developers to extend RZBluetooth to support their own proprietary service.
 
 ```objc
 - (void)exampleOperations
@@ -94,7 +94,7 @@ Application level code does not want to read and write `NSData` blobs, it wants 
     [peripheral rzb_addBatteryLevelObserver:^(NSUInteger batteryLevel, NSError *error) {
         // Update UI for the battery level.
     } completion:^(NSError *error) {
-        // Completion indicating that the battery monitor has been setup.
+        // Completion indicating that the battery monitor has been set up.
     }];
     [peripheral rzb_readSensorLocation:^(RZBBodyLocation location) {
     }];
@@ -211,14 +211,14 @@ The mock objects mirror the CoreBluetooth stack and support the same public-faci
 As a developer, you can use `RZBMockCentralManager` or `RZBMockPeripheralManager`  directly, or you can use `RZBMockEnable(YES)`. This will swizzle alloc of `CBCentralManager` and `CBPeripheralManager` and return the equivolent RZBMock object instead. RZBMockCentralManager will create `RZBMockPeripheral` objects instead of `CBPeripheral` objects.
 
 # Fake Peripheral
-Another great testing strategy with Bluetooth is to implement a fake peripheral using the CBPeripheralManager API. This allows the developer to test against the same Bluetooth profile while the hardware is still under development.
+Another great testing strategy with Bluetooth is to implement a fake peripheral using the CBPeripheralManager API. This allows the developer to test against the same Bluetooth service while the hardware is still under development.
 
-RZBluetooth provides a base class `RZBSimulatedDevice` to help simplify the `CBPeripheralManager` API. This object is a delegate of `CBPeripheralManager`, and provides a few helpers for working with `CBPeripheralManager`. It also provides support for some common profiles, like battery level, and device info. A small shell of an iOS or Mac application can be quickly written to exercise this peripheral.
+RZBluetooth provides a base class `RZBSimulatedDevice` to help simplify the `CBPeripheralManager` API. This object is a delegate of `CBPeripheralManager`, and provides a few helpers for working with `CBPeripheralManager`. It also provides support for some common services, like battery level, and device info. With this, a small shell of an iOS or Mac application can be written to fake this peripheral.
 
 This may sound like a lot of effort for little pay off. But the development value here is much higher with RZBluetooth due to it's support for in-memory bluetooth simulation.
 
 # Simulation
-RZBMockBluetooth provides a few simulation objects that use the mock objects to connect the `CBCentralManager` and the `CBPeripheralManager` APIs. This allows the developer to take the fake peripheral developed above and simulate a fully functioning bluetooth stack inside the application. This also works inside the simulator, which has traditionally be useless for Core Bluetooth development. It is also easy to integrate into unit tests, or a debug menu inside the application.
+RZBMockBluetooth provides a few simulation objects that use the mock objects to connect the `CBCentralManager` and the `CBPeripheralManager` APIs. This allows the developer to take the fake peripheral developed above and simulate a fully functioning bluetooth stack inside the application. This also works inside the simulator, which has traditionally been useless for Core Bluetooth development. With this, the developer is able to utilize the fake peripheral inside of unit tests, or from a debug menu in the application.
 
 ## Sequence Diagrams
 To help understand how simulation compares against real bluetooth usage, here is a [sequence diagram](Documentation/Read.msc) of a read using Bluetooth:
@@ -230,9 +230,9 @@ Here is a [sequence diagram](Documentation/Simulated-Read.msc) of the same read 
 ![Bluetooth Sequence Diagram](Documentation/Simulated-Read.png)
 
 # Developing a Fake Peripheral
-This section explains the steps to develop a fake peripheral with a battery profile and use that peripheral inside a unit test.
+This section explains the steps to develop a fake peripheral with a battery service and use that peripheral inside a unit test.
 
-## Model Bluetooth Profile
+## Model Bluetooth Service
 The first step is to model the bluetooth service and characteristics with Core Bluetooth.
 
 ```obj-c
@@ -299,7 +299,7 @@ device.batteryLevel = 88;
 
 ## Simulated Connections
 
-`RZBMockBluetooth` is able to make a simulated connection between your application’s `CBCentralManager` and a `CBPeripheralManager`. `RZBSimulatedConnection` allows the test developer to control the connection behavior through a simple API. 
+`RZBMockBluetooth` is able to make a simulated connection between your application’s `CBCentralManager` and a `CBPeripheralManager`. `RZBSimulatedConnection` allows the test developer to control the connection behavior through a programatic API. 
 
 Examples:
 
@@ -341,7 +341,7 @@ self.connection.connectCallback.delay = 1.0;
 
 ## Unit Tests
 
-The final step is to build a suite of unit tests to validate the behavior of your bluetooth implementation. RZBluetooth provides a base class, `RZBSimulatedTestCase` which configures all of the above objects and provides easy access to the connection object. A good example to follow is the [RZBProfileBatteryTests](RZBluetoothTests/RZBProfileBatteryTests.m) which provides some simple read and observation tests.
+The final step is to build a suite of unit tests to validate the behavior of your bluetooth implementation. RZBluetooth provides a base class, `RZBSimulatedTestCase` which configures all of the above objects and provides access to the connection object. A good example to follow is the [RZBProfileBatteryTests](RZBluetoothTests/RZBProfileBatteryTests.m) which provides some simple read and observation tests.
 
 ## App Integration
 A good strategy for in-app simulation is to create a simulation controller that holds on to the `RZBSimulatedCentral` and the `RZBSimulatedConnection`. This can present a `UIViewController` subclass or even a series of `UIAlertController`s to configure the simulation. 
