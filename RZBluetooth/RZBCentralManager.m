@@ -16,11 +16,15 @@
 #import "RZBScanInfo.h"
 #import "RZBLog+Private.h"
 #import "RZBPeripheralStateEvent.h"
+#import <TargetConditionals.h>
 
 @implementation RZBCentralManager
 
 + (NSDictionary *)optionsForIdentifier:(NSString *)identifier
 {
+#if TARGET_OS_OSX || TARGET_OS_MAC
+	return @{};
+#elif TARGET_OS_IPHONE
     NSArray *backgroundModes = [[NSBundle mainBundle] infoDictionary][@"UIBackgroundModes"];
 
     BOOL backgroundSupport = [backgroundModes containsObject:@"bluetooth-central"];
@@ -28,6 +32,9 @@
         RZBLog(RZBLogLevelConfiguration, @"Background central support is not enabled. Add 'bluetooth-central' to UIBackgroundModes to enable background support");
     }
     return backgroundSupport ? @{CBCentralManagerOptionRestoreIdentifierKey: identifier} : @{};
+#else
+	#warning Unsupported Platform
+#endif
 }
 
 - (instancetype)init
@@ -191,6 +198,7 @@
 
 - (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary *)dict
 {
+#if TARGET_OS_IPHONE
     RZBLogDelegate(@"%@ - %@", NSStringFromSelector(_cmd), central);
     RZBLogDelegateValue(@"Restore State=%@", dict);
 
@@ -206,6 +214,7 @@
     if (self.restorationHandler) {
         self.restorationHandler(peripherals);
     }
+#endif
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)corePeripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
