@@ -15,12 +15,12 @@ RZBluetooth is a Core Bluetooth helper with 3 primary goals:
   s.homepage     = "http://github.com/Raizlabs/RZBluetooth"
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.author       = { "Brian King" => "brianaking@gmail.com" }
-  s.osx.deployment_target = '10.10'
-  s.ios.deployment_target = '7.0
+  s.osx.deployment_target = "10.10"
+  s.ios.deployment_target = "7.0"
   s.source       = { :git => "https://github.com/Raizlabs/RZBluetooth.git", :tag => s.version }
   s.requires_arc = true
 
-  s.default_subspec = 'Core'
+  s.default_subspec = "Core"
 
   s.subspec "Core" do |core|
     core.source_files = "RZBluetooth/**/*.{h,m}"
@@ -37,7 +37,7 @@ RZBluetooth is a Core Bluetooth helper with 3 primary goals:
 
   s.subspec "Test" do |test|
     test.dependency "RZBluetooth/Mock"
-    test.frameworks = 'XCTest'
+    test.frameworks = "XCTest"
     test.source_files = "RZBluetoothTests/RZBSimulatedTestCase.{h,m}",
                         "RZBluetoothTests/Helpers/NSRunLoop+RZBWaitFor.{h,m}",
     test.public_header_files = "RZBluetoothTests/RZBSimulatedTestCase.h"
