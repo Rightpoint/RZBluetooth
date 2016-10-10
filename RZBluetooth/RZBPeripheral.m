@@ -30,6 +30,12 @@
 
 - (void)setNotifyBlock:(RZBCharacteristicBlock)notifyBlock forCharacteristicUUID:(CBUUID *)characteristicUUID;
 {
+    // Fix possible crash that can occur if app attempts to clear notify blocks
+    // (ie. unregister notification/indication observers) in response to a
+    // peripheral disconnection (characteristic suddenly is nil). CSP 9/9/2016
+    if (characteristicUUID == nil) {
+        return;
+    }
     if (notifyBlock) {
         self.notifyBlockByUUID[characteristicUUID] = [notifyBlock copy];
     }
@@ -138,9 +144,10 @@
     RZBNotifyCharacteristicCommand *cmd = [[RZBNotifyCharacteristicCommand alloc] initWithUUIDPath:path];
     cmd.notify = YES;
     [cmd addCallbackBlock:^(CBCharacteristic *characteristic, NSError *error) {
-        if (characteristic != nil) {
-            [self setNotifyBlock:onUpdate forCharacteristicUUID:characteristic.UUID];
-        }
+        // Nil characteristic was handled here... CSP 9/9/2016
+        // if (characteristic != nil) {
+        [self setNotifyBlock:onUpdate forCharacteristicUUID:characteristic.UUID];
+        // }
         completion(characteristic, error);
     }];
     [self.dispatch dispatchCommand:cmd];
@@ -155,8 +162,10 @@
 
     // Remove the completion block immediately to behave consistently.
     // If anything here is nil, there is no completion block, which is fine.
+    // (Nope! If characteristic is nil, -setNotifyBlock:forCharacteristicUUID: would crash! CSP 9/9/2016)
     CBService *service = [self.centralManager serviceForUUID:serviceUUID onPeripheral:self.corePeripheral];
     CBCharacteristic *characteristic = [service rzb_characteristicForUUID:characteristicUUID];
+    // ...but nil characteristic was NOT handled here. CSP 9/9/2016
     [self setNotifyBlock:nil forCharacteristicUUID:characteristic.UUID];
 
     RZBNotifyCharacteristicCommand *cmd = [[RZBNotifyCharacteristicCommand alloc] initWithUUIDPath:path];
