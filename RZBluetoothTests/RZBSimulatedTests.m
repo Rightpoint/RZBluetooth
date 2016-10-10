@@ -147,15 +147,12 @@
         // Disable the connection maintenance on the last iteration.
         if (i == TEST_COUNT - 1) {
             [p cancelConnectionWithCompletion:nil];
-            // Cancel will clear out the disconnect block so it should not be triggered.
-            [self waitForQueueFlush];
-            XCTAssert(self.disconnectCount == i + 1);
         }
         else {
             self.connection.connectable = NO;
-            [self waitForQueueFlush];
-            XCTAssert(self.disconnectCount == i + 1);
         }
+        [self waitForQueueFlush];
+        XCTAssert(self.disconnectCount == i + 1);
     }
     [self waitForQueueFlush];
     XCTAssert(p.state == CBPeripheralStateDisconnected);
