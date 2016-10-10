@@ -10,6 +10,7 @@
 #import "RZBSimulatedTestCase.h"
 #import "NSRunLoop+RZBWaitFor.h"
 #import "RZBCentralManager+Private.h"
+#import "RZBLog.h"
 
 @implementation RZBSimulatedTestCase
 
@@ -48,6 +49,10 @@
 
 - (void)setUp
 {
+    RZBSetLogHandler(^(RZBLogLevel logLevel, NSString *format, va_list args) {
+        NSLog(@"RZBLog: %@", [[NSString alloc] initWithFormat:format arguments:args]);
+    });
+
     [super setUp];
     [self configureCentralManager];
     [self.mockCentralManager fakeStateChange:CBManagerStatePoweredOn];
