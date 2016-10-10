@@ -253,13 +253,13 @@
 
 - (void)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager startAdvertising:(NSDictionary *)advertisementData
 {
-    RZBLogSimulation(@"PeripheralManager is not discoverable");
+    RZBLogSimulation(@"PeripheralManager is discoverable");
     self.scanCallback.paused = NO;
 }
 
 - (void)mockPeripheralManagerStopAdvertising:(RZBMockPeripheralManager *)peripheralManager
 {
-    RZBLogSimulation(@"PeripheralManager is discoverable");
+    RZBLogSimulation(@"PeripheralManager is not discoverable");
     self.scanCallback.paused = YES;
 }
 
