@@ -12,22 +12,22 @@
 
 + (CBUUID *)sUUID
 {
-    return [CBUUID UUIDWithString:@"01234567"];
+    return [CBUUID UUIDWithString:@"0123"];
 }
 
 + (CBUUID *)cUUID
 {
-    return [CBUUID UUIDWithString:@"12345678"];
+    return [CBUUID UUIDWithString:@"1234"];
 }
 
 + (CBUUID *)s2UUID
 {
-    return [CBUUID UUIDWithString:@"23456701"];
+    return [CBUUID UUIDWithString:@"2345"];
 }
 
 + (CBUUID *)c2UUID
 {
-    return [CBUUID UUIDWithString:@"23456789"];
+    return [CBUUID UUIDWithString:@"2345"];
 }
 
 @end
