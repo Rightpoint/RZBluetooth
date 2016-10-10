@@ -50,7 +50,7 @@
 {
     [super setUp];
     [self configureCentralManager];
-    [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
+    [self.mockCentralManager fakeStateChange:CBManagerStatePoweredOn];
 
     NSUUID *identifier = [NSUUID UUID];
     self.device = [[self.class.simulatedDeviceClass alloc] initWithQueue:self.mockCentralManager.queue

@@ -8,6 +8,7 @@
 
 @import CoreBluetooth;
 
+#import "RZBDefines.h"
 @class RZBMockPeripheral;
 @protocol RZBMockCentralManagerDelegate;
 
@@ -18,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(weak, nonatomic) id<CBCentralManagerDelegate> delegate;
 @property(weak, nonatomic) id<RZBMockCentralManagerDelegate> mockDelegate;
 @property(strong, nonatomic) dispatch_queue_t queue;
-@property(assign) CBCentralManagerState state;
+@property(assign) CBManagerState state;
 @property(strong) NSDictionary *options;
 @property(strong) NSMutableDictionary *peripheralsByUUID;
 
@@ -36,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (RZBMockPeripheral *)peripheralForUUID:(NSUUID *)uuid;
 
-- (void)fakeStateChange:(CBCentralManagerState)state;
+- (void)fakeStateChange:(CBManagerState)state;
 - (void)fakeScanPeripheralWithUUID:(NSUUID *)peripheralUUID advInfo:(NSDictionary *)info RSSI:(NSNumber *)RSSI;
 
 - (void)fakeConnectPeripheralWithUUID:(NSUUID *)peripheralUUID error:(NSError *__nullable)error;

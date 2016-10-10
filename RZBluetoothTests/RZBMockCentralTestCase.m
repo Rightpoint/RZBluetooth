@@ -111,7 +111,7 @@
 
 - (void)setupConnectedPeripheral
 {
-    [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
+    [self.mockCentralManager fakeStateChange:CBManagerStatePoweredOn];
     RZBPeripheral *peripheral = [self.centralManager peripheralForUUID:NSUUID.pUUID];
 
     [peripheral connectWithCompletion:^(NSError *error) {}];

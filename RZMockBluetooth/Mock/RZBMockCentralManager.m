@@ -70,7 +70,7 @@
     [self.mockDelegate mockCentralManager:self cancelPeripheralConnection:peripheral];
 }
 
-- (void)fakeStateChange:(CBCentralManagerState)state
+- (void)fakeStateChange:(CBManagerState)state
 {
     dispatch_async(self.queue, ^{
         self.state = state;

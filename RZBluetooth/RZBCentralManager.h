@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Expose the backing CBCentralManagerState. See RZBluetoothErrorForState to generate an
  * error object representing the non-functioning terminal states.
  */
-@property (assign, nonatomic, readonly) CBCentralManagerState state;
+@property (assign, nonatomic, readonly) CBManagerState state;
 
 /**
  * This block will be triggered whenever the central manager state changes.
