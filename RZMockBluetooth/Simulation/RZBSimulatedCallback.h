@@ -54,12 +54,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property () BOOL paused;
 
 /**
- * Determine if the callback is idle. A callback is idle when every block dispatched
- * to the callback has been executed.
- */
-@property (readonly) BOOL idle;
-
-/**
  * Dispatch a block that will be triggered when the delay passes, and the callback
  * is not paused.
  */

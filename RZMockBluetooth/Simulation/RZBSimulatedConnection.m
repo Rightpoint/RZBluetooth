@@ -95,17 +95,6 @@
     }
 }
 
-- (BOOL)idle
-{
-    BOOL idle = YES;
-    for (RZBSimulatedCallback *callback in self.allCallbacks) {
-        if (callback.paused == NO && callback.idle == NO) {
-            idle = NO;
-        }
-    }
-    return idle;
-}
-
 - (NSArray *)allCallbacks
 {
     NSMutableArray *allCallbacks = [self.connectionDependentCallbacks mutableCopy];

@@ -51,17 +51,6 @@
     return nil;
 }
 
-- (BOOL)idle
-{
-    BOOL idle = YES;
-    for (RZBSimulatedConnection *connection in self.connections) {
-        if (!connection.idle) {
-            idle = NO;
-        }
-    }
-    return idle;
-}
-
 - (BOOL)waitForIdleWithTimeout:(NSTimeInterval)timeout
 {
     NSMutableSet *queues = [NSMutableSet setWithObject:self.mockCentralManager.queue];
