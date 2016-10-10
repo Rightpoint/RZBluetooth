@@ -65,7 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * This method returns YES if idle occurs before the timeout, or NO if the waiting timed out.
  */
-- (BOOL)waitForIdleWithTimeout:(NSUInteger)timeout;
+- (BOOL)waitForIdleWithTimeout:(NSTimeInterval)timeout;
 
 @end
 

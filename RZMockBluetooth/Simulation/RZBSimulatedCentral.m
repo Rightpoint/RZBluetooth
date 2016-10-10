@@ -62,7 +62,7 @@
     return idle;
 }
 
-- (BOOL)waitForIdleWithTimeout:(NSUInteger)timeout
+- (BOOL)waitForIdleWithTimeout:(NSTimeInterval)timeout
 {
     NSMutableSet *queues = [NSMutableSet setWithObject:self.mockCentralManager.queue];
     for (RZBSimulatedConnection *connection in self.connections) {
