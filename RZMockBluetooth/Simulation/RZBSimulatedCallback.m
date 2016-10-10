@@ -56,7 +56,9 @@ static NSTimeInterval __defaultDelay = 0;
 
     dispatch_group_enter(self.group);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.delay * NSEC_PER_SEC)), self.queue, ^{
-        dispatch_group_leave(wself.group);
+        if (wself.group) {
+            dispatch_group_leave(wself.group);
+        }
     });
 
     dispatch_group_notify(self.group, self.queue, ^{
