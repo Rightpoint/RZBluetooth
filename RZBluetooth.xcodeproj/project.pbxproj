@@ -203,6 +203,7 @@
 		ABA4827A1C18B44400709F8F /* RZBLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZBLog.h; sourceTree = "<group>"; };
 		ABA4827B1C18B44400709F8F /* RZBLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBLog.m; sourceTree = "<group>"; };
 		ABA4827D1C18B60500709F8F /* RZBLog+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RZBLog+Private.h"; sourceTree = "<group>"; };
+		ABA921461DABF00A00B2D191 /* RZBTestDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZBTestDefines.h; sourceTree = "<group>"; };
 		ABCD83721B71D1F900DA1162 /* RZBMockCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZBMockCentralManager.h; sourceTree = "<group>"; };
 		ABCD83731B71D1F900DA1162 /* RZBMockCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBMockCentralManager.m; sourceTree = "<group>"; };
 		ABCD83741B71D1F900DA1162 /* RZBMockPeripheral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZBMockPeripheral.h; sourceTree = "<group>"; };
@@ -348,6 +349,7 @@
 		AB45C4A81B6BF70B00CC0166 /* RZBluetoothTests */ = {
 			isa = PBXGroup;
 			children = (
+				ABA921461DABF00A00B2D191 /* RZBTestDefines.h */,
 				AB4136001B71BAE3002F450F /* RZBSimulatedTestCase.h */,
 				AB4136011B71BAE3002F450F /* RZBSimulatedTestCase.m */,
 				AB45C4D01B6BF8AB00CC0166 /* RZBCentralManagerCallbackTests.m */,
@@ -832,6 +834,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RZBluetoothTests/RZBluetoothTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -851,6 +854,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.raizlabs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RZBluetoothTests/RZBluetoothTests-Bridging-Header.h";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};

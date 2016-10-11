@@ -59,7 +59,7 @@
 
 - (void)testReadTerminalState
 {
-    [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOff];
+    [self.mockCentralManager fakeStateChange:CBManagerStatePoweredOff];
     [self waitForQueueFlush];
     [RZBUserInteraction setTimeout:0.1];
 
@@ -77,7 +77,7 @@
 
 - (void)testTimeoutNonFunctioningTransientState
 {
-    [self.mockCentralManager fakeStateChange:CBCentralManagerStateUnknown];
+    [self.mockCentralManager fakeStateChange:CBManagerStateUnknown];
     [self waitForQueueFlush];
     [RZBUserInteraction setTimeout:0.1];
 

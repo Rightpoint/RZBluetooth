@@ -54,7 +54,7 @@
 {
     RZBCTestCommand *cmd = [[RZBCTestCommand alloc] initWithUUIDPath:RZBUUIDPath.cUUIDPath];
     XCTAssertTrue([cmd.description containsString:@"isExecuted=NO, isCompleted=NO peripheralUUID="]);
-    XCTAssertTrue([cmd.description containsString:@"serviceUUID=01234567 characteristicUUID=12345678"]);
+    XCTAssertTrue([cmd.description containsString:@"serviceUUID=0123 characteristicUUID=1234"]);
     XCTAssertTrue([cmd.description containsString:[cmd.class description]]);
     XCTAssertFalse([cmd.description containsString:@"dependentCommand"]);
     cmd.retryAfter = [[RZBCTestCommand alloc] initWithUUIDPath:RZBUUIDPath.sUUIDPath];

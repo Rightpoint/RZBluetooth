@@ -48,7 +48,7 @@
 
 - (BOOL)executeCommandWithContext:(RZBCentralManager *)context error:(inout NSError **)error
 {
-    CBCentralManagerState state = context.coreCentralManager.state;
+    CBManagerState state = context.coreCentralManager.state;
     BOOL bluetoothReady = (state == CBCentralManagerStatePoweredOn);
     if (error) {
         *error = RZBluetoothErrorForState(state);

@@ -63,7 +63,7 @@
     return self;
 }
 
-- (CBCentralManagerState)state
+- (CBManagerState)state
 {
     return self.coreCentralManager.state;
 }

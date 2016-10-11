@@ -7,14 +7,22 @@
 //
 
 #import "RZBBluetoothRepresentable.h"
+#import "RZBDefines.h"
 
 @class RZBMockPeripheralManager;
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000 || __TV_OS_VERSION_MAX_ALLOWED >= 100000
+#define RZBPeripheralManagerState CBManagerState
+#else
+#define RZBPeripheralManagerState CBPeripheralManagerState
+#endif
+
 
 NS_ASSUME_NONNULL_BEGIN
 
 typedef CBATTError (^RZBATTRequestHandler)(CBATTRequest *request);
 typedef void (^RZBNotificationHandler)(BOOL isNotifying);
-typedef void (^RZBPeripheralManagerStateBlock)(CBPeripheralManagerState state);
+typedef void (^RZBPeripheralManagerStateBlock)(RZBPeripheralManagerState state);
 
 /**
  *  The simulated device is a peripheral manager delegate that is intended to mock

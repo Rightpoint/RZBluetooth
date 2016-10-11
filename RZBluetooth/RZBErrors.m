@@ -11,7 +11,7 @@
 NSString *const RZBluetoothErrorDomain = @"com.raizlabs.bluetooth";
 NSString *const RZBluetoothUndiscoveredUUIDsKey = @"undiscoveredUUIDs";
 
-NSError *RZBluetoothErrorForState(CBCentralManagerState state)
+NSError *RZBluetoothErrorForState(CBManagerState state)
 {
     NSError *error = nil;
     switch (state) {
