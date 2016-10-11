@@ -11,10 +11,8 @@
 static NSTimeInterval __defaultDelay = 0;
 
 @interface RZBSimulatedCallback ()
-@property (strong, nonatomic) dispatch_group_t group;
+@property (strong, nonatomic) NSMutableArray<dispatch_source_t> * timers;
 @property (strong, nonatomic) dispatch_queue_t queue;
-@property (assign, nonatomic) NSUInteger dispatchCounter;
-@property (assign, nonatomic) NSUInteger cancelCounter;
 @end
 
 @implementation RZBSimulatedCallback
@@ -27,45 +25,57 @@ static NSTimeInterval __defaultDelay = 0;
 + (RZBSimulatedCallback *)callbackOnQueue:(dispatch_queue_t)queue
 {
     queue = queue ?: dispatch_get_main_queue();
-    RZBSimulatedCallback *cb = [[RZBSimulatedCallback alloc] init];
-    cb.delay = __defaultDelay;
-    cb.group = dispatch_group_create();
-    cb.queue = queue;
+    RZBSimulatedCallback *cb = [[RZBSimulatedCallback alloc] initWithDispatchQueue:queue];
     return cb;
+}
+
+- (instancetype)initWithDispatchQueue:(dispatch_queue_t)queue
+{
+    self = [super init];
+    if (self) {
+        self.delay = __defaultDelay;
+        self.timers = [NSMutableArray array];
+        self.queue = queue;
+    }
+    return self;
 }
 
 @synthesize paused = _paused;
 
 - (void)dealloc
 {
-    _cancelCounter = NSNotFound;
-    if (_paused) {
-        dispatch_group_leave(_group);
-    }
+    [self cancel];
 }
 
 - (void)dispatch:(RZBSimulatedCallbackBlock)block
 {
     NSParameterAssert(block);
-    NSUInteger dispatchCounter = NSNotFound;
+    NSError *injectError = self.injectError;
+    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, self.queue);
+    uint64_t delay = self.delay * NSEC_PER_SEC;
+    dispatch_source_set_timer(timer, dispatch_time(DISPATCH_TIME_NOW, delay), 0, 0);
+    __weak typeof(self) weakSelf = self;
+    __weak dispatch_source_t weakTimer = timer;
+
+    dispatch_source_set_event_handler(timer, ^{
+        [weakSelf triggerBlock:block injectedError:injectError timer:weakTimer];
+    });
+
     @synchronized(self) {
-        dispatchCounter = self.dispatchCounter;
-        self.dispatchCounter += 1;
+        [self.timers addObject:timer];
     }
-    __weak typeof(self) wself = self;
+    if (!self.paused) {
+        dispatch_resume(timer);
+    }
+}
 
-    dispatch_group_enter(self.group);
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.delay * NSEC_PER_SEC)), self.queue, ^{
-        if (wself.group) {
-            dispatch_group_leave(wself.group);
-        }
-    });
-
-    dispatch_group_notify(self.group, self.queue, ^{
-        if (dispatchCounter >= wself.cancelCounter) {
-            block(wself.injectError);
-        }
-    });
+- (void)triggerBlock:(RZBSimulatedCallbackBlock)block injectedError:(NSError *)injectError timer:(dispatch_source_t)timer
+{
+    @synchronized (self) {
+        [self.timers removeObject:timer];
+        dispatch_cancel(timer);
+    }
+    block(injectError);
 }
 
 - (void)setPaused:(BOOL)paused
@@ -73,11 +83,13 @@ static NSTimeInterval __defaultDelay = 0;
     @synchronized(self) {
         if (_paused != paused) {
             _paused = paused;
-            if (paused) {
-                dispatch_group_enter(self.group);
-            }
-            else {
-                dispatch_group_leave(self.group);
+            for (dispatch_source_t timer in self.timers) {
+                if (paused) {
+                    dispatch_suspend(timer);
+                }
+                else {
+                    dispatch_resume(timer);
+                }
             }
         }
     }
@@ -93,7 +105,10 @@ static NSTimeInterval __defaultDelay = 0;
 - (void)cancel
 {
     @synchronized(self) {
-        self.cancelCounter = self.dispatchCounter;
+        for (dispatch_source_t timer in self.timers) {
+            dispatch_cancel(timer);
+        }
+        [self.timers removeAllObjects];
     }
 }
 
