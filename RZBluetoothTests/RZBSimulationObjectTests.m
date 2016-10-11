@@ -46,9 +46,9 @@
     [callback dispatch:^(NSError * _Nullable injectedError) {
         dispatchCount += 1;
     }];
-    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.4]];
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.55]];
     XCTAssertEqual(dispatchCount, 1);
-    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.5]];
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
     XCTAssertEqual(dispatchCount, 2);
     }
 
