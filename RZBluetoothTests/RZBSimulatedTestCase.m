@@ -27,7 +27,12 @@
 
 - (void)waitForQueueFlush
 {
-    XCTAssert([self.central waitForIdleWithTimeout:10.0]);
+    NSDate *endDate = [NSDate dateWithTimeIntervalSinceNow:10.0];
+    // Wait for all of the connections to go idle
+    while (!(self.central.idle && self.centralManager.dispatch.dispatchCounter == 0) && [endDate timeIntervalSinceNow] > 0) {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.05]];
+    }
+    XCTAssertTrue([endDate timeIntervalSinceNow] > 0);
 }
 
 - (RZBMockCentralManager *)mockCentralManager

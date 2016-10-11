@@ -62,56 +62,6 @@
     return idle;
 }
 
-- (NSSet *)dispatchQueues
-{
-    NSMutableSet *queues = [NSMutableSet setWithObject:self.mockCentralManager.queue];
-    for (RZBSimulatedConnection *connection in self.connections) {
-        dispatch_queue_t queue = connection.peripheralManager.queue;
-        [queues addObject:queue];
-    }
-    return queues;
-}
-
-- (BOOL)waitForDispatchFlush:(NSTimeInterval)timeout
-{
-    // Send a dispatch barrier over all of the queue's to make sure anything in the queue is flushed
-    NSDate *endDate = [NSDate dateWithTimeIntervalSinceNow:timeout];
-    NSSet *queues = self.dispatchQueues;
-
-    __block BOOL flushCount = 0;
-    for (dispatch_queue_t queue in queues) {
-        dispatch_barrier_async(queue, ^{
-            // Process all of the sources in the current threads runloop.
-            // When there's nothing left to process, continue.
-            while ( CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0, true) == kCFRunLoopRunHandledSource ) {}
-            flushCount++;
-        });
-    }
-    while(flushCount < queues.count && [endDate timeIntervalSinceNow] > 0) {
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.05]];
-    }
-    return [endDate timeIntervalSinceNow] > 0;
-}
-
-- (BOOL)waitForIdleWithTimeout:(NSTimeInterval)timeout
-{
-    NSDate *endDate = [NSDate dateWithTimeIntervalSinceNow:timeout];
-    // Wait for all of the connections to go idle
-    while (!self.idle && [endDate timeIntervalSinceNow] > 0) {
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.05]];
-    }
-    // Flush all of the dispatch queues if there's still remaining time.
-    NSTimeInterval remainingTimeout = [endDate timeIntervalSinceNow];
-    if (remainingTimeout > 0 && [self waitForDispatchFlush:[endDate timeIntervalSinceNow]]) {
-        // Double check that all of the connections are idle. If the dispatch flush caused a callback to go active
-        // recurse and wait for things to go idle again.
-        return self.idle ? YES : [self waitForIdleWithTimeout:remainingTimeout];
-    }
-    else {
-        return NO;
-    }
-}
-
 - (void)addSimulatedDeviceWithIdentifier:(NSUUID *)peripheralUUID peripheralManager:(RZBMockPeripheralManager *)peripheralManager
 {
     NSAssert([self connectionForIdentifier:peripheralUUID] == nil, @"%@ is already registered", peripheralUUID);

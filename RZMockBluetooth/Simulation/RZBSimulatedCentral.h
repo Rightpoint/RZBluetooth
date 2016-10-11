@@ -59,11 +59,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (RZBSimulatedConnection *__nullable)connectionForIdentifier:(NSUUID *)identifier;
 
-/**
- * Spin the runloop until all simulated callbacks are idle. Return NO if the timeout is exceeded.
- */
-- (BOOL)waitForIdleWithTimeout:(NSTimeInterval)timeout;
-
 @end
 
 NS_ASSUME_NONNULL_END
