@@ -43,7 +43,7 @@ static const NSTimeInterval DelayCausingTimeout = 1.0;
             XCTAssert(level == 80);
         }];
     }];
-    [self waitForExpectationsWithTimeout:1.0 handler:nil];
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
 }
 
 /**
@@ -98,7 +98,7 @@ static const NSTimeInterval DelayCausingTimeout = 1.0;
             XCTAssert(error.code == RZBluetoothPoweredOff);
         }];
     }];
-    [self waitForExpectationsWithTimeout:1.0 handler:nil];
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
 }
 
 
@@ -119,7 +119,7 @@ static const NSTimeInterval DelayCausingTimeout = 1.0;
             XCTAssert(error.code == RZBluetoothTimeoutError);
         }];
     }];
-    [self waitForExpectationsWithTimeout:1.0 handler:nil];
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
 }
 
 @end

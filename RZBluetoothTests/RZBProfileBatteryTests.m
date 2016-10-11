@@ -37,7 +37,7 @@
         XCTAssertNil(error);
         XCTAssert(level == 80);
     }];
-    [self waitForExpectationsWithTimeout:1.0 handler:nil];
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
 }
 
 - (void)testServiceDiscovery
@@ -49,7 +49,7 @@
         [discover fulfill];
         XCTAssertNil(error);
     }];
-    [self waitForExpectationsWithTimeout:1.0 handler:nil];
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
 }
 
 - (void)testCharacteristicDiscovery
@@ -61,7 +61,7 @@
         [discover fulfill];
         XCTAssertNil(error);
     }];
-    [self waitForExpectationsWithTimeout:1.0 handler:nil];
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
 }
 
 - (void)testMonitor
@@ -73,7 +73,7 @@
     } completion:^(NSError *error) {
         [addMonitor fulfill];
     }];
-    [self waitForExpectationsWithTimeout:1.0 handler:nil];
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
     NSArray *transmittedValues = @[@(10), @(20), @(30)];
     for (NSNumber *level in transmittedValues) {
         self.device.batteryLevel = [level unsignedIntegerValue];
