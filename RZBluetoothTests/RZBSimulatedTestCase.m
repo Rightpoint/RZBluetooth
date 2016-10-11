@@ -25,11 +25,29 @@
     return [RZBSimulatedDevice class];
 }
 
+- (BOOL)waitForDispatchFlush:(NSDate *)endDate
+{
+    // Flush the dispatch queues. The mock objects use the queue's and there can be
+    // work pending in these queues that haven't addded work to the central, so the central
+    // falsely detects idle.
+    NSArray *queues = @[dispatch_get_main_queue()];
+    __block BOOL flushCount = 0;
+    for (dispatch_queue_t queue in queues) {
+        dispatch_barrier_async(queue, ^{
+            flushCount++;
+        });
+    }
+    while(flushCount < queues.count && [endDate timeIntervalSinceNow] > 0) {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.05]];
+    }
+    return [endDate timeIntervalSinceNow] > 0;
+}
+
 - (void)waitForQueueFlush
 {
     NSDate *endDate = [NSDate dateWithTimeIntervalSinceNow:10.0];
     // Wait for all of the connections to go idle
-    while (!(self.central.idle && self.centralManager.dispatch.dispatchCounter == 0) && [endDate timeIntervalSinceNow] > 0) {
+    while ([self waitForDispatchFlush:endDate] && !(self.central.idle && self.centralManager.dispatch.dispatchCounter == 0)) {
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.05]];
     }
     XCTAssertTrue([endDate timeIntervalSinceNow] > 0);
