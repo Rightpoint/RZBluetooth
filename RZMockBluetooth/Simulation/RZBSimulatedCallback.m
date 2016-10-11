@@ -102,6 +102,13 @@ static NSTimeInterval __defaultDelay = 0;
     }
 }
 
+- (BOOL)idle
+{
+    @synchronized(self) {
+        return _timers.count == 0;
+    }
+}
+
 - (void)cancel
 {
     @synchronized(self) {

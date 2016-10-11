@@ -33,6 +33,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, readonly) RZBMockCentralManager *mockCentralManager;
 
 /**
+ *  A check to see if all of the connections in the simulated central are idle.
+ */
+@property (readonly) BOOL idle;
+
+/**
  *  Return all of the connections associated with the central.
  */
 @property (strong, nonatomic, readonly) NSMutableArray *connections;
@@ -55,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (RZBSimulatedConnection *__nullable)connectionForIdentifier:(NSUUID *)identifier;
 
 /**
- * Spin the runloop until a block is passed through all of the dispatch queue's.
+ * Spin the runloop until all simulated callbacks are idle. Return NO if the timeout is exceeded.
  */
 - (BOOL)waitForIdleWithTimeout:(NSTimeInterval)timeout;
 

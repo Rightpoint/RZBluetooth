@@ -53,6 +53,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) BOOL connectable;
 
 /**
+ * Determine if the connection is idle. A connection is idle if all of the
+ * non-paused callbacks are idle. A paused callback doesn't influence the
+ * idle state, since the library client intended to pause that interaction.
+ */
+@property (nonatomic, readonly) BOOL idle;
+
+/**
  * Trigger a disconnection of the connection. This will cancel all connection
  * dependent callbacks and inform the peripheralManager
  */
