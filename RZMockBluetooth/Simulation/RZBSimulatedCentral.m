@@ -59,6 +59,9 @@
             idle = NO;
         }
     }
+    if (self.mockCentralManager.fakeActionCount > 0) {
+        idle = NO;
+    }
     return idle;
 }
 

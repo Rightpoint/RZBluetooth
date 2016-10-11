@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(copy) NSString *name;
 @property(assign) CBPeripheralState state;
 @property(strong) NSArray *services;
+@property(assign) NSUInteger fakeActionCount;
 
 - (void)readRSSI;
 - (void)discoverServices:(NSArray *)serviceUUIDs;

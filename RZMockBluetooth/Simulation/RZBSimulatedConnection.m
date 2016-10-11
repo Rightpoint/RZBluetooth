@@ -103,6 +103,12 @@
             idle = NO;
         }
     }
+    if (self.peripheral.fakeActionCount > 0) {
+        idle = NO;
+    }
+    else if (self.peripheralManager.fakeActionCount > 0) {
+        idle = NO;
+    }
     return idle;
 }
 

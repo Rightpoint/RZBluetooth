@@ -38,6 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, readonly) NSMutableArray *services;
 @property (copy, nonatomic, readonly) NSDictionary *options;
 @property (copy, nonatomic, readonly) dispatch_queue_t queue;
+@property(assign) NSUInteger fakeActionCount;
 
 - (void)respondToRequest:(CBATTRequest *)request withResult:(CBATTError)result;
 - (BOOL)updateValue:(NSData *)value forCharacteristic:(CBMutableCharacteristic *)characteristic onSubscribedCentrals:(NSArray *)centrals;
