@@ -116,8 +116,8 @@
     }];
     [self waitForQueueFlush];
 
-
     self.connection.connectable = YES;
+    [self waitForQueueFlush];
     XCTAssert(peripheral.state == CBPeripheralStateDisconnected);
 
     [self waitForExpectationsWithTimeout:5.0 handler:nil];
