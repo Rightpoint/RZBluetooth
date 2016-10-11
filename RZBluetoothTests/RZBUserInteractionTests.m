@@ -12,6 +12,8 @@
 #import "RZBSimulatedDevice+RZBBatteryLevel.h"
 #import "RZBErrors.h"
 
+static const NSTimeInterval DelayCausingTimeout = 1.0;
+
 @interface RZBUserInteractionTests : RZBSimulatedTestCase
 
 @end
@@ -20,13 +22,16 @@
 
 - (void)setUp
 {
+    [RZBUserInteraction setTimeout:0.3];
     [super setUp];
     [self.device addBatteryService];
 }
 
+/**
+ * This test will trigger all dependent commands and will not time out.
+ */
 - (void)testReadWithTimeoutNotTimingOut
 {
-    [RZBUserInteraction setTimeout:0.1];
 
     XCTestExpectation *read = [self expectationWithDescription:@"Read battery level"];
 
@@ -41,12 +46,13 @@
     [self waitForExpectationsWithTimeout:1.0 handler:nil];
 }
 
+/**
+ * This test will trigger a dependent connect command. The read will timeout and complete.
+ */
 - (void)testReadWithTimeoutTimingOut
 {
-    [RZBUserInteraction setTimeout:0.1];
-
     XCTestExpectation *read = [self expectationWithDescription:@"Read battery level"];
-    self.connection.readCharacteristicCallback.delay = 1.0;
+    self.connection.readCharacteristicCallback.delay = DelayCausingTimeout;
     self.device.batteryLevel = 80;
     [RZBUserInteraction perform:^{
         [self.peripheral fetchBatteryLevel:^(NSUInteger level, NSError *error) {
@@ -54,14 +60,34 @@
             XCTAssert(error);
         }];
     }];
-    [self waitForExpectationsWithTimeout:1.0 handler:nil];
+    [self waitForExpectationsWithTimeout:DelayCausingTimeout * 2 handler:nil];
 }
 
+/**
+ * This test will trigger a dependent connect command. The read command will timeout and
+ * this test ensures that both commands are completed.
+ */
+- (void)testReadWithConnectTimingOut
+{
+    XCTestExpectation *read = [self expectationWithDescription:@"Read battery level"];
+    self.connection.connectCallback.delay = DelayCausingTimeout;
+    self.device.batteryLevel = 80;
+    [RZBUserInteraction perform:^{
+        [self.peripheral fetchBatteryLevel:^(NSUInteger level, NSError *error) {
+            [read fulfill];
+            XCTAssert(error);
+        }];
+    }];
+    [self waitForExpectationsWithTimeout:DelayCausingTimeout * 2 handler:nil];
+}
+
+/**
+ *  This test will ensure that terminal states generate an error when using RZBUserInteraction
+ */
 - (void)testReadTerminalState
 {
     [self.mockCentralManager fakeStateChange:CBManagerStatePoweredOff];
     [self waitForQueueFlush];
-    [RZBUserInteraction setTimeout:0.1];
 
     XCTestExpectation *read = [self expectationWithDescription:@"Read battery level"];
     self.device.batteryLevel = 80;
@@ -75,11 +101,14 @@
     [self waitForExpectationsWithTimeout:1.0 handler:nil];
 }
 
+
+/**
+ *  This test will ensure that transient states generate an error after RZBUserInteraction timeout.
+ */
 - (void)testTimeoutNonFunctioningTransientState
 {
     [self.mockCentralManager fakeStateChange:CBManagerStateUnknown];
     [self waitForQueueFlush];
-    [RZBUserInteraction setTimeout:0.1];
 
     XCTestExpectation *read = [self expectationWithDescription:@"Read battery level"];
     self.device.batteryLevel = 80;
