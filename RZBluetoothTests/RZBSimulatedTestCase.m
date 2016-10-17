@@ -55,9 +55,10 @@
 - (void)setUp
 {
     RZBSetLogHandler(^(RZBLogLevel logLevel, NSString *format, va_list args) {
-        NSLog(@"RZBLog: %@", [[NSString alloc] initWithFormat:format arguments:args]);
+        if (logLevel != RZBLogLevelWriteCommandData && logLevel != RZBLogLevelDelegateValue) {
+            NSLog(@"%@",  [[NSString alloc] initWithFormat:format arguments:args]);
+        }
     });
-
     [super setUp];
     [self configureCentralManager];
     [self.mockCentralManager fakeStateChange:CBManagerStatePoweredOn];
