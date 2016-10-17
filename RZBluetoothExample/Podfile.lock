@@ -1,10 +1,10 @@
 PODS:
-  - RZBluetooth (0.1):
-    - RZBluetooth/Core (= 0.1)
-  - RZBluetooth/Core (0.1)
-  - RZBluetooth/Mock (0.1):
+  - RZBluetooth (1.1.0):
+    - RZBluetooth/Core (= 1.1.0)
+  - RZBluetooth/Core (1.1.0)
+  - RZBluetooth/Mock (1.1.0):
     - RZBluetooth/Core
-  - RZBluetooth/Test (0.1):
+  - RZBluetooth/Test (1.1.0):
     - RZBluetooth/Mock
 
 DEPENDENCIES:
@@ -17,6 +17,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  RZBluetooth: d216d953ef9c92659ee05566b1bd0bad87bf5437
+  RZBluetooth: 39cd9c0f22069e6a887d81273eb9c775c0648207
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 99fb11463765bf86f0ef678a9d3d558058b0827b
+
+COCOAPODS: 1.1.0.rc.2
