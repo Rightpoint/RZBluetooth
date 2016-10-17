@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
+#import "RZBTestDefines.h"
 #import "RZMockBluetooth.h"
 #import "RZBSimulatedTestCase.h"
 #import "NSRunLoop+RZBWaitFor.h"

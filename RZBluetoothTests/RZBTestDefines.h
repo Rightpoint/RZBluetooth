@@ -18,6 +18,7 @@ XCTAssert(cmds.count == c, @"Did not find an %@ command of class %@\n%@\n", isEx
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000 || __TV_OS_VERSION_MAX_ALLOWED >= 100000
 #else
+#define CBManagerState CBCentralManagerState
 #define CBManagerStateUnknown CBCentralManagerStateUnknown
 #define CBManagerStateResetting CBCentralManagerStateResetting
 #define CBManagerStateUnsupported CBCentralManagerStateUnsupported

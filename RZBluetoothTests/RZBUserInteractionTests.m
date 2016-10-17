@@ -11,6 +11,7 @@
 #import "RZBUserInteraction.h"
 #import "RZBSimulatedDevice+RZBBatteryLevel.h"
 #import "RZBErrors.h"
+#import "RZBTestDefines.h"
 
 static const NSTimeInterval DelayCausingTimeout = 1.0;
 
