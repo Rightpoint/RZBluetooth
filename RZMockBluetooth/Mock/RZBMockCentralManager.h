@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(assign) CBManagerState state;
 @property(strong) NSDictionary *options;
 @property(strong) NSMutableDictionary *peripheralsByUUID;
+@property(assign) NSUInteger fakeActionCount;
 
 - (instancetype)initWithDelegate:(id<CBCentralManagerDelegate>)delegate queue:(dispatch_queue_t)queue options:(NSDictionary *)options;
 

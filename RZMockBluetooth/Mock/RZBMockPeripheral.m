@@ -88,11 +88,24 @@
     return nil;
 }
 
+- (void)performFakeAction:(void(^)(void))block
+{
+    @synchronized (self) {
+        self.fakeActionCount += 1;
+    }
+    dispatch_async(self.mockCentralManager.queue, ^{
+        block();
+        @synchronized (self) {
+            self.fakeActionCount -= 1;
+        }
+    });
+}
+
 - (void)fakeRSSI:(NSNumber *)RSSI error:(NSError *)error
 {
-    dispatch_async(self.mockCentralManager.queue, ^{
+    [self performFakeAction:^{
         [self.delegate peripheral:(id)self didReadRSSI:RSSI error:error];
-    });
+    }];
 }
 
 - (void)fakeDiscoverService:(NSArray<CBMutableService *> *)services error:(NSError *)error
@@ -105,9 +118,9 @@
     for (CBMutableService *service in self.services) {
         [service setValue:self forKey:@"peripheral"];
     }
-    dispatch_async(self.mockCentralManager.queue, ^{
+    [self performFakeAction:^{
         [self.delegate peripheral:(id)self didDiscoverServices:error];
-    });
+    }];
 }
 
 - (void)fakeDiscoverServicesWithUUIDs:(NSArray<CBUUID *> *)serviceUUIDs error:(NSError *)error
@@ -121,10 +134,10 @@
 
 - (void)fakeUpdateName:(NSString *)name;
 {
-    dispatch_async(self.mockCentralManager.queue, ^{
+    [self performFakeAction:^{
         self.name = name;
         [self.delegate peripheralDidUpdateName:(id)self];
-    });
+    }];
 }
 
 - (void)fakeDiscoverCharacteristicsWithUUIDs:(NSArray<CBUUID *> *)characteristicUUIDs forService:(CBMutableService *)service error:(NSError *)error
@@ -143,34 +156,34 @@
         [existing addObjectsFromArray:characteristics];
     }
     service.characteristics = [existing allObjects];
-    dispatch_async(self.mockCentralManager.queue, ^{
+    [self performFakeAction:^{
         [self.delegate peripheral:(id)self didDiscoverCharacteristicsForService:(id)service error:error];
-    });
+    }];
 }
 
 - (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic updateValue:(NSData *)value error:(NSError *)error
 {
-    dispatch_async(self.mockCentralManager.queue, ^{
+    [self performFakeAction:^{
         characteristic.value = value;
         [self.delegate peripheral:(id)self didUpdateValueForCharacteristic:(id)characteristic error:error];
-    });
+    }];
 }
 
 - (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic writeResponseWithError:(NSError *)error;
 {
-    dispatch_async(self.mockCentralManager.queue, ^{
+    [self performFakeAction:^{
         [self.delegate peripheral:(id)self didWriteValueForCharacteristic:(id)characteristic error:error];
-    });
+    }];
 }
 
 - (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic notify:(BOOL)notifyState error:(NSError *)error
 {
-    dispatch_async(self.mockCentralManager.queue, ^{
+    [self performFakeAction:^{
         if (error == nil) {
             [characteristic setValue:@(notifyState) forKey:@"isNotifying"];
         }
         [self.delegate peripheral:(id)self didUpdateNotificationStateForCharacteristic:(id)characteristic error:error];
-    });
+    }];
 }
 
 @end

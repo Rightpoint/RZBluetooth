@@ -9,6 +9,7 @@
 #import "RZBSimulatedDevice.h"
 #import "RZBSimulatedCentral.h"
 #import "RZBLog+Private.h"
+#import "RZBEnableMock.h"
 
 @interface RZBSimulatedDevice ()
 
@@ -70,18 +71,29 @@
     return service;
 }
 
+- (void)performPeripheralAction:(void (^)(void))action
+{
+    NSParameterAssert(action);
+    [self.operationQueue addOperationWithBlock:action];
+
+    // If we're using mock objects, flush the operation. The asynchronous behavior adds a lot of complexity if not needed.
+    if ([_peripheralManager mock] != nil && !_operationQueue.suspended) {
+        [self.operationQueue waitUntilAllOperationsAreFinished];
+    }
+}
+
 - (void)startAdvertising
 {
     NSAssert(self.peripheralManager.isAdvertising == NO, @"Already Advertising");
     NSAssert([self advertisedServices].count > 0, @"The device has no primary services");
-    [self.operationQueue addOperationWithBlock:^{
-        [self.peripheralManager startAdvertising:@{CBAdvertisementDataServiceUUIDsKey:[self advertisedServices]}];
+    [self performPeripheralAction:^{
+        [self.peripheralManager startAdvertising:@{CBAdvertisementDataServiceUUIDsKey: [self advertisedServices]}];
     }];
 }
 
 - (void)stopAdvertising
 {
-    [self.operationQueue addOperationWithBlock:^{
+    [self performPeripheralAction:^{
         [self.peripheralManager stopAdvertising];
     }];
 }
@@ -98,7 +110,7 @@
     @synchronized (self.services) {
         [[self mutableArrayValueForKey:@"services"] addObject:service];
     }
-    [self.operationQueue addOperationWithBlock:^{
+    [self performPeripheralAction:^{
         [self.peripheralManager addService:service];
     }];
 }

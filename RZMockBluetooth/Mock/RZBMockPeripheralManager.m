@@ -73,38 +73,51 @@
     return [self.mockDelegate mockPeripheralManager:self updateValue:value forCharacteristic:characteristic onSubscribedCentrals:centrals];
 }
 
+- (void)performFakeAction:(void(^)(void))block
+{
+    @synchronized (self) {
+        self.fakeActionCount += 1;
+    }
+    dispatch_async(self.queue, ^{
+        block();
+        @synchronized (self) {
+            self.fakeActionCount -= 1;
+        }
+    });
+}
+
 - (void)fakeStateChange:(CBPeripheralManagerState)state
 {
-    dispatch_async(self.queue, ^{
+    [self performFakeAction:^{
         self.state = state;
         [self.delegate peripheralManagerDidUpdateState:(id)self];
-    });
+    }];
 }
 
 - (void)fakeReadRequest:(CBATTRequest *)request
 {
-    dispatch_async(self.queue, ^{
+    [self performFakeAction:^{
         [self.delegate peripheralManager:(id)self didReceiveReadRequest:request];
-    });
+    }];
 }
 
 - (void)fakeWriteRequest:(CBATTRequest *)request
 {
-    dispatch_async(self.queue, ^{
+    [self performFakeAction:^{
         [self.delegate peripheralManager:(id)self didReceiveWriteRequests:@[request]];
-    });
+    }];
 }
 
 - (void)fakeNotifyState:(BOOL)enabled central:(CBCentral *)central characteristic:(CBMutableCharacteristic *)characteristic
 {
-    dispatch_async(self.queue, ^{
+    [self performFakeAction:^{
         if (enabled) {
             [self.delegate peripheralManager:(id)self central:central didSubscribeToCharacteristic:(id)characteristic];
         }
         else {
             [self.delegate peripheralManager:(id)self central:central didUnsubscribeFromCharacteristic:(id)characteristic];
         }
-    });
+    }];
 }
 
 @end

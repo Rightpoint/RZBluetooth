@@ -1,4 +1,4 @@
-[![Circle CI](https://circleci.com/gh/Raizlabs/RZBluetooth.svg?style=svg)](https://circleci.com/gh/Raizlabs/RZBluetooth)
+[![Build Status](https://travis-ci.org/Raizlabs/RZBluetooth.png)](https://travis-ci.org/Raizlabs/RZBluetooth)
 [![Version](https://img.shields.io/cocoapods/v/RZBluetooth.svg?style=flat)](http://cocoapods.org/pods/RZBluetooth)
 [![License](https://img.shields.io/cocoapods/l/RZBluetooth.svg?style=flat)](http://cocoapods.org/pods/RZBluetooth)
 [![Platform](https://img.shields.io/cocoapods/p/RZBluetooth.svg?style=flat)](http://cocoapods.org/pods/RZBluetooth)
