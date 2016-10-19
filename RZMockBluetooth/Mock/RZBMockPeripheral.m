@@ -158,9 +158,11 @@
 
 - (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic writeResponseWithError:(NSError *)error;
 {
-    dispatch_async(self.mockCentralManager.queue, ^{
-        [self.delegate peripheral:(id)self didWriteValueForCharacteristic:(id)characteristic error:error];
-    });
+    if ([self.delegate respondsToSelector:@selector(peripheral:didWriteValueForCharacteristic:error:)]) {
+        dispatch_async(self.mockCentralManager.queue, ^{
+            [self.delegate peripheral:(id)self didWriteValueForCharacteristic:(id)characteristic error:error];
+        });
+    }
 }
 
 - (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic notify:(BOOL)notifyState error:(NSError *)error
