@@ -49,6 +49,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addSimulatedDeviceWithIdentifier:(NSUUID *)peripheralUUID peripheralManager:(RZBMockPeripheralManager *)peripheralManager;
 
 /**
+ *  Add a simulated device with the specified peripheralUUID, peripheralName and connect it to the
+ *  specified peripheralManager.
+ */
+
+- (void)addSimulatedDeviceWithIdentifier:(NSUUID *)peripheralUUID peripheralName:(NSString *)name peripheralManager:(RZBMockPeripheralManager *)peripheralManager;
+
+/**
  * Remove the simulated device associated with peripheralUUID.
  */
 - (void)removeSimulatedDevice:(NSUUID *)peripheralUUID;

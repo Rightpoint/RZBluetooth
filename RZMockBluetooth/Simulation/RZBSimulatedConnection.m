@@ -15,6 +15,7 @@
 @implementation RZBSimulatedConnection
 
 - (instancetype)initWithIdentifier:(NSUUID *)identifier
+                 peripheralName:(NSString *)peripheralName
                  peripheralManager:(RZBMockPeripheralManager *)peripheralManager
                            central:(RZBSimulatedCentral *)central
 {
@@ -28,6 +29,7 @@
         _peripheralManager = peripheralManager;
         _peripheralManager.mockDelegate = self;
         _peripheral = [central.mockCentralManager peripheralForUUID:identifier];
+        _peripheral.name = peripheralName;
         _readRequests = [NSMutableArray array];
         _writeRequests = [NSMutableArray array];
         _subscribedCharacteristics = [NSMutableArray array];
