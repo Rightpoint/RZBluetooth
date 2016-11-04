@@ -22,6 +22,7 @@
         self.options = options;
         self.peripheralsByUUID = [NSMutableDictionary dictionary];
         self.state = CBCentralManagerStateUnknown;
+        _isScanning = false;
     }
     return self;
 }
@@ -50,11 +51,13 @@
 
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options
 {
+    _isScanning = true;
     [self.mockDelegate mockCentralManager:self scanForPeripheralsWithServices:serviceUUIDs options:options];
 }
 
 - (void)stopScan
 {
+    _isScanning = false;
     [self.mockDelegate mockCentralManagerStopScan:self];
 }
 
