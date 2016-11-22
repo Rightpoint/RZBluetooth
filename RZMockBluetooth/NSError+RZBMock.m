@@ -12,9 +12,11 @@
 
 @implementation NSError (RZBMock)
 
+#if TARGET_OS_IOS
 + (NSError *)rzb_connectionError
 {
     return [NSError errorWithDomain:CBErrorDomain code:CBErrorConnectionFailed userInfo:nil];
 }
+#endif
 
 @end

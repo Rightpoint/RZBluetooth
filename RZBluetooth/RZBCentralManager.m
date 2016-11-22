@@ -22,7 +22,7 @@
 
 + (NSDictionary *)optionsForIdentifier:(NSString *)identifier
 {
-#if TARGET_OS_OSX || TARGET_OS_MAC
+#if TARGET_OS_OSX
 	return @{};
 #elif TARGET_OS_IPHONE
     NSArray *backgroundModes = [[NSBundle mainBundle] infoDictionary][@"UIBackgroundModes"];
@@ -285,9 +285,15 @@
 
 // Nothing needs to be done here, everything will be re-discovered automatically
 //- (void)peripheral:(CBPeripheral *)peripheral didModifyServices:(NSArray *)invalidatedServices {}
-
+#if TARGET_OS_OSX
+- (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(nullable NSError *)error
+{
+    NSNumber *RSSI = [peripheral RSSI];
+#else
 - (void)peripheral:(CBPeripheral *)peripheral didReadRSSI:(NSNumber *)RSSI error:(NSError *)error
 {
+#endif
+
     RZBLogDelegate(@"%@ - %@ %@", NSStringFromSelector(_cmd), RZBLogIdentifier(peripheral), error);
     RZBLogDelegateValue(@"RSSI=%@", RSSI);
 

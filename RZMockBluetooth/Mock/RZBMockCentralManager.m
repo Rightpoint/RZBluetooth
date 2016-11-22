@@ -66,7 +66,9 @@
 
 - (void)cancelPeripheralConnection:(RZBMockPeripheral *)peripheral
 {
+#if TARGET_OS_IOS
     peripheral.state = CBPeripheralStateDisconnecting;
+#endif
     [self.mockDelegate mockCentralManager:self cancelPeripheralConnection:peripheral];
 }
 
