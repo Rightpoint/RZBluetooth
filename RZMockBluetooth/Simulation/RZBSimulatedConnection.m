@@ -64,8 +64,11 @@
     self.connectCallback.paused = !connectable;
     _connectable = connectable;
     if (connectable == NO) {
-        if (self.peripheral.state == CBPeripheralStateConnected ||
-            self.peripheral.state == CBPeripheralStateConnecting) {
+        if (self.peripheral.state == CBPeripheralStateConnected
+#if TARGET_OS_IOS
+            || self.peripheral.state == CBPeripheralStateConnecting
+#endif
+            ) {
             [self disconnect];
         }
     }
@@ -80,7 +83,9 @@
         [self.peripheralManager fakeNotifyState:NO central:(id)self.central characteristic:characteristic];
     }
     [self.subscribedCharacteristics removeAllObjects];
+#if TARGET_OS_IOS
     self.peripheral.state = CBPeripheralStateDisconnecting;
+#endif
     typeof(self) weakSelf = self;
     [self.cancelConncetionCallback dispatch:^(NSError *injectedError) {
         [weakSelf.central.mockCentralManager fakeDisconnectPeripheralWithUUID:weakSelf.identifier

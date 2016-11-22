@@ -155,8 +155,6 @@
 
     // Remove the completion block immediately to behave consistently.
     // If anything here is nil, there is no completion block, which is fine.
-    CBService *service = [self.centralManager serviceForUUID:serviceUUID onPeripheral:self.corePeripheral];
-    CBCharacteristic *characteristic = [service rzb_characteristicForUUID:characteristicUUID];
     [self setNotifyBlock:nil forCharacteristicUUID:characteristicUUID];
 
     RZBNotifyCharacteristicCommand *cmd = [[RZBNotifyCharacteristicCommand alloc] initWithUUIDPath:path];

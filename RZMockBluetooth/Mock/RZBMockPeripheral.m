@@ -103,8 +103,15 @@
 
 - (void)fakeRSSI:(NSNumber *)RSSI error:(NSError *)error
 {
+#if TARGET_OS_OSX
+    self.RSSI = RSSI;
+#endif
     [self performFakeAction:^{
+#if TARGET_OS_OSX
+        [self.delegate peripheralDidUpdateRSSI:(id)self error: error];
+#else
         [self.delegate peripheral:(id)self didReadRSSI:RSSI error:error];
+#endif
     }];
 }
 

@@ -32,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(assign) CBPeripheralState state;
 @property(strong) NSArray *services;
 @property(assign) NSUInteger fakeActionCount;
+#if TARGET_OS_OSX
+@property(strong) NSNumber *RSSI;
+#endif
 
 - (void)readRSSI;
 - (void)discoverServices:(NSArray *)serviceUUIDs;

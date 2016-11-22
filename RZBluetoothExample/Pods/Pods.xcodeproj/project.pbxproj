@@ -7,135 +7,136 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		02A5623AD78F5E0CADED6CA70DC28890 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAC405455F8E20BD0434D9D3E3D2879A /* Foundation.framework */; };
-		030F9073A3E95AD5F5CAEA9649AC7B56 /* RZBCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = 39C2B94291EA93C13F96464BBE8690E1 /* RZBCommand.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		06CFB71CC8538CC2E53F72DEB52FB86F /* RZBUserInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0824A62CE8DFCEED21E50E253C95C23E /* RZBUserInteraction.m */; };
-		0DA755D6E4E1FF9B993E612C5C2866A7 /* RZBCentralManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C5D1038B8C56B67040286A0F7828042B /* RZBCentralManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0EBD1084F19A231AB948DE52734475ED /* RZBHeartRateMeasurement.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62BCD783E3EB5169221BC037827C /* RZBHeartRateMeasurement.m */; };
-		0FA9A6C48F1F2EC78D58D88E95F3D413 /* RZBluetooth.h in Headers */ = {isa = PBXBuildFile; fileRef = 69BD21569372565D850BF1E17C16158D /* RZBluetooth.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		10DCC69F0D6C88D5E3BC9D8E68B967CA /* CBUUID+RZBPublic.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F18690F3D77A7545493B5DBFB568F7 /* CBUUID+RZBPublic.m */; };
-		140C559707005DBBA89CA61842F482F9 /* RZBScanInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F009B578ABBB116869009EAE1E93544 /* RZBScanInfo.m */; };
-		1599AA67716742551889A160A55A58FA /* RZBScanInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F009B578ABBB116869009EAE1E93544 /* RZBScanInfo.m */; };
-		185F75A0E9BAF15A2B738B78DD8291A5 /* RZBCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6B0F159B4C1C83AC43C2DDB9C826F4 /* RZBCommand.m */; };
-		19B1C3976EB884D0C34650859348A0F6 /* RZBPeripheral+RZBHeartRate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB6BCBFF86BE4544AE4EFB83E43249F /* RZBPeripheral+RZBHeartRate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1A6016BC70D45E6CF02280BD5E693691 /* RZBPeripheral+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 67916E11A985DDC711423C86B9478648 /* RZBPeripheral+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		1A6A4624B0E73FB8188C4FBA6A8A3C71 /* RZBCommandDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = B781AC54EF358FFA9CB0BCF380FB338C /* RZBCommandDispatch.m */; };
-		1C4442257B329AA95226FF0BA8AFEB7A /* RZBDeviceInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = ED8A98A2B27B9A284B7B7711A66B30E8 /* RZBDeviceInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22CB9F26CE33BA933660260BB39943F6 /* RZBCommandDispatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 1532CBE2A10E701B7E9DB34C500043AD /* RZBCommandDispatch.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		24B8833DC3EC0B28079EE1EFCE66A5C8 /* RZBPeripheral+RZBBattery.h in Headers */ = {isa = PBXBuildFile; fileRef = 52102E74E4B4C91726854AA239C93647 /* RZBPeripheral+RZBBattery.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2D3442936477F28F8DC32ED665F4D09C /* RZBCentralManager+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = EF9E8D0D8649C30A76E83F7837760EEC /* RZBCentralManager+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		2DE1EB02DDD05668C40743AF6F7C2F7E /* RZBLog+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 14A0B57B3617495F238537924AA75DB6 /* RZBLog+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		2E4DC4EFF741143F83D35C53FF0FB23E /* RZBScanInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 96FD80741B4D60ABB05EA33A99BEF2E3 /* RZBScanInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2F1A91C8975E2E22113293E7D72144D2 /* RZBHeartRateMeasurement.h in Headers */ = {isa = PBXBuildFile; fileRef = AD14B40A4A18FAF42E4DE0B389080C32 /* RZBHeartRateMeasurement.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3014C85FFDF98D7FE9E952899A314456 /* CBService+RZBExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = BAB689D0DB3C95F520C1D2CD7042C7D6 /* CBService+RZBExtension.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		30E854AEE4BA113EB7DA5C4F8A6F731D /* CBService+RZBExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = A64BA64D7BCC7789AB109F09E45F222A /* CBService+RZBExtension.m */; };
-		31031C0A83AF16C0C5DBF9B19A1598FF /* RZBSimulatedDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD46D4CE43DF3B52A918E623E1D3956 /* RZBSimulatedDevice.m */; };
-		31B6EB5EF01DF75130120CE478C9523C /* RZBCommandDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = B781AC54EF358FFA9CB0BCF380FB338C /* RZBCommandDispatch.m */; };
-		34FBBF55225C961F4D812EF83E71A2D8 /* RZBPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDB576E66D311F230AE95131DC56104 /* RZBPeripheral.m */; };
-		3626C9A035AE6BBCC87E4D83CFE0D15A /* RZBPeripheralStateEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 14952BDF8DB614DDE2972E42B15F8F10 /* RZBPeripheralStateEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		382267F2E16742F890F56D4AB9C88851 /* RZBLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 2FF200EDBB41364C9B1B9DD2B791017D /* RZBLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3861F03F857A483DCB06245C468923E1 /* RZBDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = D215F0B2A40AF874E5CB3AEC612C3A7E /* RZBDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3C33A46C2A9EDC617F5459769772C611 /* RZBErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = C68AD1CE1306E8C38D0742A84A0B739B /* RZBErrors.m */; };
-		3CD9F0ED10842B5B79D67D1D0C6C4A61 /* CBUUID+RZBPublic.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F18690F3D77A7545493B5DBFB568F7 /* CBUUID+RZBPublic.m */; };
-		40C4407D473D9D303F6F2CE98E1999B4 /* RZBErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E7CC676E7A89ED45AA6C26B2B27EC32 /* RZBErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		418359900A8FDBB87E8A290791CE48BA /* RZBLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 2FF200EDBB41364C9B1B9DD2B791017D /* RZBLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4187C67389A7C3DB914C6F0C343C73D1 /* RZBDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = D215F0B2A40AF874E5CB3AEC612C3A7E /* RZBDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4206DFFE15C650C422DC8BE141EEBEBB /* RZBPeripheral.h in Headers */ = {isa = PBXBuildFile; fileRef = D7550F5B18BFB3D493B940FADF1190F1 /* RZBPeripheral.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		42BEB6231CCC1932C6EB9FE1DD6A4DC8 /* RZBSimulatedConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 323CA1DD96FDD6962710411FF809E088 /* RZBSimulatedConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		457ECACCD20A2309DDD5FABA57397B97 /* RZBPeripheral+RZBBattery.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7BA62A1F991FF57F169782680B51BC /* RZBPeripheral+RZBBattery.m */; };
-		485AE3C472A3F84265B28C2D76201AAE /* RZBMockPeripheralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9366FB501AFA26E46710D2732B316BB5 /* RZBMockPeripheralManager.m */; };
-		4B3999D5E5F6D5CD90C6A24D2007EE19 /* RZBUserInteraction.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FDFDEC6584CD30D11722D4B17BF639A /* RZBUserInteraction.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4D46D4C24F1126DF403C797A08BC1019 /* RZBSimulatedCentral.m in Sources */ = {isa = PBXBuildFile; fileRef = F57693A52EEB9BB5DFEE1492643AE4D7 /* RZBSimulatedCentral.m */; };
-		4D7D097B3B65F91FEC7313FC91F9510E /* RZBSimulatedCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = 790361581BEF40CE3C8A1FF4D70922CF /* RZBSimulatedCallback.m */; };
-		4DC28AF048BA3D089F5C82C518738551 /* RZBLog+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 14A0B57B3617495F238537924AA75DB6 /* RZBLog+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		54CEBAE0511F6789C9DFFE6F9C1FDAD9 /* RZBSimulatedConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4B72787A0068129904C6E8F1C6C23C /* RZBSimulatedConnection.m */; };
-		58EF8BE8D0BAEB0DCC942FD24928E191 /* RZBPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDB576E66D311F230AE95131DC56104 /* RZBPeripheral.m */; };
-		5C0B8E29916C63BD39B31F31173FEDFA /* RZBSimulatedConnection+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D9671F84EF36371D18CC760E10FFAF /* RZBSimulatedConnection+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		5C25B150CBFC09C29F67A415FADBAF1C /* RZBUserInteraction.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FDFDEC6584CD30D11722D4B17BF639A /* RZBUserInteraction.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5E67EC76DBC342C70B18451A41D1A875 /* RZBEnableMock.h in Headers */ = {isa = PBXBuildFile; fileRef = 05E6AD6019110C4F084795F91F80F90C /* RZBEnableMock.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		614B8A804F5AA2053F4AB75AD370E440 /* RZBMockCentralManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F96B0A38FF3CE56419212446BAE5420 /* RZBMockCentralManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		61CB393C43F063EA880917D22E53B8A3 /* RZBPeripheral+RZBHeartRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1FE81071246EC3362F8FB83825078 /* RZBPeripheral+RZBHeartRate.m */; };
-		621094EF29250D6E14988C7A497426F2 /* RZBUUIDPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 59B296B07D086D6868255348A6189879 /* RZBUUIDPath.m */; };
-		626E398B9516B46221DB13B21E29854B /* RZBErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = C68AD1CE1306E8C38D0742A84A0B739B /* RZBErrors.m */; };
-		62E45C71FEAC61C75B2F8BCFBCCAE743 /* RZBSimulatedCentral.h in Headers */ = {isa = PBXBuildFile; fileRef = 46C4151A5B4880001CD55109E5E38804 /* RZBSimulatedCentral.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6646DDD363A28CA71B83B7E822990FD6 /* RZBCentralManager+CommandHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9464048A5E34948B7AD4895EA62F2879 /* RZBCentralManager+CommandHelper.m */; };
-		66E7C9553CFC3064D2984821A2DC81AE /* CBUUID+RZBPublic.h in Headers */ = {isa = PBXBuildFile; fileRef = 148DD7992CAC82402AB806CFECCE5539 /* CBUUID+RZBPublic.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		67AC353327A79FBAD94AE9AB807F4049 /* RZBluetooth.default-Mock-Test-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 038FDFCB18AC958EECD2F39CA41EB86F /* RZBluetooth.default-Mock-Test-dummy.m */; };
-		6803026313AC1FEA4D196C26C74B5F91 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAC405455F8E20BD0434D9D3E3D2879A /* Foundation.framework */; };
-		69F82CB43F643E03745DED6C7C7CB100 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B89BF7315BAB3516AF2A51041DC39C3B /* XCTest.framework */; };
-		6A2F99AD775FD9FA8538B43FBA3A2912 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAC405455F8E20BD0434D9D3E3D2879A /* Foundation.framework */; };
-		6D6D9FF8B3A28BEE914FCDC6CF07EF80 /* RZBBluetoothRepresentable.h in Headers */ = {isa = PBXBuildFile; fileRef = 72F8F0B8300BC9DFECA2106B945343F9 /* RZBBluetoothRepresentable.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6F2C8FBDD05EC184C1BC19C88A49CBB5 /* RZBPeripheralStateEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 14952BDF8DB614DDE2972E42B15F8F10 /* RZBPeripheralStateEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6FD3B118470FA564B27681BC948826FC /* RZMockBluetooth.h in Headers */ = {isa = PBXBuildFile; fileRef = DCD6EDF9E9EF3A0051FF512BF03983FF /* RZMockBluetooth.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		705E423BBA3EB0B952D6B606A3DBCC93 /* RZBPeripheral.h in Headers */ = {isa = PBXBuildFile; fileRef = D7550F5B18BFB3D493B940FADF1190F1 /* RZBPeripheral.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		74F4485A8154D7ECE924E6C019B2242D /* RZBDeviceInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = ED8A98A2B27B9A284B7B7711A66B30E8 /* RZBDeviceInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7C0A2E422467AA6819CD3E6832E715C2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAC405455F8E20BD0434D9D3E3D2879A /* Foundation.framework */; };
-		7CF4A642F98E4A79EB22B4F977162686 /* RZBUUIDPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 59B296B07D086D6868255348A6189879 /* RZBUUIDPath.m */; };
-		7E260F6D414A17915010CBC0B8309663 /* RZBDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8CA8299FA32FA0B43A6CD5B67154C2 /* RZBDeviceInfo.m */; };
-		8DA44263887F21ECE409473A8D2C76FC /* CBService+RZBExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = BAB689D0DB3C95F520C1D2CD7042C7D6 /* CBService+RZBExtension.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		94687913C581356156B15EED4CBA38FD /* RZBDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8CA8299FA32FA0B43A6CD5B67154C2 /* RZBDeviceInfo.m */; };
-		961EFBEEA312338C670C7725928D2EBC /* RZBluetooth-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D5464ACEB5C9D9346A370D05ED082A /* RZBluetooth-dummy.m */; };
-		9941C1B5CC72F831D67B6AE6382C697C /* RZBCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = 39C2B94291EA93C13F96464BBE8690E1 /* RZBCommand.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		9A88A479090E4BCCCCA0BCEAE1129EF9 /* RZBCentralManager+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = EF9E8D0D8649C30A76E83F7837760EEC /* RZBCentralManager+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		9D09CC6A16236CAE070985642B43BCF6 /* RZBPeripheral+RZBBattery.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7BA62A1F991FF57F169782680B51BC /* RZBPeripheral+RZBBattery.m */; };
-		A01378B2E4812C7B88DAADF65A38D44C /* Pods-RZBluetoothExample-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E55C6355E48A1D57F0305B2BCD7AEA2 /* Pods-RZBluetoothExample-dummy.m */; };
-		A0F04F87C41FA98EACE5DD63EC1B9A2B /* RZBSimulatedCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = B6EABFB247F54B514C5B2A9116557C82 /* RZBSimulatedCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A272B543C208C8757D0E5A7E1E918D82 /* RZBCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E9291A20562A43012746CB9216D11BB1 /* RZBCentralManager.m */; };
-		A913E159B2E03EAE10957081556971BB /* RZBCentralManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C5D1038B8C56B67040286A0F7828042B /* RZBCentralManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A9F562DFBE02572FEE517EA7373E9BF9 /* CBService+RZBExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = A64BA64D7BCC7789AB109F09E45F222A /* CBService+RZBExtension.m */; };
-		AC1326796863FD32DA4EF655DD778E09 /* RZBMockPeripheralManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B2903126905B2A3C5EC52C21D252E26 /* RZBMockPeripheralManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AE099D4195F660F3B160774536ABFFF0 /* RZBCentralManager+CommandHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 9CA10BC5461E7D56B11FDCD256EFEBEF /* RZBCentralManager+CommandHelper.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		AF57D8045B27A9CD5875FE4744F7D60D /* NSRunLoop+RZBWaitFor.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC96F9FA06CEAE71B12A11BE4BBE814 /* NSRunLoop+RZBWaitFor.m */; };
-		AFAAD03BCA3A78542DD80E1E941B571A /* RZBCentralManager+CommandHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 9CA10BC5461E7D56B11FDCD256EFEBEF /* RZBCentralManager+CommandHelper.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		B0057763B247B26EE9618C262CF42DBF /* RZBCentralManager+CommandHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9464048A5E34948B7AD4895EA62F2879 /* RZBCentralManager+CommandHelper.m */; };
-		B39F633EE7254CACF35A4744075324F7 /* RZBCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6B0F159B4C1C83AC43C2DDB9C826F4 /* RZBCommand.m */; };
-		B44180CE1A332240F19AD16D7F79937B /* NSError+RZBMock.h in Headers */ = {isa = PBXBuildFile; fileRef = DC23CA8943FBC06402208326E08EC236 /* NSError+RZBMock.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B6F742481282EFB39F307188C020E27C /* CBUUID+RZBPublic.h in Headers */ = {isa = PBXBuildFile; fileRef = 148DD7992CAC82402AB806CFECCE5539 /* CBUUID+RZBPublic.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B7684C4D9816026CEF1230FEDC940243 /* NSError+RZBMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDF75E0E326CEBC129C135353C99317 /* NSError+RZBMock.m */; };
-		B7CA89D039325972C8A5FD7621A7D6CF /* RZBLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 534A30B659B555A7693F22ED4E28E26E /* RZBLog.m */; };
-		BA852B34E57675CF55338E3600C41136 /* RZBUUIDPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 6835BAC55A7D3A067F6AFA30845F92E4 /* RZBUUIDPath.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		BB8610F02B19D9B469F14EB85F52BF5C /* RZBSimulatedTestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B34ACB2959EA14855430029D8CB97A9 /* RZBSimulatedTestCase.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C148C99D47BE2FE72CA4F2DAF0121BF0 /* RZBSimulatedDevice+RZBBatteryLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F66DCF1FF32D6D59305F68FA2BECAF7 /* RZBSimulatedDevice+RZBBatteryLevel.m */; };
-		C33ADBA67E9EE2FC85B7A3E655C0DD62 /* RZBBluetoothRepresentable.h in Headers */ = {isa = PBXBuildFile; fileRef = 72F8F0B8300BC9DFECA2106B945343F9 /* RZBBluetoothRepresentable.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C8068C58F32FD06CFF7878FD0A0AAFE5 /* RZBluetooth.h in Headers */ = {isa = PBXBuildFile; fileRef = 69BD21569372565D850BF1E17C16158D /* RZBluetooth.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CBE51FF5B5668D1C73D4D629F1EC92A0 /* RZBMockPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = 2517722C9A3CD76BAB61166CC3DD1D91 /* RZBMockPeripheral.m */; };
-		CDBF3D33701C5E118624C9F9DF62DC13 /* RZBEnableMock.m in Sources */ = {isa = PBXBuildFile; fileRef = C7CB048342847B1087B3BA37008DAB04 /* RZBEnableMock.m */; };
-		CDDA73B71E29E74107C63396F75C0958 /* RZBPeripheral+RZBHeartRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1FE81071246EC3362F8FB83825078 /* RZBPeripheral+RZBHeartRate.m */; };
-		D4176C965BA998D67F982BF88C200239 /* RZBHeartRateMeasurement.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62BCD783E3EB5169221BC037827C /* RZBHeartRateMeasurement.m */; };
-		DA52C4CB5519083DEAE802D9B2D15922 /* NSRunLoop+RZBWaitFor.h in Headers */ = {isa = PBXBuildFile; fileRef = 8712E1597F07AB3FB058F7ABC3B6DC8E /* NSRunLoop+RZBWaitFor.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		DE7145CC438BC75B4E226847CACB8D54 /* RZBSimulatedDevice+RZBBatteryLevel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B931746E7C164AB31C7A52EB6315ADF /* RZBSimulatedDevice+RZBBatteryLevel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E16B461334F9F3FC0214926CA54AD98C /* RZBErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E7CC676E7A89ED45AA6C26B2B27EC32 /* RZBErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E32D2929547E836EAC827D6F38F4D773 /* RZBLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 534A30B659B555A7693F22ED4E28E26E /* RZBLog.m */; };
-		EAE0969E619507B055AA114FFF24886C /* RZBCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E9291A20562A43012746CB9216D11BB1 /* RZBCentralManager.m */; };
-		EBD03E39674B82F9AAF717F726190695 /* RZBMockCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7DD33BE0FA323E4C308D72DD83FCEA1 /* RZBMockCentralManager.m */; };
-		F00E7F8E2E3DCF3E5B46BC4E1C92ADFD /* RZBSimulatedDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E2B0905D631E4218992D96E1D110CCC /* RZBSimulatedDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F0B67D1B1E9110D89E42E0769B2A056C /* Pods-RZBluetoothExampleUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBFE6CF4104C56663D39C23283475A1 /* Pods-RZBluetoothExampleUITests-dummy.m */; };
-		F1FD478C05E1613E6509BAED74E601A6 /* RZBPeripheral+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 67916E11A985DDC711423C86B9478648 /* RZBPeripheral+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		F28CAA164AA5EC7672A9A0C8C3560777 /* RZBPeripheral+RZBBattery.h in Headers */ = {isa = PBXBuildFile; fileRef = 52102E74E4B4C91726854AA239C93647 /* RZBPeripheral+RZBBattery.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F3ADD437816B32331492CF7730D7BDAA /* RZBScanInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 96FD80741B4D60ABB05EA33A99BEF2E3 /* RZBScanInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F51B2948C0E447558C84A589E6F0C7D1 /* RZBPeripheral+RZBHeartRate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB6BCBFF86BE4544AE4EFB83E43249F /* RZBPeripheral+RZBHeartRate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F640042B1A8DA813C1518DA9B06078F7 /* RZBUserInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0824A62CE8DFCEED21E50E253C95C23E /* RZBUserInteraction.m */; };
-		F7ADFF53C0BF6619386F9F99B2F58093 /* RZBUUIDPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 6835BAC55A7D3A067F6AFA30845F92E4 /* RZBUUIDPath.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		F8945EDE62B913B8D1DE5477C4D1529E /* RZBCommandDispatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 1532CBE2A10E701B7E9DB34C500043AD /* RZBCommandDispatch.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		FBC8EC0141C00BFAF72A82250D30871F /* RZBMockPeripheral.h in Headers */ = {isa = PBXBuildFile; fileRef = 506C44D6D5490FDCCE3D0C87541F3705 /* RZBMockPeripheral.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FD8202FE5023D0C6F84667DE0BACDB12 /* RZBHeartRateMeasurement.h in Headers */ = {isa = PBXBuildFile; fileRef = AD14B40A4A18FAF42E4DE0B389080C32 /* RZBHeartRateMeasurement.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FDA794725DE0777C8A0EC654CECA8E68 /* RZBSimulatedTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4402AB406381E558D2EE736B562796 /* RZBSimulatedTestCase.m */; };
+		01002CCF9F28A4CD2358EEA9940A6122 /* RZBScanInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F009B578ABBB116869009EAE1E93544 /* RZBScanInfo.m */; };
+		012DA8A41D5BF14E06624CEE33AE4AF1 /* RZBPeripheral+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 67916E11A985DDC711423C86B9478648 /* RZBPeripheral+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		03290BC8CF6B956DDB46C56D4BF5077D /* RZBScanInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 96FD80741B4D60ABB05EA33A99BEF2E3 /* RZBScanInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		03BB02D341860A8389092718870511DE /* RZBDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = D215F0B2A40AF874E5CB3AEC612C3A7E /* RZBDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		04D55EFE1AA7C882CA91892CE622AF34 /* RZBErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E7CC676E7A89ED45AA6C26B2B27EC32 /* RZBErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		083F0D29F57D6F2B18BC386B67709F94 /* RZBBluetoothRepresentable.h in Headers */ = {isa = PBXBuildFile; fileRef = 72F8F0B8300BC9DFECA2106B945343F9 /* RZBBluetoothRepresentable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0B60353BE26DC279E603A8270DCED32D /* RZBLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 534A30B659B555A7693F22ED4E28E26E /* RZBLog.m */; };
+		0D1699DE387BE78333595FDCC35F4537 /* RZBCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = 39C2B94291EA93C13F96464BBE8690E1 /* RZBCommand.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		0F014D9233B560A7686848E3B86F5362 /* RZBPeripheral+RZBBattery.h in Headers */ = {isa = PBXBuildFile; fileRef = 52102E74E4B4C91726854AA239C93647 /* RZBPeripheral+RZBBattery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		109B1FC4777D9848308831EFEFDC2766 /* CBUUID+RZBPublic.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F18690F3D77A7545493B5DBFB568F7 /* CBUUID+RZBPublic.m */; };
+		10F98702618AE1F57FE7088757EB6AEF /* RZBCentralManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C5D1038B8C56B67040286A0F7828042B /* RZBCentralManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1164C6AC9E56A0F66A1BEC3881A686D6 /* RZBMockPeripheral.h in Headers */ = {isa = PBXBuildFile; fileRef = 506C44D6D5490FDCCE3D0C87541F3705 /* RZBMockPeripheral.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1180F6CC555C93619232C92F14716788 /* RZBPeripheralStateEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 14952BDF8DB614DDE2972E42B15F8F10 /* RZBPeripheralStateEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		11A0AC454C7D610D8AFDA69E7E03E2FC /* RZBUserInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0824A62CE8DFCEED21E50E253C95C23E /* RZBUserInteraction.m */; };
+		15F54EAD7ED900B8DF16FB76FB0AE2C8 /* RZBUserInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0824A62CE8DFCEED21E50E253C95C23E /* RZBUserInteraction.m */; };
+		1C6CA33E51D742DBD84D599FDD78BEEF /* RZBCentralManager+CommandHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9464048A5E34948B7AD4895EA62F2879 /* RZBCentralManager+CommandHelper.m */; };
+		1CA779C868696D9C335E74CE9058C021 /* RZBSimulatedTestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B11A1D57BEAFA45C25F84A3556A33F7 /* RZBSimulatedTestCase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1FA2DCE671F969578AFF3ED395C8619C /* RZBSimulatedCentral.h in Headers */ = {isa = PBXBuildFile; fileRef = 46C4151A5B4880001CD55109E5E38804 /* RZBSimulatedCentral.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		23EE5D0A358CAAFDE8E185586491A2B9 /* RZBLog+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 14A0B57B3617495F238537924AA75DB6 /* RZBLog+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		264E68DCF55DC8481BA032638EE72046 /* RZBPeripheral+RZBHeartRate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB6BCBFF86BE4544AE4EFB83E43249F /* RZBPeripheral+RZBHeartRate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		28776A20D96DE33CC4CF2DB046145E14 /* Pods-RZBluetoothExampleUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBFE6CF4104C56663D39C23283475A1 /* Pods-RZBluetoothExampleUITests-dummy.m */; };
+		2905CD7A3E215F4A65B3B79C1E5ABC62 /* NSError+RZBMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDF75E0E326CEBC129C135353C99317 /* NSError+RZBMock.m */; };
+		295F6CA84E655D186029F2B8BBC2FF9B /* NSRunLoop+RZBWaitFor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2018C639B7B9888381D9136FB3351E91 /* NSRunLoop+RZBWaitFor.m */; };
+		2BC460F5DA521D27C898FE519C4DDBEC /* RZBCentralManager+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = EF9E8D0D8649C30A76E83F7837760EEC /* RZBCentralManager+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		331AF4E7D55AF59CD2841A696B48DE04 /* RZBPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDB576E66D311F230AE95131DC56104 /* RZBPeripheral.m */; };
+		331C3959F2A88E8B239D3ED335ACB5DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32DF21EF8268E32D359CD23F2CF3EFE3 /* Foundation.framework */; };
+		3BA36F4D575C5E606C4B05E6480A726D /* RZBHeartRateMeasurement.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62BCD783E3EB5169221BC037827C /* RZBHeartRateMeasurement.m */; };
+		3CFE320B52A79C0F988923A59338BE27 /* RZBErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = C68AD1CE1306E8C38D0742A84A0B739B /* RZBErrors.m */; };
+		40ACCDABA5C692494FC84C11049371DA /* RZBCommandDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = B781AC54EF358FFA9CB0BCF380FB338C /* RZBCommandDispatch.m */; };
+		428C093CF533F940E592DBB439A4A9DD /* RZBScanInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F009B578ABBB116869009EAE1E93544 /* RZBScanInfo.m */; };
+		46F6A362F989447D0C88DAA7A796D973 /* RZBHeartRateMeasurement.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BF62BCD783E3EB5169221BC037827C /* RZBHeartRateMeasurement.m */; };
+		49A8B52A91BACA1372A78A5347244020 /* RZBEnableMock.h in Headers */ = {isa = PBXBuildFile; fileRef = 05E6AD6019110C4F084795F91F80F90C /* RZBEnableMock.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		49F63812B8D3CC93B3709CCC4D5027C1 /* RZBLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 2FF200EDBB41364C9B1B9DD2B791017D /* RZBLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F0E143292F7C7B2E1606248251EE426 /* RZBBluetoothRepresentable.h in Headers */ = {isa = PBXBuildFile; fileRef = 72F8F0B8300BC9DFECA2106B945343F9 /* RZBBluetoothRepresentable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		574425098F720A72C0103FE5D35642A1 /* RZBSimulatedDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD46D4CE43DF3B52A918E623E1D3956 /* RZBSimulatedDevice.m */; };
+		58916A1F2CDFFA6AB12963ACCABE4C0B /* RZBSimulatedCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = B6EABFB247F54B514C5B2A9116557C82 /* RZBSimulatedCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		58EA3248D2E1D2623C78F26E0C719C32 /* RZBEnableMock.m in Sources */ = {isa = PBXBuildFile; fileRef = C7CB048342847B1087B3BA37008DAB04 /* RZBEnableMock.m */; };
+		5C89CD2648740DF75140105A6EABD2F9 /* RZBUserInteraction.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FDFDEC6584CD30D11722D4B17BF639A /* RZBUserInteraction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5FDDEB2D9A2FA01E389B87CF31F1A460 /* RZBMockPeripheralManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B2903126905B2A3C5EC52C21D252E26 /* RZBMockPeripheralManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		667B4D565EBD778E25C346257B630BEB /* Pods-RZBluetoothExample-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E55C6355E48A1D57F0305B2BCD7AEA2 /* Pods-RZBluetoothExample-dummy.m */; };
+		66F325F0A6BC5050A0DBE567FF6E02E0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32DF21EF8268E32D359CD23F2CF3EFE3 /* Foundation.framework */; };
+		6846D0A1B74D1EFEAB2B122ABB22EA09 /* RZBluetooth.default-Mock-Test-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 038FDFCB18AC958EECD2F39CA41EB86F /* RZBluetooth.default-Mock-Test-dummy.m */; };
+		68B529D86CF803F4DF7CD0C1E99AC0DE /* RZBPeripheral+RZBBattery.h in Headers */ = {isa = PBXBuildFile; fileRef = 52102E74E4B4C91726854AA239C93647 /* RZBPeripheral+RZBBattery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6AAA1EBD6B58438543B6FC30D668644E /* RZMockBluetooth.h in Headers */ = {isa = PBXBuildFile; fileRef = DCD6EDF9E9EF3A0051FF512BF03983FF /* RZMockBluetooth.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6E5AD3E459F4E12220398D9241D1F5F8 /* NSError+RZBMock.h in Headers */ = {isa = PBXBuildFile; fileRef = DC23CA8943FBC06402208326E08EC236 /* NSError+RZBMock.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6F464E825275D1DD6334C0AA13690F1C /* RZBSimulatedTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A144953E138C927101810CA0454D4B /* RZBSimulatedTestCase.m */; };
+		7268FB4F2D6F88D846D24C7E57574B55 /* RZBSimulatedConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4B72787A0068129904C6E8F1C6C23C /* RZBSimulatedConnection.m */; };
+		7458385ABC67ACAFB0610BFA7A32BD3B /* RZBUserInteraction.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FDFDEC6584CD30D11722D4B17BF639A /* RZBUserInteraction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		77136A9E83698117C9036D1AE20D9A45 /* RZBHeartRateMeasurement.h in Headers */ = {isa = PBXBuildFile; fileRef = AD14B40A4A18FAF42E4DE0B389080C32 /* RZBHeartRateMeasurement.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		78AB9C0FEB9BA73A04609AE9737A2D17 /* RZBCommandDispatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 1532CBE2A10E701B7E9DB34C500043AD /* RZBCommandDispatch.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		813E2306B558AE25C382BE898E8FD9CC /* RZBLog+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 14A0B57B3617495F238537924AA75DB6 /* RZBLog+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		8229AA0FF6EEE92FD59E919C7C695A15 /* RZBSimulatedCentral.m in Sources */ = {isa = PBXBuildFile; fileRef = F57693A52EEB9BB5DFEE1492643AE4D7 /* RZBSimulatedCentral.m */; };
+		84CAFE3018769818D18D02DA0C4F0484 /* RZBPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDB576E66D311F230AE95131DC56104 /* RZBPeripheral.m */; };
+		8A50EE31F0D11C44495C503E80EE1BF5 /* RZBCentralManager+CommandHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 9CA10BC5461E7D56B11FDCD256EFEBEF /* RZBCentralManager+CommandHelper.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		8C456B916B2EA75A141D159ADF012119 /* RZBCentralManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C5D1038B8C56B67040286A0F7828042B /* RZBCentralManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9049F8FBEA76A25B634C81C38155AD8C /* RZBPeripheralStateEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 14952BDF8DB614DDE2972E42B15F8F10 /* RZBPeripheralStateEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		915151D9382F61F4284C0281883B5F28 /* RZBDeviceInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = ED8A98A2B27B9A284B7B7711A66B30E8 /* RZBDeviceInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		922799BA9DB1F157ECCF159B94D021E1 /* RZBScanInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 96FD80741B4D60ABB05EA33A99BEF2E3 /* RZBScanInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		927D6FEEAF4833D5E7B206F84C76FA30 /* RZBUUIDPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 59B296B07D086D6868255348A6189879 /* RZBUUIDPath.m */; };
+		92CC11B20C03D498A298A2EEFEC396CC /* CBUUID+RZBPublic.h in Headers */ = {isa = PBXBuildFile; fileRef = 148DD7992CAC82402AB806CFECCE5539 /* CBUUID+RZBPublic.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		94D56F3F49DFB3F73B34D38F7ACCBF3E /* CBService+RZBExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = A64BA64D7BCC7789AB109F09E45F222A /* CBService+RZBExtension.m */; };
+		97817A897CF866DD9685E394084F5225 /* RZBSimulatedDevice+RZBBatteryLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F66DCF1FF32D6D59305F68FA2BECAF7 /* RZBSimulatedDevice+RZBBatteryLevel.m */; };
+		999AF3E1F2F871048C033951552EE82B /* RZBDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8CA8299FA32FA0B43A6CD5B67154C2 /* RZBDeviceInfo.m */; };
+		99C72540F1BBE2D7FE65A7AF06951BCB /* RZBUUIDPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 6835BAC55A7D3A067F6AFA30845F92E4 /* RZBUUIDPath.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		99DE90DA4CA883880932ED3AFA98EDB4 /* RZBCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6B0F159B4C1C83AC43C2DDB9C826F4 /* RZBCommand.m */; };
+		9D22504801785D94751EB495E81CA006 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32DF21EF8268E32D359CD23F2CF3EFE3 /* Foundation.framework */; };
+		A00977220BFAB514525C29626DFB232F /* RZBPeripheral.h in Headers */ = {isa = PBXBuildFile; fileRef = D7550F5B18BFB3D493B940FADF1190F1 /* RZBPeripheral.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0683D4906480E0122708CC2B3963ADC /* RZBMockPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = 2517722C9A3CD76BAB61166CC3DD1D91 /* RZBMockPeripheral.m */; };
+		A1DF8525818D1C2681E0974AAC7F18EE /* CBService+RZBExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = A64BA64D7BCC7789AB109F09E45F222A /* CBService+RZBExtension.m */; };
+		A3FF41998DF0BE4DCB5BEB1EDCF26D11 /* CBUUID+RZBPublic.h in Headers */ = {isa = PBXBuildFile; fileRef = 148DD7992CAC82402AB806CFECCE5539 /* CBUUID+RZBPublic.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A93948AEB80F2DCB71A74B552080FF46 /* RZBCentralManager+CommandHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9464048A5E34948B7AD4895EA62F2879 /* RZBCentralManager+CommandHelper.m */; };
+		A944DBDAB89F26BE7426241F7EAA2FEA /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AECEA2EDA41473899EE391CA038EDC38 /* XCTest.framework */; };
+		AA0428515C09F970FB3DDB2CD4C7C069 /* RZBTestDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B2BE192797058A16553C05A3BAAF6DF /* RZBTestDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AAE1D168F8F0F43B4230FB91C27B1F39 /* RZBSimulatedConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 323CA1DD96FDD6962710411FF809E088 /* RZBSimulatedConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AB9DAB2FF0B4C9CA0C15234095BC6274 /* RZBUUIDPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 59B296B07D086D6868255348A6189879 /* RZBUUIDPath.m */; };
+		AF9BA34BC7C4BF60DD7665BBAC39E9DD /* RZBluetooth-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D5464ACEB5C9D9346A370D05ED082A /* RZBluetooth-dummy.m */; };
+		AFE635428AB43A5C777B9DA65A1A16E1 /* RZBErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E7CC676E7A89ED45AA6C26B2B27EC32 /* RZBErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B196A259B3CED4380311C188D62132EE /* RZBHeartRateMeasurement.h in Headers */ = {isa = PBXBuildFile; fileRef = AD14B40A4A18FAF42E4DE0B389080C32 /* RZBHeartRateMeasurement.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B6A9CF41E94F7B3D8EF491A1ABD41F70 /* RZBDeviceInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = ED8A98A2B27B9A284B7B7711A66B30E8 /* RZBDeviceInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B967CD23866E81774979C726CD26F516 /* RZBCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6B0F159B4C1C83AC43C2DDB9C826F4 /* RZBCommand.m */; };
+		BAABCDF51CD91C82822A64AAF5BE1EBC /* RZBPeripheral+RZBBattery.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7BA62A1F991FF57F169782680B51BC /* RZBPeripheral+RZBBattery.m */; };
+		BD650B807DA67BCB089BC8F2AFE7D5C6 /* RZBPeripheral+RZBHeartRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1FE81071246EC3362F8FB83825078 /* RZBPeripheral+RZBHeartRate.m */; };
+		BEA8EE130D14A23712F7601521492794 /* RZBPeripheral+RZBHeartRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C1FE81071246EC3362F8FB83825078 /* RZBPeripheral+RZBHeartRate.m */; };
+		C1E5E539E55818AC3EFC28E8B5FFF052 /* RZBCommandDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = B781AC54EF358FFA9CB0BCF380FB338C /* RZBCommandDispatch.m */; };
+		C2E70820106DA07483382E6D8E1E584E /* CBService+RZBExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = BAB689D0DB3C95F520C1D2CD7042C7D6 /* CBService+RZBExtension.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C2F3170CF0669DBFB5357C58C120B246 /* RZBDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8CA8299FA32FA0B43A6CD5B67154C2 /* RZBDeviceInfo.m */; };
+		C67E9EBCB636B231D27F495C44DE0639 /* CBService+RZBExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = BAB689D0DB3C95F520C1D2CD7042C7D6 /* CBService+RZBExtension.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C6FC349069B08ED8012A59BE17007947 /* RZBluetooth.h in Headers */ = {isa = PBXBuildFile; fileRef = 69BD21569372565D850BF1E17C16158D /* RZBluetooth.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C85E41898B648742A80365A8219611FB /* RZBPeripheral+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 67916E11A985DDC711423C86B9478648 /* RZBPeripheral+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		D08ACFD421C0EFED7C8101CD1C0A2960 /* RZBMockCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7DD33BE0FA323E4C308D72DD83FCEA1 /* RZBMockCentralManager.m */; };
+		D13E429B6AAD7A761297406A27B4D5C9 /* RZBCentralManager+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = EF9E8D0D8649C30A76E83F7837760EEC /* RZBCentralManager+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		D54A740BD61AABC06306844158F69D59 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32DF21EF8268E32D359CD23F2CF3EFE3 /* Foundation.framework */; };
+		D7FBC034F31494DFDAD1E5339315139B /* RZBPeripheral.h in Headers */ = {isa = PBXBuildFile; fileRef = D7550F5B18BFB3D493B940FADF1190F1 /* RZBPeripheral.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D8735596917F4903F87E2B4988D4F90A /* RZBErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = C68AD1CE1306E8C38D0742A84A0B739B /* RZBErrors.m */; };
+		DB8ACCA3B2C8AD985B25CE27A38096A8 /* RZBCentralManager+CommandHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 9CA10BC5461E7D56B11FDCD256EFEBEF /* RZBCentralManager+CommandHelper.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		DD909352737CECF4BAD56DE552195EA3 /* RZBCommandDispatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 1532CBE2A10E701B7E9DB34C500043AD /* RZBCommandDispatch.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		DEE8FB92B174E86F40D82BC09F905A47 /* RZBSimulatedConnection+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D9671F84EF36371D18CC760E10FFAF /* RZBSimulatedConnection+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E16E5C52593509CA32E72E6740EC2639 /* RZBMockPeripheralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9366FB501AFA26E46710D2732B316BB5 /* RZBMockPeripheralManager.m */; };
+		E1EA867BDB6A865316CEEA214EB7036E /* RZBSimulatedDevice+RZBBatteryLevel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B931746E7C164AB31C7A52EB6315ADF /* RZBSimulatedDevice+RZBBatteryLevel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E2E2AE1060D30B1EE7C10896522AAF48 /* CBUUID+RZBPublic.m in Sources */ = {isa = PBXBuildFile; fileRef = 41F18690F3D77A7545493B5DBFB568F7 /* CBUUID+RZBPublic.m */; };
+		E3375873525F79CBECF2B939A201C651 /* RZBLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 534A30B659B555A7693F22ED4E28E26E /* RZBLog.m */; };
+		E61E1696901870A489805C1B8F85F8BE /* RZBPeripheral+RZBBattery.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7BA62A1F991FF57F169782680B51BC /* RZBPeripheral+RZBBattery.m */; };
+		E772FFFFB4DC82D3F171FA3FD4BDCC64 /* RZBluetooth.h in Headers */ = {isa = PBXBuildFile; fileRef = 69BD21569372565D850BF1E17C16158D /* RZBluetooth.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E972E3D08B00587E99C627E32BF33A6A /* NSRunLoop+RZBWaitFor.h in Headers */ = {isa = PBXBuildFile; fileRef = 85772F100C9CF651922B5190C4B32915 /* NSRunLoop+RZBWaitFor.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		EA105B1EC973701DC8264FE829441857 /* RZBCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = 39C2B94291EA93C13F96464BBE8690E1 /* RZBCommand.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		EA64F046B240D4DFFFC6237F93136136 /* RZBLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 2FF200EDBB41364C9B1B9DD2B791017D /* RZBLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED3BA65A86074FCC787D73142C6A26CA /* RZBPeripheral+RZBHeartRate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB6BCBFF86BE4544AE4EFB83E43249F /* RZBPeripheral+RZBHeartRate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF7F9FA64153265B324B507021093F5A /* RZBCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E9291A20562A43012746CB9216D11BB1 /* RZBCentralManager.m */; };
+		F110AA7F929CCCD5255876A9DE7D5D4E /* RZBSimulatedCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = 790361581BEF40CE3C8A1FF4D70922CF /* RZBSimulatedCallback.m */; };
+		F13BF3CE2A531EBAEA6B1919D2A3D0EE /* RZBUUIDPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 6835BAC55A7D3A067F6AFA30845F92E4 /* RZBUUIDPath.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		F23A9A9341D4AE5243E48D356C5ADB4D /* RZBCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E9291A20562A43012746CB9216D11BB1 /* RZBCentralManager.m */; };
+		F8F50662AB3CDD6767D62B09CA7696E7 /* RZBMockCentralManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F96B0A38FF3CE56419212446BAE5420 /* RZBMockCentralManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FA0BCEDDE7F6460BF7D439BE6A8461BF /* RZBDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = D215F0B2A40AF874E5CB3AEC612C3A7E /* RZBDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FB8CBB0CFD89BE4E17DAE48ADC864763 /* RZBSimulatedDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E2B0905D631E4218992D96E1D110CCC /* RZBSimulatedDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		4A9726AF7C3BE7E311B377EFF8E53D53 /* PBXContainerItemProxy */ = {
+		78959B197BB6EAE510245041C72C23DE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 8FA9C43E96831CC7F3D6F515EBC7D342;
-			remoteInfo = RZBluetooth;
-		};
-		6FB333613BAE334FD2D4D3104210460F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DB766593A8CE9A230918496C27B08624;
+			remoteGlobalIDString = 86FB151092B97A70AA42EBAD1A62A90A;
 			remoteInfo = "RZBluetooth.default-Mock-Test";
+		};
+		EFBBBE85F35ABD62B8116470CB755A88 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5BF906D9FBFB0090700110B314F3FBDF;
+			remoteInfo = RZBluetooth;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -151,15 +152,17 @@
 		1532CBE2A10E701B7E9DB34C500043AD /* RZBCommandDispatch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RZBCommandDispatch.h; sourceTree = "<group>"; };
 		186DF6BBF45FF4119DCB37F205D228BD /* Pods-RZBluetoothExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RZBluetoothExample.debug.xcconfig"; sourceTree = "<group>"; };
 		19BD086E45DE2134B3CE96332D43AAFB /* Pods-RZBluetoothExample-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RZBluetoothExample-frameworks.sh"; sourceTree = "<group>"; };
+		2018C639B7B9888381D9136FB3351E91 /* NSRunLoop+RZBWaitFor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSRunLoop+RZBWaitFor.m"; sourceTree = "<group>"; };
 		2517722C9A3CD76BAB61166CC3DD1D91 /* RZBMockPeripheral.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RZBMockPeripheral.m; sourceTree = "<group>"; };
 		2B8883822E4344236CB3815390822832 /* Pods-RZBluetoothExampleUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RZBluetoothExampleUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		2CE1C19621A27A14634130A99673BD41 /* libRZBluetooth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRZBluetooth.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CE1C19621A27A14634130A99673BD41 /* libRZBluetooth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libRZBluetooth.a; path = libRZBluetooth.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F009B578ABBB116869009EAE1E93544 /* RZBScanInfo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RZBScanInfo.m; sourceTree = "<group>"; };
 		2FF200EDBB41364C9B1B9DD2B791017D /* RZBLog.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RZBLog.h; sourceTree = "<group>"; };
+		31A144953E138C927101810CA0454D4B /* RZBSimulatedTestCase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RZBSimulatedTestCase.m; sourceTree = "<group>"; };
 		323CA1DD96FDD6962710411FF809E088 /* RZBSimulatedConnection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RZBSimulatedConnection.h; sourceTree = "<group>"; };
+		32DF21EF8268E32D359CD23F2CF3EFE3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		39C2B94291EA93C13F96464BBE8690E1 /* RZBCommand.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RZBCommand.h; sourceTree = "<group>"; };
-		3B34ACB2959EA14855430029D8CB97A9 /* RZBSimulatedTestCase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RZBSimulatedTestCase.h; sourceTree = "<group>"; };
-		3E9847AC8FD8A250A686BADE96C3842D /* libPods-RZBluetoothExampleUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RZBluetoothExampleUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E9847AC8FD8A250A686BADE96C3842D /* libPods-RZBluetoothExampleUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-RZBluetoothExampleUITests.a"; path = "libPods-RZBluetoothExampleUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FDB576E66D311F230AE95131DC56104 /* RZBPeripheral.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RZBPeripheral.m; sourceTree = "<group>"; };
 		41F18690F3D77A7545493B5DBFB568F7 /* CBUUID+RZBPublic.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CBUUID+RZBPublic.m"; sourceTree = "<group>"; };
 		46C4151A5B4880001CD55109E5E38804 /* RZBSimulatedCentral.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RZBSimulatedCentral.h; sourceTree = "<group>"; };
@@ -170,7 +173,7 @@
 		59B296B07D086D6868255348A6189879 /* RZBUUIDPath.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RZBUUIDPath.m; sourceTree = "<group>"; };
 		5A4B72787A0068129904C6E8F1C6C23C /* RZBSimulatedConnection.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RZBSimulatedConnection.m; sourceTree = "<group>"; };
 		5A6B0F159B4C1C83AC43C2DDB9C826F4 /* RZBCommand.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RZBCommand.m; sourceTree = "<group>"; };
-		5BC96F9FA06CEAE71B12A11BE4BBE814 /* NSRunLoop+RZBWaitFor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSRunLoop+RZBWaitFor.m"; sourceTree = "<group>"; };
+		5B2BE192797058A16553C05A3BAAF6DF /* RZBTestDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RZBTestDefines.h; sourceTree = "<group>"; };
 		60C1FE81071246EC3362F8FB83825078 /* RZBPeripheral+RZBHeartRate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "RZBPeripheral+RZBHeartRate.m"; sourceTree = "<group>"; };
 		67916E11A985DDC711423C86B9478648 /* RZBPeripheral+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RZBPeripheral+Private.h"; sourceTree = "<group>"; };
 		6835BAC55A7D3A067F6AFA30845F92E4 /* RZBUUIDPath.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RZBUUIDPath.h; sourceTree = "<group>"; };
@@ -184,12 +187,13 @@
 		7B931746E7C164AB31C7A52EB6315ADF /* RZBSimulatedDevice+RZBBatteryLevel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RZBSimulatedDevice+RZBBatteryLevel.h"; sourceTree = "<group>"; };
 		7BB6BCBFF86BE4544AE4EFB83E43249F /* RZBPeripheral+RZBHeartRate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RZBPeripheral+RZBHeartRate.h"; sourceTree = "<group>"; };
 		7BDF75E0E326CEBC129C135353C99317 /* NSError+RZBMock.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSError+RZBMock.m"; sourceTree = "<group>"; };
-		8712E1597F07AB3FB058F7ABC3B6DC8E /* NSRunLoop+RZBWaitFor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSRunLoop+RZBWaitFor.h"; sourceTree = "<group>"; };
+		85772F100C9CF651922B5190C4B32915 /* NSRunLoop+RZBWaitFor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSRunLoop+RZBWaitFor.h"; sourceTree = "<group>"; };
+		8B11A1D57BEAFA45C25F84A3556A33F7 /* RZBSimulatedTestCase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RZBSimulatedTestCase.h; sourceTree = "<group>"; };
 		8B2903126905B2A3C5EC52C21D252E26 /* RZBMockPeripheralManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RZBMockPeripheralManager.h; sourceTree = "<group>"; };
 		8F5F2D1193E621FF7A0547468B0D9039 /* Pods-RZBluetoothExample-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RZBluetoothExample-resources.sh"; sourceTree = "<group>"; };
 		8F66DCF1FF32D6D59305F68FA2BECAF7 /* RZBSimulatedDevice+RZBBatteryLevel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "RZBSimulatedDevice+RZBBatteryLevel.m"; sourceTree = "<group>"; };
 		9366FB501AFA26E46710D2732B316BB5 /* RZBMockPeripheralManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RZBMockPeripheralManager.m; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		93BF62BCD783E3EB5169221BC037827C /* RZBHeartRateMeasurement.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RZBHeartRateMeasurement.m; sourceTree = "<group>"; };
 		9464048A5E34948B7AD4895EA62F2879 /* RZBCentralManager+CommandHelper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "RZBCentralManager+CommandHelper.m"; sourceTree = "<group>"; };
 		96FD80741B4D60ABB05EA33A99BEF2E3 /* RZBScanInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RZBScanInfo.h; sourceTree = "<group>"; };
@@ -198,19 +202,17 @@
 		9E8CA8299FA32FA0B43A6CD5B67154C2 /* RZBDeviceInfo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RZBDeviceInfo.m; sourceTree = "<group>"; };
 		9F96B0A38FF3CE56419212446BAE5420 /* RZBMockCentralManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RZBMockCentralManager.h; sourceTree = "<group>"; };
 		9FDFDEC6584CD30D11722D4B17BF639A /* RZBUserInteraction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RZBUserInteraction.h; sourceTree = "<group>"; };
-		A252A91ED3E80EF781852F0488EF8876 /* libPods-RZBluetoothExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RZBluetoothExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A252A91ED3E80EF781852F0488EF8876 /* libPods-RZBluetoothExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-RZBluetoothExample.a"; path = "libPods-RZBluetoothExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2538EE13105D1F1CE6923327A70393A /* Pods-RZBluetoothExampleUITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RZBluetoothExampleUITests-frameworks.sh"; sourceTree = "<group>"; };
 		A2F885EB5D3456D7C01B8A806DC44918 /* RZBluetooth-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RZBluetooth-prefix.pch"; sourceTree = "<group>"; };
 		A64BA64D7BCC7789AB109F09E45F222A /* CBService+RZBExtension.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CBService+RZBExtension.m"; sourceTree = "<group>"; };
 		A8CBBD7A487DBAF9F64E8165BD9C48DB /* Pods-RZBluetoothExample-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-RZBluetoothExample-acknowledgements.markdown"; sourceTree = "<group>"; };
-		AAC405455F8E20BD0434D9D3E3D2879A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		AD14B40A4A18FAF42E4DE0B389080C32 /* RZBHeartRateMeasurement.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RZBHeartRateMeasurement.h; sourceTree = "<group>"; };
-		AE4402AB406381E558D2EE736B562796 /* RZBSimulatedTestCase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RZBSimulatedTestCase.m; sourceTree = "<group>"; };
+		AECEA2EDA41473899EE391CA038EDC38 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		AF3858D15ED6B2BD35414E3B15453355 /* RZBluetooth.default-Mock-Test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "RZBluetooth.default-Mock-Test.xcconfig"; path = "../RZBluetooth.default-Mock-Test/RZBluetooth.default-Mock-Test.xcconfig"; sourceTree = "<group>"; };
 		B6EABFB247F54B514C5B2A9116557C82 /* RZBSimulatedCallback.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RZBSimulatedCallback.h; sourceTree = "<group>"; };
 		B781AC54EF358FFA9CB0BCF380FB338C /* RZBCommandDispatch.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RZBCommandDispatch.m; sourceTree = "<group>"; };
-		B89BF7315BAB3516AF2A51041DC39C3B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		B8B3632E344554EFD4EA901235FF8FE0 /* libRZBluetooth.default-Mock-Test.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRZBluetooth.default-Mock-Test.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8B3632E344554EFD4EA901235FF8FE0 /* libRZBluetooth.default-Mock-Test.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libRZBluetooth.default-Mock-Test.a"; path = "libRZBluetooth.default-Mock-Test.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAB689D0DB3C95F520C1D2CD7042C7D6 /* CBService+RZBExtension.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CBService+RZBExtension.h"; sourceTree = "<group>"; };
 		BFBFE6CF4104C56663D39C23283475A1 /* Pods-RZBluetoothExampleUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RZBluetoothExampleUITests-dummy.m"; sourceTree = "<group>"; };
 		C3D5464ACEB5C9D9346A370D05ED082A /* RZBluetooth-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "RZBluetooth-dummy.m"; sourceTree = "<group>"; };
@@ -235,36 +237,36 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		08BF8310A6ECA3BEE164D96DA3A7AC46 /* Frameworks */ = {
+		88DDE7A9F1BC6E426FDC8DE80238D462 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02A5623AD78F5E0CADED6CA70DC28890 /* Foundation.framework in Frameworks */,
+				D54A740BD61AABC06306844158F69D59 /* Foundation.framework in Frameworks */,
+				A944DBDAB89F26BE7426241F7EAA2FEA /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		710370E7F75AFE2428A144B25390E926 /* Frameworks */ = {
+		BF8ADE93ECC26E55DB6E860C2A377F53 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C0A2E422467AA6819CD3E6832E715C2 /* Foundation.framework in Frameworks */,
+				331C3959F2A88E8B239D3ED335ACB5DB /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8D29F8E0E2794495E2240854203BACA2 /* Frameworks */ = {
+		F52E507464F0693AB1E40F343DD98168 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6803026313AC1FEA4D196C26C74B5F91 /* Foundation.framework in Frameworks */,
+				66F325F0A6BC5050A0DBE567FF6E02E0 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D39E3EA406D2261EC3F9B2F91A4601F8 /* Frameworks */ = {
+		F8DE0FC03D2823C8C3FBAAE3A13213AC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A2F99AD775FD9FA8538B43FBA3A2912 /* Foundation.framework in Frameworks */,
-				69F82CB43F643E03745DED6C7C7CB100 /* XCTest.framework in Frameworks */,
+				9D22504801785D94751EB495E81CA006 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,20 +297,20 @@
 			path = "Target Support Files/Pods-RZBluetoothExampleUITests";
 			sourceTree = "<group>";
 		};
-		17D3FECE9DC34A611E47B3CBB97EFD9E /* RZBluetoothTests */ = {
+		0FA48A9BD00E4A3385FFF6EEA4D3A33D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				3B34ACB2959EA14855430029D8CB97A9 /* RZBSimulatedTestCase.h */,
-				AE4402AB406381E558D2EE736B562796 /* RZBSimulatedTestCase.m */,
-				AF2A63AA1B24C09EC4FD5A393DB645B2 /* Helpers */,
+				85772F100C9CF651922B5190C4B32915 /* NSRunLoop+RZBWaitFor.h */,
+				2018C639B7B9888381D9136FB3351E91 /* NSRunLoop+RZBWaitFor.m */,
 			);
-			path = RZBluetoothTests;
+			name = Helpers;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D24B2EA016AE4FABDB5AF17F3FD9C222 /* iOS */,
+				9D9CFF97A2D41D7CB20A427D5386C7A6 /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -330,7 +332,7 @@
 				7BB7EDF47C2A460A40F33E111FFEA91B /* Core */,
 				B73162D60A39148AB819D713994CE210 /* Mock */,
 				59157502BC0D6FA6A070B0A9B10561DE /* Support Files */,
-				9E24776576B34A332537409F665A150A /* Test */,
+				7F5734D7E9C0C2A51E06834E6DEBF829 /* Test */,
 			);
 			name = RZBluetooth;
 			path = ../..;
@@ -348,6 +350,7 @@
 				8B2903126905B2A3C5EC52C21D252E26 /* RZBMockPeripheralManager.h */,
 				9366FB501AFA26E46710D2732B316BB5 /* RZBMockPeripheralManager.m */,
 			);
+			name = Mock;
 			path = Mock;
 			sourceTree = "<group>";
 		};
@@ -399,12 +402,21 @@
 			);
 			sourceTree = "<group>";
 		};
-		9E24776576B34A332537409F665A150A /* Test */ = {
+		7F5734D7E9C0C2A51E06834E6DEBF829 /* Test */ = {
 			isa = PBXGroup;
 			children = (
-				17D3FECE9DC34A611E47B3CBB97EFD9E /* RZBluetoothTests */,
+				E76282B6A4F38B03F342C81E0D3AD56D /* RZBluetoothTests */,
 			);
 			name = Test;
+			sourceTree = "<group>";
+		};
+		9D9CFF97A2D41D7CB20A427D5386C7A6 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				32DF21EF8268E32D359CD23F2CF3EFE3 /* Foundation.framework */,
+				AECEA2EDA41473899EE391CA038EDC38 /* XCTest.framework */,
+			);
+			name = iOS;
 			sourceTree = "<group>";
 		};
 		AB3BE4F55EEE2AFF52BB1CD92645B1AC /* Profiles */ = {
@@ -421,16 +433,8 @@
 				7BB6BCBFF86BE4544AE4EFB83E43249F /* RZBPeripheral+RZBHeartRate.h */,
 				60C1FE81071246EC3362F8FB83825078 /* RZBPeripheral+RZBHeartRate.m */,
 			);
+			name = Profiles;
 			path = Profiles;
-			sourceTree = "<group>";
-		};
-		AF2A63AA1B24C09EC4FD5A393DB645B2 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				8712E1597F07AB3FB058F7ABC3B6DC8E /* NSRunLoop+RZBWaitFor.h */,
-				5BC96F9FA06CEAE71B12A11BE4BBE814 /* NSRunLoop+RZBWaitFor.m */,
-			);
-			path = Helpers;
 			sourceTree = "<group>";
 		};
 		B73162D60A39148AB819D713994CE210 /* Mock */ = {
@@ -478,6 +482,7 @@
 				F9272921B6B2C469683BB47F497DB720 /* Command */,
 				AB3BE4F55EEE2AFF52BB1CD92645B1AC /* Profiles */,
 			);
+			name = RZBluetooth;
 			path = RZBluetooth;
 			sourceTree = "<group>";
 		};
@@ -496,16 +501,8 @@
 				7B931746E7C164AB31C7A52EB6315ADF /* RZBSimulatedDevice+RZBBatteryLevel.h */,
 				8F66DCF1FF32D6D59305F68FA2BECAF7 /* RZBSimulatedDevice+RZBBatteryLevel.m */,
 			);
+			name = Simulation;
 			path = Simulation;
-			sourceTree = "<group>";
-		};
-		D24B2EA016AE4FABDB5AF17F3FD9C222 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				AAC405455F8E20BD0434D9D3E3D2879A /* Foundation.framework */,
-				B89BF7315BAB3516AF2A51041DC39C3B /* XCTest.framework */,
-			);
-			name = iOS;
 			sourceTree = "<group>";
 		};
 		D5D15A5AEDAEC7419788EFA04243D3D9 /* RZMockBluetooth */ = {
@@ -517,7 +514,20 @@
 				569C436444E6B19659717CA5269E508E /* Mock */,
 				CD0DA7D85D3FAEA00978E6775757C6DD /* Simulation */,
 			);
+			name = RZMockBluetooth;
 			path = RZMockBluetooth;
+			sourceTree = "<group>";
+		};
+		E76282B6A4F38B03F342C81E0D3AD56D /* RZBluetoothTests */ = {
+			isa = PBXGroup;
+			children = (
+				8B11A1D57BEAFA45C25F84A3556A33F7 /* RZBSimulatedTestCase.h */,
+				31A144953E138C927101810CA0454D4B /* RZBSimulatedTestCase.m */,
+				5B2BE192797058A16553C05A3BAAF6DF /* RZBTestDefines.h */,
+				0FA48A9BD00E4A3385FFF6EEA4D3A33D /* Helpers */,
+			);
+			name = RZBluetoothTests;
+			path = RZBluetoothTests;
 			sourceTree = "<group>";
 		};
 		F9272921B6B2C469683BB47F497DB720 /* Command */ = {
@@ -530,130 +540,115 @@
 				6835BAC55A7D3A067F6AFA30845F92E4 /* RZBUUIDPath.h */,
 				59B296B07D086D6868255348A6189879 /* RZBUUIDPath.m */,
 			);
+			name = Command;
 			path = Command;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		93F21BC0AF5CB6182FCDDB5335877125 /* Headers */ = {
+		141DCD30C1B9EA80AD09EE1F506CC0BF /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DA44263887F21ECE409473A8D2C76FC /* CBService+RZBExtension.h in Headers */,
-				B6F742481282EFB39F307188C020E27C /* CBUUID+RZBPublic.h in Headers */,
-				C33ADBA67E9EE2FC85B7A3E655C0DD62 /* RZBBluetoothRepresentable.h in Headers */,
-				AFAAD03BCA3A78542DD80E1E941B571A /* RZBCentralManager+CommandHelper.h in Headers */,
-				2D3442936477F28F8DC32ED665F4D09C /* RZBCentralManager+Private.h in Headers */,
-				A913E159B2E03EAE10957081556971BB /* RZBCentralManager.h in Headers */,
-				030F9073A3E95AD5F5CAEA9649AC7B56 /* RZBCommand.h in Headers */,
-				F8945EDE62B913B8D1DE5477C4D1529E /* RZBCommandDispatch.h in Headers */,
-				3861F03F857A483DCB06245C468923E1 /* RZBDefines.h in Headers */,
-				1C4442257B329AA95226FF0BA8AFEB7A /* RZBDeviceInfo.h in Headers */,
-				E16B461334F9F3FC0214926CA54AD98C /* RZBErrors.h in Headers */,
-				2F1A91C8975E2E22113293E7D72144D2 /* RZBHeartRateMeasurement.h in Headers */,
-				2DE1EB02DDD05668C40743AF6F7C2F7E /* RZBLog+Private.h in Headers */,
-				382267F2E16742F890F56D4AB9C88851 /* RZBLog.h in Headers */,
-				C8068C58F32FD06CFF7878FD0A0AAFE5 /* RZBluetooth.h in Headers */,
-				1A6016BC70D45E6CF02280BD5E693691 /* RZBPeripheral+Private.h in Headers */,
-				F28CAA164AA5EC7672A9A0C8C3560777 /* RZBPeripheral+RZBBattery.h in Headers */,
-				F51B2948C0E447558C84A589E6F0C7D1 /* RZBPeripheral+RZBHeartRate.h in Headers */,
-				4206DFFE15C650C422DC8BE141EEBEBB /* RZBPeripheral.h in Headers */,
-				6F2C8FBDD05EC184C1BC19C88A49CBB5 /* RZBPeripheralStateEvent.h in Headers */,
-				F3ADD437816B32331492CF7730D7BDAA /* RZBScanInfo.h in Headers */,
-				4B3999D5E5F6D5CD90C6A24D2007EE19 /* RZBUserInteraction.h in Headers */,
-				F7ADFF53C0BF6619386F9F99B2F58093 /* RZBUUIDPath.h in Headers */,
+				C2E70820106DA07483382E6D8E1E584E /* CBService+RZBExtension.h in Headers */,
+				92CC11B20C03D498A298A2EEFEC396CC /* CBUUID+RZBPublic.h in Headers */,
+				6E5AD3E459F4E12220398D9241D1F5F8 /* NSError+RZBMock.h in Headers */,
+				E972E3D08B00587E99C627E32BF33A6A /* NSRunLoop+RZBWaitFor.h in Headers */,
+				083F0D29F57D6F2B18BC386B67709F94 /* RZBBluetoothRepresentable.h in Headers */,
+				8A50EE31F0D11C44495C503E80EE1BF5 /* RZBCentralManager+CommandHelper.h in Headers */,
+				D13E429B6AAD7A761297406A27B4D5C9 /* RZBCentralManager+Private.h in Headers */,
+				10F98702618AE1F57FE7088757EB6AEF /* RZBCentralManager.h in Headers */,
+				EA105B1EC973701DC8264FE829441857 /* RZBCommand.h in Headers */,
+				DD909352737CECF4BAD56DE552195EA3 /* RZBCommandDispatch.h in Headers */,
+				03BB02D341860A8389092718870511DE /* RZBDefines.h in Headers */,
+				B6A9CF41E94F7B3D8EF491A1ABD41F70 /* RZBDeviceInfo.h in Headers */,
+				49A8B52A91BACA1372A78A5347244020 /* RZBEnableMock.h in Headers */,
+				AFE635428AB43A5C777B9DA65A1A16E1 /* RZBErrors.h in Headers */,
+				B196A259B3CED4380311C188D62132EE /* RZBHeartRateMeasurement.h in Headers */,
+				23EE5D0A358CAAFDE8E185586491A2B9 /* RZBLog+Private.h in Headers */,
+				EA64F046B240D4DFFFC6237F93136136 /* RZBLog.h in Headers */,
+				E772FFFFB4DC82D3F171FA3FD4BDCC64 /* RZBluetooth.h in Headers */,
+				F8F50662AB3CDD6767D62B09CA7696E7 /* RZBMockCentralManager.h in Headers */,
+				1164C6AC9E56A0F66A1BEC3881A686D6 /* RZBMockPeripheral.h in Headers */,
+				5FDDEB2D9A2FA01E389B87CF31F1A460 /* RZBMockPeripheralManager.h in Headers */,
+				012DA8A41D5BF14E06624CEE33AE4AF1 /* RZBPeripheral+Private.h in Headers */,
+				0F014D9233B560A7686848E3B86F5362 /* RZBPeripheral+RZBBattery.h in Headers */,
+				264E68DCF55DC8481BA032638EE72046 /* RZBPeripheral+RZBHeartRate.h in Headers */,
+				A00977220BFAB514525C29626DFB232F /* RZBPeripheral.h in Headers */,
+				1180F6CC555C93619232C92F14716788 /* RZBPeripheralStateEvent.h in Headers */,
+				03290BC8CF6B956DDB46C56D4BF5077D /* RZBScanInfo.h in Headers */,
+				58916A1F2CDFFA6AB12963ACCABE4C0B /* RZBSimulatedCallback.h in Headers */,
+				1FA2DCE671F969578AFF3ED395C8619C /* RZBSimulatedCentral.h in Headers */,
+				DEE8FB92B174E86F40D82BC09F905A47 /* RZBSimulatedConnection+Private.h in Headers */,
+				AAE1D168F8F0F43B4230FB91C27B1F39 /* RZBSimulatedConnection.h in Headers */,
+				E1EA867BDB6A865316CEEA214EB7036E /* RZBSimulatedDevice+RZBBatteryLevel.h in Headers */,
+				FB8CBB0CFD89BE4E17DAE48ADC864763 /* RZBSimulatedDevice.h in Headers */,
+				1CA779C868696D9C335E74CE9058C021 /* RZBSimulatedTestCase.h in Headers */,
+				AA0428515C09F970FB3DDB2CD4C7C069 /* RZBTestDefines.h in Headers */,
+				5C89CD2648740DF75140105A6EABD2F9 /* RZBUserInteraction.h in Headers */,
+				99C72540F1BBE2D7FE65A7AF06951BCB /* RZBUUIDPath.h in Headers */,
+				6AAA1EBD6B58438543B6FC30D668644E /* RZMockBluetooth.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C3CBC3DE61C76FA932FB504F2AB5F259 /* Headers */ = {
+		F156ED94A22F84E04B2E5FDC06319CF1 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3014C85FFDF98D7FE9E952899A314456 /* CBService+RZBExtension.h in Headers */,
-				66E7C9553CFC3064D2984821A2DC81AE /* CBUUID+RZBPublic.h in Headers */,
-				B44180CE1A332240F19AD16D7F79937B /* NSError+RZBMock.h in Headers */,
-				DA52C4CB5519083DEAE802D9B2D15922 /* NSRunLoop+RZBWaitFor.h in Headers */,
-				6D6D9FF8B3A28BEE914FCDC6CF07EF80 /* RZBBluetoothRepresentable.h in Headers */,
-				AE099D4195F660F3B160774536ABFFF0 /* RZBCentralManager+CommandHelper.h in Headers */,
-				9A88A479090E4BCCCCA0BCEAE1129EF9 /* RZBCentralManager+Private.h in Headers */,
-				0DA755D6E4E1FF9B993E612C5C2866A7 /* RZBCentralManager.h in Headers */,
-				9941C1B5CC72F831D67B6AE6382C697C /* RZBCommand.h in Headers */,
-				22CB9F26CE33BA933660260BB39943F6 /* RZBCommandDispatch.h in Headers */,
-				4187C67389A7C3DB914C6F0C343C73D1 /* RZBDefines.h in Headers */,
-				74F4485A8154D7ECE924E6C019B2242D /* RZBDeviceInfo.h in Headers */,
-				5E67EC76DBC342C70B18451A41D1A875 /* RZBEnableMock.h in Headers */,
-				40C4407D473D9D303F6F2CE98E1999B4 /* RZBErrors.h in Headers */,
-				FD8202FE5023D0C6F84667DE0BACDB12 /* RZBHeartRateMeasurement.h in Headers */,
-				4DC28AF048BA3D089F5C82C518738551 /* RZBLog+Private.h in Headers */,
-				418359900A8FDBB87E8A290791CE48BA /* RZBLog.h in Headers */,
-				0FA9A6C48F1F2EC78D58D88E95F3D413 /* RZBluetooth.h in Headers */,
-				614B8A804F5AA2053F4AB75AD370E440 /* RZBMockCentralManager.h in Headers */,
-				FBC8EC0141C00BFAF72A82250D30871F /* RZBMockPeripheral.h in Headers */,
-				AC1326796863FD32DA4EF655DD778E09 /* RZBMockPeripheralManager.h in Headers */,
-				F1FD478C05E1613E6509BAED74E601A6 /* RZBPeripheral+Private.h in Headers */,
-				24B8833DC3EC0B28079EE1EFCE66A5C8 /* RZBPeripheral+RZBBattery.h in Headers */,
-				19B1C3976EB884D0C34650859348A0F6 /* RZBPeripheral+RZBHeartRate.h in Headers */,
-				705E423BBA3EB0B952D6B606A3DBCC93 /* RZBPeripheral.h in Headers */,
-				3626C9A035AE6BBCC87E4D83CFE0D15A /* RZBPeripheralStateEvent.h in Headers */,
-				2E4DC4EFF741143F83D35C53FF0FB23E /* RZBScanInfo.h in Headers */,
-				A0F04F87C41FA98EACE5DD63EC1B9A2B /* RZBSimulatedCallback.h in Headers */,
-				62E45C71FEAC61C75B2F8BCFBCCAE743 /* RZBSimulatedCentral.h in Headers */,
-				5C0B8E29916C63BD39B31F31173FEDFA /* RZBSimulatedConnection+Private.h in Headers */,
-				42BEB6231CCC1932C6EB9FE1DD6A4DC8 /* RZBSimulatedConnection.h in Headers */,
-				DE7145CC438BC75B4E226847CACB8D54 /* RZBSimulatedDevice+RZBBatteryLevel.h in Headers */,
-				F00E7F8E2E3DCF3E5B46BC4E1C92ADFD /* RZBSimulatedDevice.h in Headers */,
-				BB8610F02B19D9B469F14EB85F52BF5C /* RZBSimulatedTestCase.h in Headers */,
-				5C25B150CBFC09C29F67A415FADBAF1C /* RZBUserInteraction.h in Headers */,
-				BA852B34E57675CF55338E3600C41136 /* RZBUUIDPath.h in Headers */,
-				6FD3B118470FA564B27681BC948826FC /* RZMockBluetooth.h in Headers */,
+				C67E9EBCB636B231D27F495C44DE0639 /* CBService+RZBExtension.h in Headers */,
+				A3FF41998DF0BE4DCB5BEB1EDCF26D11 /* CBUUID+RZBPublic.h in Headers */,
+				4F0E143292F7C7B2E1606248251EE426 /* RZBBluetoothRepresentable.h in Headers */,
+				DB8ACCA3B2C8AD985B25CE27A38096A8 /* RZBCentralManager+CommandHelper.h in Headers */,
+				2BC460F5DA521D27C898FE519C4DDBEC /* RZBCentralManager+Private.h in Headers */,
+				8C456B916B2EA75A141D159ADF012119 /* RZBCentralManager.h in Headers */,
+				0D1699DE387BE78333595FDCC35F4537 /* RZBCommand.h in Headers */,
+				78AB9C0FEB9BA73A04609AE9737A2D17 /* RZBCommandDispatch.h in Headers */,
+				FA0BCEDDE7F6460BF7D439BE6A8461BF /* RZBDefines.h in Headers */,
+				915151D9382F61F4284C0281883B5F28 /* RZBDeviceInfo.h in Headers */,
+				04D55EFE1AA7C882CA91892CE622AF34 /* RZBErrors.h in Headers */,
+				77136A9E83698117C9036D1AE20D9A45 /* RZBHeartRateMeasurement.h in Headers */,
+				813E2306B558AE25C382BE898E8FD9CC /* RZBLog+Private.h in Headers */,
+				49F63812B8D3CC93B3709CCC4D5027C1 /* RZBLog.h in Headers */,
+				C6FC349069B08ED8012A59BE17007947 /* RZBluetooth.h in Headers */,
+				C85E41898B648742A80365A8219611FB /* RZBPeripheral+Private.h in Headers */,
+				68B529D86CF803F4DF7CD0C1E99AC0DE /* RZBPeripheral+RZBBattery.h in Headers */,
+				ED3BA65A86074FCC787D73142C6A26CA /* RZBPeripheral+RZBHeartRate.h in Headers */,
+				D7FBC034F31494DFDAD1E5339315139B /* RZBPeripheral.h in Headers */,
+				9049F8FBEA76A25B634C81C38155AD8C /* RZBPeripheralStateEvent.h in Headers */,
+				922799BA9DB1F157ECCF159B94D021E1 /* RZBScanInfo.h in Headers */,
+				7458385ABC67ACAFB0610BFA7A32BD3B /* RZBUserInteraction.h in Headers */,
+				F13BF3CE2A531EBAEA6B1919D2A3D0EE /* RZBUUIDPath.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		1F2D7952101A0E3A6F7C226DDC376331 /* Pods-RZBluetoothExampleUITests */ = {
+		3093A299A0E7F230DCB9FA3A7A19694B /* Pods-RZBluetoothExampleUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6DC15EE9B0D82D70409C9ED5BCBCE391 /* Build configuration list for PBXNativeTarget "Pods-RZBluetoothExampleUITests" */;
+			buildConfigurationList = 4047A9BB76BAA23A439A40FDA77A6B19 /* Build configuration list for PBXNativeTarget "Pods-RZBluetoothExampleUITests" */;
 			buildPhases = (
-				3C6A461C51991C879B3D7DD8F99DDA70 /* Sources */,
-				08BF8310A6ECA3BEE164D96DA3A7AC46 /* Frameworks */,
+				E8185D6F0B492FA88F66A795AF7E1731 /* Sources */,
+				F52E507464F0693AB1E40F343DD98168 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				0D03FD4A1F97788C4FC5D4E6ED467BD6 /* PBXTargetDependency */,
+				9A93E61E8CD96C2850BA52D18DA6E4DA /* PBXTargetDependency */,
 			);
 			name = "Pods-RZBluetoothExampleUITests";
 			productName = "Pods-RZBluetoothExampleUITests";
 			productReference = 3E9847AC8FD8A250A686BADE96C3842D /* libPods-RZBluetoothExampleUITests.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		5609EC74C296F8325EB3F34339D3D164 /* Pods-RZBluetoothExample */ = {
+		5BF906D9FBFB0090700110B314F3FBDF /* RZBluetooth */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BC885D776E821B9EAC310882DA3F9E07 /* Build configuration list for PBXNativeTarget "Pods-RZBluetoothExample" */;
+			buildConfigurationList = 35E524599625E8A9AA984E3E34C1AEC0 /* Build configuration list for PBXNativeTarget "RZBluetooth" */;
 			buildPhases = (
-				9A1553D00995B7B29690A23FEB448388 /* Sources */,
-				710370E7F75AFE2428A144B25390E926 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				428967D4CED9B53EC90EAB098ADB484A /* PBXTargetDependency */,
-			);
-			name = "Pods-RZBluetoothExample";
-			productName = "Pods-RZBluetoothExample";
-			productReference = A252A91ED3E80EF781852F0488EF8876 /* libPods-RZBluetoothExample.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		8FA9C43E96831CC7F3D6F515EBC7D342 /* RZBluetooth */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CC5F29F507360D2B327BC083C5516F4A /* Build configuration list for PBXNativeTarget "RZBluetooth" */;
-			buildPhases = (
-				A38853312C83E9B67373B2FCB63EFC79 /* Sources */,
-				8D29F8E0E2794495E2240854203BACA2 /* Frameworks */,
-				93F21BC0AF5CB6182FCDDB5335877125 /* Headers */,
+				7A94CF0D0FDE4B33C130A0F7F49B22A8 /* Sources */,
+				F8DE0FC03D2823C8C3FBAAE3A13213AC /* Frameworks */,
+				F156ED94A22F84E04B2E5FDC06319CF1 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -664,13 +659,30 @@
 			productReference = 2CE1C19621A27A14634130A99673BD41 /* libRZBluetooth.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		DB766593A8CE9A230918496C27B08624 /* RZBluetooth.default-Mock-Test */ = {
+		66B2CEA64C7068034B853430ADAF6B7E /* Pods-RZBluetoothExample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 30FC11EF2C8FE305223B1BA388405F29 /* Build configuration list for PBXNativeTarget "RZBluetooth.default-Mock-Test" */;
+			buildConfigurationList = 0BB01561939BC69F00D531D117EB43F6 /* Build configuration list for PBXNativeTarget "Pods-RZBluetoothExample" */;
 			buildPhases = (
-				23564DD3427CBB1356A8DD51B5113EC7 /* Sources */,
-				D39E3EA406D2261EC3F9B2F91A4601F8 /* Frameworks */,
-				C3CBC3DE61C76FA932FB504F2AB5F259 /* Headers */,
+				F9BDF17C9CB97CD63B504435057C3E58 /* Sources */,
+				BF8ADE93ECC26E55DB6E860C2A377F53 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0F4D9D64CA6FB8D1210DBF7463A1F4B5 /* PBXTargetDependency */,
+			);
+			name = "Pods-RZBluetoothExample";
+			productName = "Pods-RZBluetoothExample";
+			productReference = A252A91ED3E80EF781852F0488EF8876 /* libPods-RZBluetoothExample.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		86FB151092B97A70AA42EBAD1A62A90A /* RZBluetooth.default-Mock-Test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E16AAFA3C4016F27D884D67E6435B6F3 /* Build configuration list for PBXNativeTarget "RZBluetooth.default-Mock-Test" */;
+			buildPhases = (
+				5F20954E02E199F3D97528FC9F0CFB9B /* Sources */,
+				88DDE7A9F1BC6E426FDC8DE80238D462 /* Frameworks */,
+				141DCD30C1B9EA80AD09EE1F506CC0BF /* Headers */,
 			);
 			buildRules = (
 			);
@@ -702,248 +714,110 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5609EC74C296F8325EB3F34339D3D164 /* Pods-RZBluetoothExample */,
-				1F2D7952101A0E3A6F7C226DDC376331 /* Pods-RZBluetoothExampleUITests */,
-				8FA9C43E96831CC7F3D6F515EBC7D342 /* RZBluetooth */,
-				DB766593A8CE9A230918496C27B08624 /* RZBluetooth.default-Mock-Test */,
+				66B2CEA64C7068034B853430ADAF6B7E /* Pods-RZBluetoothExample */,
+				3093A299A0E7F230DCB9FA3A7A19694B /* Pods-RZBluetoothExampleUITests */,
+				5BF906D9FBFB0090700110B314F3FBDF /* RZBluetooth */,
+				86FB151092B97A70AA42EBAD1A62A90A /* RZBluetooth.default-Mock-Test */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		23564DD3427CBB1356A8DD51B5113EC7 /* Sources */ = {
+		5F20954E02E199F3D97528FC9F0CFB9B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9F562DFBE02572FEE517EA7373E9BF9 /* CBService+RZBExtension.m in Sources */,
-				3CD9F0ED10842B5B79D67D1D0C6C4A61 /* CBUUID+RZBPublic.m in Sources */,
-				B7684C4D9816026CEF1230FEDC940243 /* NSError+RZBMock.m in Sources */,
-				AF57D8045B27A9CD5875FE4744F7D60D /* NSRunLoop+RZBWaitFor.m in Sources */,
-				B0057763B247B26EE9618C262CF42DBF /* RZBCentralManager+CommandHelper.m in Sources */,
-				EAE0969E619507B055AA114FFF24886C /* RZBCentralManager.m in Sources */,
-				185F75A0E9BAF15A2B738B78DD8291A5 /* RZBCommand.m in Sources */,
-				31B6EB5EF01DF75130120CE478C9523C /* RZBCommandDispatch.m in Sources */,
-				7E260F6D414A17915010CBC0B8309663 /* RZBDeviceInfo.m in Sources */,
-				CDBF3D33701C5E118624C9F9DF62DC13 /* RZBEnableMock.m in Sources */,
-				3C33A46C2A9EDC617F5459769772C611 /* RZBErrors.m in Sources */,
-				0EBD1084F19A231AB948DE52734475ED /* RZBHeartRateMeasurement.m in Sources */,
-				E32D2929547E836EAC827D6F38F4D773 /* RZBLog.m in Sources */,
-				67AC353327A79FBAD94AE9AB807F4049 /* RZBluetooth.default-Mock-Test-dummy.m in Sources */,
-				EBD03E39674B82F9AAF717F726190695 /* RZBMockCentralManager.m in Sources */,
-				CBE51FF5B5668D1C73D4D629F1EC92A0 /* RZBMockPeripheral.m in Sources */,
-				485AE3C472A3F84265B28C2D76201AAE /* RZBMockPeripheralManager.m in Sources */,
-				457ECACCD20A2309DDD5FABA57397B97 /* RZBPeripheral+RZBBattery.m in Sources */,
-				CDDA73B71E29E74107C63396F75C0958 /* RZBPeripheral+RZBHeartRate.m in Sources */,
-				58EF8BE8D0BAEB0DCC942FD24928E191 /* RZBPeripheral.m in Sources */,
-				140C559707005DBBA89CA61842F482F9 /* RZBScanInfo.m in Sources */,
-				4D7D097B3B65F91FEC7313FC91F9510E /* RZBSimulatedCallback.m in Sources */,
-				4D46D4C24F1126DF403C797A08BC1019 /* RZBSimulatedCentral.m in Sources */,
-				54CEBAE0511F6789C9DFFE6F9C1FDAD9 /* RZBSimulatedConnection.m in Sources */,
-				C148C99D47BE2FE72CA4F2DAF0121BF0 /* RZBSimulatedDevice+RZBBatteryLevel.m in Sources */,
-				31031C0A83AF16C0C5DBF9B19A1598FF /* RZBSimulatedDevice.m in Sources */,
-				FDA794725DE0777C8A0EC654CECA8E68 /* RZBSimulatedTestCase.m in Sources */,
-				F640042B1A8DA813C1518DA9B06078F7 /* RZBUserInteraction.m in Sources */,
-				621094EF29250D6E14988C7A497426F2 /* RZBUUIDPath.m in Sources */,
+				A1DF8525818D1C2681E0974AAC7F18EE /* CBService+RZBExtension.m in Sources */,
+				109B1FC4777D9848308831EFEFDC2766 /* CBUUID+RZBPublic.m in Sources */,
+				2905CD7A3E215F4A65B3B79C1E5ABC62 /* NSError+RZBMock.m in Sources */,
+				295F6CA84E655D186029F2B8BBC2FF9B /* NSRunLoop+RZBWaitFor.m in Sources */,
+				A93948AEB80F2DCB71A74B552080FF46 /* RZBCentralManager+CommandHelper.m in Sources */,
+				EF7F9FA64153265B324B507021093F5A /* RZBCentralManager.m in Sources */,
+				99DE90DA4CA883880932ED3AFA98EDB4 /* RZBCommand.m in Sources */,
+				40ACCDABA5C692494FC84C11049371DA /* RZBCommandDispatch.m in Sources */,
+				999AF3E1F2F871048C033951552EE82B /* RZBDeviceInfo.m in Sources */,
+				58EA3248D2E1D2623C78F26E0C719C32 /* RZBEnableMock.m in Sources */,
+				D8735596917F4903F87E2B4988D4F90A /* RZBErrors.m in Sources */,
+				3BA36F4D575C5E606C4B05E6480A726D /* RZBHeartRateMeasurement.m in Sources */,
+				E3375873525F79CBECF2B939A201C651 /* RZBLog.m in Sources */,
+				6846D0A1B74D1EFEAB2B122ABB22EA09 /* RZBluetooth.default-Mock-Test-dummy.m in Sources */,
+				D08ACFD421C0EFED7C8101CD1C0A2960 /* RZBMockCentralManager.m in Sources */,
+				A0683D4906480E0122708CC2B3963ADC /* RZBMockPeripheral.m in Sources */,
+				E16E5C52593509CA32E72E6740EC2639 /* RZBMockPeripheralManager.m in Sources */,
+				BAABCDF51CD91C82822A64AAF5BE1EBC /* RZBPeripheral+RZBBattery.m in Sources */,
+				BD650B807DA67BCB089BC8F2AFE7D5C6 /* RZBPeripheral+RZBHeartRate.m in Sources */,
+				84CAFE3018769818D18D02DA0C4F0484 /* RZBPeripheral.m in Sources */,
+				428C093CF533F940E592DBB439A4A9DD /* RZBScanInfo.m in Sources */,
+				F110AA7F929CCCD5255876A9DE7D5D4E /* RZBSimulatedCallback.m in Sources */,
+				8229AA0FF6EEE92FD59E919C7C695A15 /* RZBSimulatedCentral.m in Sources */,
+				7268FB4F2D6F88D846D24C7E57574B55 /* RZBSimulatedConnection.m in Sources */,
+				97817A897CF866DD9685E394084F5225 /* RZBSimulatedDevice+RZBBatteryLevel.m in Sources */,
+				574425098F720A72C0103FE5D35642A1 /* RZBSimulatedDevice.m in Sources */,
+				6F464E825275D1DD6334C0AA13690F1C /* RZBSimulatedTestCase.m in Sources */,
+				11A0AC454C7D610D8AFDA69E7E03E2FC /* RZBUserInteraction.m in Sources */,
+				AB9DAB2FF0B4C9CA0C15234095BC6274 /* RZBUUIDPath.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3C6A461C51991C879B3D7DD8F99DDA70 /* Sources */ = {
+		7A94CF0D0FDE4B33C130A0F7F49B22A8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0B67D1B1E9110D89E42E0769B2A056C /* Pods-RZBluetoothExampleUITests-dummy.m in Sources */,
+				94D56F3F49DFB3F73B34D38F7ACCBF3E /* CBService+RZBExtension.m in Sources */,
+				E2E2AE1060D30B1EE7C10896522AAF48 /* CBUUID+RZBPublic.m in Sources */,
+				1C6CA33E51D742DBD84D599FDD78BEEF /* RZBCentralManager+CommandHelper.m in Sources */,
+				F23A9A9341D4AE5243E48D356C5ADB4D /* RZBCentralManager.m in Sources */,
+				B967CD23866E81774979C726CD26F516 /* RZBCommand.m in Sources */,
+				C1E5E539E55818AC3EFC28E8B5FFF052 /* RZBCommandDispatch.m in Sources */,
+				C2F3170CF0669DBFB5357C58C120B246 /* RZBDeviceInfo.m in Sources */,
+				3CFE320B52A79C0F988923A59338BE27 /* RZBErrors.m in Sources */,
+				46F6A362F989447D0C88DAA7A796D973 /* RZBHeartRateMeasurement.m in Sources */,
+				0B60353BE26DC279E603A8270DCED32D /* RZBLog.m in Sources */,
+				AF9BA34BC7C4BF60DD7665BBAC39E9DD /* RZBluetooth-dummy.m in Sources */,
+				E61E1696901870A489805C1B8F85F8BE /* RZBPeripheral+RZBBattery.m in Sources */,
+				BEA8EE130D14A23712F7601521492794 /* RZBPeripheral+RZBHeartRate.m in Sources */,
+				331AF4E7D55AF59CD2841A696B48DE04 /* RZBPeripheral.m in Sources */,
+				01002CCF9F28A4CD2358EEA9940A6122 /* RZBScanInfo.m in Sources */,
+				15F54EAD7ED900B8DF16FB76FB0AE2C8 /* RZBUserInteraction.m in Sources */,
+				927D6FEEAF4833D5E7B206F84C76FA30 /* RZBUUIDPath.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9A1553D00995B7B29690A23FEB448388 /* Sources */ = {
+		E8185D6F0B492FA88F66A795AF7E1731 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A01378B2E4812C7B88DAADF65A38D44C /* Pods-RZBluetoothExample-dummy.m in Sources */,
+				28776A20D96DE33CC4CF2DB046145E14 /* Pods-RZBluetoothExampleUITests-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A38853312C83E9B67373B2FCB63EFC79 /* Sources */ = {
+		F9BDF17C9CB97CD63B504435057C3E58 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30E854AEE4BA113EB7DA5C4F8A6F731D /* CBService+RZBExtension.m in Sources */,
-				10DCC69F0D6C88D5E3BC9D8E68B967CA /* CBUUID+RZBPublic.m in Sources */,
-				6646DDD363A28CA71B83B7E822990FD6 /* RZBCentralManager+CommandHelper.m in Sources */,
-				A272B543C208C8757D0E5A7E1E918D82 /* RZBCentralManager.m in Sources */,
-				B39F633EE7254CACF35A4744075324F7 /* RZBCommand.m in Sources */,
-				1A6A4624B0E73FB8188C4FBA6A8A3C71 /* RZBCommandDispatch.m in Sources */,
-				94687913C581356156B15EED4CBA38FD /* RZBDeviceInfo.m in Sources */,
-				626E398B9516B46221DB13B21E29854B /* RZBErrors.m in Sources */,
-				D4176C965BA998D67F982BF88C200239 /* RZBHeartRateMeasurement.m in Sources */,
-				B7CA89D039325972C8A5FD7621A7D6CF /* RZBLog.m in Sources */,
-				961EFBEEA312338C670C7725928D2EBC /* RZBluetooth-dummy.m in Sources */,
-				9D09CC6A16236CAE070985642B43BCF6 /* RZBPeripheral+RZBBattery.m in Sources */,
-				61CB393C43F063EA880917D22E53B8A3 /* RZBPeripheral+RZBHeartRate.m in Sources */,
-				34FBBF55225C961F4D812EF83E71A2D8 /* RZBPeripheral.m in Sources */,
-				1599AA67716742551889A160A55A58FA /* RZBScanInfo.m in Sources */,
-				06CFB71CC8538CC2E53F72DEB52FB86F /* RZBUserInteraction.m in Sources */,
-				7CF4A642F98E4A79EB22B4F977162686 /* RZBUUIDPath.m in Sources */,
+				667B4D565EBD778E25C346257B630BEB /* Pods-RZBluetoothExample-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0D03FD4A1F97788C4FC5D4E6ED467BD6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "RZBluetooth.default-Mock-Test";
-			target = DB766593A8CE9A230918496C27B08624 /* RZBluetooth.default-Mock-Test */;
-			targetProxy = 6FB333613BAE334FD2D4D3104210460F /* PBXContainerItemProxy */;
-		};
-		428967D4CED9B53EC90EAB098ADB484A /* PBXTargetDependency */ = {
+		0F4D9D64CA6FB8D1210DBF7463A1F4B5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = RZBluetooth;
-			target = 8FA9C43E96831CC7F3D6F515EBC7D342 /* RZBluetooth */;
-			targetProxy = 4A9726AF7C3BE7E311B377EFF8E53D53 /* PBXContainerItemProxy */;
+			target = 5BF906D9FBFB0090700110B314F3FBDF /* RZBluetooth */;
+			targetProxy = EFBBBE85F35ABD62B8116470CB755A88 /* PBXContainerItemProxy */;
+		};
+		9A93E61E8CD96C2850BA52D18DA6E4DA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "RZBluetooth.default-Mock-Test";
+			target = 86FB151092B97A70AA42EBAD1A62A90A /* RZBluetooth.default-Mock-Test */;
+			targetProxy = 78959B197BB6EAE510245041C72C23DE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		2250ED757371764E03F35A8A2064B4FE /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E5D28E2E2A9149833BDF7B859B6113E7 /* Pods-RZBluetoothExampleUITests.release.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
-				MACH_O_TYPE = staticlib;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		2A6D4A62CCB5CFDF960E202C0F7F93F5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 186DF6BBF45FF4119DCB37F205D228BD /* Pods-RZBluetoothExample.debug.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
-				MACH_O_TYPE = staticlib;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		390393E7BAFFA43DA3BFD86070193A52 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CE4F156B7D30F57238071ADED5F23E28 /* Pods-RZBluetoothExample.release.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
-				MACH_O_TYPE = staticlib;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		462F43617811A6779B0CD46D9E72CCA6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D4ED191DDCD743E4E1AC40404B1B0E9F /* RZBluetooth.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/RZBluetooth/RZBluetooth-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		4674CF5BE518FDFBDF42A196D605952F /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = AF3858D15ED6B2BD35414E3B15453355 /* RZBluetooth.default-Mock-Test.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/RZBluetooth.default-Mock-Test/RZBluetooth.default-Mock-Test-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		4AD8CC53569C0DC6E136D07F3E1FE2FD /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D4ED191DDCD743E4E1AC40404B1B0E9F /* RZBluetooth.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/RZBluetooth/RZBluetooth-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		4CB592A7165A6A97FB76CD111C9E3C3C /* Debug */ = {
+		05D57126353E7D6E2E18CF178E8020C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2B8883822E4344236CB3815390822832 /* Pods-RZBluetoothExampleUITests.debug.xcconfig */;
 			buildSettings = {
@@ -953,7 +827,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MACH_O_TYPE = staticlib;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
@@ -966,19 +840,42 @@
 			};
 			name = Debug;
 		};
-		696D5B12C936D8F3F31EA588B4C6E909 /* Debug */ = {
+		0E6FB3164BAAFDDA3C0316928EF1FE1E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CE4F156B7D30F57238071ADED5F23E28 /* Pods-RZBluetoothExample.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		3144B6C3B74631BA4C3DCC9973A641C1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AF3858D15ED6B2BD35414E3B15453355 /* RZBluetooth.default-Mock-Test.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/RZBluetooth.default-Mock-Test/RZBluetooth.default-Mock-Test-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -987,9 +884,9 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
-			name = Debug;
+			name = Release;
 		};
-		A435E3C35B2666C25C53422D898980A7 /* Debug */ = {
+		59B042A655B7C20CBAB90E385BF4E4C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1025,7 +922,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -1033,7 +930,99 @@
 			};
 			name = Debug;
 		};
-		F2C4F47FC8AD76198661C5EFDE751899 /* Release */ = {
+		5FBC7B87E2499EFF737896EAA57A406D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5D28E2E2A9149833BDF7B859B6113E7 /* Pods-RZBluetoothExampleUITests.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		62A2B414CBF12E8B1C5B1A5A3A5D4BDF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AF3858D15ED6B2BD35414E3B15453355 /* RZBluetooth.default-Mock-Test.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/RZBluetooth.default-Mock-Test/RZBluetooth.default-Mock-Test-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		7AFAC54E0D202B576CADF32341E2E4E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 186DF6BBF45FF4119DCB37F205D228BD /* Pods-RZBluetoothExample.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		88B0238450AB034E2807AFC5F6164314 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D4ED191DDCD743E4E1AC40404B1B0E9F /* RZBluetooth.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/RZBluetooth/RZBluetooth-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		B7324857C38B065FEB1EEE3105C2367A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1065,7 +1054,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SYMROOT = "${SRCROOT}/../build";
@@ -1073,50 +1062,73 @@
 			};
 			name = Release;
 		};
+		FF8F4B5B6BD1FD57FF8D636079DCB920 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D4ED191DDCD743E4E1AC40404B1B0E9F /* RZBluetooth.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/RZBluetooth/RZBluetooth-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0BB01561939BC69F00D531D117EB43F6 /* Build configuration list for PBXNativeTarget "Pods-RZBluetoothExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7AFAC54E0D202B576CADF32341E2E4E8 /* Debug */,
+				0E6FB3164BAAFDDA3C0316928EF1FE1E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A435E3C35B2666C25C53422D898980A7 /* Debug */,
-				F2C4F47FC8AD76198661C5EFDE751899 /* Release */,
+				59B042A655B7C20CBAB90E385BF4E4C7 /* Debug */,
+				B7324857C38B065FEB1EEE3105C2367A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		30FC11EF2C8FE305223B1BA388405F29 /* Build configuration list for PBXNativeTarget "RZBluetooth.default-Mock-Test" */ = {
+		35E524599625E8A9AA984E3E34C1AEC0 /* Build configuration list for PBXNativeTarget "RZBluetooth" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				696D5B12C936D8F3F31EA588B4C6E909 /* Debug */,
-				4674CF5BE518FDFBDF42A196D605952F /* Release */,
+				88B0238450AB034E2807AFC5F6164314 /* Debug */,
+				FF8F4B5B6BD1FD57FF8D636079DCB920 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6DC15EE9B0D82D70409C9ED5BCBCE391 /* Build configuration list for PBXNativeTarget "Pods-RZBluetoothExampleUITests" */ = {
+		4047A9BB76BAA23A439A40FDA77A6B19 /* Build configuration list for PBXNativeTarget "Pods-RZBluetoothExampleUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4CB592A7165A6A97FB76CD111C9E3C3C /* Debug */,
-				2250ED757371764E03F35A8A2064B4FE /* Release */,
+				05D57126353E7D6E2E18CF178E8020C5 /* Debug */,
+				5FBC7B87E2499EFF737896EAA57A406D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BC885D776E821B9EAC310882DA3F9E07 /* Build configuration list for PBXNativeTarget "Pods-RZBluetoothExample" */ = {
+		E16AAFA3C4016F27D884D67E6435B6F3 /* Build configuration list for PBXNativeTarget "RZBluetooth.default-Mock-Test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2A6D4A62CCB5CFDF960E202C0F7F93F5 /* Debug */,
-				390393E7BAFFA43DA3BFD86070193A52 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CC5F29F507360D2B327BC083C5516F4A /* Build configuration list for PBXNativeTarget "RZBluetooth" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				462F43617811A6779B0CD46D9E72CCA6 /* Debug */,
-				4AD8CC53569C0DC6E136D07F3E1FE2FD /* Release */,
+				62A2B414CBF12E8B1C5B1A5A3A5D4BDF /* Debug */,
+				3144B6C3B74631BA4C3DCC9973A641C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
