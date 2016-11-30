@@ -8,15 +8,7 @@
 
 #import "RZBBluetoothRepresentable.h"
 #import "RZBDefines.h"
-
-@class RZBMockPeripheralManager;
-
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000 || __TV_OS_VERSION_MAX_ALLOWED >= 100000
-#define RZBPeripheralManagerState CBManagerState
-#else
-#define RZBPeripheralManagerState CBPeripheralManagerState
-#endif
-
+#import "RZBMockPeripheralManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

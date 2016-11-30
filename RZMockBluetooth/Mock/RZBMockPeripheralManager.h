@@ -10,6 +10,14 @@
 
 @protocol RZBMockPeripheralManagerDelegate;
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000 || __TV_OS_VERSION_MAX_ALLOWED >= 100000
+#define RZBPeripheralManagerState CBManagerState
+#define RZBPeripheralManagerStatePoweredOn CBManagerStatePoweredOn
+#else
+#define RZBPeripheralManagerState CBPeripheralManagerState
+#define RZBPeripheralManagerStatePoweredOn CBPeripheralManagerStatePoweredOn
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -22,7 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithDelegate:(id<CBPeripheralManagerDelegate>)delegate queue:(dispatch_queue_t)queue options:(NSDictionary *)options;
 
 @property (weak, nonatomic, readonly) id<CBPeripheralManagerDelegate>delegate;
-@property () CBPeripheralManagerState state;
+@property () RZBPeripheralManagerState state;
+
 @property (readonly) BOOL isAdvertising;
 
 - (void)startAdvertising:(NSDictionary *)advertisementData;
@@ -43,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)respondToRequest:(CBATTRequest *)request withResult:(CBATTError)result;
 - (BOOL)updateValue:(NSData *)value forCharacteristic:(CBMutableCharacteristic *)characteristic onSubscribedCentrals:(NSArray *)centrals;
 
-- (void)fakeStateChange:(CBPeripheralManagerState)state;
+- (void)fakeStateChange:(RZBPeripheralManagerState)state;
 - (void)fakeReadRequest:(CBATTRequest *)request;
 - (void)fakeWriteRequest:(CBATTRequest *)request;
 - (void)fakeNotifyState:(BOOL)enabled central:(CBCentral *)central characteristic:(CBMutableCharacteristic *)characteristic;

@@ -14,9 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 FOUNDATION_EXPORT NSString *const RZBluetoothErrorDomain;
 
 typedef NS_ENUM(NSUInteger, RZBluetoothError) {
-    RZBluetoothUnsupported = CBCentralManagerStateUnsupported,
-    RZBluetoothUnauthorized = CBCentralManagerStateUnauthorized,
-    RZBluetoothPoweredOff = CBCentralManagerStatePoweredOff,
+    RZBluetoothUnsupported = CBManagerStateUnsupported,
+    RZBluetoothUnauthorized = CBManagerStateUnauthorized,
+    RZBluetoothPoweredOff = CBManagerStatePoweredOff,
     RZBluetoothDiscoverServiceError,
     RZBluetoothDiscoverCharacteristicError,
     RZBluetoothTimeoutError,

@@ -15,17 +15,17 @@ NSError *RZBluetoothErrorForState(CBManagerState state)
 {
     NSError *error = nil;
     switch (state) {
-        case CBCentralManagerStateUnknown:
-        case CBCentralManagerStateResetting:
-        case CBCentralManagerStatePoweredOn:
+        case CBManagerStateUnknown:
+        case CBManagerStateResetting:
+        case CBManagerStatePoweredOn:
             break;
-        case CBCentralManagerStateUnsupported:
+        case CBManagerStateUnsupported:
             error = [NSError errorWithDomain:RZBluetoothErrorDomain code:RZBluetoothUnsupported userInfo:nil];
             break;
-        case CBCentralManagerStateUnauthorized:
+        case CBManagerStateUnauthorized:
             error = [NSError errorWithDomain:RZBluetoothErrorDomain code:RZBluetoothUnauthorized userInfo:nil];
             break;
-        case CBCentralManagerStatePoweredOff:
+        case CBManagerStatePoweredOff:
             error = [NSError errorWithDomain:RZBluetoothErrorDomain code:RZBluetoothPoweredOff userInfo:nil];
             break;
     }

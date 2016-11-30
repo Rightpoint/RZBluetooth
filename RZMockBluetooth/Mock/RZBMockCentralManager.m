@@ -21,7 +21,7 @@
         self.queue = queue ? queue : dispatch_get_main_queue();
         self.options = options;
         self.peripheralsByUUID = [NSMutableDictionary dictionary];
-        self.state = CBCentralManagerStateUnknown;
+        self.state = CBManagerStateUnknown;
     }
     return self;
 }

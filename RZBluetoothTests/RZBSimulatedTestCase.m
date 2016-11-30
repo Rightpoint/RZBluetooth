@@ -68,7 +68,7 @@
     self.device = [[self.class.simulatedDeviceClass alloc] initWithQueue:self.mockCentralManager.queue
                                                                  options:@{}];
     RZBMockPeripheralManager *peripheralManager = (id)self.device.peripheralManager;
-    [peripheralManager fakeStateChange:CBPeripheralManagerStatePoweredOn];
+    [peripheralManager fakeStateChange:RZBPeripheralManagerStatePoweredOn];
 
     self.central = [[RZBSimulatedCentral alloc] initWithMockCentralManager:self.mockCentralManager];
     [self.central addSimulatedDeviceWithIdentifier:identifier

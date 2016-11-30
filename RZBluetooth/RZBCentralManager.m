@@ -92,7 +92,7 @@
 {
     self.activeScanBlock = nil;
     [self completeScanCommand];
-    if (self.coreCentralManager.state == CBCentralManagerStatePoweredOn) {
+    if (self.coreCentralManager.state == CBManagerStatePoweredOn) {
         [self.coreCentralManager stopScan];
     }
 }
@@ -187,8 +187,8 @@
         self.centralStateHandler(central.state);
     }
     switch (central.state) {
-        case CBCentralManagerStateUnknown:
-        case CBCentralManagerStateResetting:
+        case CBManagerStateUnknown:
+        case CBManagerStateResetting:
             [self.dispatch resetCommands];
             break;
         default:

@@ -14,7 +14,6 @@
 
 #import "RZBMockCentralManager.h"
 #import "RZBMockPeripheralManager.h"
-#import "RZBMockPeripheralManager.h"
 
 #import "RZBSimulatedDevice.h"
 #import "RZBSimulatedCentral.h"

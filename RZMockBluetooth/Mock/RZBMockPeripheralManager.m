@@ -86,7 +86,7 @@
     });
 }
 
-- (void)fakeStateChange:(CBPeripheralManagerState)state
+- (void)fakeStateChange:(RZBPeripheralManagerState)state
 {
     [self performFakeAction:^{
         self.state = state;

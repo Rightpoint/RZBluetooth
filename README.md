@@ -188,9 +188,9 @@ Core Bluetooth can be challenging to test. RZBluetooth comes with a library, `RZ
 For example:
 
 ```obj-c
-    [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
+    [self.mockCentralManager fakeStateChange:CBManagerStatePoweredOn];
     // Triggers: - (void)centralManagerDidUpdateState:(CBCentralManager *)centralManager
-    // Configures: centralManager.state == CBCentralManagerStatePoweredOn
+    // Configures: centralManager.state == CBManagerStatePoweredOn
 
     [self.mockCentralManager fakeDisconnectPeripheralWithUUID:identifier
                                                         error:nil];

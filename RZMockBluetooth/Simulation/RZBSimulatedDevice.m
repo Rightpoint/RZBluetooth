@@ -176,7 +176,7 @@
         stateChange(peripheral.state);
     }
 
-    _operationQueue.suspended = (peripheral.state != CBPeripheralManagerStatePoweredOn);
+    _operationQueue.suspended = (peripheral.state != RZBPeripheralManagerStatePoweredOn);
 }
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didAddService:(CBService *)service error:(NSError *)error
