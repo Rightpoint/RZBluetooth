@@ -122,6 +122,7 @@
     RZBMockPeripheral *peripheral = [self peripheralForUUID:peripheralUUID];
     [self performFakeAction:^{
         peripheral.state = CBPeripheralStateDisconnected;
+        peripheral.services = @[];
         [self.delegate centralManager:(id)self didDisconnectPeripheral:(id)peripheral error:error];
     }];
 }

@@ -37,7 +37,7 @@
 {
     // Ensure that any callbacks on the connection are canceled
     for (RZBSimulatedConnection *connection in self.connections) {
-        [connection cancelSimulatedCallbacks];
+        [connection reset];
     }
 }
 
