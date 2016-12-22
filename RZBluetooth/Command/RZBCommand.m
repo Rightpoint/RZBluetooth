@@ -193,9 +193,11 @@
     if (isReady) {
         CBPeripheral *peripheral = [context connectedPeripheralForUUID:self.peripheralUUID
                                                     triggeredByCommand:self];
-        RZBLogCommand(@"readRSSI: %@", RZBLogIdentifier(peripheral));
+        if (peripheral) {
+            RZBLogCommand(@"readRSSI: %@", RZBLogIdentifier(peripheral));
 
-        [peripheral readRSSI];
+            [peripheral readRSSI];
+        }
         isReady = (peripheral != nil);
     }
     return isReady;
@@ -226,9 +228,11 @@
     if (isReady) {
         CBPeripheral *peripheral = [context connectedPeripheralForUUID:self.peripheralUUID
                                                     triggeredByCommand:self];
-        RZBLogCommand(@"%@ discoverServices:%@", RZBLogIdentifier(peripheral), RZBLogArray(self.serviceUUIDs));
+        if (peripheral) {
+            RZBLogCommand(@"%@ discoverServices:%@", RZBLogIdentifier(peripheral), RZBLogArray(self.serviceUUIDs));
 
-        [peripheral discoverServices:self.serviceUUIDs];
+            [peripheral discoverServices:self.serviceUUIDs];
+        }
         isReady = (peripheral != nil);
     }
     return isReady;

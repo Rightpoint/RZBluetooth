@@ -93,11 +93,13 @@
     }];
 }
 
-- (void)cancelSimulatedCallbacks
+- (void)reset
 {
     for (RZBSimulatedCallback *callback in self.allCallbacks) {
         [callback cancel];
     }
+    self.peripheral.state = CBPeripheralStateDisconnected;
+    self.peripheral.services = @[];
 }
 
 - (BOOL)idle

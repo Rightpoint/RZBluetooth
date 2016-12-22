@@ -189,9 +189,20 @@
     switch (central.state) {
         case CBManagerStateUnknown:
         case CBManagerStateResetting:
+            // These are intermittent states that will have caused any outstanding
+            // commands to not respond. Reset the commands so when the state is
+            // known the commands are retried
             [self.dispatch resetCommands];
             break;
-        default:
+        case CBManagerStateUnsupported:
+        case CBManagerStateUnauthorized:
+        case CBManagerStatePoweredOff:
+            // Reset the commands so when they are dispatched again, they will
+            // generate an error message.
+            [self.dispatch resetCommands];
+            [self.dispatch dispatchPendingCommands];
+            break;
+        case CBManagerStatePoweredOn:
             [self.dispatch dispatchPendingCommands];
     }
 }
