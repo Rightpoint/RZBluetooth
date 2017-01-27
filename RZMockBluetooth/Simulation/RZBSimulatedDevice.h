@@ -7,14 +7,14 @@
 //
 
 #import "RZBBluetoothRepresentable.h"
-
-@class RZBMockPeripheralManager;
+#import "RZBDefines.h"
+#import "RZBMockPeripheralManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 typedef CBATTError (^RZBATTRequestHandler)(CBATTRequest *request);
 typedef void (^RZBNotificationHandler)(BOOL isNotifying);
-typedef void (^RZBPeripheralManagerStateBlock)(CBPeripheralManagerState state);
+typedef void (^RZBPeripheralManagerStateBlock)(RZBPeripheralManagerState state);
 
 /**
  *  The simulated device is a peripheral manager delegate that is intended to mock

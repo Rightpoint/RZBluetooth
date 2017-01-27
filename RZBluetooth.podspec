@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 Pod::Spec.new do |s|
   s.name         = "RZBluetooth"
-  s.version      = "1.0.2"
+  s.version      = "1.1.3"
   s.summary      = "A Core Bluetooth helper library to simplify the development and testing of Core Bluetooth applications."
 
   s.description  = <<-DESC
@@ -15,11 +15,12 @@ RZBluetooth is a Core Bluetooth helper with 3 primary goals:
   s.homepage     = "http://github.com/Raizlabs/RZBluetooth"
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.author       = { "Brian King" => "brianaking@gmail.com" }
-  s.platform     = :ios, 7.0
+  s.osx.deployment_target = "10.10"
+  s.ios.deployment_target = "9.0"
   s.source       = { :git => "https://github.com/Raizlabs/RZBluetooth.git", :tag => s.version }
   s.requires_arc = true
 
-  s.default_subspec = 'Core'
+  s.default_subspec = "Core"
 
   s.subspec "Core" do |core|
     core.source_files = "RZBluetooth/**/*.{h,m}"
@@ -36,9 +37,10 @@ RZBluetooth is a Core Bluetooth helper with 3 primary goals:
 
   s.subspec "Test" do |test|
     test.dependency "RZBluetooth/Mock"
-    test.frameworks = 'XCTest'
-    test.source_files = "RZBluetoothTests/RZBSimulatedTestCase.{h,m}",
-                        "RZBluetoothTests/Helpers/NSRunLoop+RZBWaitFor.{h,m}",
-    test.public_header_files = "RZBluetoothTests/RZBSimulatedTestCase.h"
+    test.frameworks = "XCTest"
+    test.source_files = "RZBluetoothTests/RZBTestDefines.h",
+                        "RZBluetoothTests/RZBSimulatedTestCase.{h,m}",
+                        "RZBluetoothTests/Helpers/NSRunLoop+RZBWaitFor.{h,m}"
+    test.public_header_files = "RZBluetoothTests/RZBSimulatedTestCase.h", "RZBluetoothTests/RZBTestDefines.h"
   end
 end

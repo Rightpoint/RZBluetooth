@@ -16,7 +16,7 @@
 
 @implementation RZBSimulationObjectTests
 
-- (void)testSimulatedConnection
+- (void)testSimulatedCallback
 {
     __weak RZBSimulatedCallback *callback = nil;
     XCTestExpectation *exp = [self expectationWithDescription:@"Dispatch"];
@@ -31,7 +31,41 @@
     XCTAssertNil(callback);
 }
 
-- (void)testSimulatedConnectionPaused
+- (void)testSimulatedCallbackDelay
+{
+    __block NSUInteger dispatchCount = 0;
+    RZBSimulatedCallback *callback = [RZBSimulatedCallback callbackOnQueue:dispatch_get_main_queue()];
+    // Setup a callback, ensure it does not fire.
+    callback.delay = 1.0;
+    [callback dispatch:^(NSError * _Nullable injectedError) {
+        dispatchCount += 1;
+    }];
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
+    XCTAssertEqual(dispatchCount, 0);
+    // Add another callback a second from now
+    [callback dispatch:^(NSError * _Nullable injectedError) {
+        dispatchCount += 1;
+    }];
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.55]];
+    XCTAssertEqual(dispatchCount, 1);
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
+    XCTAssertEqual(dispatchCount, 2);
+    }
+
+- (void)testSimulatedCallbackCancel
+{
+    __block BOOL dispatchFired = NO;
+    RZBSimulatedCallback *callback = [RZBSimulatedCallback callbackOnQueue:dispatch_get_main_queue()];
+    [callback dispatch:^(NSError * _Nullable injectedError) {
+        XCTAssertNil(injectedError);
+        dispatchFired = YES;
+    }];
+    [callback cancel];
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    XCTAssert(dispatchFired == NO);
+}
+
+- (void)testSimulatedCallbackPaused
 {
     __weak RZBSimulatedCallback *callback = nil;
     __block BOOL triggered = NO;

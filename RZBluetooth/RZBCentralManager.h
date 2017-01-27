@@ -47,10 +47,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithIdentifier:(NSString *)identifier peripheralClass:(Class)peripheralClass queue:(dispatch_queue_t __nullable)queue;
 
 /**
- * Expose the backing CBCentralManagerState. See RZBluetoothErrorForState to generate an
+ * Expose the backing CBManagerState. See RZBluetoothErrorForState to generate an
  * error object representing the non-functioning terminal states.
  */
-@property (assign, nonatomic, readonly) CBCentralManagerState state;
+@property (assign, nonatomic, readonly) CBManagerState state;
 
 /**
  * This block will be triggered whenever the central manager state changes.
@@ -74,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
  * for every discovered peripheral. Multiple calls to this method will replace the previous
  * calls. 
  *
- * The onError: block will be triggered if there are any CBCentralManagerState errors and
+ * The onError: block will be triggered if there are any CBManagerState errors and
  * for user interaction timeout errors if configured.
  */
 - (void)scanForPeripheralsWithServices:(NSArray<CBUUID *> * __nullable)serviceUUIDs

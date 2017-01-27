@@ -48,16 +48,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong) NSError *injectError;
 
 /**
- * Do not dispatch any blocks while paused. This will not pause the delay that
- * the dispatch is invoked with.
- */
-@property () BOOL paused;
-
-/**
  * Determine if the callback is idle. A callback is idle when every block dispatched
  * to the callback has been executed.
  */
 @property (readonly) BOOL idle;
+
+/**
+ * Do not dispatch any blocks while paused. This will not pause the delay that
+ * the dispatch is invoked with.
+ */
+@property () BOOL paused;
 
 /**
  * Dispatch a block that will be triggered when the delay passes, and the callback

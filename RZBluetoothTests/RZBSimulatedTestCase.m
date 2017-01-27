@@ -6,10 +6,12 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
+#import "RZBTestDefines.h"
 #import "RZMockBluetooth.h"
 #import "RZBSimulatedTestCase.h"
 #import "NSRunLoop+RZBWaitFor.h"
 #import "RZBCentralManager+Private.h"
+#import "RZBLog.h"
 
 @implementation RZBSimulatedTestCase
 
@@ -26,7 +28,12 @@
 
 - (void)waitForQueueFlush
 {
-    XCTAssert([self.central waitForIdleWithTimeout:10.0]);
+    NSDate *endDate = [NSDate dateWithTimeIntervalSinceNow:10.0];
+    // Wait for all of the connections to go idle
+    while (!(self.central.idle && self.centralManager.dispatch.dispatchCounter == 0) && [endDate timeIntervalSinceNow] > 0) {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.05]];
+    }
+    XCTAssertTrue([endDate timeIntervalSinceNow] > 0);
 }
 
 - (RZBMockCentralManager *)mockCentralManager
@@ -48,15 +55,20 @@
 
 - (void)setUp
 {
+    RZBSetLogHandler(^(RZBLogLevel logLevel, NSString *format, va_list args) {
+        if (logLevel != RZBLogLevelWriteCommandData && logLevel != RZBLogLevelDelegateValue) {
+            NSLog(@"%@",  [[NSString alloc] initWithFormat:format arguments:args]);
+        }
+    });
     [super setUp];
     [self configureCentralManager];
-    [self.mockCentralManager fakeStateChange:CBCentralManagerStatePoweredOn];
+    [self.mockCentralManager fakeStateChange:CBManagerStatePoweredOn];
 
     NSUUID *identifier = [NSUUID UUID];
     self.device = [[self.class.simulatedDeviceClass alloc] initWithQueue:self.mockCentralManager.queue
                                                                  options:@{}];
     RZBMockPeripheralManager *peripheralManager = (id)self.device.peripheralManager;
-    [peripheralManager fakeStateChange:CBPeripheralManagerStatePoweredOn];
+    [peripheralManager fakeStateChange:RZBPeripheralManagerStatePoweredOn];
 
     self.central = [[RZBSimulatedCentral alloc] initWithMockCentralManager:self.mockCentralManager];
     [self.central addSimulatedDeviceWithIdentifier:identifier

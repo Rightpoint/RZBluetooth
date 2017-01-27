@@ -7,6 +7,9 @@
 //
 
 #import "RZBSimulatedTestCase.h"
+#import "RZBPeripheral+RZBBattery.h"
+#import "RZBSimulatedDevice+RZBBatteryLevel.h"
+#import "CBUUID+RZBPublic.h"
 
 @interface RZBSimulatedTests : RZBSimulatedTestCase <RZBPeripheralConnectionDelegate>
 
@@ -116,8 +119,8 @@
     }];
     [self waitForQueueFlush];
 
-
     self.connection.connectable = YES;
+    [self waitForQueueFlush];
     XCTAssert(peripheral.state == CBPeripheralStateDisconnected);
 
     [self waitForExpectationsWithTimeout:5.0 handler:nil];
@@ -147,19 +150,58 @@
         // Disable the connection maintenance on the last iteration.
         if (i == TEST_COUNT - 1) {
             [p cancelConnectionWithCompletion:nil];
-            // Cancel will clear out the disconnect block so it should not be triggered.
-            [self waitForQueueFlush];
-            XCTAssert(self.disconnectCount == i + 1);
         }
         else {
             self.connection.connectable = NO;
-            [self waitForQueueFlush];
-            XCTAssert(self.disconnectCount == i + 1);
         }
+        [self waitForQueueFlush];
+        XCTAssert(self.disconnectCount == i + 1);
     }
     [self waitForQueueFlush];
     XCTAssert(p.state == CBPeripheralStateDisconnected);
     XCTAssert(self.connectFailureCount == 0);
+}
+
+- (void)testStateBounce
+{
+    [self.device addBatteryService];
+
+    // Configure the peripheral, set up the observer, and wait for connection
+    RZBPeripheral *p = [self.centralManager peripheralForUUID:self.connection.identifier];
+    XCTAssert(p.state == CBPeripheralStateDisconnected);
+    p.connectionDelegate = self;
+    p.maintainConnection = YES;
+    NSMutableArray *values = [NSMutableArray array];
+    [p addBatteryLevelObserver:^(NSUInteger level, NSError *error) {
+        [values addObject:@(level)];
+    } completion:^(NSError *error) {
+    }];
+    [self waitForQueueFlush];
+    XCTAssert(p.state == CBPeripheralStateConnected);
+
+    self.connection.connectable = NO;
+    [self waitForQueueFlush];
+    XCTAssert(p.state == CBPeripheralStateConnecting);
+
+    [self.mockCentralManager fakeStateChange:CBManagerStatePoweredOff];
+    [self.connection reset];
+    [self waitForQueueFlush];
+
+    [self.mockCentralManager fakeStateChange:CBManagerStatePoweredOn];
+    self.connection.connectable = YES;
+    [self waitForQueueFlush];
+
+    [p addBatteryLevelObserver:^(NSUInteger level, NSError *error) {
+        [values addObject:@(level)];
+    } completion:^(NSError *error) {
+    }];
+    [self waitForQueueFlush];
+    XCTAssert(p.state == CBPeripheralStateConnected);
+    
+    // Change the battery level and ensure the observer is notified of the new battery level
+    self.device.batteryLevel = 88;
+    [self waitForQueueFlush];
+    XCTAssertEqualObjects(values, @[@88]);
 
 }
 

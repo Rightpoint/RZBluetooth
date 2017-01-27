@@ -157,6 +157,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (strong, nonatomic) RZBSimulatedCallback *updateCallback;
 
+/**
+ *  Cancel all simulated callbacks and set the device as disconnected.
+ */
+- (void)reset;
+
 @end
 
 NS_ASSUME_NONNULL_END

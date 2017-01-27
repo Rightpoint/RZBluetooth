@@ -16,11 +16,15 @@
 #import "RZBScanInfo.h"
 #import "RZBLog+Private.h"
 #import "RZBPeripheralStateEvent.h"
+#import <TargetConditionals.h>
 
 @implementation RZBCentralManager
 
 + (NSDictionary *)optionsForIdentifier:(NSString *)identifier
 {
+#if TARGET_OS_OSX
+	return @{};
+#elif TARGET_OS_IPHONE
     NSArray *backgroundModes = [[NSBundle mainBundle] infoDictionary][@"UIBackgroundModes"];
 
     BOOL backgroundSupport = [backgroundModes containsObject:@"bluetooth-central"];
@@ -28,6 +32,9 @@
         RZBLog(RZBLogLevelConfiguration, @"Background central support is not enabled. Add 'bluetooth-central' to UIBackgroundModes to enable background support");
     }
     return backgroundSupport ? @{CBCentralManagerOptionRestoreIdentifierKey: identifier} : @{};
+#else
+	#warning Unsupported Platform
+#endif
 }
 
 - (instancetype)init
@@ -56,7 +63,7 @@
     return self;
 }
 
-- (CBCentralManagerState)state
+- (CBManagerState)state
 {
     return self.coreCentralManager.state;
 }
@@ -85,7 +92,7 @@
 {
     self.activeScanBlock = nil;
     [self completeScanCommand];
-    if (self.coreCentralManager.state == CBCentralManagerStatePoweredOn) {
+    if (self.coreCentralManager.state == CBManagerStatePoweredOn) {
         [self.coreCentralManager stopScan];
     }
 }
@@ -180,17 +187,29 @@
         self.centralStateHandler(central.state);
     }
     switch (central.state) {
-        case CBCentralManagerStateUnknown:
-        case CBCentralManagerStateResetting:
+        case CBManagerStateUnknown:
+        case CBManagerStateResetting:
+            // These are intermittent states that will have caused any outstanding
+            // commands to not respond. Reset the commands so when the state is
+            // known the commands are retried
             [self.dispatch resetCommands];
             break;
-        default:
+        case CBManagerStateUnsupported:
+        case CBManagerStateUnauthorized:
+        case CBManagerStatePoweredOff:
+            // Reset the commands so when they are dispatched again, they will
+            // generate an error message.
+            [self.dispatch resetCommands];
+            [self.dispatch dispatchPendingCommands];
+            break;
+        case CBManagerStatePoweredOn:
             [self.dispatch dispatchPendingCommands];
     }
 }
 
 - (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary *)dict
 {
+#if TARGET_OS_IPHONE
     RZBLogDelegate(@"%@ - %@", NSStringFromSelector(_cmd), central);
     RZBLogDelegateValue(@"Restore State=%@", dict);
 
@@ -206,6 +225,7 @@
     if (self.restorationHandler) {
         self.restorationHandler(peripherals);
     }
+#endif
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)corePeripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
@@ -276,9 +296,15 @@
 
 // Nothing needs to be done here, everything will be re-discovered automatically
 //- (void)peripheral:(CBPeripheral *)peripheral didModifyServices:(NSArray *)invalidatedServices {}
-
+#if TARGET_OS_OSX
+- (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(nullable NSError *)error
+{
+    NSNumber *RSSI = [peripheral RSSI];
+#else
 - (void)peripheral:(CBPeripheral *)peripheral didReadRSSI:(NSNumber *)RSSI error:(NSError *)error
 {
+#endif
+
     RZBLogDelegate(@"%@ - %@ %@", NSStringFromSelector(_cmd), RZBLogIdentifier(peripheral), error);
     RZBLogDelegateValue(@"RSSI=%@", RSSI);
 

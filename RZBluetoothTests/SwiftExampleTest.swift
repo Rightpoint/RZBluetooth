@@ -32,8 +32,8 @@ class SwiftExampleTestCase: RZBSimulatedTestCase {
 
         peripheral.writePacket(.Ping)
         waitForQueueFlush()
-        XCTAssert(packets.count == 1)
-        XCTAssert(device.packetHistory.count == 1)
+        XCTAssertEqual(packets.count, 1)
+        XCTAssertEqual(device.packetHistory.count, 1)
     }
 
 }

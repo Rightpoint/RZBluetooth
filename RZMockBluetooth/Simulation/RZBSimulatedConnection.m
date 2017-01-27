@@ -64,8 +64,11 @@
     self.connectCallback.paused = !connectable;
     _connectable = connectable;
     if (connectable == NO) {
-        if (self.peripheral.state == CBPeripheralStateConnected ||
-            self.peripheral.state == CBPeripheralStateConnecting) {
+        if (self.peripheral.state == CBPeripheralStateConnected
+#if TARGET_OS_IOS
+            || self.peripheral.state == CBPeripheralStateConnecting
+#endif
+            ) {
             [self disconnect];
         }
     }
@@ -80,7 +83,9 @@
         [self.peripheralManager fakeNotifyState:NO central:(id)self.central characteristic:characteristic];
     }
     [self.subscribedCharacteristics removeAllObjects];
+#if TARGET_OS_IOS
     self.peripheral.state = CBPeripheralStateDisconnecting;
+#endif
     typeof(self) weakSelf = self;
     [self.cancelConncetionCallback dispatch:^(NSError *injectedError) {
         [weakSelf.central.mockCentralManager fakeDisconnectPeripheralWithUUID:weakSelf.identifier
@@ -88,11 +93,13 @@
     }];
 }
 
-- (void)cancelSimulatedCallbacks
+- (void)reset
 {
     for (RZBSimulatedCallback *callback in self.allCallbacks) {
         [callback cancel];
     }
+    self.peripheral.state = CBPeripheralStateDisconnected;
+    self.peripheral.services = @[];
 }
 
 - (BOOL)idle
@@ -102,6 +109,12 @@
         if (callback.paused == NO && callback.idle == NO) {
             idle = NO;
         }
+    }
+    if (self.peripheral.fakeActionCount > 0) {
+        idle = NO;
+    }
+    else if (self.peripheralManager.fakeActionCount > 0) {
+        idle = NO;
     }
     return idle;
 }
@@ -253,13 +266,13 @@
 
 - (void)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager startAdvertising:(NSDictionary *)advertisementData
 {
-    RZBLogSimulation(@"PeripheralManager is not discoverable");
+    RZBLogSimulation(@"PeripheralManager is discoverable");
     self.scanCallback.paused = NO;
 }
 
 - (void)mockPeripheralManagerStopAdvertising:(RZBMockPeripheralManager *)peripheralManager
 {
-    RZBLogSimulation(@"PeripheralManager is discoverable");
+    RZBLogSimulation(@"PeripheralManager is not discoverable");
     self.scanCallback.paused = YES;
 }
 

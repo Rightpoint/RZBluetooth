@@ -15,15 +15,7 @@
 #import "XCTestCase+Helpers.h"
 #import "RZBCentralManager+Private.h"
 #import "RZBInvocationLog.h"
-
-#define RZBAssertHasCommand(cmdClass, UUIDPath, isExec) RZBAssertHasCommands(cmdClass, UUIDPath, isExec, 1)
-
-#define RZBAssertHasCommands(cmdClass, UUIDPath, isExec, c) ({\
-NSArray *cmds = [self.centralManager.dispatch commandsOfClass:[cmdClass class] matchingUUIDPath:UUIDPath isExecuted:isExec];\
-XCTAssert(cmds.count == c, @"Did not find an %@ command of class %@\n%@\n", isExec ? @"executed" : @"un-executed", [cmdClass class], self.centralManager.dispatch.commands);\
-});
-
-#define RZBAssertCommandCount(cnt) XCTAssert(self.centralManager.dispatch.commands.count == cnt, @"Expected %zd commands, saw %zd", cnt, self.centralManager.dispatch.commands.count)
+#import "RZBTestDefines.h"
 
 @interface RZBMockCentralTestCase : XCTestCase <RZBMockCentralManagerDelegate, RZBMockPeripheralDelegate>
 
