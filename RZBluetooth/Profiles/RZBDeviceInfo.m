@@ -131,6 +131,9 @@ const int    kOUIDShift             = 40;
 
 - (NSString *)systemIdString
 {
+    if (self.systemId == nil)
+        return @"";
+    
     return [NSString stringWithFormat:@"%06X-%010llX",
             self.systemId.ouid,
             self.systemId.manufacturerId
@@ -139,6 +142,9 @@ const int    kOUIDShift             = 40;
 
 - (NSString *)pnpIdString
 {
+    if (self.pnpId == nil)
+        return @"";
+    
     return [NSString stringWithFormat:@"%d-%04X-%04X-%04X",
             self.pnpId.vendorIdSource,
             self.pnpId.vendorId,

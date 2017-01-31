@@ -92,6 +92,12 @@
         XCTAssertNil(deviceInfo.hardwareRevision);
         XCTAssertNil(deviceInfo.firmwareRevision);
         XCTAssertNil(deviceInfo.softwareRevision);
+        
+        XCTAssertNil(deviceInfo.systemId);
+        XCTAssertNil(deviceInfo.pnpId);
+        
+        XCTAssert([deviceInfo.systemIdString isEqualToString:@""]);
+        XCTAssert([deviceInfo.pnpIdString isEqualToString:@""]);
 
         XCTAssert(self.deviceInfo != deviceInfo);
     }];
