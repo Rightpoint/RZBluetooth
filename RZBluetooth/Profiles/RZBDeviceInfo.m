@@ -19,11 +19,100 @@ const int    kManufacturerIDShift   = 0;
 const int    kOUIDShift             = 40;
 
 @implementation RZBSystemId
+
++ (id)valueForKey:(NSString *)key fromData:(NSData *)data
+{
+    NSAssert([key isEqualToString:@"systemId"], @"Unexpected key for RZBSystemId: %@", key);
+    
+    UInt64 bytes;
+    [data getBytes:&bytes length:sizeof(bytes)];
+    bytes = CFSwapInt64LittleToHost(bytes);
+    RZBSystemId *systemId = [[RZBSystemId alloc] init];
+    systemId.manufacturerId = ((bytes & kManufacturerIDMask) >> kManufacturerIDShift);
+    systemId.ouid =   (UInt32)((bytes & kOUIDMask) >> kOUIDShift);
+    return systemId;
+}
+
++ (NSData *)dataForKey:(NSString *)key fromValue:(id)value
+{
+    NSAssert([value isKindOfClass:[RZBSystemId class]], @"Unexpected value type %@", [value class]);
+    
+    RZBSystemId *systemId = (RZBSystemId *)value;
+    UInt64 bytes;
+    bytes  = (((UInt64)systemId.ouid << kOUIDShift) & kOUIDMask);
+    bytes |= (((UInt64)systemId.manufacturerId << kManufacturerIDShift) & kManufacturerIDMask);
+    bytes  = CFSwapInt64HostToLittle(bytes);
+    return [NSData dataWithBytes:&bytes length:sizeof(bytes)];
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"%06X-%010llX", self.ouid, self.manufacturerId];
+}
+
 @end
 
 // MARK: -
 
 @implementation RZBPnPId
+
++ (id)valueForKey:(NSString *)key fromData:(NSData *)data
+{
+    NSAssert([key isEqualToString:@"pnpId"], @"Unexpected key for RZBPnPId: %@", key);
+
+    RZBPnPId *pnpId = [[RZBPnPId alloc] init];
+    RZBVendorIdSource rawVendorIdSource = reserved;
+    UInt16 rawId = 0;
+    int position = 0, len = sizeof(rawVendorIdSource);
+    [data getBytes:&rawVendorIdSource range:NSMakeRange(position, len)];
+    pnpId.vendorIdSource = rawVendorIdSource;
+    
+    position += len; len = sizeof(rawId);
+    [data getBytes:&rawId range:NSMakeRange(position, len)];
+    pnpId.vendorId = CFSwapInt16LittleToHost(rawId);
+    
+    position += len; len = sizeof(rawId);
+    [data getBytes:&rawId range:NSMakeRange(position, len)];
+    pnpId.productId = CFSwapInt16LittleToHost(rawId);
+    
+    position += len; len = sizeof(rawId);
+    [data getBytes:&rawId range:NSMakeRange(position, len)];
+    pnpId.productVersion = CFSwapInt16LittleToHost(rawId);
+    
+    return pnpId;
+}
+
++ (NSData *)dataForKey:(NSString *)key fromValue:(id)value
+{
+    NSAssert([value isKindOfClass:[RZBPnPId class]], @"Unexpected value type %@", [value class]);
+    RZBPnPId *pnpId = (RZBPnPId *)value;
+    NSMutableData *data = [NSMutableData data];
+    
+    RZBVendorIdSource rawVendorIdSource = pnpId.vendorIdSource;
+    [data appendBytes:&rawVendorIdSource length:sizeof(rawVendorIdSource)];
+    
+    UInt16 rawId = CFSwapInt16HostToLittle(pnpId.vendorId);
+    [data appendBytes:&rawId length:sizeof(rawId)];
+    
+    rawId = CFSwapInt16HostToLittle(pnpId.productId);
+    [data appendBytes:&rawId length:sizeof(rawId)];
+    
+    rawId = CFSwapInt16HostToLittle(pnpId.productVersion);
+    [data appendBytes:&rawId length:sizeof(rawId)];
+    
+    return data;
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"%d-%04X-%04X-%04X",
+            self.vendorIdSource,
+            self.vendorId,
+            self.productId,
+            self.productVersion
+            ];
+}
+
 @end
 
 // MARK: -
@@ -56,36 +145,11 @@ const int    kOUIDShift             = 40;
 + (id)valueForKey:(NSString *)key fromData:(NSData *)data
 {
     if ([key isEqualToString:@"systemId"]) {
-        UInt64 bytes;
-        [data getBytes:&bytes length:sizeof(bytes)];
-        bytes = CFSwapInt64LittleToHost(bytes);
-        RZBSystemId *systemId = [[RZBSystemId alloc] init];
-        systemId.manufacturerId = ((bytes & kManufacturerIDMask) >> kManufacturerIDShift);
-        systemId.ouid =   (UInt32)((bytes & kOUIDMask) >> kOUIDShift);
-        return systemId;
+        return [RZBSystemId valueForKey:key fromData:data];
     }
     else
     if ([key isEqualToString:@"pnpId"]) {
-        RZBPnPId *pnpId = [[RZBPnPId alloc] init];
-        RZBVendorIdSource rawVendorIdSource = reserved;
-        UInt16 rawId = 0;
-        int position = 0, len = sizeof(rawVendorIdSource);
-        [data getBytes:&rawVendorIdSource range:NSMakeRange(position, len)];
-        pnpId.vendorIdSource = rawVendorIdSource;
-        
-        position += len; len = sizeof(rawId);
-        [data getBytes:&rawId range:NSMakeRange(position, len)];
-        pnpId.vendorId = CFSwapInt16LittleToHost(rawId);
-        
-        position += len; len = sizeof(rawId);
-        [data getBytes:&rawId range:NSMakeRange(position, len)];
-        pnpId.productId = CFSwapInt16LittleToHost(rawId);
-
-        position += len; len = sizeof(rawId);
-        [data getBytes:&rawId range:NSMakeRange(position, len)];
-        pnpId.productVersion = CFSwapInt16LittleToHost(rawId);
-        
-        return pnpId;
+        return [RZBPnPId valueForKey:key fromData:data];
     }
     else {
         return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -95,33 +159,11 @@ const int    kOUIDShift             = 40;
 + (NSData *)dataForKey:(NSString *)key fromValue:(id)value
 {
     if ([key isEqualToString:@"systemId"]) {
-        NSAssert([value isKindOfClass:[RZBSystemId class]], @"Unexpected value type %@", [value class]);
-        RZBSystemId *systemId = (RZBSystemId *)value;
-        UInt64 bytes;
-        bytes  = (((UInt64)systemId.ouid << kOUIDShift) & kOUIDMask);
-        bytes |= (((UInt64)systemId.manufacturerId << kManufacturerIDShift) & kManufacturerIDMask);
-        bytes  = CFSwapInt64HostToLittle(bytes);
-        return [NSData dataWithBytes:&bytes length:sizeof(bytes)];
+        return [RZBSystemId dataForKey:key fromValue:value];
     }
     else
     if ([key isEqualToString:@"pnpId"]) {
-        NSAssert([value isKindOfClass:[RZBPnPId class]], @"Unexpected value type %@", [value class]);
-        RZBPnPId *pnpId = (RZBPnPId *)value;
-        NSMutableData *data = [NSMutableData data];
-        
-        RZBVendorIdSource rawVendorIdSource = pnpId.vendorIdSource;
-        [data appendBytes:&rawVendorIdSource length:sizeof(rawVendorIdSource)];
-        
-        UInt16 rawId = CFSwapInt16HostToLittle(pnpId.vendorId);
-        [data appendBytes:&rawId length:sizeof(rawId)];
-
-        rawId = CFSwapInt16HostToLittle(pnpId.productId);
-        [data appendBytes:&rawId length:sizeof(rawId)];
-
-        rawId = CFSwapInt16HostToLittle(pnpId.productVersion);
-        [data appendBytes:&rawId length:sizeof(rawId)];
-        
-        return data;
+        return [RZBPnPId dataForKey:key fromValue:value];
     }
     else {
         NSAssert([value isKindOfClass:[NSString class]], @"Unexpected value type %@", [value class]);
@@ -133,24 +175,14 @@ const int    kOUIDShift             = 40;
 {
     if (self.systemId == nil)
         return @"";
-    
-    return [NSString stringWithFormat:@"%06X-%010llX",
-            self.systemId.ouid,
-            self.systemId.manufacturerId
-            ];
+    return [self.systemId description];
 }
 
 - (NSString *)pnpIdString
 {
     if (self.pnpId == nil)
         return @"";
-    
-    return [NSString stringWithFormat:@"%d-%04X-%04X-%04X",
-            self.pnpId.vendorIdSource,
-            self.pnpId.vendorId,
-            self.pnpId.productId,
-            self.pnpId.productVersion
-            ];
+    return [self.pnpId description];
 }
 
 @end

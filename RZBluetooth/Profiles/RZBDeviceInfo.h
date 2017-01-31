@@ -54,10 +54,10 @@ typedef enum _RZBVendorIdSource : UInt8 {
 @property (copy, nonatomic) NSString *firmwareRevision;
 @property (copy, nonatomic) NSString *softwareRevision;
 
-@property (retain, nonatomic) RZBSystemId  *systemId;
+@property (strong, nonatomic) RZBSystemId  *systemId;
 @property (readonly, nonatomic) NSString *systemIdString;
 
-@property (retain, nonatomic) RZBPnPId     *pnpId;
+@property (strong, nonatomic) RZBPnPId     *pnpId;
 @property (readonly, nonatomic) NSString *pnpIdString;
 
 @end
