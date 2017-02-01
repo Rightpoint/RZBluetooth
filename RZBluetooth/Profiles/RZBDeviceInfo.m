@@ -50,6 +50,11 @@ const int    kOUIDShift             = 40;
     return [NSString stringWithFormat:@"%06X-%010llX", self.ouid, self.manufacturerId];
 }
 
+- (NSData *)characteristicValue
+{
+    return [RZBSystemId dataForKey:@"systemId" fromValue:self];
+}
+
 @end
 
 // MARK: -
@@ -61,7 +66,7 @@ const int    kOUIDShift             = 40;
     NSAssert([key isEqualToString:@"pnpId"], @"Unexpected key for RZBPnPId: %@", key);
 
     RZBPnPId *pnpId = [[RZBPnPId alloc] init];
-    RZBVendorIdSource rawVendorIdSource = reserved;
+    RZBVendorIdSource rawVendorIdSource = RZBVendorIdSourceReserved;
     UInt16 rawId = 0;
     int position = 0, len = sizeof(rawVendorIdSource);
     [data getBytes:&rawVendorIdSource range:NSMakeRange(position, len)];
@@ -113,6 +118,11 @@ const int    kOUIDShift             = 40;
             ];
 }
 
+- (NSData *)characteristicValue
+{
+    return [RZBPnPId dataForKey:@"pnpId" fromValue:self];
+}
+
 @end
 
 // MARK: -
@@ -147,8 +157,7 @@ const int    kOUIDShift             = 40;
     if ([key isEqualToString:@"systemId"]) {
         return [RZBSystemId valueForKey:key fromData:data];
     }
-    else
-    if ([key isEqualToString:@"pnpId"]) {
+    else if ([key isEqualToString:@"pnpId"]) {
         return [RZBPnPId valueForKey:key fromData:data];
     }
     else {
@@ -161,8 +170,7 @@ const int    kOUIDShift             = 40;
     if ([key isEqualToString:@"systemId"]) {
         return [RZBSystemId dataForKey:key fromValue:value];
     }
-    else
-    if ([key isEqualToString:@"pnpId"]) {
+    else if ([key isEqualToString:@"pnpId"]) {
         return [RZBPnPId dataForKey:key fromValue:value];
     }
     else {

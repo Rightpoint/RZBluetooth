@@ -43,7 +43,7 @@
     systemId.manufacturerId =  0x0304050607;
     
     RZBPnPId *pnpId = [[RZBPnPId alloc] init];
-    pnpId.vendorIdSource = bluetoothSig;
+    pnpId.vendorIdSource = RZBVendorIdSourceBluetoothSig;
     pnpId.vendorId       = 0x0123;
     pnpId.productId      = 0x0456;
     pnpId.productVersion = 0x0789;

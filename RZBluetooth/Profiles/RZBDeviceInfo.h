@@ -18,17 +18,20 @@
 /// 24-bit Organizationally Unique Identifier aka Company Identifier assigned by IEEE
 @property (assign, nonatomic) UInt32 ouid;
 
+/// Returns an `NSData` object containing the receiver's encoded characteristic value.
+- (NSData *)characteristicValue;
+
 @end
 
 /// Options for RZBPnPId.vendorIdSource property
-typedef enum _RZBVendorIdSource : UInt8 {
+typedef NS_ENUM(UInt8, RZBVendorIdSource) {
     /// Reserved for future use
-    reserved = 0,
+    RZBVendorIdSourceReserved = 0,
     /// Vendor ID is a Company Identifier assigned by Bluetooth SIG
-    bluetoothSig = 1,
+    RZBVendorIdSourceBluetoothSig = 1,
     /// Vendor ID is assigned by USB Implementer's Forum
-    usbImplementersForum = 2
-} RZBVendorIdSource;
+    RZBVendorIdSourceUSBImplementersForum = 2
+};
 
 /// Object representing a Bluetooth PnP ID
 /// (See https://www.bluetooth.com/specifications/gatt/viewer?attributeXmlFile=org.bluetooth.characteristic.pnp_id.xml)
@@ -43,6 +46,9 @@ typedef enum _RZBVendorIdSource : UInt8 {
 /// 16-bit Product version number assigned by vendor
 @property (assign, nonatomic) UInt16 productVersion;
 
+/// Returns an `NSData` object containing the receiver's encoded characteristic value.
+- (NSData *)characteristicValue;
+
 @end
 
 @interface RZBDeviceInfo : NSObject <RZBBluetoothRepresentable>
@@ -54,10 +60,10 @@ typedef enum _RZBVendorIdSource : UInt8 {
 @property (copy, nonatomic) NSString *firmwareRevision;
 @property (copy, nonatomic) NSString *softwareRevision;
 
-@property (strong, nonatomic) RZBSystemId  *systemId;
-@property (readonly, nonatomic) NSString *systemIdString;
+@property (strong, nonatomic) RZBSystemId *systemId;
+@property (readonly, nonatomic) NSString  *systemIdString;
 
-@property (strong, nonatomic) RZBPnPId     *pnpId;
+@property (strong, nonatomic) RZBPnPId   *pnpId;
 @property (readonly, nonatomic) NSString *pnpIdString;
 
 @end
