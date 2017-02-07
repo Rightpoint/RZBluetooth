@@ -52,6 +52,41 @@
     [self.centralManager stopScan];
 }
 
+- (void)testScanWithDisconnect
+{
+    XCTestExpectation *connected = [self expectationWithDescription:@"Peripheral connected"];
+    __block RZBPeripheral *peripheral = nil;
+
+    [self.centralManager scanForPeripheralsWithServices:nil
+                                                options:nil
+                                 onDiscoveredPeripheral:^(RZBScanInfo *scanInfo, NSError *error) {
+                                     XCTAssertNil(peripheral);
+                                     XCTAssertNil(error);
+                                     peripheral = scanInfo.peripheral;
+                                     peripheral.connectionDelegate = self;
+
+                                     [peripheral connectWithCompletion:^(NSError * _Nullable connectError) {
+                                         XCTAssertNil(connectError);
+                                         [connected fulfill];
+                                     }];
+                                 }];
+    [self.device.peripheralManager startAdvertising:@{}];
+
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+
+    XCTAssert(self.connectCount == 1);
+    self.connection.cancelConncetionCallback.injectError = [NSError rzb_connectionError];
+    self.connection.connectable = NO;
+
+    [self waitForQueueFlush];
+    XCTAssert(self.connectCount == 1);
+    XCTAssert(self.disconnectCount == 1);
+
+    [self.centralManager stopScan];
+
+    [self waitForQueueFlush];
+}
+
 - (void)testConnection
 {
     XCTestExpectation *connected = [self expectationWithDescription:@"Peripheral will connect"];
