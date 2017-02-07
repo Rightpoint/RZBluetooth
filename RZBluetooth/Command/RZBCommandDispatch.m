@@ -149,6 +149,7 @@
              withObject:(id)object
                   error:(NSError *)error
 {
+    NSParameterAssert(command);
     [command completeWithObject:object error:&error];
     NSPredicate *dependentPredicate = [NSPredicate predicateWithBlock:^BOOL(RZBCommand *otherCommand, NSDictionary *bindings) {
         return otherCommand.retryAfter == command;
