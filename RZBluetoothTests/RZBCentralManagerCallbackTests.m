@@ -264,8 +264,10 @@ static NSString *const RZBTestString = @"StringValue";
 - (void)testScan
 {
     NSMutableArray *values = [NSMutableArray array];
-    [self.centralManager scanForPeripheralsWithServices:@[CBUUID.sUUID]
-                                                options:nil
+    NSDictionary* options = @{ CBCentralManagerScanOptionAllowDuplicatesKey: @YES };
+    NSArray* services = @[CBUUID.sUUID];
+    [self.centralManager scanForPeripheralsWithServices:services
+                                                options:options
                                  onDiscoveredPeripheral:^(RZBScanInfo *scanInfo, NSError *error)
      {
          [values addObject:scanInfo.peripheral.identifier];
@@ -276,6 +278,12 @@ static NSString *const RZBTestString = @"StringValue";
 
     RZBAssertCommandCount(1);
     RZBAssertHasCommand(RZBScanCommand, nil, NO);
+    
+    RZBScanCommand* cmd = (RZBScanCommand *)[self.centralManager.dispatch commandOfClass:[RZBScanCommand class]
+                                                                        matchingUUIDPath:nil
+                                                                               createNew:NO];
+    XCTAssertEqual(cmd.scanOptions, options);
+    XCTAssertEqual(cmd.serviceUUIDs, services);
 
     // Turn the power on and ensure that a scan command is created and triggered
     // the proper CB method
