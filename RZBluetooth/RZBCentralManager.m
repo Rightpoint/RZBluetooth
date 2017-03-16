@@ -79,6 +79,7 @@
                                        matchingUUIDPath:nil
                                               createNew:YES];
     cmd.serviceUUIDs = serviceUUIDs;
+    cmd.scanOptions = options;
     [cmd addCallbackBlock:^(id object, NSError *error) {
         if (error) {
             scanBlock(nil, error);
