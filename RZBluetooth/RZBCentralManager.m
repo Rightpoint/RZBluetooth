@@ -158,8 +158,10 @@
                               error:(NSError *)error
 {
     NSArray *commands = [self.dispatch commandsOfClass:cls matchingUUIDPath:UUIDPath isExecuted:YES];
-    RZBCommand *command = commands.firstObject;
-    [self.dispatch completeCommand:command withObject:object error:error];
+    RZBCommand *cmd = commands.firstObject;
+    if (cmd) {
+        [self.dispatch completeCommand:cmd withObject:object error:error];
+    }
 
     return commands.count > 0;
 }
