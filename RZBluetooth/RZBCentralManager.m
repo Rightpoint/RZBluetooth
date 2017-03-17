@@ -297,8 +297,11 @@
 
 //- (void)peripheralDidUpdateName:(CBPeripheral *)peripheral {}
 
-// Nothing needs to be done here, everything will be re-discovered automatically
-//- (void)peripheral:(CBPeripheral *)peripheral didModifyServices:(NSArray *)invalidatedServices {}
+// Nothing needs to be done here, everything will be re-discovered automatically. Send the event to the log system.
+- (void)peripheral:(CBPeripheral *)peripheral didModifyServices:(NSArray *)invalidatedServices {
+    RZBLogDelegate(@"%@ - %@ %@", NSStringFromSelector(_cmd), RZBLogIdentifier(peripheral), invalidatedServices);
+}
+
 #if TARGET_OS_OSX
 - (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(nullable NSError *)error
 {
