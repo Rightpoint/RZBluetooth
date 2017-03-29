@@ -389,9 +389,9 @@
 
     RZBUUIDPath *path = RZBUUIDP(corePeripheral.identifier, characteristic.service.UUID, characteristic.UUID);
     BOOL complete = [self completeFirstCommandOfClass:[RZBNotifyCharacteristicCommand class]
-                     matchingUUIDPath:path
-                           withObject:characteristic
-                                error:error];
+                                     matchingUUIDPath:path
+                                           withObject:characteristic
+                                                error:error];
     
     if (!complete && !characteristic.isNotifying) {
         RZBPeripheral *peripheral = [self peripheralForCorePeripheral:corePeripheral];
