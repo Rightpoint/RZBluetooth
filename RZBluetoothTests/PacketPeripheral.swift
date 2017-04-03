@@ -11,9 +11,9 @@ import Foundation
 class PacketPeripheral: RZBPeripheral {
     var packets: [Packet] = []
 
-    func setPacketObserver(newPacket: (Packet) -> Void) {
-        enableNotifyForCharacteristicUUID(PacketUUID.fromDevice, serviceUUID: PacketUUID.service, onUpdate: { characteristic, error in
-            if let characteristic = characteristic, data = characteristic.value {
+    func setPacketObserver(_ newPacket: @escaping (Packet) -> Void) {
+        enableNotify(forCharacteristicUUID: PacketUUID.fromDevice, serviceUUID: PacketUUID.service, onUpdate: { characteristic, error in
+            if let characteristic = characteristic, let data = characteristic.value {
                 newPacket(Packet.fromData(data))
             }
             else if let error = error {
@@ -26,8 +26,8 @@ class PacketPeripheral: RZBPeripheral {
         })
     }
 
-    func writePacket(packet: Packet) {
-        writeData(packet.data, characteristicUUID: PacketUUID.toDevice, serviceUUID: PacketUUID.service)
+    func writePacket(_ packet: Packet) {
+        write(packet.data, characteristicUUID: PacketUUID.toDevice, serviceUUID: PacketUUID.service)
     }
 
 }
