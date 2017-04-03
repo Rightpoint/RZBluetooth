@@ -9,60 +9,61 @@
 import Foundation
 
 enum Packet {
-    case Ping
-    case Divide(value: Int8, by: Int8)
-    case DivideResponse(value: Int8)
-    case Invalid
+    case ping
+    case divide(value: Int8, by: Int8)
+    case divideResponse(value: Int8)
+    case invalid
 }
 
 extension Packet {
 
     var commandValue: UInt8 {
         switch self {
-        case .Ping:
+        case .ping:
             return 0
-        case .Divide(_, _):
+        case .divide(_, _):
             return 1
-        case .DivideResponse(_):
+        case .divideResponse(_):
             return 2
-        case .Invalid:
+        case .invalid:
             return UInt8.max
         }
     }
 
-    var data: NSData {
+    var data: Data {
         let data = NSMutableData()
         var c = commandValue
-        data.appendBytes(&c, length: 1)
+        data.append(&c, length: 1)
         switch self {
-        case .Ping:
+        case .ping:
             break
-        case .Divide(var value, var by):
-            data.appendBytes(&value, length: 1)
-            data.appendBytes(&by, length: 1)
-        case .DivideResponse(var value):
-            data.appendBytes(&value, length: 1)
-        case .Invalid:
+        case .divide(var value, var by):
+            data.append(&value, length: 1)
+            data.append(&by, length: 1)
+        case .divideResponse(var value):
+            data.append(&value, length: 1)
+        case .invalid:
             break
         }
-        return data
+        return data as Data
     }
 
-    static func fromData(data: NSData) -> Packet {
+    static func fromData(_ data: Data) -> Packet {
         let packet: Packet
+        let nsData = data as NSData
         var command: UInt8 = 0
-        data.getBytes(&command, length: 1)
+        nsData.getBytes(&command, length: 1)
         switch command {
         case 0:
-            packet = .Ping
+            packet = .ping
         case 1:
             var value: Int8 = 0
             var by: Int8 = 0
-            data.getBytes(&value, range:NSMakeRange(1, 1))
-            data.getBytes(&by, range:NSMakeRange(2, 1))
-            packet = .Divide(value: value, by: by)
+            nsData.getBytes(&value, range:NSMakeRange(1, 1))
+            nsData.getBytes(&by, range:NSMakeRange(2, 1))
+            packet = .divide(value: value, by: by)
         default:
-            packet = .Invalid
+            packet = .invalid
         }
         return packet
     }

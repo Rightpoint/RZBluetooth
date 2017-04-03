@@ -13,47 +13,47 @@ class SimulatedPacketDevice: RZBSimulatedDevice {
     var autoResponse = true
 
     let service = CBMutableService(type: PacketUUID.service, primary: true)
-    let toDevice = CBMutableCharacteristic(type: PacketUUID.toDevice, properties: [.Write], value: nil, permissions: [.Writeable])
-    let fromDevice = CBMutableCharacteristic(type: PacketUUID.fromDevice, properties: [.Notify], value: nil, permissions: [.Readable])
+    let toDevice = CBMutableCharacteristic(type: PacketUUID.toDevice, properties: [.write], value: nil, permissions: [.writeable])
+    let fromDevice = CBMutableCharacteristic(type: PacketUUID.fromDevice, properties: [.notify], value: nil, permissions: [.readable])
 
-    override init(queue: dispatch_queue_t?, options: [NSObject : AnyObject]) {
+    override init(queue: DispatchQueue?, options: [AnyHashable: Any]) {
         super.init(queue: queue, options: options)
 
         service.characteristics = [toDevice, fromDevice]
         addService(service)
 
-        addWriteCallbackForCharacteristicUUID(PacketUUID.toDevice) { [weak self] request -> CBATTError in
-            if let strongSelf = self, value = request.value {
+        addWriteCallback(forCharacteristicUUID: PacketUUID.toDevice) { [weak self] request -> CBATTError.Code in
+            if let strongSelf = self, let value = request.value {
                 let pkt = Packet.fromData(value)
                 strongSelf.handlePacket(pkt)
             }
-            return .Success
+            return .success
         }
 
     }
 
-    func handlePacket(packet: Packet) {
+    func handlePacket(_ packet: Packet) {
         packetHistory.append(packet)
         guard autoResponse == true else {
             return
         }
 
         switch packet {
-        case .Ping:
+        case .ping:
             writePacket(packet)
-        case let .Divide(value, by):
+        case let .divide(value, by):
             if by > 0 {
-                writePacket(.DivideResponse(value: value / by))
+                writePacket(.divideResponse(value: value / by))
             }
             else {
-                writePacket(.Invalid)
+                writePacket(.invalid)
             }
         default:
             print("Ignoring \(packet)")
         }
     }
 
-    func writePacket(packet: Packet) {
-        peripheralManager.updateValue(packet.data, forCharacteristic: fromDevice, onSubscribedCentrals: nil)
+    func writePacket(_ packet: Packet) {
+        peripheralManager.updateValue(packet.data, for: fromDevice, onSubscribedCentrals: nil)
     }
 }
