@@ -23,6 +23,6 @@ typedef NS_ENUM(NSUInteger, RZBluetoothError) {
 };
 
 FOUNDATION_EXPORT NSString *const RZBluetoothUndiscoveredUUIDsKey;
-FOUNDATION_EXPORT NSError *RZBluetoothErrorForState(CBManagerState state);
+FOUNDATION_EXPORT NSError *__nullable RZBluetoothErrorForState(CBManagerState state);
 
 NS_ASSUME_NONNULL_END
