@@ -260,7 +260,7 @@
     __block NSString *newStaticValue  = @"foobar";
     __block NSString *dynamicValue    = @"expected";
     
-    CBUUID *uuid = [CBUUID UUIDWithString:@"E2A05461"];
+    CBUUID *uuid = [CBUUID UUIDWithString:@"AC764575-B8D2-4DB0-9D04-D8A7F270CE8B"];
     CBMutableService *testService = [[CBMutableService alloc] initWithType:uuid primary:YES];
     
     CBUUID *staticUUID = [CBUUID UUIDWithString:@"18266046"];
