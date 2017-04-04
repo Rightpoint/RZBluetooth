@@ -31,6 +31,7 @@
         _readRequests = [NSMutableArray array];
         _writeRequests = [NSMutableArray array];
         _subscribedCharacteristics = [NSMutableArray array];
+        _staticCharacteristicValues = [NSMutableDictionary dictionary];
 
         self.scanCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
         self.scanCallback.paused = YES;
@@ -154,6 +155,35 @@
     return request;
 }
 
+- (void)setStaticValue:(NSData * _Nullable)value forCharacteristic:(CBCharacteristic *)characteristic
+{
+    CBUUID *outerKey = characteristic.service.UUID;
+    CBUUID *innerKey = characteristic.UUID;
+    NSMutableDictionary* staticValueDictionary = self.staticCharacteristicValues[outerKey];
+    if (staticValueDictionary == nil) {
+        staticValueDictionary = [NSMutableDictionary dictionary];
+    }
+    if (value == nil) {
+        [staticValueDictionary removeObjectForKey:innerKey];
+    }
+    else {
+        staticValueDictionary[innerKey] = value;
+    }
+    self.staticCharacteristicValues[outerKey] = staticValueDictionary;
+}
+
+- (NSData * _Nullable)staticValueForCharacteristic:(CBCharacteristic *)characteristic
+{
+    NSData *value = nil;
+    CBUUID *outerKey = characteristic.service.UUID;
+    CBUUID *innerKey = characteristic.UUID;
+    NSDictionary* staticValueDictionary = self.staticCharacteristicValues[outerKey];
+    if (staticValueDictionary != nil) {
+        value = staticValueDictionary[innerKey];
+    }
+    return value;
+}
+
 #pragma mark - RZBMockPeripheralDelegate
 
 - (void)mockPeripheral:(RZBMockPeripheral *)peripheral discoverServices:(NSArray *)serviceUUIDs
@@ -192,13 +222,14 @@
     typeof(self) weakSelf = self;
     [self.readCharacteristicCallback dispatch:^(NSError *injectedError) {
         if (injectedError == nil) {
-            if (characteristic.value == nil) {
+            NSData* staticValue = [self staticValueForCharacteristic:characteristic];
+            if (staticValue == nil) {
                 CBATTRequest *readRequest = [weakSelf requestForCharacteristic:characteristic];
                 [weakSelf.readRequests addObject:readRequest];
                 [weakSelf.peripheralManager fakeReadRequest:readRequest];
             }
             else {
-                [peripheral fakeCharacteristic:characteristic updateValue:characteristic.value error:nil];
+                [peripheral fakeCharacteristic:characteristic updateValue:staticValue error:nil];
             }
         }
         else {
@@ -327,12 +358,29 @@
 
 // These [c|sh]ould drive peripheral:didModifyServices:
 - (void)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager addService:(CBMutableService *)service
-{}
+{
+    // Check for static characteristic values provided when the service is added.
+    for (CBMutableCharacteristic *characteristic in service.characteristics) {
+        NSAssert([characteristic isKindOfClass:[CBMutableCharacteristic class]], @"");
+        if (characteristic.value != nil) {
+            [self setStaticValue:characteristic.value forCharacteristic:characteristic];
+        }
+    }
+}
 
 - (void)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager removeService:(CBMutableService *)service
-{}
+{
+    // Clear any static characteristic values associated with the removed service.
+    for (CBMutableCharacteristic *characteristic in service.characteristics) {
+        NSAssert([characteristic isKindOfClass:[CBMutableCharacteristic class]], @"");
+        [self setStaticValue:nil forCharacteristic:characteristic];
+    }
+}
 
 - (void)mockPeripheralManagerRemoveAllServices:(RZBMockPeripheralManager *)peripheralManager
-{}
+{
+    // Clear all static characteristic values.
+    [self.staticCharacteristicValues removeAllObjects];
+}
 
 @end
