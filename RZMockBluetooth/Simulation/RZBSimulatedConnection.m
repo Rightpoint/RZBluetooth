@@ -160,6 +160,9 @@
     CBUUID *outerKey = characteristic.service.UUID;
     CBUUID *innerKey = characteristic.UUID;
     NSMutableDictionary* staticValueDictionary = self.staticCharacteristicValues[outerKey];
+    if (staticValueDictionary == nil && value == nil) {
+        return;
+    }
     if (staticValueDictionary == nil) {
         staticValueDictionary = [NSMutableDictionary dictionary];
     }
@@ -169,7 +172,12 @@
     else {
         staticValueDictionary[innerKey] = value;
     }
-    self.staticCharacteristicValues[outerKey] = staticValueDictionary;
+    if (staticValueDictionary.count == 0) {
+        [self.staticCharacteristicValues removeObjectForKey:outerKey];
+    }
+    else {
+        self.staticCharacteristicValues[outerKey] = staticValueDictionary;
+    }
 }
 
 - (NSData * _Nullable)staticValueForCharacteristic:(CBCharacteristic *)characteristic
@@ -370,11 +378,8 @@
 
 - (void)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager removeService:(CBMutableService *)service
 {
-    // Clear any static characteristic values associated with the removed service.
-    for (CBMutableCharacteristic *characteristic in service.characteristics) {
-        NSAssert([characteristic isKindOfClass:[CBMutableCharacteristic class]], @"");
-        [self setStaticValue:nil forCharacteristic:characteristic];
-    }
+    // Clear static characteristic values associated with the removed service.
+    [self.staticCharacteristicValues removeObjectForKey:service.UUID];
 }
 
 - (void)mockPeripheralManagerRemoveAllServices:(RZBMockPeripheralManager *)peripheralManager
