@@ -47,19 +47,25 @@
 
 - (void)addService:(CBMutableService *)service
 {
-    [self.services addObject:service];
+    @synchronized (self.services) {
+        [self.services addObject:service];
+    }
     [self.mockDelegate mockPeripheralManager:self addService:service];
 }
 
 - (void)removeService:(CBMutableService *)service
 {
-    [self.services removeObject:service];
+    @synchronized (self.services) {
+        [self.services removeObject:service];
+    }
     [self.mockDelegate mockPeripheralManager:self removeService:service];
 }
 
 - (void)removeAllServices
 {
-    [self.services removeAllObjects];
+    @synchronized (self.services) {
+        [self.services removeAllObjects];
+    }
     [self.mockDelegate mockPeripheralManagerRemoveAllServices:self];
 }
 
