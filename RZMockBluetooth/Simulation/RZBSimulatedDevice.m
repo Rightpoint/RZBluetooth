@@ -115,6 +115,16 @@
     }];
 }
 
+- (void)removeService:(CBMutableService *)service
+{
+    @synchronized (self.services) {
+        [[self mutableArrayValueForKey:@"services"] removeObject:service];
+    }
+    [self performPeripheralAction:^{
+        [self.peripheralManager removeService:service];
+    }];
+}
+
 - (void)addBluetoothRepresentable:(id<RZBBluetoothRepresentable>)bluetoothRepresentable isPrimary:(BOOL)isPrimary
 {
     NSParameterAssert(bluetoothRepresentable);
@@ -146,6 +156,30 @@
     NSParameterAssert(handler);
     @synchronized (self.subscribeHandlers) {
         self.subscribeHandlers[characteristicUUID] = [handler copy];
+    }
+}
+
+- (void)removeReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID
+{
+    NSParameterAssert(characteristicUUID);
+    @synchronized (self.readHandlers) {
+        [self.readHandlers removeObjectForKey:characteristicUUID];
+    }
+}
+
+- (void)removeWriteCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID
+{
+    NSParameterAssert(characteristicUUID);
+    @synchronized (self.writeHandlers) {
+        [self.writeHandlers removeObjectForKey:characteristicUUID];
+    }
+}
+
+- (void)removeSubscribeCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID
+{
+    NSParameterAssert(characteristicUUID);
+    @synchronized (self.subscribeHandlers) {
+        [self.subscribeHandlers removeObjectForKey:characteristicUUID];
     }
 }
 
