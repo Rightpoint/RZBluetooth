@@ -377,12 +377,12 @@
     RZBLogDelegateValue(@"Notify=%@", characteristic.isNotifying ? @"YES" : @"NO");
 
     RZBUUIDPath *path = RZBUUIDP(corePeripheral.identifier, characteristic.service.UUID, characteristic.UUID);
-    [self completeFirstCommandOfClass:[RZBNotifyCharacteristicCommand class]
+    BOOL complete = [self completeFirstCommandOfClass:[RZBNotifyCharacteristicCommand class]
                      matchingUUIDPath:path
                            withObject:characteristic
                                 error:error];
     
-    if(!characteristic.isNotifying) {
+    if(!complete && !characteristic.isNotifying) {
         RZBPeripheral *peripheral = [self peripheralForCorePeripheral:corePeripheral];
         [peripheral setNotifyBlock:nil forCharacteristicUUID:characteristic.UUID];
     }
