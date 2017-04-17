@@ -187,6 +187,15 @@ characteristicUUID:(CBUUID *)characteristicUUID
  */
 @property (nonatomic) BOOL maintainConnection;
 
+
+/**
+ * This will make it so that the `onUpdate` callback when you enable notify for a 
+ * characteristic get's called an additional time with the error RZBluetoothNotifyUnsubscribed
+ * when the notification is cancelled due to a disconnect or clear notification. 
+ * Defaults to NO
+ */
+@property (nonatomic) BOOL notifyUnsubscription;
+
 /**
  * This method drives RZBPeripheralConnectionDelegate and the maintainConnection behavior.
  * This method is public in case a subclass intends to implement more nuanced connection

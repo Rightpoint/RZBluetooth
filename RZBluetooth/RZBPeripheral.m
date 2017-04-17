@@ -7,6 +7,7 @@
 //
 
 #import "RZBPeripheral+Private.h"
+#import "RZBErrors.h"
 
 @implementation RZBPeripheral
 
@@ -34,7 +35,13 @@
         self.notifyBlockByUUID[characteristicUUID] = [notifyBlock copy];
     }
     else {
+        RZBCharacteristicBlock block = self.notifyBlockByUUID[characteristicUUID];
         [self.notifyBlockByUUID removeObjectForKey:characteristicUUID];
+        if(block && self.notifyUnsubscription) {
+            block(nil, [NSError errorWithDomain:RZBluetoothErrorDomain
+                                           code:RZBluetoothNotifyUnsubscribed
+                                       userInfo:nil]);
+        }
     }
 }
 
