@@ -9,7 +9,7 @@
 import Foundation
 
 struct PacketUUID {
-    static let service = CBUUID(NSUUID: NSUUID())
-    static let toDevice = CBUUID(NSUUID: NSUUID())
-    static let fromDevice = CBUUID(NSUUID: NSUUID())
+    static let service = CBUUID(nsuuid: UUID())
+    static let toDevice = CBUUID(nsuuid: UUID())
+    static let fromDevice = CBUUID(nsuuid: UUID())
 }

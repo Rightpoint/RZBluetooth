@@ -14,7 +14,6 @@
 
 #import "RZBMockCentralManager.h"
 #import "RZBMockPeripheralManager.h"
-#import "RZBMockPeripheralManager.h"
 
 #import "RZBSimulatedDevice.h"
 #import "RZBSimulatedCentral.h"
@@ -22,7 +21,6 @@
 #import "RZBSimulatedCallback.h"
 
 #import "NSError+RZBMock.h"
-#import "RZBTestDefines.h"
 
 /**
  *  The RZBSimulatedTestCase is a convience class to assist testing bluetooth code.

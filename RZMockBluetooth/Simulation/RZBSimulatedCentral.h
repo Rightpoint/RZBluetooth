@@ -66,14 +66,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (RZBSimulatedConnection *__nullable)connectionForIdentifier:(NSUUID *)identifier;
 
-/**
- * Spin the runloop until all connections in the central are idle, or the timeout is exceeded.
- * This will also dispatch blocks on all of the queue's and wait for them to be serviced
- *
- * This method returns YES if idle occurs before the timeout, or NO if the waiting timed out.
- */
-- (BOOL)waitForIdleWithTimeout:(NSUInteger)timeout;
-
 @end
 
 NS_ASSUME_NONNULL_END

@@ -1,7 +1,10 @@
-platform :ios, '8.1'
-pod 'RZBluetooth', :path => "../"
+platform :ios, '9.0'
+target "RZBluetoothExample" do
+    pod 'RZBluetooth', :path => "../"
+end
 
 target "RZBluetoothExampleUITests" do
+    pod 'RZBluetooth', :path => "../"
     pod 'RZBluetooth/Mock', :path => "../"
     pod 'RZBluetooth/Test', :path => "../"
 end

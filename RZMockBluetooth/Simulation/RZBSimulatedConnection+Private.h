@@ -17,11 +17,20 @@
 
 - (BOOL)isDiscoverableWithServices:(NSArray *)services;
 
-- (void)cancelSimulatedCallbacks;
-
 @property (strong, nonatomic, readonly) NSMutableArray *readRequests;
 @property (strong, nonatomic, readonly) NSMutableArray *writeRequests;
 @property (strong, nonatomic, readonly) NSMutableArray *subscribedCharacteristics;
+
+/**
+ Dictionary of dictionaries of static characteristic values
+ provided by the service when it is added to the peripheral.
+ Read handlers for static characteristics on simulated devices
+ will never be called.
+ 
+ Outer dictionary key is the service UUID.
+ Inner dictionary key is the characteristic UUID.
+ */
+@property (strong, nonatomic, readonly) NSMutableDictionary *staticCharacteristicValues;
 
 @property (weak, nonatomic, readonly) RZBSimulatedCentral *central;
 @property (strong, nonatomic) RZBMockPeripheral *peripheral;

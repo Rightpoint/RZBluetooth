@@ -21,7 +21,7 @@
         self.queue = queue ? queue : dispatch_get_main_queue();
         self.options = options;
         self.peripheralsByUUID = [NSMutableDictionary dictionary];
-        self.state = CBCentralManagerStateUnknown;
+        self.state = CBManagerStateUnknown;
         _isScanning = false;
     }
     return self;
@@ -69,16 +69,31 @@
 
 - (void)cancelPeripheralConnection:(RZBMockPeripheral *)peripheral
 {
+#if TARGET_OS_IOS
     peripheral.state = CBPeripheralStateDisconnecting;
+#endif
     [self.mockDelegate mockCentralManager:self cancelPeripheralConnection:peripheral];
+}
+
+- (void)performFakeAction:(void(^)(void))block
+{
+    @synchronized (self) {
+        self.fakeActionCount += 1;
+    }
+    dispatch_async(self.queue, ^{
+        block();
+        @synchronized (self) {
+            self.fakeActionCount -= 1;
+        }
+    });
 }
 
 - (void)fakeStateChange:(CBManagerState)state
 {
-    dispatch_async(self.queue, ^{
+    [self performFakeAction:^{
         self.state = state;
         [self.delegate centralManagerDidUpdateState:(id)self];
-    });
+    }];
 }
 
 - (void)fakeScanPeripheralWithUUID:(NSUUID *)peripheralUUID
@@ -86,15 +101,15 @@
                               RSSI:(NSNumber *)RSSI
 {
     RZBMockPeripheral *peripheral = [self peripheralForUUID:peripheralUUID];
-    dispatch_async(self.queue, ^{
+    [self performFakeAction:^{
         [self.delegate centralManager:(id)self didDiscoverPeripheral:(id)peripheral advertisementData:info RSSI:RSSI];
-    });
+    }];
 }
 
 - (void)fakeConnectPeripheralWithUUID:(NSUUID *)peripheralUUID error:(NSError *)error
 {
     RZBMockPeripheral *peripheral = [self peripheralForUUID:peripheralUUID];
-    dispatch_async(self.queue, ^{
+    [self performFakeAction:^{
         peripheral.state = error ? CBPeripheralStateDisconnected : CBPeripheralStateConnected;
         if (error) {
             [self.delegate centralManager:(id)self didFailToConnectPeripheral:(id)peripheral error:error];
@@ -102,16 +117,17 @@
         else {
             [self.delegate centralManager:(id)self didConnectPeripheral:(id)peripheral];
         }
-    });
+    }];
 }
 
 - (void)fakeDisconnectPeripheralWithUUID:(NSUUID *)peripheralUUID error:(NSError *)error
 {
     RZBMockPeripheral *peripheral = [self peripheralForUUID:peripheralUUID];
-    dispatch_async(self.queue, ^{
+    [self performFakeAction:^{
         peripheral.state = CBPeripheralStateDisconnected;
+        peripheral.services = @[];
         [self.delegate centralManager:(id)self didDisconnectPeripheral:(id)peripheral error:error];
-    });
+    }];
 }
 
 @end

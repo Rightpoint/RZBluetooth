@@ -7,6 +7,9 @@
 //
 
 #import "RZBSimulatedTestCase.h"
+#import "RZBPeripheral+RZBBattery.h"
+#import "RZBSimulatedDevice+RZBBatteryLevel.h"
+#import "CBUUID+RZBPublic.h"
 
 @interface RZBSimulatedTests : RZBSimulatedTestCase <RZBPeripheralConnectionDelegate>
 
@@ -47,6 +50,41 @@
 
     [self waitForExpectationsWithTimeout:5.0 handler:nil];
     [self.centralManager stopScan];
+}
+
+- (void)testScanWithDisconnect
+{
+    XCTestExpectation *connected = [self expectationWithDescription:@"Peripheral connected"];
+    __block RZBPeripheral *peripheral = nil;
+
+    [self.centralManager scanForPeripheralsWithServices:nil
+                                                options:nil
+                                 onDiscoveredPeripheral:^(RZBScanInfo *scanInfo, NSError *error) {
+                                     XCTAssertNil(peripheral);
+                                     XCTAssertNil(error);
+                                     peripheral = scanInfo.peripheral;
+                                     peripheral.connectionDelegate = self;
+
+                                     [peripheral connectWithCompletion:^(NSError * _Nullable connectError) {
+                                         XCTAssertNil(connectError);
+                                         [connected fulfill];
+                                     }];
+                                 }];
+    [self.device.peripheralManager startAdvertising:@{}];
+
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+
+    XCTAssert(self.connectCount == 1);
+    self.connection.cancelConncetionCallback.injectError = [NSError rzb_connectionError];
+    self.connection.connectable = NO;
+
+    [self waitForQueueFlush];
+    XCTAssert(self.connectCount == 1);
+    XCTAssert(self.disconnectCount == 1);
+
+    [self.centralManager stopScan];
+
+    [self waitForQueueFlush];
 }
 
 - (void)testConnection
@@ -116,8 +154,8 @@
     }];
     [self waitForQueueFlush];
 
-
     self.connection.connectable = YES;
+    [self waitForQueueFlush];
     XCTAssert(peripheral.state == CBPeripheralStateDisconnected);
 
     [self waitForExpectationsWithTimeout:5.0 handler:nil];
@@ -147,20 +185,166 @@
         // Disable the connection maintenance on the last iteration.
         if (i == TEST_COUNT - 1) {
             [p cancelConnectionWithCompletion:nil];
-            // Cancel will clear out the disconnect block so it should not be triggered.
-            [self waitForQueueFlush];
-            XCTAssert(self.disconnectCount == i + 1);
         }
         else {
             self.connection.connectable = NO;
-            [self waitForQueueFlush];
-            XCTAssert(self.disconnectCount == i + 1);
         }
+        [self waitForQueueFlush];
+        XCTAssert(self.disconnectCount == i + 1);
     }
     [self waitForQueueFlush];
     XCTAssert(p.state == CBPeripheralStateDisconnected);
     XCTAssert(self.connectFailureCount == 0);
+}
 
+- (void)testStateBounce
+{
+    [self.device addBatteryService];
+
+    // Configure the peripheral, set up the observer, and wait for connection
+    RZBPeripheral *p = [self.centralManager peripheralForUUID:self.connection.identifier];
+    XCTAssert(p.state == CBPeripheralStateDisconnected);
+    p.connectionDelegate = self;
+    p.maintainConnection = YES;
+    NSMutableArray *values = [NSMutableArray array];
+    [p addBatteryLevelObserver:^(NSUInteger level, NSError *error) {
+        [values addObject:@(level)];
+    } completion:^(NSError *error) {
+    }];
+    [self waitForQueueFlush];
+    XCTAssert(p.state == CBPeripheralStateConnected);
+
+    self.connection.connectable = NO;
+    [self waitForQueueFlush];
+    XCTAssert(p.state == CBPeripheralStateConnecting);
+
+    [self.mockCentralManager fakeStateChange:CBManagerStatePoweredOff];
+    [self.connection reset];
+    [self waitForQueueFlush];
+
+    [self.mockCentralManager fakeStateChange:CBManagerStatePoweredOn];
+    self.connection.connectable = YES;
+    [self waitForQueueFlush];
+
+    [p addBatteryLevelObserver:^(NSUInteger level, NSError *error) {
+        [values addObject:@(level)];
+    } completion:^(NSError *error) {
+    }];
+    [self waitForQueueFlush];
+    XCTAssert(p.state == CBPeripheralStateConnected);
+    
+    // Change the battery level and ensure the observer is notified of the new battery level
+    self.device.batteryLevel = 88;
+    [self waitForQueueFlush];
+    XCTAssertEqualObjects(values, @[@88]);
+
+}
+
+- (CBATTError)mockUpdateOnCharacteristicUUID:(CBUUID *)uuid withValue:(NSData *)value
+{
+    CBMutableCharacteristic* characteristic = [self.device characteristicForUUID:uuid];
+    if (characteristic != nil) {
+        if ([self.device.peripheralManager updateValue:value forCharacteristic:characteristic onSubscribedCentrals:nil]) {
+            return CBATTErrorSuccess;
+        }
+    }
+    return CBATTErrorRequestNotSupported;
+}
+
+- (void)testStaticCharacteristics
+{
+    __block int staticCallbackCount  = 0;
+    __block int dynamicCallbackCount = 0;
+    
+    NSString *staticValue = @"static";
+    __block NSString *newStaticValue  = @"foobar";
+    __block NSString *dynamicValue    = @"expected";
+    
+    CBUUID *uuid = [CBUUID UUIDWithString:@"AC764575-B8D2-4DB0-9D04-D8A7F270CE8B"];
+    CBMutableService *testService = [[CBMutableService alloc] initWithType:uuid primary:YES];
+    
+    CBUUID *staticUUID = [CBUUID UUIDWithString:@"18266046"];
+    CBMutableCharacteristic *staticChar = [[CBMutableCharacteristic alloc] initWithType:staticUUID
+                                                                             properties:CBCharacteristicPropertyRead
+                                                                                  value:[staticValue dataUsingEncoding:NSUTF8StringEncoding]
+                                                                            permissions:CBAttributePermissionsReadable];
+    CBUUID *dynamicUUID = [CBUUID UUIDWithString:@"35FF1332"];
+    CBMutableCharacteristic *dynamicChar = [[CBMutableCharacteristic alloc] initWithType:dynamicUUID
+                                                                              properties:CBCharacteristicPropertyRead
+                                                                                   value:nil
+                                                                             permissions:CBAttributePermissionsReadable];
+    testService.characteristics = @[staticChar, dynamicChar];
+    
+    [self.device addService:testService];
+    
+    __block typeof(self) welf = (id)self;
+    [self.device addReadCallbackForCharacteristicUUID:staticUUID handler:^CBATTError(CBATTRequest * _Nonnull request) {
+        staticCallbackCount++;
+        return [welf mockUpdateOnCharacteristicUUID:staticUUID withValue:[newStaticValue dataUsingEncoding:NSUTF8StringEncoding]];
+    }];
+    [self.device addReadCallbackForCharacteristicUUID:dynamicUUID handler:^CBATTError(CBATTRequest * _Nonnull request) {
+        dynamicCallbackCount++;
+        return [welf mockUpdateOnCharacteristicUUID:dynamicUUID withValue:[dynamicValue dataUsingEncoding:NSUTF8StringEncoding]];
+    }];
+    
+    // Configure the peripheral
+    RZBPeripheral *p = [self.centralManager peripheralForUUID:self.connection.identifier];
+    
+    // Read both static and dynamic characteristics
+    [p readCharacteristicUUID:staticUUID serviceUUID:testService.UUID completion:^(CBCharacteristic * _Nullable characteristic, NSError * _Nullable error) {
+        NSData *value = characteristic.value;
+        XCTAssertNotNil(value);
+        
+        NSString *string = [[NSString alloc] initWithData:value encoding:NSUTF8StringEncoding];
+        XCTAssertTrue([string isEqualToString:staticValue]);
+    }];
+    [p readCharacteristicUUID:dynamicUUID serviceUUID:testService.UUID completion:^(CBCharacteristic * _Nullable characteristic, NSError * _Nullable error) {
+        NSData *value = characteristic.value;
+        XCTAssertNotNil(value);
+        
+        NSString *string = [[NSString alloc] initWithData:value encoding:NSUTF8StringEncoding];
+        XCTAssertTrue([string isEqualToString:dynamicValue]);
+    }];
+    [self waitForQueueFlush];
+    
+    // Modify the dynamic value and try it again
+    dynamicValue   = @"updated";
+    [p readCharacteristicUUID:staticUUID serviceUUID:testService.UUID completion:^(CBCharacteristic * _Nullable characteristic, NSError * _Nullable error) {
+        NSData *value = characteristic.value;
+        XCTAssertNotNil(value);
+        
+        NSString *string = [[NSString alloc] initWithData:value encoding:NSUTF8StringEncoding];
+        XCTAssertTrue([string isEqualToString:staticValue]);
+    }];
+    [p readCharacteristicUUID:dynamicUUID serviceUUID:testService.UUID completion:^(CBCharacteristic * _Nullable characteristic, NSError * _Nullable error) {
+        NSData *value = characteristic.value;
+        XCTAssertNotNil(value);
+        
+        NSString *string = [[NSString alloc] initWithData:value encoding:NSUTF8StringEncoding];
+        XCTAssertTrue([string isEqualToString:dynamicValue]);
+    }];
+    [self waitForQueueFlush];
+    
+    // Remove the service and read callbacks and try it again
+    [self.device removeReadCallbackForCharacteristicUUID:staticUUID];
+    [self.device removeReadCallbackForCharacteristicUUID:dynamicUUID];
+    [self.device removeService:testService];
+
+    [p readCharacteristicUUID:staticUUID serviceUUID:testService.UUID completion:^(CBCharacteristic * _Nullable characteristic, NSError * _Nullable error) {
+        NSData *value = characteristic.value;
+        XCTAssertNil(value);
+        XCTAssertNotNil(error);
+    }];
+    [p readCharacteristicUUID:dynamicUUID serviceUUID:testService.UUID completion:^(CBCharacteristic * _Nullable characteristic, NSError * _Nullable error) {
+        NSData *value = characteristic.value;
+        XCTAssertNil(value);
+        XCTAssertNotNil(error);
+    }];
+    [self waitForQueueFlush];
+
+    XCTAssertEqual(staticCallbackCount,  0);
+    XCTAssertEqual(dynamicCallbackCount, 2);
+    
 }
 
 @end

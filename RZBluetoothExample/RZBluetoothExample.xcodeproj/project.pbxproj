@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9BA044D01D2E23927120EDA9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 917F1EEB2723A192BE979B8D /* libPods.a */; };
-		A433380A683A822E1422B94C /* libPods-RZBluetoothExampleUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 846C131369D74D0FFB5CD689 /* libPods-RZBluetoothExampleUITests.a */; };
+		44ED2DAFA04AE50B9E89BBB5 /* libPods-RZBluetoothExampleUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65F2DC6972B3C12060F2A04B /* libPods-RZBluetoothExampleUITests.a */; };
+		4E4A81B0B06CC5BB703DA54A /* libPods-RZBluetoothExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3169CA3C2D5B2980052A8DF2 /* libPods-RZBluetoothExample.a */; };
 		AB55E55C1B7E47F9009781B8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AB55E55B1B7E47F9009781B8 /* main.m */; };
 		AB55E55F1B7E47F9009781B8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AB55E55E1B7E47F9009781B8 /* AppDelegate.m */; };
 		AB55E5621B7E47F9009781B8 /* ServiceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB55E5611B7E47F9009781B8 /* ServiceListViewController.m */; };
@@ -31,11 +31,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1B0E3F5C315399AD7DF763D1 /* Pods-RZBluetoothExampleUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RZBluetoothExampleUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RZBluetoothExampleUITests/Pods-RZBluetoothExampleUITests.release.xcconfig"; sourceTree = "<group>"; };
-		34E629689CD10761550784B1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		846C131369D74D0FFB5CD689 /* libPods-RZBluetoothExampleUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RZBluetoothExampleUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8F266EF2A8D0BA8E44B7CAAF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		917F1EEB2723A192BE979B8D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3169CA3C2D5B2980052A8DF2 /* libPods-RZBluetoothExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RZBluetoothExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		52F5A3AFF6811E2C5B71E9A9 /* Pods-RZBluetoothExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RZBluetoothExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-RZBluetoothExample/Pods-RZBluetoothExample.release.xcconfig"; sourceTree = "<group>"; };
+		65F2DC6972B3C12060F2A04B /* libPods-RZBluetoothExampleUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RZBluetoothExampleUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8360952A98FA31784DC4BCF6 /* Pods-RZBluetoothExampleUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RZBluetoothExampleUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RZBluetoothExampleUITests/Pods-RZBluetoothExampleUITests.release.xcconfig"; sourceTree = "<group>"; };
+		98E5FFAFAA33FF3FE7A91F21 /* Pods-RZBluetoothExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RZBluetoothExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RZBluetoothExample/Pods-RZBluetoothExample.debug.xcconfig"; sourceTree = "<group>"; };
 		AB55E5571B7E47F9009781B8 /* RZBluetoothExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RZBluetoothExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB55E55B1B7E47F9009781B8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AB55E55D1B7E47F9009781B8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -54,7 +54,7 @@
 		AB7E1D561B7E7F8900D69159 /* HeartRateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeartRateViewController.h; sourceTree = "<group>"; };
 		AB7E1D571B7E7F8900D69159 /* HeartRateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeartRateViewController.m; sourceTree = "<group>"; };
 		AB7E1D581B7E7F8900D69159 /* HeartRateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeartRateViewController.xib; sourceTree = "<group>"; };
-		C84F254C9C7505F736F9E58F /* Pods-RZBluetoothExampleUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RZBluetoothExampleUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RZBluetoothExampleUITests/Pods-RZBluetoothExampleUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		ACBA63BF16E3154C58626A6A /* Pods-RZBluetoothExampleUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RZBluetoothExampleUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RZBluetoothExampleUITests/Pods-RZBluetoothExampleUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9BA044D01D2E23927120EDA9 /* libPods.a in Frameworks */,
+				4E4A81B0B06CC5BB703DA54A /* libPods-RZBluetoothExample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,29 +70,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A433380A683A822E1422B94C /* libPods-RZBluetoothExampleUITests.a in Frameworks */,
+				44ED2DAFA04AE50B9E89BBB5 /* libPods-RZBluetoothExampleUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3532B301E86FC118D92873EC /* Pods */ = {
+		799ACB0C1FF0CADA17491654 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				34E629689CD10761550784B1 /* Pods.debug.xcconfig */,
-				8F266EF2A8D0BA8E44B7CAAF /* Pods.release.xcconfig */,
-				C84F254C9C7505F736F9E58F /* Pods-RZBluetoothExampleUITests.debug.xcconfig */,
-				1B0E3F5C315399AD7DF763D1 /* Pods-RZBluetoothExampleUITests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		55C04F518FA9CCC25B86215D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				917F1EEB2723A192BE979B8D /* libPods.a */,
-				846C131369D74D0FFB5CD689 /* libPods-RZBluetoothExampleUITests.a */,
+				65F2DC6972B3C12060F2A04B /* libPods-RZBluetoothExampleUITests.a */,
+				3169CA3C2D5B2980052A8DF2 /* libPods-RZBluetoothExample.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -103,8 +92,8 @@
 				AB55E5591B7E47F9009781B8 /* RZBluetoothExample */,
 				AB55E5761B7E47F9009781B8 /* RZBluetoothExampleUITests */,
 				AB55E5581B7E47F9009781B8 /* Products */,
-				3532B301E86FC118D92873EC /* Pods */,
-				55C04F518FA9CCC25B86215D /* Frameworks */,
+				EB5CF2004E5E82BA41206798 /* Pods */,
+				799ACB0C1FF0CADA17491654 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -155,6 +144,17 @@
 			path = RZBluetoothExampleUITests;
 			sourceTree = "<group>";
 		};
+		EB5CF2004E5E82BA41206798 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				ACBA63BF16E3154C58626A6A /* Pods-RZBluetoothExampleUITests.debug.xcconfig */,
+				8360952A98FA31784DC4BCF6 /* Pods-RZBluetoothExampleUITests.release.xcconfig */,
+				98E5FFAFAA33FF3FE7A91F21 /* Pods-RZBluetoothExample.debug.xcconfig */,
+				52F5A3AFF6811E2C5B71E9A9 /* Pods-RZBluetoothExample.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -162,12 +162,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AB55E57C1B7E47F9009781B8 /* Build configuration list for PBXNativeTarget "RZBluetoothExample" */;
 			buildPhases = (
-				CC9E606673FAD72236E194CA /* Check Pods Manifest.lock */,
+				C6C659A595B516E28E2E21AB /* [CP] Check Pods Manifest.lock */,
 				AB55E5531B7E47F9009781B8 /* Sources */,
 				AB55E5541B7E47F9009781B8 /* Frameworks */,
 				AB55E5551B7E47F9009781B8 /* Resources */,
-				3DFABAA9D80FF1AC0AE1FFC2 /* Copy Pods Resources */,
-				0C9E44B3683FED4BE600CF0B /* Embed Pods Frameworks */,
+				BB6CAA39A95041751F7243A0 /* [CP] Embed Pods Frameworks */,
+				BA6B3F83310D40F65F67F5BF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -182,11 +182,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AB55E57F1B7E47F9009781B8 /* Build configuration list for PBXNativeTarget "RZBluetoothExampleUITests" */;
 			buildPhases = (
-				0BCA369D99C642596A33599E /* Check Pods Manifest.lock */,
+				53F7D47401CA16F38922ACD2 /* [CP] Check Pods Manifest.lock */,
 				AB55E56F1B7E47F9009781B8 /* Sources */,
 				AB55E5701B7E47F9009781B8 /* Frameworks */,
 				AB55E5711B7E47F9009781B8 /* Resources */,
-				8C5A137E9D820C9070BBC55C /* Copy Pods Resources */,
+				0C36C4D078581BBACD7108F7 /* [CP] Embed Pods Frameworks */,
+				179981B39C3CD6369997F1A5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -260,59 +261,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0BCA369D99C642596A33599E /* Check Pods Manifest.lock */ = {
+		0C36C4D078581BBACD7108F7 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RZBluetoothExampleUITests/Pods-RZBluetoothExampleUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		0C9E44B3683FED4BE600CF0B /* Embed Pods Frameworks */ = {
+		179981B39C3CD6369997F1A5 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3DFABAA9D80FF1AC0AE1FFC2 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8C5A137E9D820C9070BBC55C /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -320,19 +291,64 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RZBluetoothExampleUITests/Pods-RZBluetoothExampleUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CC9E606673FAD72236E194CA /* Check Pods Manifest.lock */ = {
+		53F7D47401CA16F38922ACD2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BA6B3F83310D40F65F67F5BF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RZBluetoothExample/Pods-RZBluetoothExample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BB6CAA39A95041751F7243A0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RZBluetoothExample/Pods-RZBluetoothExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C6C659A595B516E28E2E21AB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -452,7 +468,7 @@
 		};
 		AB55E57D1B7E47F9009781B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 34E629689CD10761550784B1 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 98E5FFAFAA33FF3FE7A91F21 /* Pods-RZBluetoothExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = RZBluetoothExample/Info.plist;
@@ -465,7 +481,7 @@
 		};
 		AB55E57E1B7E47F9009781B8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8F266EF2A8D0BA8E44B7CAAF /* Pods.release.xcconfig */;
+			baseConfigurationReference = 52F5A3AFF6811E2C5B71E9A9 /* Pods-RZBluetoothExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = RZBluetoothExample/Info.plist;
@@ -478,7 +494,7 @@
 		};
 		AB55E5801B7E47F9009781B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C84F254C9C7505F736F9E58F /* Pods-RZBluetoothExampleUITests.debug.xcconfig */;
+			baseConfigurationReference = ACBA63BF16E3154C58626A6A /* Pods-RZBluetoothExampleUITests.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = RZBluetoothExampleUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -491,7 +507,7 @@
 		};
 		AB55E5811B7E47F9009781B8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1B0E3F5C315399AD7DF763D1 /* Pods-RZBluetoothExampleUITests.release.xcconfig */;
+			baseConfigurationReference = 8360952A98FA31784DC4BCF6 /* Pods-RZBluetoothExampleUITests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = RZBluetoothExampleUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

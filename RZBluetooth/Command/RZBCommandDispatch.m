@@ -125,8 +125,7 @@
 - (void)executeCommand:(RZBCommand *)command
 {
     NSParameterAssert(command);
-    if (command.isExecuted ||
-        command.retryAfter != nil) {
+    if (command.isExecuted || command.isCompleted || command.retryAfter != nil) {
         return;
     }
     NSError *error = nil;
@@ -150,6 +149,7 @@
              withObject:(id)object
                   error:(NSError *)error
 {
+    NSParameterAssert(command);
     [command completeWithObject:object error:&error];
     NSPredicate *dependentPredicate = [NSPredicate predicateWithBlock:^BOOL(RZBCommand *otherCommand, NSDictionary *bindings) {
         return otherCommand.retryAfter == command;
@@ -173,21 +173,20 @@
 
 - (void)checkForExpiredCommands
 {
-    for (RZBCommand *command in [self synchronizedCommandsCopy]) {
+    for (__strong RZBCommand *command in [self synchronizedCommandsCopy]) {
         if (command.isExpired) {
-            [self expireCommand:command];
+            // Obtain the base command to expire
+            while (command.retryAfter) {
+                command = command.retryAfter;
+            }
+            // Complete the command with the error
+            NSError *expirationError = [NSError errorWithDomain:RZBluetoothErrorDomain
+                                                           code:RZBluetoothTimeoutError
+                                                       userInfo:nil];
+
+            [self completeCommand:command withObject:nil error:expirationError];
         }
     }
-}
-
-- (void)expireCommand:(RZBCommand *)command
-{
-    NSParameterAssert(command.isExpired);
-    NSError *expirationError = [NSError errorWithDomain:RZBluetoothErrorDomain
-                                                   code:RZBluetoothTimeoutError
-                                               userInfo:nil];
-
-    [self completeCommand:command withObject:nil error:expirationError];
 }
 
 @end

@@ -11,13 +11,13 @@ import Foundation
 class SwiftTestCase: RZBSimulatedTestCase {
 
     func tic() {
-        NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 0.1))
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
         waitForQueueFlush()
     }
 
     func testScan() {
         var peripherals: [RZBPeripheral] = []
-        centralManager.scanForPeripheralsWithServices(nil, options: nil) { scanInfo, error in
+        centralManager.scanForPeripherals(withServices: nil, options: nil) { scanInfo, error in
             if let peripheral = scanInfo?.peripheral {
                 peripherals.append(peripheral)
             }

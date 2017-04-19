@@ -47,19 +47,25 @@
 
 - (void)addService:(CBMutableService *)service
 {
-    [self.services addObject:service];
+    @synchronized (self.services) {
+        [self.services addObject:service];
+    }
     [self.mockDelegate mockPeripheralManager:self addService:service];
 }
 
 - (void)removeService:(CBMutableService *)service
 {
-    [self.services removeObject:service];
+    @synchronized (self.services) {
+        [self.services removeObject:service];
+    }
     [self.mockDelegate mockPeripheralManager:self removeService:service];
 }
 
 - (void)removeAllServices
 {
-    [self.services removeAllObjects];
+    @synchronized (self.services) {
+        [self.services removeAllObjects];
+    }
     [self.mockDelegate mockPeripheralManagerRemoveAllServices:self];
 }
 
@@ -73,38 +79,51 @@
     return [self.mockDelegate mockPeripheralManager:self updateValue:value forCharacteristic:characteristic onSubscribedCentrals:centrals];
 }
 
-- (void)fakeStateChange:(CBPeripheralManagerState)state
+- (void)performFakeAction:(void(^)(void))block
 {
+    @synchronized (self) {
+        self.fakeActionCount += 1;
+    }
     dispatch_async(self.queue, ^{
+        block();
+        @synchronized (self) {
+            self.fakeActionCount -= 1;
+        }
+    });
+}
+
+- (void)fakeStateChange:(RZBPeripheralManagerState)state
+{
+    [self performFakeAction:^{
         self.state = state;
         [self.delegate peripheralManagerDidUpdateState:(id)self];
-    });
+    }];
 }
 
 - (void)fakeReadRequest:(CBATTRequest *)request
 {
-    dispatch_async(self.queue, ^{
+    [self performFakeAction:^{
         [self.delegate peripheralManager:(id)self didReceiveReadRequest:request];
-    });
+    }];
 }
 
 - (void)fakeWriteRequest:(CBATTRequest *)request
 {
-    dispatch_async(self.queue, ^{
+    [self performFakeAction:^{
         [self.delegate peripheralManager:(id)self didReceiveWriteRequests:@[request]];
-    });
+    }];
 }
 
 - (void)fakeNotifyState:(BOOL)enabled central:(CBCentral *)central characteristic:(CBMutableCharacteristic *)characteristic
 {
-    dispatch_async(self.queue, ^{
+    [self performFakeAction:^{
         if (enabled) {
             [self.delegate peripheralManager:(id)self central:central didSubscribeToCharacteristic:(id)characteristic];
         }
         else {
             [self.delegate peripheralManager:(id)self central:central didUnsubscribeFromCharacteristic:(id)characteristic];
         }
-    });
+    }];
 }
 
 @end

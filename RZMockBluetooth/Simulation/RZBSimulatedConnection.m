@@ -33,6 +33,7 @@
         _readRequests = [NSMutableArray array];
         _writeRequests = [NSMutableArray array];
         _subscribedCharacteristics = [NSMutableArray array];
+        _staticCharacteristicValues = [NSMutableDictionary dictionary];
 
         self.scanCallback = [RZBSimulatedCallback callbackOnQueue:central.mockCentralManager.queue];
         self.scanCallback.paused = YES;
@@ -66,8 +67,11 @@
     self.connectCallback.paused = !connectable;
     _connectable = connectable;
     if (connectable == NO) {
-        if (self.peripheral.state == CBPeripheralStateConnected ||
-            self.peripheral.state == CBPeripheralStateConnecting) {
+        if (self.peripheral.state == CBPeripheralStateConnected
+#if TARGET_OS_IOS
+            || self.peripheral.state == CBPeripheralStateConnecting
+#endif
+            ) {
             [self disconnect];
         }
     }
@@ -82,7 +86,9 @@
         [self.peripheralManager fakeNotifyState:NO central:(id)self.central characteristic:characteristic];
     }
     [self.subscribedCharacteristics removeAllObjects];
+#if TARGET_OS_IOS
     self.peripheral.state = CBPeripheralStateDisconnecting;
+#endif
     typeof(self) weakSelf = self;
     [self.cancelConncetionCallback dispatch:^(NSError *injectedError) {
         [weakSelf.central.mockCentralManager fakeDisconnectPeripheralWithUUID:weakSelf.identifier
@@ -90,11 +96,13 @@
     }];
 }
 
-- (void)cancelSimulatedCallbacks
+- (void)reset
 {
     for (RZBSimulatedCallback *callback in self.allCallbacks) {
         [callback cancel];
     }
+    self.peripheral.state = CBPeripheralStateDisconnected;
+    self.peripheral.services = @[];
 }
 
 - (BOOL)idle
@@ -104,6 +112,12 @@
         if (callback.paused == NO && callback.idle == NO) {
             idle = NO;
         }
+    }
+    if (self.peripheral.fakeActionCount > 0) {
+        idle = NO;
+    }
+    else if (self.peripheralManager.fakeActionCount > 0) {
+        idle = NO;
     }
     return idle;
 }
@@ -141,6 +155,43 @@
     [request setValue:characteristic forKey:@"characteristic"];
     [request setValue:self forKey:@"central"];
     return request;
+}
+
+- (void)setStaticValue:(NSData * _Nullable)value forCharacteristic:(CBCharacteristic *)characteristic
+{
+    CBUUID *outerKey = characteristic.service.UUID;
+    CBUUID *innerKey = characteristic.UUID;
+    NSMutableDictionary* staticValueDictionary = self.staticCharacteristicValues[outerKey];
+    if (staticValueDictionary == nil && value == nil) {
+        return;
+    }
+    if (staticValueDictionary == nil) {
+        staticValueDictionary = [NSMutableDictionary dictionary];
+    }
+    if (value == nil) {
+        [staticValueDictionary removeObjectForKey:innerKey];
+    }
+    else {
+        staticValueDictionary[innerKey] = value;
+    }
+    if (staticValueDictionary.count == 0) {
+        [self.staticCharacteristicValues removeObjectForKey:outerKey];
+    }
+    else {
+        self.staticCharacteristicValues[outerKey] = staticValueDictionary;
+    }
+}
+
+- (NSData * _Nullable)staticValueForCharacteristic:(CBCharacteristic *)characteristic
+{
+    NSData *value = nil;
+    CBUUID *outerKey = characteristic.service.UUID;
+    CBUUID *innerKey = characteristic.UUID;
+    NSDictionary* staticValueDictionary = self.staticCharacteristicValues[outerKey];
+    if (staticValueDictionary != nil) {
+        value = staticValueDictionary[innerKey];
+    }
+    return value;
 }
 
 #pragma mark - RZBMockPeripheralDelegate
@@ -181,13 +232,14 @@
     typeof(self) weakSelf = self;
     [self.readCharacteristicCallback dispatch:^(NSError *injectedError) {
         if (injectedError == nil) {
-            if (characteristic.value == nil) {
+            NSData* staticValue = [self staticValueForCharacteristic:characteristic];
+            if (staticValue == nil) {
                 CBATTRequest *readRequest = [weakSelf requestForCharacteristic:characteristic];
                 [weakSelf.readRequests addObject:readRequest];
                 [weakSelf.peripheralManager fakeReadRequest:readRequest];
             }
             else {
-                [peripheral fakeCharacteristic:characteristic updateValue:characteristic.value error:nil];
+                [peripheral fakeCharacteristic:characteristic updateValue:staticValue error:nil];
             }
         }
         else {
@@ -255,13 +307,13 @@
 
 - (void)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager startAdvertising:(NSDictionary *)advertisementData
 {
-    RZBLogSimulation(@"PeripheralManager is not discoverable");
+    RZBLogSimulation(@"PeripheralManager is discoverable");
     self.scanCallback.paused = NO;
 }
 
 - (void)mockPeripheralManagerStopAdvertising:(RZBMockPeripheralManager *)peripheralManager
 {
-    RZBLogSimulation(@"PeripheralManager is discoverable");
+    RZBLogSimulation(@"PeripheralManager is not discoverable");
     self.scanCallback.paused = YES;
 }
 
@@ -316,12 +368,26 @@
 
 // These [c|sh]ould drive peripheral:didModifyServices:
 - (void)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager addService:(CBMutableService *)service
-{}
+{
+    // Check for static characteristic values provided when the service is added.
+    for (CBMutableCharacteristic *characteristic in service.characteristics) {
+        NSAssert([characteristic isKindOfClass:[CBMutableCharacteristic class]], @"");
+        if (characteristic.value != nil) {
+            [self setStaticValue:characteristic.value forCharacteristic:characteristic];
+        }
+    }
+}
 
 - (void)mockPeripheralManager:(RZBMockPeripheralManager *)peripheralManager removeService:(CBMutableService *)service
-{}
+{
+    // Clear static characteristic values associated with the removed service.
+    [self.staticCharacteristicValues removeObjectForKey:service.UUID];
+}
 
 - (void)mockPeripheralManagerRemoveAllServices:(RZBMockPeripheralManager *)peripheralManager
-{}
+{
+    // Clear all static characteristic values.
+    [self.staticCharacteristicValues removeAllObjects];
+}
 
 @end

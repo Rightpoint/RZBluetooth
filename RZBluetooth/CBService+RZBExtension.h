@@ -12,13 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CBService (RZBExtension)
 
-- (CBCharacteristic *)rzb_characteristicForUUID:(CBUUID *)characteristicUUID;
+- (CBCharacteristic * __nullable)rzb_characteristicForUUID:(CBUUID *)characteristicUUID;
 
 @end
 
 @interface CBMutableService (RZBExtension)
 
-- (CBMutableCharacteristic *)rzb_characteristicForUUID:(CBUUID *)characteristicUUID;
+- (CBMutableCharacteristic * __nullable)rzb_characteristicForUUID:(CBUUID *)characteristicUUID;
 
 @end
 

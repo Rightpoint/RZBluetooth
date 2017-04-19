@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(strong) NSDictionary *options;
 @property(strong) NSMutableDictionary *peripheralsByUUID;
 @property(nonatomic, assign, readonly) BOOL isScanning;
-
+@property(assign) NSUInteger fakeActionCount;
 
 - (instancetype)initWithDelegate:(id<CBCentralManagerDelegate>)delegate queue:(dispatch_queue_t)queue options:(NSDictionary *)options;
 

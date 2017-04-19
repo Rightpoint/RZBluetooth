@@ -31,6 +31,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property(copy) NSString *name;
 @property(assign) CBPeripheralState state;
 @property(strong) NSArray *services;
+@property(assign) NSUInteger fakeActionCount;
+#if TARGET_OS_OSX
+@property(strong) NSNumber *RSSI;
+#endif
 
 - (void)readRSSI;
 - (void)discoverServices:(NSArray *)serviceUUIDs;
@@ -50,7 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fakeDiscoverCharacteristics:(NSArray<CBCharacteristic *> *)characteristics forService:(CBMutableService *)service error:(NSError *__nullable)error;
 - (void)fakeDiscoverCharacteristicsWithUUIDs:(NSArray<CBUUID *> *)characteristicUUIDs forService:(CBMutableService *)service error:(NSError *__nullable)error;
 
-- (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic updateValue:(NSData *)value error:(NSError *__nullable)error;
+- (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic updateValue:(NSData *__nullable)value error:(NSError *__nullable)error;
 - (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic writeResponseWithError:(NSError *__nullable)error;
 - (void)fakeCharacteristic:(CBMutableCharacteristic *)characteristic notify:(BOOL)notifyState error:(NSError *__nullable)error;
 

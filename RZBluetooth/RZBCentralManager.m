@@ -22,7 +22,7 @@
 
 + (NSDictionary *)optionsForIdentifier:(NSString *)identifier
 {
-#if TARGET_OS_OSX || TARGET_OS_MAC
+#if TARGET_OS_OSX
 	return @{};
 #elif TARGET_OS_IPHONE
     NSArray *backgroundModes = [[NSBundle mainBundle] infoDictionary][@"UIBackgroundModes"];
@@ -79,6 +79,7 @@
                                        matchingUUIDPath:nil
                                               createNew:YES];
     cmd.serviceUUIDs = serviceUUIDs;
+    cmd.scanOptions = options;
     [cmd addCallbackBlock:^(id object, NSError *error) {
         if (error) {
             scanBlock(nil, error);
@@ -92,7 +93,7 @@
 {
     self.activeScanBlock = nil;
     [self completeScanCommand];
-    if (self.coreCentralManager.state == CBCentralManagerStatePoweredOn) {
+    if (self.coreCentralManager.state == CBManagerStatePoweredOn) {
         [self.coreCentralManager stopScan];
     }
 }
@@ -158,8 +159,10 @@
                               error:(NSError *)error
 {
     NSArray *commands = [self.dispatch commandsOfClass:cls matchingUUIDPath:UUIDPath isExecuted:YES];
-    RZBCommand *command = commands.firstObject;
-    [self.dispatch completeCommand:command withObject:object error:error];
+    RZBCommand *cmd = commands.firstObject;
+    if (cmd) {
+        [self.dispatch completeCommand:cmd withObject:object error:error];
+    }
 
     return commands.count > 0;
 }
@@ -187,11 +190,22 @@
         self.centralStateHandler(central.state);
     }
     switch (central.state) {
-        case CBCentralManagerStateUnknown:
-        case CBCentralManagerStateResetting:
+        case CBManagerStateUnknown:
+        case CBManagerStateResetting:
+            // These are intermittent states that will have caused any outstanding
+            // commands to not respond. Reset the commands so when the state is
+            // known the commands are retried
             [self.dispatch resetCommands];
             break;
-        default:
+        case CBManagerStateUnsupported:
+        case CBManagerStateUnauthorized:
+        case CBManagerStatePoweredOff:
+            // Reset the commands so when they are dispatched again, they will
+            // generate an error message.
+            [self.dispatch resetCommands];
+            [self.dispatch dispatchPendingCommands];
+            break;
+        case CBManagerStatePoweredOn:
             [self.dispatch dispatchPendingCommands];
     }
 }
@@ -283,11 +297,20 @@
 
 //- (void)peripheralDidUpdateName:(CBPeripheral *)peripheral {}
 
-// Nothing needs to be done here, everything will be re-discovered automatically
-//- (void)peripheral:(CBPeripheral *)peripheral didModifyServices:(NSArray *)invalidatedServices {}
+// Nothing needs to be done here, everything will be re-discovered automatically. Send the event to the log system.
+- (void)peripheral:(CBPeripheral *)peripheral didModifyServices:(NSArray *)invalidatedServices {
+    RZBLogDelegate(@"%@ - %@ %@", NSStringFromSelector(_cmd), RZBLogIdentifier(peripheral), invalidatedServices);
+}
 
+#if TARGET_OS_OSX
+- (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(nullable NSError *)error
+{
+    NSNumber *RSSI = [peripheral RSSI];
+#else
 - (void)peripheral:(CBPeripheral *)peripheral didReadRSSI:(NSNumber *)RSSI error:(NSError *)error
 {
+#endif
+
     RZBLogDelegate(@"%@ - %@ %@", NSStringFromSelector(_cmd), RZBLogIdentifier(peripheral), error);
     RZBLogDelegateValue(@"RSSI=%@", RSSI);
 
