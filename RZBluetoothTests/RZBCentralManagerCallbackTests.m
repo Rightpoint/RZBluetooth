@@ -534,4 +534,33 @@ static NSString *const RZBTestString = @"StringValue";
     [self waitForExpectationsWithTimeout:1 handler:nil];
 }
 
+- (void)testRetrieveConnectedPeripherals
+{
+    // Try before connecting
+    NSArray* connectedPeripherals = [self.centralManager retrieveConnectedPeripheralsWithServices:@[CBUUID.sUUID]];
+    XCTAssertNotNil(connectedPeripherals);
+    XCTAssertEqual(connectedPeripherals.count, 0);
+
+    // Connect
+    [self setupConnectedPeripheral];
+    RZBPeripheral *expectedPeripheral = [self.centralManager peripheralForUUID:NSUUID.pUUID];
+
+    // Try again after connecting
+    connectedPeripherals = [self.centralManager retrieveConnectedPeripheralsWithServices:@[CBUUID.sUUID]];
+    XCTAssertNotNil(connectedPeripherals);
+    XCTAssertEqual(connectedPeripherals.count, 1);
+    XCTAssertEqualObjects(connectedPeripherals[0], expectedPeripheral);
+    
+    // Try with a wrong service UUID
+    connectedPeripherals = [self.centralManager retrieveConnectedPeripheralsWithServices:@[CBUUID.s2UUID]];
+    XCTAssertNotNil(connectedPeripherals);
+    XCTAssertEqual(connectedPeripherals.count, 0);
+    
+    // Disconnect and try again
+    [self triggerDisconnectionError];
+    connectedPeripherals = [self.centralManager retrieveConnectedPeripheralsWithServices:@[CBUUID.sUUID]];
+    XCTAssertNotNil(connectedPeripherals);
+    XCTAssertEqual(connectedPeripherals.count, 0);
+}
+
 @end

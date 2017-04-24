@@ -132,6 +132,20 @@
     }
     [self.invocationLog logSelector:C_CMD arguments:identifiers];
 }
+
+- (NSArray *)mockCentralManager:(RZBMockCentralManager *)mockCentralManager retrieveConnectedPeripheralsWithServices:(NSArray *)serviceUUIDs
+{
+    NSMutableArray *result = [NSMutableArray array];
+    if ([serviceUUIDs containsObject:CBUUID.sUUID]) {
+        RZBMockPeripheral *peripheral = [mockCentralManager peripheralForUUID:NSUUID.pUUID];
+        if (peripheral.state == CBPeripheralStateConnected) {
+            [result addObject:peripheral];
+        }
+    }
+    [self.invocationLog logSelector:C_CMD arguments:serviceUUIDs];
+    return result;
+}
+
 - (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager scanForPeripheralsWithServices:(NSArray *)services options:(NSDictionary *)options
 {
     [self.invocationLog logSelector:C_CMD arguments:services, options];
