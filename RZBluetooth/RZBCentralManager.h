@@ -87,6 +87,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)stopScan;
 
 /**
+ * Retrieve already-connected peripherals advertising the given service UUIDs.
+ */
+- (NSArray<RZBPeripheral *> *)retrieveConnectedPeripheralsWithServices:(NSArray<CBUUID *> *)serviceUUIDs;
+
+/**
  * This is the CoreBluetooth central manager that backs this central manager.
  * This is exposed for informational and testing purposes only. Directly invoking
  * methods on this object may cause un-expected behavior.

@@ -85,6 +85,21 @@
     // Nothing to do here.
 }
 
+- (NSArray *)mockCentralManager:(RZBMockCentralManager *)mockCentralManager retrieveConnectedPeripheralsWithServices:(NSArray *)serviceUUIDs
+{
+    NSParameterAssert(mockCentralManager);
+    NSMutableArray *connectedPeripherals = [NSMutableArray array];
+    for (RZBSimulatedConnection *connection in self.connections) {
+        for (CBMutableService* service in connection.peripheral.services) {
+            if ([serviceUUIDs containsObject:service.UUID]) {
+                [connectedPeripherals addObject:connection.peripheral];
+                break; // exit inner loop so peripheral is only added once.
+            }
+        }
+    }
+    return connectedPeripherals;
+}
+
 - (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager scanForPeripheralsWithServices:(NSArray *)services options:(NSDictionary *)options
 {
     NSParameterAssert(mockCentralManager);
