@@ -49,6 +49,11 @@
     return peripherals;
 }
 
+- (NSArray *)retrieveConnectedPeripheralsWithServices:(NSArray *)serviceUUIDs
+{
+    return [self.mockDelegate mockCentralManager:self retrieveConnectedPeripheralsWithServices:serviceUUIDs];
+}
+
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options
 {
     _isScanning = true;

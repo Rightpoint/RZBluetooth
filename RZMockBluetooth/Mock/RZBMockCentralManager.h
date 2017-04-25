@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSArray *)retrievePeripheralsWithIdentifiers:(NSArray *)identifiers;
 
+- (NSArray *)retrieveConnectedPeripheralsWithServices:(NSArray *)serviceUUIDs;
+
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options;
 
 - (void)stopScan;
@@ -50,6 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol RZBMockCentralManagerDelegate <NSObject>
 
 - (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager retrievePeripheralsWithIdentifiers:(NSArray *)identifiers;
+- (NSArray *)mockCentralManager:(RZBMockCentralManager *)mockCentralManager retrieveConnectedPeripheralsWithServices:(NSArray *)serviceUUIDs;
 - (void)mockCentralManager:(RZBMockCentralManager *)mockCentralManager scanForPeripheralsWithServices:(NSArray *)services options:(NSDictionary *)options;
 - (void)mockCentralManagerStopScan:(RZBMockCentralManager *)mockCentralManager;
 

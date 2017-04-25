@@ -98,6 +98,16 @@
     }
 }
 
+- (NSArray<RZBPeripheral *> *)retrieveConnectedPeripheralsWithServices:(NSArray<CBUUID *> *)serviceUUIDs
+{
+    NSMutableArray<RZBPeripheral *> *result = [NSMutableArray array];
+    NSArray<CBPeripheral *> *connectedPeripherals = [self.coreCentralManager retrieveConnectedPeripheralsWithServices:serviceUUIDs];
+    for (CBPeripheral *p in connectedPeripherals) {
+        [result addObject:[self peripheralForCorePeripheral:p]];
+    }
+    return result;
+}
+
 #pragma mark - Lookup Helpers
 
 - (CBPeripheral *)corePeripheralForUUID:(NSUUID *)peripheralUUID
