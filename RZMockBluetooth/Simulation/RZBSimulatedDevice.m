@@ -139,7 +139,7 @@
 {
     NSParameterAssert(cuuid);
     NSParameterAssert(suuid);
-    return [NSString stringWithFormat:@"%@-%@", suuid.UUIDString, cuuid.UUIDString];
+    return [NSString stringWithFormat:@"%@:%@", suuid.UUIDString, cuuid.UUIDString];
 }
 
 - (NSString *)keyForCharacteristic:(CBCharacteristic *)characteristic
