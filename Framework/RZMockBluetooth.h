@@ -6,8 +6,6 @@
 //  Copyright © 2016 Raizlabs. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 //! Project version number for RZMockBluetoothKit.
 FOUNDATION_EXPORT double RZMockBluetoothKitVersionNumber;
 
