@@ -240,9 +240,9 @@
 
 }
 
-- (CBATTError)mockUpdateOnCharacteristicUUID:(CBUUID *)uuid withValue:(NSData *)value
+- (CBATTError)mockUpdateOnCharacteristicUUID:(CBUUID *)uuid serviceUUID:(CBUUID *)serviceUUID withValue:(NSData *)value
 {
-    CBMutableCharacteristic* characteristic = [self.device characteristicForUUID:uuid];
+    CBMutableCharacteristic* characteristic = [self.device characteristicForUUID:uuid serviceUUID:serviceUUID];
     if (characteristic != nil) {
         if ([self.device.peripheralManager updateValue:value forCharacteristic:characteristic onSubscribedCentrals:nil]) {
             return CBATTErrorSuccess;
@@ -278,13 +278,13 @@
     [self.device addService:testService];
     
     __block typeof(self) welf = (id)self;
-    [self.device addReadCallbackForCharacteristicUUID:staticUUID handler:^CBATTError(CBATTRequest * _Nonnull request) {
+    [self.device addReadCallbackForCharacteristicUUID:staticUUID serviceUUID:uuid handler:^CBATTError(CBATTRequest * _Nonnull request) {
         staticCallbackCount++;
-        return [welf mockUpdateOnCharacteristicUUID:staticUUID withValue:[newStaticValue dataUsingEncoding:NSUTF8StringEncoding]];
+        return [welf mockUpdateOnCharacteristicUUID:staticUUID serviceUUID:uuid withValue:[newStaticValue dataUsingEncoding:NSUTF8StringEncoding]];
     }];
-    [self.device addReadCallbackForCharacteristicUUID:dynamicUUID handler:^CBATTError(CBATTRequest * _Nonnull request) {
+    [self.device addReadCallbackForCharacteristicUUID:dynamicUUID serviceUUID:uuid handler:^CBATTError(CBATTRequest * _Nonnull request) {
         dynamicCallbackCount++;
-        return [welf mockUpdateOnCharacteristicUUID:dynamicUUID withValue:[dynamicValue dataUsingEncoding:NSUTF8StringEncoding]];
+        return [welf mockUpdateOnCharacteristicUUID:dynamicUUID serviceUUID:uuid withValue:[dynamicValue dataUsingEncoding:NSUTF8StringEncoding]];
     }];
     
     // Configure the peripheral
@@ -326,8 +326,8 @@
     [self waitForQueueFlush];
     
     // Remove the service and read callbacks and try it again
-    [self.device removeReadCallbackForCharacteristicUUID:staticUUID];
-    [self.device removeReadCallbackForCharacteristicUUID:dynamicUUID];
+    [self.device removeReadCallbackForCharacteristicUUID:staticUUID serviceUUID:uuid];
+    [self.device removeReadCallbackForCharacteristicUUID:dynamicUUID serviceUUID:uuid];
     [self.device removeService:testService];
 
     [p readCharacteristicUUID:staticUUID serviceUUID:testService.UUID completion:^(CBCharacteristic * _Nullable characteristic, NSError * _Nullable error) {
@@ -345,6 +345,73 @@
     XCTAssertEqual(staticCallbackCount,  0);
     XCTAssertEqual(dynamicCallbackCount, 2);
     
+}
+
+- (void)testSameCharacteristicOnTwoServices
+{
+    NSString *char1Value = @"Char 1 Value";
+    NSData *char1Data = [char1Value dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString *char2Value = @"Char 2 Value";
+    NSData *char2Data = [char2Value dataUsingEncoding:NSUTF8StringEncoding];
+    
+    CBUUID *suuid1 = [CBUUID UUIDWithString:@"AC764575-B8D2-4DB0-9D04-D8A7F270CE8B"];
+    CBMutableService *testService1 = [[CBMutableService alloc] initWithType:suuid1 primary:YES];
+    
+    CBUUID *suuid2 = [CBUUID UUIDWithString:@"9E986B01-8CB2-46CB-8415-3FF8F0505885"];
+    CBMutableService *testService2 = [[CBMutableService alloc] initWithType:suuid2 primary:YES];
+    
+    CBUUID *cuuid = [CBUUID UUIDWithString:@"1826"];
+    CBMutableCharacteristic *char1 = [[CBMutableCharacteristic alloc] initWithType:cuuid
+                                                                        properties:CBCharacteristicPropertyRead
+                                                                             value:nil
+                                                                       permissions:CBAttributePermissionsReadable];
+    
+    CBMutableCharacteristic *char2 = [[CBMutableCharacteristic alloc] initWithType:cuuid
+                                                                        properties:CBCharacteristicPropertyRead
+                                                                             value:nil
+                                                                       permissions:CBAttributePermissionsReadable];
+    testService1.characteristics = @[char1];
+    testService2.characteristics = @[char2];
+
+    [self.device addService:testService1];
+    [self.device addService:testService2];
+    
+    __block int char1CallbackCount = 0;
+    __block int char2CallbackCount = 0;
+    
+    __block typeof(self) welf = (id)self;
+    [self.device addReadCallbackForCharacteristicUUID:cuuid serviceUUID:suuid1 handler:^CBATTError(CBATTRequest * _Nonnull request) {
+        char1CallbackCount++;
+        return [welf mockUpdateOnCharacteristicUUID:cuuid serviceUUID:suuid1 withValue:char1Data];
+    }];
+    [self.device addReadCallbackForCharacteristicUUID:cuuid serviceUUID:suuid2 handler:^CBATTError(CBATTRequest * _Nonnull request) {
+        char2CallbackCount++;
+        return [welf mockUpdateOnCharacteristicUUID:cuuid serviceUUID:suuid2 withValue:char2Data];
+    }];
+    
+    // Configure the peripheral
+    RZBPeripheral *p = [self.centralManager peripheralForUUID:self.connection.identifier];
+    
+    // Read both static and dynamic characteristics
+    [p readCharacteristicUUID:cuuid serviceUUID:suuid1 completion:^(CBCharacteristic * _Nullable characteristic, NSError * _Nullable error) {
+        NSData *value = characteristic.value;
+        XCTAssertNotNil(value);
+        
+        NSString *string = [[NSString alloc] initWithData:value encoding:NSUTF8StringEncoding];
+        XCTAssertTrue([string isEqualToString:char1Value]);
+    }];
+    [p readCharacteristicUUID:cuuid serviceUUID:suuid2 completion:^(CBCharacteristic * _Nullable characteristic, NSError * _Nullable error) {
+        NSData *value = characteristic.value;
+        XCTAssertNotNil(value);
+        
+        NSString *string = [[NSString alloc] initWithData:value encoding:NSUTF8StringEncoding];
+        XCTAssertTrue([string isEqualToString:char2Value]);
+    }];
+    [self waitForQueueFlush];
+    
+    XCTAssertEqual(char1CallbackCount, 1);
+    XCTAssertEqual(char2CallbackCount, 1);
 }
 
 @end

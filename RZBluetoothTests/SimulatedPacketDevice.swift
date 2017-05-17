@@ -22,7 +22,7 @@ class SimulatedPacketDevice: RZBSimulatedDevice {
         service.characteristics = [toDevice, fromDevice]
         addService(service)
 
-        addWriteCallback(forCharacteristicUUID: PacketUUID.toDevice) { [weak self] request -> CBATTError.Code in
+        addWriteCallback(forCharacteristicUUID: PacketUUID.toDevice, serviceUUID: PacketUUID.service) { [weak self] request -> CBATTError.Code in
             if let strongSelf = self, let value = request.value {
                 let pkt = Packet.from(data: value)
                 strongSelf.handle(packet: pkt)

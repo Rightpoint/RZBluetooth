@@ -93,37 +93,37 @@ typedef void (^RZBPeripheralManagerStateBlock)(RZBPeripheralManagerState state);
  *  Block based API for adding read callback handlers for a characteristic with a specific UUID. Subclasses
  *  can also over-ride CBPeripheralManagerDelegate methods, as long as super is called.
  */
-- (void)addReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBATTRequestHandler)handler;
+- (void)addReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID handler:(RZBATTRequestHandler)handler;
 
 /**
  *  Block based API for adding write callback handlers for a characteristic with a specific UUID. Subclasses
  *  can also over-ride CBPeripheralManagerDelegate methods, as long as super is called.
  */
-- (void)addWriteCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBATTRequestHandler)handler;
+- (void)addWriteCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID handler:(RZBATTRequestHandler)handler;
 
 /**
  *  Block based API for adding subscribe callback handlers for a characteristic with a specific UUID. Subclasses
  *  can also over-ride CBPeripheralManagerDelegate methods, as long as super is called.
  */
-- (void)addSubscribeCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBNotificationHandler)handler;
+- (void)addSubscribeCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID handler:(RZBNotificationHandler)handler;
 
 /**
  *  API for removing read callback handlers for a characteristic with a specific UUID. Subclasses
  *  can also over-ride CBPeripheralManagerDelegate methods, as long as super is called.
  */
-- (void)removeReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID;
+- (void)removeReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID;
 
 /**
  *  API for removing write callback handlers for a characteristic with a specific UUID. Subclasses
  *  can also over-ride CBPeripheralManagerDelegate methods, as long as super is called.
  */
-- (void)removeWriteCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID;
+- (void)removeWriteCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID;
 
 /**
  *  API for removing subscribe callback handlers for a characteristic with a specific UUID. Subclasses
  *  can also over-ride CBPeripheralManagerDelegate methods, as long as super is called.
  */
-- (void)removeSubscribeCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID;
+- (void)removeSubscribeCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID;
 
 /**
  *  Add a RZBBluetoothRepresentable object to the simulated device.
@@ -131,9 +131,9 @@ typedef void (^RZBPeripheralManagerStateBlock)(RZBPeripheralManagerState state);
 - (void)addBluetoothRepresentable:(id<RZBBluetoothRepresentable>)bluetoothRepresentable isPrimary:(BOOL)isPrimary;
 
 /**
- * Search all of the services for a characteristic matching characteristicUUID.
+ * Search for the characteristic matching characteristicUUID and serviceUUID.
  */
-- (CBMutableCharacteristic *)characteristicForUUID:(CBUUID *)characteristicUUID;
+- (CBMutableCharacteristic * _Nullable)characteristicForUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID;
 
 @end
 
