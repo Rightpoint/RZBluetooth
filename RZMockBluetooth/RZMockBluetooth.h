@@ -13,9 +13,11 @@
 #import "RZBMockPeripheral.h"
 #import "RZBMockCentralManager.h"
 #import "RZBMockPeripheralManager.h"
+#import "RZBMockPeripheral.h"
 
 #import "RZBSimulatedDevice.h"
 #import "RZBSimulatedCentral.h"
 #import "RZBSimulatedConnection.h"
 #import "RZBSimulatedCallback.h"
 #import "NSError+RZBMock.h"
+#import "RZBLog.h"

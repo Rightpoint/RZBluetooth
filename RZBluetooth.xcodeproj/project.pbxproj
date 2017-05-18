@@ -50,7 +50,6 @@
 		956C53821DC006B80086E07B /* NSError+RZBMock.m in Sources */ = {isa = PBXBuildFile; fileRef = AB45C4EC1B6BF8BA00CC0166 /* NSError+RZBMock.m */; };
 		956C53831DC006BA0086E07B /* NSError+RZBMock.h in Headers */ = {isa = PBXBuildFile; fileRef = AB45C4EB1B6BF8BA00CC0166 /* NSError+RZBMock.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9598DB4B1ECD03EC002932CE /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9598DB491ECD03EC002932CE /* Info.plist */; };
-		9598DB4C1ECD03EC002932CE /* RZMockBluetooth.h in Headers */ = {isa = PBXBuildFile; fileRef = 9598DB4A1ECD03EC002932CE /* RZMockBluetooth.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AB056E471CBBD55E00145E87 /* RZBSimulationObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AB056E461CBBD55E00145E87 /* RZBSimulationObjectTests.m */; };
 		AB0E299D1B7E19E100A1ADA9 /* RZBPeripheral+RZBHeartRate.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0E299C1B7E19E100A1ADA9 /* RZBPeripheral+RZBHeartRate.m */; };
 		AB0E29A01B7E2CE200A1ADA9 /* CBUUID+RZBPublic.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0E299F1B7E2CE200A1ADA9 /* CBUUID+RZBPublic.m */; };
@@ -157,7 +156,6 @@
 		15930BDA1D1C2032009C269C /* libRZBluetooth-OSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRZBluetooth-OSX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		956C53431DBED3C90086E07B /* RZMockBluetooth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RZMockBluetooth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9598DB491ECD03EC002932CE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9598DB4A1ECD03EC002932CE /* RZMockBluetooth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZMockBluetooth.h; sourceTree = "<group>"; };
 		AB056E461CBBD55E00145E87 /* RZBSimulationObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBSimulationObjectTests.m; sourceTree = "<group>"; };
 		AB0E299B1B7E19E100A1ADA9 /* RZBPeripheral+RZBHeartRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RZBPeripheral+RZBHeartRate.h"; sourceTree = "<group>"; };
 		AB0E299C1B7E19E100A1ADA9 /* RZBPeripheral+RZBHeartRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RZBPeripheral+RZBHeartRate.m"; sourceTree = "<group>"; };
@@ -304,7 +302,6 @@
 			isa = PBXGroup;
 			children = (
 				9598DB491ECD03EC002932CE /* Info.plist */,
-				9598DB4A1ECD03EC002932CE /* RZMockBluetooth.h */,
 			);
 			path = Framework;
 			sourceTree = "<group>";
@@ -523,10 +520,9 @@
 				956C53621DBED8E30086E07B /* RZBLog.h in Headers */,
 				956C535C1DBED8310086E07B /* RZBSimulatedCentral.h in Headers */,
 				956C53591DBED8310086E07B /* RZBSimulatedConnection.h in Headers */,
-				956C534C1DBED7150086E07B /* RZMockBluetooth.h in Headers */,
 				956C53631DBED8E30086E07B /* RZBLog+Private.h in Headers */,
+				956C534C1DBED7150086E07B /* RZMockBluetooth.h in Headers */,
 				956C53511DBED82A0086E07B /* RZBMockPeripheral.h in Headers */,
-				9598DB4C1ECD03EC002932CE /* RZMockBluetooth.h in Headers */,
 				956C537C1DBEEA050086E07B /* RZBDefines.h in Headers */,
 				956C53531DBED82A0086E07B /* RZBMockPeripheralManager.h in Headers */,
 			);
