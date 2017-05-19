@@ -381,6 +381,8 @@
     __block int char2CallbackCount = 0;
     
     __block typeof(self) welf = (id)self;
+    
+    // Without the additional serviceUUID: parameter these 2 calls would now throw an assertion failure.
     [self.device addReadCallbackForCharacteristicUUID:cuuid serviceUUID:suuid1 handler:^CBATTError(CBATTRequest * _Nonnull request) {
         char1CallbackCount++;
         return [welf mockUpdateOnCharacteristicUUID:cuuid serviceUUID:suuid1 withValue:char1Data];
