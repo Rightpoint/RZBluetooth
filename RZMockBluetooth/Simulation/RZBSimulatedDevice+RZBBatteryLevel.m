@@ -26,9 +26,7 @@ static NSString *const RZBBatteryLevelKey = @"batteryLevel";
     [self addService:batteryService];
 
     __block typeof(self) welf = (id)self;
-    [self addReadCallbackForCharacteristicUUID:[CBUUID rzb_UUIDForBatteryLevelCharacteristic]
-                                   serviceUUID:[CBUUID rzb_UUIDForBatteryService]
-                                       handler:^CBATTError (CBATTRequest *request) {
+    [self addReadCallbackForCharacteristicUUID:[CBUUID rzb_UUIDForBatteryLevelCharacteristic] handler:^CBATTError (CBATTRequest *request) {
         NSNumber *batteryNumber = welf.values[RZBBatteryLevelKey];
         uint8_t batteryLevel = [batteryNumber unsignedIntegerValue];
         request.value = [NSData dataWithBytes:&batteryLevel length:1];
@@ -39,7 +37,7 @@ static NSString *const RZBBatteryLevelKey = @"batteryLevel";
 - (void)setBatteryLevel:(uint8_t)level
 {
     self.values[RZBBatteryLevelKey] = @(level);
-    CBMutableCharacteristic *batteryCharacteristic = [self characteristicForUUID:[CBUUID rzb_UUIDForBatteryLevelCharacteristic] serviceUUID:[CBUUID rzb_UUIDForBatteryService]];
+    CBMutableCharacteristic *batteryCharacteristic = [self characteristicForUUID:[CBUUID rzb_UUIDForBatteryLevelCharacteristic]];
 
     NSData *value = [NSData dataWithBytes:&level length:1];
     [self.peripheralManager updateValue:value

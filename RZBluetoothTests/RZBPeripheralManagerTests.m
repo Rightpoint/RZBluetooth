@@ -25,9 +25,7 @@
     [super setUp];
     typeof(self) welf = self;
     [self.device addBatteryService];
-    [self.device addSubscribeCallbackForCharacteristicUUID:[CBUUID rzb_UUIDForBatteryLevelCharacteristic]
-                                               serviceUUID:[CBUUID rzb_UUIDForBatteryService]
-                                                   handler:^(BOOL isNotifying) {
+    [self.device addSubscribeCallbackForCharacteristicUUID:[CBUUID rzb_UUIDForBatteryLevelCharacteristic] handler:^(BOOL isNotifying) {
         welf.isNotifying = isNotifying;
     }];
 }

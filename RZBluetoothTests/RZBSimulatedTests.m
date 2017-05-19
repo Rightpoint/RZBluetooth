@@ -240,6 +240,17 @@
 
 }
 
+- (CBATTError)mockUpdateOnCharacteristicUUID:(CBUUID *)uuid withValue:(NSData *)value
+{
+    CBMutableCharacteristic* characteristic = [self.device characteristicForUUID:uuid];
+    if (characteristic != nil) {
+        if ([self.device.peripheralManager updateValue:value forCharacteristic:characteristic onSubscribedCentrals:nil]) {
+            return CBATTErrorSuccess;
+        }
+    }
+    return CBATTErrorRequestNotSupported;
+}
+
 - (CBATTError)mockUpdateOnCharacteristicUUID:(CBUUID *)uuid serviceUUID:(CBUUID *)serviceUUID withValue:(NSData *)value
 {
     CBMutableCharacteristic* characteristic = [self.device characteristicForUUID:uuid serviceUUID:serviceUUID];
@@ -278,13 +289,13 @@
     [self.device addService:testService];
     
     __block typeof(self) welf = (id)self;
-    [self.device addReadCallbackForCharacteristicUUID:staticUUID serviceUUID:uuid handler:^CBATTError(CBATTRequest * _Nonnull request) {
+    [self.device addReadCallbackForCharacteristicUUID:staticUUID handler:^CBATTError(CBATTRequest * _Nonnull request) {
         staticCallbackCount++;
-        return [welf mockUpdateOnCharacteristicUUID:staticUUID serviceUUID:uuid withValue:[newStaticValue dataUsingEncoding:NSUTF8StringEncoding]];
+        return [welf mockUpdateOnCharacteristicUUID:staticUUID withValue:[newStaticValue dataUsingEncoding:NSUTF8StringEncoding]];
     }];
-    [self.device addReadCallbackForCharacteristicUUID:dynamicUUID serviceUUID:uuid handler:^CBATTError(CBATTRequest * _Nonnull request) {
+    [self.device addReadCallbackForCharacteristicUUID:dynamicUUID handler:^CBATTError(CBATTRequest * _Nonnull request) {
         dynamicCallbackCount++;
-        return [welf mockUpdateOnCharacteristicUUID:dynamicUUID serviceUUID:uuid withValue:[dynamicValue dataUsingEncoding:NSUTF8StringEncoding]];
+        return [welf mockUpdateOnCharacteristicUUID:dynamicUUID withValue:[dynamicValue dataUsingEncoding:NSUTF8StringEncoding]];
     }];
     
     // Configure the peripheral
@@ -326,8 +337,8 @@
     [self waitForQueueFlush];
     
     // Remove the service and read callbacks and try it again
-    [self.device removeReadCallbackForCharacteristicUUID:staticUUID serviceUUID:uuid];
-    [self.device removeReadCallbackForCharacteristicUUID:dynamicUUID serviceUUID:uuid];
+    [self.device removeReadCallbackForCharacteristicUUID:staticUUID];
+    [self.device removeReadCallbackForCharacteristicUUID:dynamicUUID];
     [self.device removeService:testService];
 
     [p readCharacteristicUUID:staticUUID serviceUUID:testService.UUID completion:^(CBCharacteristic * _Nullable characteristic, NSError * _Nullable error) {
