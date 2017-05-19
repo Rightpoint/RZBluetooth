@@ -298,10 +298,7 @@
     for (RZBCommand *command in commands) {
         [self.dispatch completeCommand:command withObject:nil error:error];
     }
-    // Clear out any onUpdate blocks
-    for(CBUUID* uuid in peripheral.notifyBlockByUUID) {
-        [peripheral setNotifyBlock:nil forCharacteristicUUID:uuid];
-    }
+    [peripheral clearNotifyBlocks];
     [peripheral connectionEvent:RZBPeripheralStateEventDisconnected error:error];
 }
 
@@ -368,7 +365,7 @@
                                                 error:error];
 
     RZBPeripheral *peripheral = [self peripheralForCorePeripheral:corePeripheral];
-    RZBCharacteristicBlock notifyBlock = [peripheral notifyBlockForCharacteristicUUID:characteristic.UUID];
+    RZBCharacteristicBlock notifyBlock = [peripheral notifyBlockForCharacteristicUUID:characteristic.UUID serviceUUID:characteristic.service.UUID];
 
     if (!complete && characteristic.isNotifying && notifyBlock) {
         notifyBlock(characteristic, error);
@@ -396,9 +393,11 @@
                            withObject:characteristic
                                 error:error];
     
-    if(!complete && !characteristic.isNotifying) {
+    if (!complete && !characteristic.isNotifying) {
         RZBPeripheral *peripheral = [self peripheralForCorePeripheral:corePeripheral];
-        [peripheral setNotifyBlock:nil forCharacteristicUUID:characteristic.UUID];
+        for (CBService* service in peripheral.services) {
+            [peripheral setNotifyBlock:nil forCharacteristicUUID:characteristic.UUID serviceUUID:service.UUID];
+        }
     }
 }
 

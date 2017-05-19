@@ -18,6 +18,10 @@
 @property (strong, nonatomic, readonly) NSMutableDictionary *subscribeHandlers;
 @property (strong, nonatomic, readonly) NSOperationQueue *operationQueue;
 
+- (NSString *)keyForCharacteristicUUID:(CBUUID *)cuuid serviceUUID:(CBUUID *)suuid;
+- (NSString *)keyForCharacteristic:(CBCharacteristic *)characteristic;
+- (CBUUID *)serviceUUIDForCharacteristicUUID:(CBUUID *)characteristicUUID;
+
 @end
 
 @implementation RZBSimulatedDevice
@@ -132,58 +136,134 @@
     [self addService:service];
 }
 
-- (void)addReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBATTRequestHandler)handler;
+- (NSString *)keyForCharacteristicUUID:(CBUUID *)cuuid serviceUUID:(CBUUID *)suuid
 {
-    NSParameterAssert(characteristicUUID);
-    NSParameterAssert(handler);
-    @synchronized (self.readHandlers) {
-        self.readHandlers[characteristicUUID] = [handler copy];
+    NSParameterAssert(cuuid);
+    NSParameterAssert(suuid);
+    return [NSString stringWithFormat:@"%@:%@", suuid.UUIDString, cuuid.UUIDString];
+}
+
+- (NSString *)keyForCharacteristic:(CBCharacteristic *)characteristic
+{
+    return [self keyForCharacteristicUUID:characteristic.UUID serviceUUID:characteristic.service.UUID];
+}
+
+- (CBUUID *)serviceUUIDForCharacteristicUUID:(CBUUID *)characteristicUUID
+{
+    @synchronized (self.services) {
+        NSMutableArray* matches = [NSMutableArray array];
+        for (CBMutableService *service in self.services) {
+            for (CBMutableCharacteristic *characteristic in service.characteristics) {
+                if ([characteristic.UUID isEqual:characteristicUUID]) {
+                    [matches addObject:service.UUID];
+                }
+            }
+        }
+        NSAssert(matches.count <= 1, @"Characteristic UUID found on multiple services; must specify service UUID.");
+        return [matches firstObject];
     }
 }
 
-- (void)addWriteCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBATTRequestHandler)handler;
+- (void)addReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID handler:(RZBATTRequestHandler)handler
 {
     NSParameterAssert(characteristicUUID);
+    NSParameterAssert(serviceUUID);
     NSParameterAssert(handler);
+    NSString *key = [self keyForCharacteristicUUID:characteristicUUID serviceUUID:serviceUUID];
+    @synchronized (self.readHandlers) {
+        self.readHandlers[key] = [handler copy];
+    }
+}
+
+- (void)addReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBATTRequestHandler)handler
+{
+    CBUUID *serviceUUID = [self serviceUUIDForCharacteristicUUID:characteristicUUID];
+    [self addReadCallbackForCharacteristicUUID:characteristicUUID serviceUUID:serviceUUID handler:handler];
+}
+
+- (void)addWriteCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID handler:(RZBATTRequestHandler)handler
+{
+    NSParameterAssert(characteristicUUID);
+    NSParameterAssert(serviceUUID);
+    NSParameterAssert(handler);
+    NSString *key = [self keyForCharacteristicUUID:characteristicUUID serviceUUID:serviceUUID];
     @synchronized (self.writeHandlers) {
-        self.writeHandlers[characteristicUUID] = [handler copy];
+        self.writeHandlers[key] = [handler copy];
+    }
+}
+
+- (void)addWriteCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBATTRequestHandler)handler
+{
+    CBUUID *serviceUUID = [self serviceUUIDForCharacteristicUUID:characteristicUUID];
+    [self addWriteCallbackForCharacteristicUUID:characteristicUUID serviceUUID:serviceUUID handler:handler];
+}
+
+- (void)addSubscribeCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID handler:(RZBNotificationHandler)handler
+{
+    NSParameterAssert(characteristicUUID);
+    NSParameterAssert(serviceUUID);
+    NSParameterAssert(handler);
+    NSString *key = [self keyForCharacteristicUUID:characteristicUUID serviceUUID:serviceUUID];
+    @synchronized (self.subscribeHandlers) {
+        self.subscribeHandlers[key] = [handler copy];
     }
 }
 
 - (void)addSubscribeCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBNotificationHandler)handler
 {
+    CBUUID *serviceUUID = [self serviceUUIDForCharacteristicUUID:characteristicUUID];
+    [self addSubscribeCallbackForCharacteristicUUID:characteristicUUID serviceUUID:serviceUUID handler:handler];
+}
+
+- (void)removeReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID
+{
     NSParameterAssert(characteristicUUID);
-    NSParameterAssert(handler);
-    @synchronized (self.subscribeHandlers) {
-        self.subscribeHandlers[characteristicUUID] = [handler copy];
+    NSParameterAssert(serviceUUID);
+    NSString *key = [self keyForCharacteristicUUID:characteristicUUID serviceUUID:serviceUUID];
+    @synchronized (self.readHandlers) {
+        [self.readHandlers removeObjectForKey:key];
     }
 }
 
 - (void)removeReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID
 {
+    CBUUID *serviceUUID = [self serviceUUIDForCharacteristicUUID:characteristicUUID];
+    [self removeReadCallbackForCharacteristicUUID:characteristicUUID serviceUUID:serviceUUID];
+}
+
+- (void)removeWriteCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID
+{
     NSParameterAssert(characteristicUUID);
-    @synchronized (self.readHandlers) {
-        [self.readHandlers removeObjectForKey:characteristicUUID];
+    NSParameterAssert(serviceUUID);
+    NSString *key = [self keyForCharacteristicUUID:characteristicUUID serviceUUID:serviceUUID];
+    @synchronized (self.writeHandlers) {
+        [self.writeHandlers removeObjectForKey:key];
     }
 }
 
 - (void)removeWriteCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID
 {
+    CBUUID *serviceUUID = [self serviceUUIDForCharacteristicUUID:characteristicUUID];
+    [self removeReadCallbackForCharacteristicUUID:characteristicUUID serviceUUID:serviceUUID];
+}
+
+- (void)removeSubscribeCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID
+{
     NSParameterAssert(characteristicUUID);
-    @synchronized (self.writeHandlers) {
-        [self.writeHandlers removeObjectForKey:characteristicUUID];
+    NSParameterAssert(serviceUUID);
+    NSString *key = [self keyForCharacteristicUUID:characteristicUUID serviceUUID:serviceUUID];
+    @synchronized (self.subscribeHandlers) {
+        [self.subscribeHandlers removeObjectForKey:key];
     }
 }
 
 - (void)removeSubscribeCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID
 {
-    NSParameterAssert(characteristicUUID);
-    @synchronized (self.subscribeHandlers) {
-        [self.subscribeHandlers removeObjectForKey:characteristicUUID];
-    }
+    CBUUID *serviceUUID = [self serviceUUIDForCharacteristicUUID:characteristicUUID];
+    [self removeSubscribeCallbackForCharacteristicUUID:characteristicUUID serviceUUID:serviceUUID];
 }
 
-- (CBMutableCharacteristic *)characteristicForUUID:(CBUUID *)characteristicUUID
+- (CBMutableCharacteristic * _Nullable)characteristicForUUID:(CBUUID *)characteristicUUID
 {
     @synchronized (self.services) {
         for (CBMutableService *service in self.services) {
@@ -197,6 +277,21 @@
     }
 }
 
+- (CBMutableCharacteristic * _Nullable)characteristicForUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID
+{
+    @synchronized (self.services) {
+        for (CBMutableService *service in self.services) {
+            if ([service.UUID isEqual:serviceUUID]) {
+                for (CBMutableCharacteristic *characteristic in service.characteristics) {
+                    if ([characteristic.UUID isEqual:characteristicUUID]) {
+                        return characteristic;
+                    }
+                }
+            }
+        }
+        return nil;
+    }
+}
 
 #pragma mark - CBPeripheralManagerDelegate
 
@@ -224,8 +319,9 @@
     RZBLogSimulatedDevice(@"%@ -  %@", NSStringFromSelector(_cmd), characteristic.UUID);
 
     RZBNotificationHandler handler = nil;
+    NSString *key = [self keyForCharacteristic:characteristic];
     @synchronized (self.subscribeHandlers) {
-        handler = self.subscribeHandlers[characteristic.UUID];
+        handler = self.subscribeHandlers[key];
     }
     if (handler) {
         handler(YES);
@@ -237,8 +333,9 @@
     RZBLogSimulatedDevice(@"%@ -  %@", NSStringFromSelector(_cmd), characteristic.UUID);
 
     RZBNotificationHandler handler = nil;
+    NSString *key = [self keyForCharacteristic:characteristic];
     @synchronized (self.subscribeHandlers) {
-        handler = self.subscribeHandlers[characteristic.UUID];
+        handler = self.subscribeHandlers[key];
     }
     if (handler) {
         handler(NO);
@@ -250,8 +347,9 @@
     RZBLogSimulatedDevice(@"%@ -  %@", NSStringFromSelector(_cmd), request.characteristic.UUID);
 
     RZBATTRequestHandler read = nil;
+    NSString *key = [self keyForCharacteristic:request.characteristic];
     @synchronized (self.readHandlers) {
-        read = self.readHandlers[request.characteristic.UUID];
+        read = self.readHandlers[key];
     }
     CBATTError result = CBATTErrorRequestNotSupported;
     if (read) {
@@ -270,8 +368,9 @@
     CBATTError result = CBATTErrorSuccess;
     for (CBATTRequest *request in requests) {
         RZBATTRequestHandler write = nil;
+        NSString *key = [self keyForCharacteristic:request.characteristic];
         @synchronized(self.writeHandlers) {
-            write = self.writeHandlers[request.characteristic.UUID];
+            write = self.writeHandlers[key];
         }
         if (write) {
             result = MAX(result, write(request));
