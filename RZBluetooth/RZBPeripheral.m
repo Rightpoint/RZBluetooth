@@ -17,24 +17,33 @@
     if (self) {
         _corePeripheral = corePeripheral;
         _centralManager = centralManager;
-        _notifyBlockByUUID = [NSMutableDictionary dictionary];
+        _notifyBlockByUUIDs = [NSMutableDictionary dictionary];
         _corePeripheral.delegate = centralManager;
     }
     return self;
 }
 
-- (RZBCharacteristicBlock)notifyBlockForCharacteristicUUID:(CBUUID *)characteristicUUID
+- (NSString *)keyForCharacteristicUUID:(CBUUID *)cuuid serviceUUID:(CBUUID *)suuid
 {
-    return self.notifyBlockByUUID[characteristicUUID];
+    NSParameterAssert(cuuid);
+    NSParameterAssert(suuid);
+    return [NSString stringWithFormat:@"%@:%@", suuid.UUIDString, cuuid.UUIDString];
 }
 
-- (void)setNotifyBlock:(RZBCharacteristicBlock)notifyBlock forCharacteristicUUID:(CBUUID *)characteristicUUID;
+- (RZBCharacteristicBlock)notifyBlockForCharacteristicUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID
 {
+    NSString* key = [self keyForCharacteristicUUID:characteristicUUID serviceUUID:serviceUUID];
+    return self.notifyBlockByUUIDs[key];
+}
+
+- (void)setNotifyBlock:(RZBCharacteristicBlock)notifyBlock forCharacteristicUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID
+{
+    NSString* key = [self keyForCharacteristicUUID:characteristicUUID serviceUUID:serviceUUID];
     if (notifyBlock) {
-        self.notifyBlockByUUID[characteristicUUID] = [notifyBlock copy];
+        self.notifyBlockByUUIDs[key] = [notifyBlock copy];
     }
     else {
-        [self.notifyBlockByUUID removeObjectForKey:characteristicUUID];
+        [self.notifyBlockByUUIDs removeObjectForKey:key];
     }
 }
 
@@ -139,7 +148,7 @@
     cmd.notify = YES;
     [cmd addCallbackBlock:^(CBCharacteristic *characteristic, NSError *error) {
         if (characteristic != nil) {
-            [self setNotifyBlock:onUpdate forCharacteristicUUID:characteristic.UUID];
+            [self setNotifyBlock:onUpdate forCharacteristicUUID:characteristic.UUID serviceUUID:serviceUUID];
         }
         completion(characteristic, error);
     }];
@@ -155,7 +164,7 @@
 
     // Remove the completion block immediately to behave consistently.
     // If anything here is nil, there is no completion block, which is fine.
-    [self setNotifyBlock:nil forCharacteristicUUID:characteristicUUID];
+    [self setNotifyBlock:nil forCharacteristicUUID:characteristicUUID serviceUUID:serviceUUID];
 
     RZBNotifyCharacteristicCommand *cmd = [[RZBNotifyCharacteristicCommand alloc] initWithUUIDPath:path];
     cmd.notify = NO;
