@@ -191,15 +191,18 @@ static NSString *const RZBTestString = @"StringValue";
     XCTAssertTrue(completed);
 }
 
--(void)testNotify {
+-(void)testNotify
+{
     [self notifyHelper:NO disconnectOrUnsubscribe:NO];
 }
 
--(void)testNotifyAndDisconnect {
+-(void)testNotifyAndDisconnect
+{
     [self notifyHelper:YES disconnectOrUnsubscribe:NO];
 }
 
--(void)testNotifyAndUnsubscribe {
+-(void)testNotifyAndUnsubscribe
+{
     [self notifyHelper:YES disconnectOrUnsubscribe:YES];
 }
 
@@ -216,9 +219,10 @@ static NSString *const RZBTestString = @"StringValue";
     [peripheral enableNotifyForCharacteristicUUID:CBUUID.cUUID
                                       serviceUUID:CBUUID.sUUID
                                          onUpdate:^(CBCharacteristic *c, NSError *error) {
-                                             if(error) {
+                                             if (error) {
                                                  notifyError = error;
-                                             } else {
+                                             }
+                                             else {
                                                  [values addObject:[[NSString alloc] initWithData:c.value encoding:NSUTF8StringEncoding]];
                                              }
                                          } completion:^(CBCharacteristic *c, NSError *error) {
@@ -249,16 +253,18 @@ static NSString *const RZBTestString = @"StringValue";
     XCTAssertEqualObjects(values, updateValues);
     XCTAssertNil(notifyError);
 
-    if(errorOnUnsubscribe) {
-        if(disconnectOrUnsubscribe) {
+    if (errorOnUnsubscribe) {
+        if (disconnectOrUnsubscribe) {
             [self.mockCentralManager fakeDisconnectPeripheralWithUUID:NSUUID.pUUID error:nil];
-        } else {
+        }
+        else {
             [mockPeripheral fakeCharacteristic:c notify:NO error:nil];
         }
         [self waitForQueueFlush];
 
         XCTAssert([notifyError.domain isEqualToString:RZBluetoothErrorDomain] && notifyError.code == RZBluetoothNotifyUnsubscribed);
-    } else {
+    }
+    else {
         XCTAssertNil(notifyError);
     }
 }
