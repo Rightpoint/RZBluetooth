@@ -285,7 +285,7 @@
     RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), central, RZBLogIdentifier(corePeripheral), error);
     RZBPeripheral *peripheral = [self peripheralForCorePeripheral:corePeripheral];
 
-    [self completeFirstCommandOfClass:[RZBCancelConnectionCommand class]
+    BOOL didUserCancel = [self completeFirstCommandOfClass:[RZBCancelConnectionCommand class]
                      matchingUUIDPath:RZBUUIDP(corePeripheral.identifier)
                            withObject:corePeripheral
                                 error:error];
@@ -300,7 +300,9 @@
     }
     // Clear out any onUpdate blocks
     [peripheral.notifyBlockByUUIDs removeAllObjects];
-    [peripheral connectionEvent:RZBPeripheralStateEventDisconnected error:error];
+    RZBPeripheralStateEvent state = didUserCancel ? RZBPeripheralStateEventUserCancelled : RZBPeripheralStateEventDisconnected;
+    
+    [peripheral connectionEvent:state error:error];
 }
 
 #pragma mark CBPeripheralDelegate
