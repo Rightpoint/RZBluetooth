@@ -33,6 +33,9 @@
         case RZBPeripheralStateEventDisconnected:
             self.disconnectCount++;
             break;
+        case RZBPeripheralStateEventUserCancelled:
+            self.disconnectCount++;
+            break;
     }
 }
 
