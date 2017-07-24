@@ -70,6 +70,15 @@
     return self;
 }
 
+-(BOOL)canCauseReconnection {
+    // check if command is of type notify
+    if ([self isKindOfClass:[RZBNotifyCharacteristicCommand class]]) {
+        RZBNotifyCharacteristicCommand *command = (RZBNotifyCharacteristicCommand *)self;
+        return command.notify;
+    }
+    return YES;
+}
+
 - (BOOL)isUserInteraction
 {
     return self.expiresAt > 0;

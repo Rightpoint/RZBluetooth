@@ -8,6 +8,7 @@
 
 #import "RZBCentralManager+CommandHelper.h"
 #import "RZBPeripheral+Private.h"
+#import "RZBErrors.h"
 
 @implementation RZBCentralManager (CommandHelper)
 
@@ -18,10 +19,18 @@
     RZBPeripheral *peripheral = [self peripheralForUUID:peripheralUUID];
     BOOL connected = peripheral.state == CBPeripheralStateConnected;
     if (!connected) {
-        RZBConnectCommand *cmd = [self.dispatch commandOfClass:[RZBConnectCommand class]
-                                              matchingUUIDPath:RZBUUIDP(peripheralUUID)
-                                                     createNew:YES];
-        triggeringCommand.retryAfter = cmd;
+        if (triggeringCommand.canCauseReconnection) {
+            RZBConnectCommand *cmd = [self.dispatch commandOfClass:[RZBConnectCommand class]
+                                                  matchingUUIDPath:RZBUUIDP(peripheralUUID)
+                                                         createNew:YES];
+            triggeringCommand.retryAfter = cmd;
+        } else {
+            // the command should just complete.
+            NSError *timeoutError = [NSError errorWithDomain:RZBluetoothErrorDomain
+                                                        code:RZBluetoothTimeoutError
+                                                    userInfo:nil];
+            [self.dispatch completeCommand:triggeringCommand withObject:nil error:timeoutError];
+        }
     }
     return connected ? peripheral.corePeripheral : nil;
 }

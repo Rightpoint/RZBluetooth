@@ -36,6 +36,7 @@ typedef void(^RZBCallbackBlock)(id object, NSError *error);
 @property (assign, nonatomic) NSTimeInterval expiresAt;
 @property (assign, nonatomic, readonly) BOOL isUserInteraction;
 @property (assign, nonatomic, readonly) BOOL isExpired;
+@property (assign, nonatomic, readonly) BOOL canCauseReconnection;
 
 - (BOOL)executeCommandWithContext:(id)context error:(inout NSError **)error;
 
