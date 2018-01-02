@@ -298,8 +298,10 @@
     for (RZBCommand *command in commands) {
         [self.dispatch completeCommand:command withObject:nil error:error];
     }
-    
+
+    // Clear out any onUpdate blocks
     [peripheral clearNotifyBlocks];
+
     [peripheral connectionEvent:RZBPeripheralStateEventDisconnected error:error];
 }
 
