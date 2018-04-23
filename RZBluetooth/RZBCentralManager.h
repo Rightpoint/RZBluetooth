@@ -61,6 +61,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * This block will be triggered when restored with an array of RZBPeripheral objects.
  * You can also use NSNotificationCenter to watch for notifications named RZBCentralManagerRestorePeripheralNotification.
+ *
+ * To support state restoriation, you need to enable the 'Uses Bluetooth LE accessories' background mode.
  */
 @property (nonatomic, copy) RZBRestorationBlock restorationHandler;
 
