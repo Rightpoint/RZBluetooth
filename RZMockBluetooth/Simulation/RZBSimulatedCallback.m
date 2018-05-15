@@ -113,6 +113,11 @@ static NSTimeInterval __defaultDelay = 0;
 {
     @synchronized(self) {
         for (dispatch_source_t timer in self.timers) {
+            // In Xcode 9+, you can not cancel an inactive / suspended timer.
+            // So if the callback is paused, resume it before canceling
+            if (self.paused) {
+                dispatch_resume(timer);
+            }
             dispatch_cancel(timer);
         }
         [self.timers removeAllObjects];
