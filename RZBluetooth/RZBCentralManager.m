@@ -17,17 +17,22 @@
 #import "RZBLog+Private.h"
 #import "RZBPeripheralStateEvent.h"
 #import <TargetConditionals.h>
+#import <objc/runtime.h>
 
 @implementation RZBCentralManager
+
++ (BOOL)isBackgroundModeSupported
+{
+    NSArray *backgroundModes = [[NSBundle mainBundle] infoDictionary][@"UIBackgroundModes"];
+    return [backgroundModes containsObject:@"bluetooth-central"];
+}
 
 + (NSDictionary *)optionsForIdentifier:(NSString *)identifier
 {
 #if TARGET_OS_OSX
 	return @{};
 #elif TARGET_OS_IPHONE
-    NSArray *backgroundModes = [[NSBundle mainBundle] infoDictionary][@"UIBackgroundModes"];
-
-    BOOL backgroundSupport = [backgroundModes containsObject:@"bluetooth-central"];
+    BOOL backgroundSupport = [self isBackgroundModeSupported];
     if (backgroundSupport == NO) {
         RZBLog(RZBLogLevelConfiguration, @"Background central support is not enabled. Add 'bluetooth-central' to UIBackgroundModes to enable background support");
     }
@@ -35,6 +40,16 @@
 #else
 	#warning Unsupported Platform
 #endif
+}
+
+- (BOOL)respondsToSelector:(SEL)aSelector
+{
+#if TARGET_OS_IPHONE
+    if (sel_isEqual(aSelector, @selector(centralManager:willRestoreState:))) {
+        return [[self class] isBackgroundModeSupported];
+    }
+#endif
+    return [super respondsToSelector:aSelector];
 }
 
 - (instancetype)init
