@@ -47,7 +47,7 @@ const int    kOUIDShift             = 40;
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%06X-%010llX", self.ouid, self.manufacturerId];
+    return [NSString stringWithFormat:@"%06X-%010llX", (unsigned int)self.ouid, self.manufacturerId];
 }
 
 - (NSData *)characteristicValue
@@ -64,7 +64,7 @@ const int    kOUIDShift             = 40;
 + (id)valueForKey:(NSString *)key fromData:(NSData *)data
 {
     NSAssert([key isEqualToString:@"pnpId"], @"Unexpected key for RZBPnPId: %@", key);
-
+    
     RZBPnPId *pnpId = [[RZBPnPId alloc] init];
     RZBVendorIdSource rawVendorIdSource = RZBVendorIdSourceReserved;
     UInt16 rawId = 0;
