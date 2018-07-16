@@ -94,6 +94,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<RZBPeripheral *> *)retrieveConnectedPeripheralsWithServices:(NSArray<CBUUID *> *)serviceUUIDs;
 
 /**
+ * Retrieve list of known peripherals by their identifiers.
+ */
+- (NSArray<RZBPeripheral *> *)retrievePeripheralsWithIdentifiers:(NSArray<NSUUID *> *)identifiers;
+
+/**
  * This is the CoreBluetooth central manager that backs this central manager.
  * This is exposed for informational and testing purposes only. Directly invoking
  * methods on this object may cause un-expected behavior.
