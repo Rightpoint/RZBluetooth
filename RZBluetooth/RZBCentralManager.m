@@ -64,14 +64,23 @@
 
 - (instancetype)initWithIdentifier:(NSString *)identifier peripheralClass:(Class)peripheralClass queue:(dispatch_queue_t __nullable)queue;
 {
+    return [self initWithIdentifier:identifier peripheralClass:peripheralClass queue:queue options:nil];
+}
+
+- (instancetype)initWithIdentifier:(NSString *)identifier peripheralClass:(Class)peripheralClass queue:(dispatch_queue_t __nullable)queue options:(NSDictionary<NSString *,id> *)options
+{
     NSParameterAssert(identifier);
     self = [super init];
     if (self) {
         _peripheralClass = peripheralClass ?: [RZBPeripheral class];
-        NSDictionary *options = [self.class optionsForIdentifier:identifier];
+        
+        NSMutableDictionary *mergedOptions = [[self.class optionsForIdentifier:identifier] mutableCopy];
+        if (options != nil) {
+            [mergedOptions addEntriesFromDictionary:options];
+        }
         _coreCentralManager = [[CBCentralManager alloc] initWithDelegate:self
                                                                    queue:queue
-                                                                 options:options];
+                                                                 options:mergedOptions];
         _dispatch = [[RZBCommandDispatch alloc] initWithQueue:queue context:self];
         _peripheralsByUUID = [NSMutableDictionary dictionary];
     }

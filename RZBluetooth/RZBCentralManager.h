@@ -47,6 +47,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithIdentifier:(NSString *)identifier peripheralClass:(Class)peripheralClass queue:(dispatch_queue_t __nullable)queue;
 
 /**
+ * Create a new central manager
+ *
+ * @param identifier the restore identifier.
+ * @param peripheralClass the subclass of RZBPeripheral to use
+ * @param queue the dispatch queue for the central to use. The main queue will be used if queue is nil.
+ *              It is important that the dispatch queue be a serial queue
+ * @param options An optional dictionary containing initialization options for a core bluetooth central manager. For available options, see Core Bluetooth Central Manager Initialization Options.
+ */
+- (instancetype)initWithIdentifier:(NSString *)identifier peripheralClass:(Class)peripheralClass queue:(dispatch_queue_t __nullable)queue options:(nullable NSDictionary<NSString *,id> *)options;
+
+/**
  * Expose the backing CBManagerState. See RZBluetoothErrorForState to generate an
  * error object representing the non-functioning terminal states.
  */
