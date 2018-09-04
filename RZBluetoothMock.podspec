@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 Pod::Spec.new do |s|
-  s.name         = "RZBluetooth"
+  s.name         = "RZBluetoothMock"
   s.version      = "1.2.2"
   s.summary      = "A Core Bluetooth helper library to simplify the development and testing of Core Bluetooth applications."
 
@@ -20,8 +20,8 @@ RZBluetooth is a Core Bluetooth helper with 3 primary goals:
   s.source       = { :git => "https://github.com/Raizlabs/RZBluetooth.git", :tag => s.version }
   s.requires_arc = true
 
-  s.source_files = "RZBluetooth/**/*.{h,m}"
-  s.public_header_files = "RZBluetooth/**/*.h"
-  s.private_header_files = "RZBluetooth/**/*+Private.h", "RZBluetooth/Command/*.h", "RZBluetooth/RZBCentralManager+CommandHelper.h"
+  s.source_files = "RZMockBluetooth/**/*.{h,m}", "RZBluetooth/**/*.{h,m}"
+  s.public_header_files = "RZMockBluetooth/**/*.h", "RZBluetooth/**/*.h"
+  s.private_header_files = "RZMockBluetooth/**/*+Private.h", "RZBluetooth/**/*+Private.h", "RZBluetooth/Command/*.h", "RZBluetooth/RZBCentralManager+CommandHelper.h"
 
 end
