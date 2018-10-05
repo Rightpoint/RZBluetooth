@@ -56,7 +56,7 @@ commands:
   run-tests:
     description: "Runs the tests"
     steps:
-      - mkdir -p build
+      - run: mkdir -p build
       - run:
           name: "Run tests"
           command: |
