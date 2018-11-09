@@ -17,10 +17,12 @@
 
 @property (weak, nonatomic, readonly) RZBCentralManager *centralManager;
 
-@property (strong, nonatomic, readonly) NSMutableDictionary *notifyBlockByUUID;
+@property (strong, nonatomic, readonly) NSMutableDictionary *notifyBlockByUUIDs;
 
-- (RZBCharacteristicBlock)notifyBlockForCharacteristicUUID:(CBUUID *)characteristicUUID;
-- (void)setNotifyBlock:(RZBCharacteristicBlock)notifyBlock forCharacteristicUUID:(CBUUID *)characteristicUUID;
+- (NSString *)keyForCharacteristicUUID:(CBUUID *)cuuid serviceUUID:(CBUUID *)suuid;
+
+- (RZBCharacteristicBlock)notifyBlockForCharacteristicUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID;
+- (void)setNotifyBlock:(RZBCharacteristicBlock)notifyBlock forCharacteristicUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID;
 
 
 @end

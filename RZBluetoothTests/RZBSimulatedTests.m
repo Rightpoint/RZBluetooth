@@ -16,6 +16,7 @@
 @property (nonatomic, assign) NSUInteger connectCount;
 @property (nonatomic, assign) NSUInteger connectFailureCount;
 @property (nonatomic, assign) NSUInteger disconnectCount;
+@property (nonatomic, assign) NSUInteger cancelCount;
 
 @end
 
@@ -32,6 +33,9 @@
             break;
         case RZBPeripheralStateEventDisconnected:
             self.disconnectCount++;
+            break;
+        case RZBPeripheralStateEventUserCancelled:
+            self.cancelCount++;
             break;
     }
 }
@@ -166,6 +170,7 @@
     self.disconnectCount = 0;
     self.connectCount = 0;
     self.connectFailureCount = 0;
+    self.cancelCount = 0;
     RZBPeripheral *p = [self.centralManager peripheralForUUID:self.connection.identifier];
     XCTAssert(p.state == CBPeripheralStateDisconnected);
     self.connection.connectable = NO;
@@ -190,7 +195,7 @@
             self.connection.connectable = NO;
         }
         [self waitForQueueFlush];
-        XCTAssert(self.disconnectCount == i + 1);
+        XCTAssert((self.disconnectCount + self.cancelCount) == i + 1);
     }
     [self waitForQueueFlush];
     XCTAssert(p.state == CBPeripheralStateDisconnected);
@@ -243,6 +248,17 @@
 - (CBATTError)mockUpdateOnCharacteristicUUID:(CBUUID *)uuid withValue:(NSData *)value
 {
     CBMutableCharacteristic* characteristic = [self.device characteristicForUUID:uuid];
+    if (characteristic != nil) {
+        if ([self.device.peripheralManager updateValue:value forCharacteristic:characteristic onSubscribedCentrals:nil]) {
+            return CBATTErrorSuccess;
+        }
+    }
+    return CBATTErrorRequestNotSupported;
+}
+
+- (CBATTError)mockUpdateOnCharacteristicUUID:(CBUUID *)uuid serviceUUID:(CBUUID *)serviceUUID withValue:(NSData *)value
+{
+    CBMutableCharacteristic* characteristic = [self.device characteristicForUUID:uuid serviceUUID:serviceUUID];
     if (characteristic != nil) {
         if ([self.device.peripheralManager updateValue:value forCharacteristic:characteristic onSubscribedCentrals:nil]) {
             return CBATTErrorSuccess;
@@ -345,6 +361,75 @@
     XCTAssertEqual(staticCallbackCount,  0);
     XCTAssertEqual(dynamicCallbackCount, 2);
     
+}
+
+- (void)testSameCharacteristicOnTwoServices
+{
+    NSString *char1Value = @"Char 1 Value";
+    NSData *char1Data = [char1Value dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString *char2Value = @"Char 2 Value";
+    NSData *char2Data = [char2Value dataUsingEncoding:NSUTF8StringEncoding];
+    
+    CBUUID *suuid1 = [CBUUID UUIDWithString:@"AC764575-B8D2-4DB0-9D04-D8A7F270CE8B"];
+    CBMutableService *testService1 = [[CBMutableService alloc] initWithType:suuid1 primary:YES];
+    
+    CBUUID *suuid2 = [CBUUID UUIDWithString:@"9E986B01-8CB2-46CB-8415-3FF8F0505885"];
+    CBMutableService *testService2 = [[CBMutableService alloc] initWithType:suuid2 primary:YES];
+    
+    CBUUID *cuuid = [CBUUID UUIDWithString:@"1826"];
+    CBMutableCharacteristic *char1 = [[CBMutableCharacteristic alloc] initWithType:cuuid
+                                                                        properties:CBCharacteristicPropertyRead
+                                                                             value:nil
+                                                                       permissions:CBAttributePermissionsReadable];
+    
+    CBMutableCharacteristic *char2 = [[CBMutableCharacteristic alloc] initWithType:cuuid
+                                                                        properties:CBCharacteristicPropertyRead
+                                                                             value:nil
+                                                                       permissions:CBAttributePermissionsReadable];
+    testService1.characteristics = @[char1];
+    testService2.characteristics = @[char2];
+
+    [self.device addService:testService1];
+    [self.device addService:testService2];
+    
+    __block int char1CallbackCount = 0;
+    __block int char2CallbackCount = 0;
+    
+    __block typeof(self) welf = (id)self;
+    
+    // Without the additional serviceUUID: parameter these 2 calls would now throw an assertion failure.
+    [self.device addReadCallbackForCharacteristicUUID:cuuid serviceUUID:suuid1 handler:^CBATTError(CBATTRequest * _Nonnull request) {
+        char1CallbackCount++;
+        return [welf mockUpdateOnCharacteristicUUID:cuuid serviceUUID:suuid1 withValue:char1Data];
+    }];
+    [self.device addReadCallbackForCharacteristicUUID:cuuid serviceUUID:suuid2 handler:^CBATTError(CBATTRequest * _Nonnull request) {
+        char2CallbackCount++;
+        return [welf mockUpdateOnCharacteristicUUID:cuuid serviceUUID:suuid2 withValue:char2Data];
+    }];
+    
+    // Configure the peripheral
+    RZBPeripheral *p = [self.centralManager peripheralForUUID:self.connection.identifier];
+    
+    // Read both static and dynamic characteristics
+    [p readCharacteristicUUID:cuuid serviceUUID:suuid1 completion:^(CBCharacteristic * _Nullable characteristic, NSError * _Nullable error) {
+        NSData *value = characteristic.value;
+        XCTAssertNotNil(value);
+        
+        NSString *string = [[NSString alloc] initWithData:value encoding:NSUTF8StringEncoding];
+        XCTAssertTrue([string isEqualToString:char1Value]);
+    }];
+    [p readCharacteristicUUID:cuuid serviceUUID:suuid2 completion:^(CBCharacteristic * _Nullable characteristic, NSError * _Nullable error) {
+        NSData *value = characteristic.value;
+        XCTAssertNotNil(value);
+        
+        NSString *string = [[NSString alloc] initWithData:value encoding:NSUTF8StringEncoding];
+        XCTAssertTrue([string isEqualToString:char2Value]);
+    }];
+    [self waitForQueueFlush];
+    
+    XCTAssertEqual(char1CallbackCount, 1);
+    XCTAssertEqual(char2CallbackCount, 1);
 }
 
 @end

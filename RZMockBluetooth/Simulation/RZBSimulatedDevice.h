@@ -96,10 +96,22 @@ typedef void (^RZBPeripheralManagerStateBlock)(RZBPeripheralManagerState state);
 - (void)addReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBATTRequestHandler)handler;
 
 /**
+ *  Block based API for adding read callback handlers for a characteristic with a specific UUID on a specific service. 
+ *  This API is only necessary when multiple services on a device implement the same characteristic UUID.
+ */
+- (void)addReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID handler:(RZBATTRequestHandler)handler;
+
+/**
  *  Block based API for adding write callback handlers for a characteristic with a specific UUID. Subclasses
  *  can also over-ride CBPeripheralManagerDelegate methods, as long as super is called.
  */
 - (void)addWriteCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBATTRequestHandler)handler;
+
+/**
+ *  Block based API for adding write callback handlers for a characteristic with a specific UUID on a specific service.
+ *  This API is only necessary when multiple services on a device implement the same characteristic UUID.
+ */
+- (void)addWriteCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID handler:(RZBATTRequestHandler)handler;
 
 /**
  *  Block based API for adding subscribe callback handlers for a characteristic with a specific UUID. Subclasses
@@ -108,10 +120,22 @@ typedef void (^RZBPeripheralManagerStateBlock)(RZBPeripheralManagerState state);
 - (void)addSubscribeCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID handler:(RZBNotificationHandler)handler;
 
 /**
+ *  Block based API for adding subscribe callback handlers for a characteristic with a specific UUID on a specific service.
+ *  This API is only necessary when multiple services on a device implement the same characteristic UUID.
+ */
+- (void)addSubscribeCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID handler:(RZBNotificationHandler)handler;
+
+/**
  *  API for removing read callback handlers for a characteristic with a specific UUID. Subclasses
  *  can also over-ride CBPeripheralManagerDelegate methods, as long as super is called.
  */
 - (void)removeReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID;
+
+/**
+ *  API for removing read callback handlers for a characteristic with a specific UUID on a specific service.
+ *  This API is only necessary when multiple services on a device implement the same characteristic UUID.
+ */
+- (void)removeReadCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID;
 
 /**
  *  API for removing write callback handlers for a characteristic with a specific UUID. Subclasses
@@ -120,10 +144,22 @@ typedef void (^RZBPeripheralManagerStateBlock)(RZBPeripheralManagerState state);
 - (void)removeWriteCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID;
 
 /**
+ *  API for removing write callback handlers for a characteristic with a specific UUID on a specific service.
+ *  This API is only necessary when multiple services on a device implement the same characteristic UUID.
+ */
+- (void)removeWriteCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID;
+
+/**
  *  API for removing subscribe callback handlers for a characteristic with a specific UUID. Subclasses
  *  can also over-ride CBPeripheralManagerDelegate methods, as long as super is called.
  */
 - (void)removeSubscribeCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID;
+
+/**
+ *  API for removing subscribe callback handlers for a characteristic with a specific UUID on a specific service.
+ *  This API is only necessary when multiple services on a device implement the same characteristic UUID.
+ */
+- (void)removeSubscribeCallbackForCharacteristicUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID;
 
 /**
  *  Add a RZBBluetoothRepresentable object to the simulated device.
@@ -131,9 +167,15 @@ typedef void (^RZBPeripheralManagerStateBlock)(RZBPeripheralManagerState state);
 - (void)addBluetoothRepresentable:(id<RZBBluetoothRepresentable>)bluetoothRepresentable isPrimary:(BOOL)isPrimary;
 
 /**
- * Search all of the services for a characteristic matching characteristicUUID.
+ * Search all of the services for the first characteristic matching characteristicUUID.
  */
-- (CBMutableCharacteristic *)characteristicForUUID:(CBUUID *)characteristicUUID;
+- (CBMutableCharacteristic * _Nullable)characteristicForUUID:(CBUUID *)characteristicUUID;
+
+/**
+ * Search for the characteristic matching characteristicUUID and serviceUUID.
+ *  This API is only necessary when multiple services on a device implement the same characteristic UUID.
+ */
+- (CBMutableCharacteristic * _Nullable)characteristicForUUID:(CBUUID *)characteristicUUID serviceUUID:(CBUUID *)serviceUUID;
 
 @end
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 Pod::Spec.new do |s|
   s.name         = "RZBluetooth"
-  s.version      = "1.2"
+  s.version      = "1.2.1"
   s.summary      = "A Core Bluetooth helper library to simplify the development and testing of Core Bluetooth applications."
 
   s.description  = <<-DESC
@@ -16,7 +16,8 @@ RZBluetooth is a Core Bluetooth helper with 3 primary goals:
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.author       = { "Brian King" => "brianaking@gmail.com" }
   s.osx.deployment_target = "10.10"
-  s.ios.deployment_target = "9.0"
+  s.ios.deployment_target = "8.0"
+  s.watchos.deployment_target = "4.0"
   s.source       = { :git => "https://github.com/Raizlabs/RZBluetooth.git", :tag => s.version }
   s.requires_arc = true
 
