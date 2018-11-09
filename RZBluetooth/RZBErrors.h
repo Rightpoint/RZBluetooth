@@ -20,6 +20,7 @@ typedef NS_ENUM(NSUInteger, RZBluetoothError) {
     RZBluetoothDiscoverServiceError,
     RZBluetoothDiscoverCharacteristicError,
     RZBluetoothTimeoutError,
+    RZBluetoothNotifyUnsubscribed
 };
 
 FOUNDATION_EXPORT NSString *const RZBluetoothUndiscoveredUUIDsKey;

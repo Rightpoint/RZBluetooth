@@ -332,8 +332,9 @@
     for (RZBCommand *command in commands) {
         [self.dispatch completeCommand:command withObject:nil error:error];
     }
+
     // Clear out any onUpdate blocks
-    [peripheral.notifyBlockByUUIDs removeAllObjects];
+    [peripheral clearNotifyBlocks];
     RZBPeripheralStateEvent state = didUserCancel ? RZBPeripheralStateEventUserCancelled : RZBPeripheralStateEventDisconnected;
     
     [peripheral connectionEvent:state error:error];
@@ -419,16 +420,23 @@
                                 error:error];
 }
 
-- (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
+- (void)peripheral:(CBPeripheral *)corePeripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), RZBLogIdentifier(peripheral), RZBLogUUID(characteristic), error);
+    RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), RZBLogIdentifier(corePeripheral), RZBLogUUID(characteristic), error);
     RZBLogDelegateValue(@"Notify=%@", characteristic.isNotifying ? @"YES" : @"NO");
 
-    RZBUUIDPath *path = RZBUUIDP(peripheral.identifier, characteristic.service.UUID, characteristic.UUID);
-    [self completeFirstCommandOfClass:[RZBNotifyCharacteristicCommand class]
-                     matchingUUIDPath:path
-                           withObject:characteristic
-                                error:error];
+    RZBUUIDPath *path = RZBUUIDP(corePeripheral.identifier, characteristic.service.UUID, characteristic.UUID);
+    BOOL complete = [self completeFirstCommandOfClass:[RZBNotifyCharacteristicCommand class]
+                                     matchingUUIDPath:path
+                                           withObject:characteristic
+                                                error:error];
+    
+    if (!complete && !characteristic.isNotifying) {
+        RZBPeripheral *peripheral = [self peripheralForCorePeripheral:corePeripheral];
+        for (CBService* service in peripheral.services) {
+            [peripheral setNotifyBlock:nil forCharacteristicUUID:characteristic.UUID serviceUUID:service.UUID];
+        }
+    }
 }
 
 @end

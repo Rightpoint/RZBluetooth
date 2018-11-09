@@ -7,6 +7,7 @@
 //
 
 #import "RZBPeripheral+Private.h"
+#import "RZBErrors.h"
 
 @implementation RZBPeripheral
 
@@ -43,7 +44,23 @@
         self.notifyBlockByUUIDs[key] = [notifyBlock copy];
     }
     else {
-        [self.notifyBlockByUUIDs removeObjectForKey:key];
+        [self clearNotifyBlockForKey:key];
+    }
+}
+
+- (void) clearNotifyBlockForKey:(NSString*) key {
+    RZBCharacteristicBlock block = self.notifyBlockByUUIDs[key];
+    [self.notifyBlockByUUIDs removeObjectForKey:key];
+    if (block && self.notifyUnsubscription) {
+        block(nil, [NSError errorWithDomain:RZBluetoothErrorDomain
+                                       code:RZBluetoothNotifyUnsubscribed
+                                   userInfo:nil]);
+    }
+}
+
+- (void)clearNotifyBlocks {
+    for (NSString* key in self.notifyBlockByUUIDs) {
+        [self clearNotifyBlockForKey:key];
     }
 }
 
