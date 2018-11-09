@@ -14,23 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AB45C4981B6BF70B00CC0166"
-               BuildableName = "libRZBluetooth.a"
-               BlueprintName = "RZBluetooth"
-               ReferencedContainer = "container:RZBluetooth.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AB45C4A31B6BF70B00CC0166"
-               BuildableName = "RZBluetoothTests.xctest"
-               BlueprintName = "RZBluetoothTests"
+               BlueprintIdentifier = "D59C33A520101CC40056401E"
+               BuildableName = "libRZBluetooth-watchos.a"
+               BlueprintName = "RZBluetooth-watchos"
                ReferencedContainer = "container:RZBluetooth.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -40,29 +26,9 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      codeCoverageEnabled = "YES"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AB45C4A31B6BF70B00CC0166"
-               BuildableName = "RZBluetoothTests.xctest"
-               BlueprintName = "RZBluetoothTests"
-               ReferencedContainer = "container:RZBluetooth.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "AB45C4981B6BF70B00CC0166"
-            BuildableName = "libRZBluetooth.a"
-            BlueprintName = "RZBluetooth"
-            ReferencedContainer = "container:RZBluetooth.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -79,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "AB45C4981B6BF70B00CC0166"
-            BuildableName = "libRZBluetooth.a"
-            BlueprintName = "RZBluetooth"
+            BlueprintIdentifier = "D59C33A520101CC40056401E"
+            BuildableName = "libRZBluetooth-watchos.a"
+            BlueprintName = "RZBluetooth-watchos"
             ReferencedContainer = "container:RZBluetooth.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -97,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "AB45C4981B6BF70B00CC0166"
-            BuildableName = "libRZBluetooth.a"
-            BlueprintName = "RZBluetooth"
+            BlueprintIdentifier = "D59C33A520101CC40056401E"
+            BuildableName = "libRZBluetooth-watchos.a"
+            BlueprintName = "RZBluetooth-watchos"
             ReferencedContainer = "container:RZBluetooth.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

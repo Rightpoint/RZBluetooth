@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0830"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "956C53421DBED3C90086E07B"
-               BuildableName = "RZMockBluetooth.framework"
-               BlueprintName = "RZMockBluetooth Framework"
+               BlueprintIdentifier = "15930BC31D1C2032009C269C"
+               BuildableName = "libRZBluetooth-OSX.a"
+               BlueprintName = "RZBluetooth-OSX"
                ReferencedContainer = "container:RZBluetooth.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "956C53421DBED3C90086E07B"
-            BuildableName = "RZMockBluetooth.framework"
-            BlueprintName = "RZMockBluetooth Framework"
+            BlueprintIdentifier = "15930BC31D1C2032009C269C"
+            BuildableName = "libRZBluetooth-OSX.a"
+            BlueprintName = "RZBluetooth-OSX"
             ReferencedContainer = "container:RZBluetooth.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -63,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "956C53421DBED3C90086E07B"
-            BuildableName = "RZMockBluetooth.framework"
-            BlueprintName = "RZMockBluetooth Framework"
+            BlueprintIdentifier = "15930BC31D1C2032009C269C"
+            BuildableName = "libRZBluetooth-OSX.a"
+            BlueprintName = "RZBluetooth-OSX"
             ReferencedContainer = "container:RZBluetooth.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
