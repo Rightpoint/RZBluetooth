@@ -1,5 +1,5 @@
 //
-//  RZBTestCentralManager.m
+//  RZBMockCentralManager.m
 //  RZBluetooth
 //
 //  Created by Brian King on 7/23/15.
