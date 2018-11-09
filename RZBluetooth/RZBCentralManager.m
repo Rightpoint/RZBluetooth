@@ -172,6 +172,11 @@
     RZBPeripheral *peripheral = [self.peripheralsByUUID objectForKey:peripheralUUID];
     if (peripheral == nil) {
         CBPeripheral *corePeripheral = [self corePeripheralForUUID:peripheralUUID];
+        // If the CBPeripheral is nil, the passed in UUID is not a valid reference
+        // in the system anymore. See header-doc for more details.
+        if (corePeripheral == nil) {
+            return nil;
+        }
         peripheral = [[self.peripheralClass alloc] initWithCorePeripheral:corePeripheral
                                                            centralManager:self];
         [self.peripheralsByUUID setObject:peripheral forKey:peripheralUUID];
