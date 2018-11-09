@@ -10,6 +10,7 @@
 #import "RZBPeripheral+RZBBattery.h"
 #import "RZBSimulatedDevice+RZBBatteryLevel.h"
 #import "CBUUID+RZBPublic.h"
+#import "RZBErrors.h"
 
 @interface RZBSimulatedTests : RZBSimulatedTestCase <RZBPeripheralConnectionDelegate>
 
@@ -146,7 +147,8 @@
     self.connection.connectable = NO;
 
     [peripheral connectWithCompletion:^(NSError *error) {
-        XCTAssertNil(error);
+        XCTAssertNotNil(error);
+        XCTAssert([error code] == RZBluetoothConnectionCancelled);
         [connectCallback fulfill];
     }];
     [self waitForQueueFlush];

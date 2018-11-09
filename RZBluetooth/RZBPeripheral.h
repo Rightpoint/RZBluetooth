@@ -44,6 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
  Use this as an alternative to RZBPeripheralConnectionDelegate
  */
 @property (nonatomic, copy) RZBConnectionBlock connectionEventHandler;
+
 /**
  *  The state of the backing Core Bluetooth peripheral.
  */
