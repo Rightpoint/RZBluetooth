@@ -89,7 +89,7 @@
 
 - (CBManagerState)state
 {
-    return self.coreCentralManager.state;
+    return (CBManagerState)self.coreCentralManager.state;
 }
 
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs
@@ -231,7 +231,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:RZBCentralManagerStateChangeNotification
                                                         object:self];
     if (self.centralStateHandler) {
-        self.centralStateHandler(central.state);
+        self.centralStateHandler((CBManagerState)central.state);
     }
     switch (central.state) {
         case CBManagerStateUnknown:

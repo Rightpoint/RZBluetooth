@@ -27,3 +27,14 @@
 - (void)clearNotifyBlocks;
 
 @end
+
+// CBPeripheral.identifier was moved to a base class with an availability restriction on it
+// This clears the availability restriction so use of identifier does not generate
+// a warning on mac.
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_13
+@interface CBPeripheral (UUIDCompatibility)
+- (NSUUID *)identifier;
+@end
+#else
+#warning Remove a pre 10.13 warning fix.
+#endif
