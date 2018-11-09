@@ -235,6 +235,16 @@ characteristicUUID:(CBUUID *)characteristicUUID
     if (event != RZBPeripheralStateEventConnectSuccess && self.maintainConnection) {
         [self connectWithCompletion:nil];
     }
+    
+    if (self.connectionEventHandler) {
+        self.connectionEventHandler(event, error);
+    }
+}
+
+-(void)attemptReconnectionForEvent:(RZBPeripheralStateEvent)event {
+    if (event != RZBPeripheralStateEventConnectSuccess && event != RZBPeripheralStateEventUserCancelled) {
+        [self connectWithCompletion:nil];
+    }
 }
 
 - (void)setMaintainConnection:(BOOL)maintainConnection

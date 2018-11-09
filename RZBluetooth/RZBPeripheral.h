@@ -40,6 +40,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (retain, readonly, nullable) NSString *name;
 
 /**
+ This block will be triggered whenever the peripheral connection state changes. 
+ Use this as an alternative to RZBPeripheralConnectionDelegate
+ */
+@property (nonatomic, copy) RZBConnectionBlock connectionEventHandler;
+/**
  *  The state of the backing Core Bluetooth peripheral.
  */
 @property (nonatomic, readonly) CBPeripheralState state;
@@ -73,6 +78,14 @@ NS_ASSUME_NONNULL_BEGIN
  * will initiate a connection if needed, so this method is not needed.
  */
 - (void)connectWithCompletion:(RZBErrorBlock __nullable)completion;
+
+/**
+ Attempt reconnection for the provided event. 
+ Use this to maintain a connection with your peripheral.
+
+ @param event the event to attempt reconnection for
+ */
+- (void)attemptReconnectionForEvent:(RZBPeripheralStateEvent) event;
 
 /**
  * Read a characteristic and trigger the completion block.
