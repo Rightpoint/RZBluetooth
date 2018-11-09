@@ -1,6 +1,6 @@
 //
 //  RZCentralManager.h
-//  UMTSDK
+//  RZBluetooth
 //
 //  Created by Brian King on 7/22/15.
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
@@ -79,8 +79,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * Helper to get a peripheral from a peripheralUUID
+ *
+ * This method will return nil if passed a UUID that is not registered with CoreBluetooth.
+ * This can happen if the UUID of a bonded peripheral is persisted, but the device
+ * bonding is reset by either the phone or by the peripheral.
  */
-- (RZBPeripheral *)peripheralForUUID:(NSUUID *)peripheralUUID;
+- (RZBPeripheral * _Nullable)peripheralForUUID:(NSUUID *)peripheralUUID;
 
 /**
  * Scan for peripherals with the specified UUIDs and options. Trigger the scanBlock
@@ -106,6 +110,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * Retrieve list of known peripherals by their identifiers.
+ *
+ * NOTE: This method will only return peripherals for the valid UUIDs passed in,
+ *       and the returned array may have a different length than the input array.
+ *       See peripheralForUUID: for more details.
  */
 - (NSArray<RZBPeripheral *> *)retrievePeripheralsWithIdentifiers:(NSArray<NSUUID *> *)identifiers;
 

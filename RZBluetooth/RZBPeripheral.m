@@ -106,6 +106,7 @@
 {
     completion = completion ?: ^(NSError *error) {};
     self.maintainConnection = NO;
+    [self cancelAllCommands];
     if (self.corePeripheral.state == CBPeripheralStateDisconnected) {
         dispatch_async(self.dispatch.queue, ^() {
             completion(nil);
@@ -119,6 +120,18 @@
             completion(error);
         }];
         [self.dispatch dispatchCommand:cmd];
+    }
+}
+
+- (void)cancelAllCommands
+{
+    NSError *error = [NSError errorWithDomain:RZBluetoothErrorDomain
+                                         code:RZBluetoothConnectionCancelled
+                                     userInfo:@{}];
+
+    for (RZBCommand *command in [self.dispatch commands]) {
+        [self.dispatch completeCommand:command
+                            withObject:nil error:error];
     }
 }
 
@@ -183,12 +196,23 @@
     // If anything here is nil, there is no completion block, which is fine.
     [self setNotifyBlock:nil forCharacteristicUUID:characteristicUUID serviceUUID:serviceUUID];
 
-    RZBNotifyCharacteristicCommand *cmd = [[RZBNotifyCharacteristicCommand alloc] initWithUUIDPath:path];
-    cmd.notify = NO;
-    [cmd addCallbackBlock:^(CBCharacteristic *c, NSError *error) {
-        completion(c, error);
-    }];
-    [self.dispatch dispatchCommand:cmd];
+    // Disable the notify characteristic on the peripheral if the peripheral is
+    // connected. If not connected, trigger completion.
+    if (self.corePeripheral.state == CBPeripheralStateConnected) {
+        RZBNotifyCharacteristicCommand *cmd = [[RZBNotifyCharacteristicCommand alloc] initWithUUIDPath:path];
+        cmd.notify = NO;
+        [cmd addCallbackBlock:^(CBCharacteristic *c, NSError *error) {
+            completion(c, error);
+        }];
+        [self.dispatch dispatchCommand:cmd];
+    }
+    else {
+        dispatch_async(self.dispatch.queue, ^() {
+            CBService *service = [self.corePeripheral rzb_serviceForUUID:serviceUUID];
+            CBCharacteristic *characteristic = [service rzb_characteristicForUUID:characteristicUUID];
+            completion(characteristic, nil);
+        });
+    }
 }
 
 - (void)writeData:(NSData *)data

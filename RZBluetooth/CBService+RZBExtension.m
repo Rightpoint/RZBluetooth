@@ -8,6 +8,21 @@
 
 #import "CBService+RZBExtension.h"
 
+@implementation CBPeripheral (RZBExtension)
+
+- (CBService * __nullable)rzb_serviceForUUID:(CBUUID *)serviceUUID
+{
+    NSParameterAssert(serviceUUID);
+    for (CBService *service in self.services) {
+        if ([service.UUID isEqual:serviceUUID]) {
+            return service;
+        }
+    }
+    return nil;
+}
+
+@end
+
 @implementation CBService (RZBExtension)
 
 - (CBCharacteristic *)rzb_characteristicForUUID:(CBUUID *)characteristicUUID

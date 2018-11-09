@@ -1,6 +1,6 @@
 //
 //  RZBCommand.m
-//  UMTSDK
+//  RZBluetooth
 //
 //  Created by Brian King on 7/21/15.
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
@@ -48,7 +48,7 @@
 
 - (BOOL)executeCommandWithContext:(RZBCentralManager *)context error:(inout NSError **)error
 {
-    CBManagerState state = context.coreCentralManager.state;
+    CBManagerState state = (CBManagerState)context.coreCentralManager.state;
     BOOL bluetoothReady = (state == CBManagerStatePoweredOn);
     if (error) {
         *error = RZBluetoothErrorForState(state);

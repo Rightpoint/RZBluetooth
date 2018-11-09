@@ -1,6 +1,6 @@
 //
 //  RZBDefines.h
-//  UMTSDK
+//  RZBluetooth
 //
 //  Created by Brian King on 7/30/15.
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
@@ -9,8 +9,10 @@
 @import CoreBluetooth;
 #import "RZBPeripheralStateEvent.h"
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000 || __TV_OS_VERSION_MAX_ALLOWED >= 100000
-#else
+#if (TARGET_OS_IOS && __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_10_0) || \
+    (TARGET_OS_TV && __TV_OS_VERSION_MIN_REQUIRED < __TVOS_10_0) || \
+    (TARGET_OS_WATCH && __WATCH_OS_VERSION_MIN_REQUIRED < __WATCHOS_3_0) || \
+    (TARGET_OS_OSX && MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_13)
 #define CBManagerState CBCentralManagerState
 #define CBManagerStateUnknown CBCentralManagerStateUnknown
 #define CBManagerStateResetting CBCentralManagerStateResetting

@@ -34,7 +34,7 @@
     if (peripheral == nil) {
         return nil;
     }
-    CBService *service = [self serviceForUUID:serviceUUID onPeripheral:peripheral];
+    CBService *service = [peripheral rzb_serviceForUUID:serviceUUID];
     if (service == nil) {
         RZBDiscoverServiceCommand *cmd = [self.dispatch commandOfClass:[RZBDiscoverServiceCommand class]
                                                       matchingUUIDPath:RZBUUIDP(peripheral.identifier)

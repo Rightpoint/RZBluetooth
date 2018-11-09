@@ -67,7 +67,7 @@
 
 - (void)addSimulatedDeviceWithIdentifier:(NSUUID *)peripheralUUID peripheralManager:(RZBMockPeripheralManager *)peripheralManager
 {
-    [self addSimulatedDeviceWithIdentifier:peripheralUUID peripheralName:nil peripheralManager:peripheralManager];
+    [self addSimulatedDeviceWithIdentifier:peripheralUUID peripheralName:@"Simulated Device" peripheralManager:peripheralManager];
 }
 
 - (void)addSimulatedDeviceWithIdentifier:(NSUUID *)peripheralUUID peripheralName:(NSString *)name peripheralManager:(RZBMockPeripheralManager *)peripheralManager

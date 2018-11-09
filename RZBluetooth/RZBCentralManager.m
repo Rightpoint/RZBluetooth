@@ -1,6 +1,6 @@
 //
 //  RZCentralManager.m
-//  UMTSDK
+//  RZBluetooth
 //
 //  Created by Brian King on 7/22/15.
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
@@ -89,7 +89,7 @@
 
 - (CBManagerState)state
 {
-    return self.coreCentralManager.state;
+    return (CBManagerState)self.coreCentralManager.state;
 }
 
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs
@@ -172,24 +172,17 @@
     RZBPeripheral *peripheral = [self.peripheralsByUUID objectForKey:peripheralUUID];
     if (peripheral == nil) {
         CBPeripheral *corePeripheral = [self corePeripheralForUUID:peripheralUUID];
+        // If the CBPeripheral is nil, the passed in UUID is not a valid reference
+        // in the system anymore. See header-doc for more details.
+        if (corePeripheral == nil) {
+            return nil;
+        }
         peripheral = [[self.peripheralClass alloc] initWithCorePeripheral:corePeripheral
                                                            centralManager:self];
         [self.peripheralsByUUID setObject:peripheral forKey:peripheralUUID];
     }
 
     return peripheral;
-}
-
-- (CBService *)serviceForUUID:(CBUUID *)serviceUUID onPeripheral:(CBPeripheral *)peripheral
-{
-    NSParameterAssert(serviceUUID);
-    NSParameterAssert(peripheral);
-    for (CBService *service in peripheral.services) {
-        if ([service.UUID isEqual:serviceUUID]) {
-            return service;
-        }
-    }
-    return nil;
 }
 
 /**
@@ -231,7 +224,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:RZBCentralManagerStateChangeNotification
                                                         object:self];
     if (self.centralStateHandler) {
-        self.centralStateHandler(central.state);
+        self.centralStateHandler((CBManagerState)central.state);
     }
     switch (central.state) {
         case CBManagerStateUnknown:

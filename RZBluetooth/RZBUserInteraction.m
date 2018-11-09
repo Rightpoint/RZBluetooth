@@ -7,7 +7,7 @@
 //
 
 #import "RZBUserInteraction.h"
-
+#import "RZBDefines.h"
 static BOOL RZBTimeoutEnabled = NO;
 static NSTimeInterval RZBTimeoutValue = 5.0;
 

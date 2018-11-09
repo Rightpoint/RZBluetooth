@@ -1,6 +1,6 @@
 //
-//  RZBTestCentralManager.m
-//  UMTSDK
+//  RZBMockCentralManager.m
+//  RZBluetooth
 //
 //  Created by Brian King on 7/23/15.
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
@@ -74,7 +74,7 @@
 
 - (void)cancelPeripheralConnection:(RZBMockPeripheral *)peripheral
 {
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS && __IPHONE_OS_VERSION_MIN_REQUIRED > __IPHONE_9_0
     peripheral.state = CBPeripheralStateDisconnecting;
 #endif
     [self.mockDelegate mockCentralManager:self cancelPeripheralConnection:peripheral];
