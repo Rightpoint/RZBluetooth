@@ -56,6 +56,11 @@ void RZBEnableMock(BOOL enableMock)
 
 @implementation CBCentralManager (RZBEnableMock)
 
++ (instancetype _Nonnull)make
+{
+    return [[CBCentralManager alloc] init];
+}
+
 - (RZBMockCentralManager *)mock
 {
     return nil;
@@ -71,7 +76,13 @@ void RZBEnableMock(BOOL enableMock)
 }
 
 @end
+
 @implementation CBPeripheralManager (RZBEnableMock)
+
++ (instancetype _Nonnull)make
+{
+    return [[CBPeripheralManager alloc] init];
+}
 
 - (RZBMockPeripheralManager *)mock
 {
