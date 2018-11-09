@@ -47,6 +47,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithIdentifier:(NSString *)identifier peripheralClass:(Class)peripheralClass queue:(dispatch_queue_t __nullable)queue;
 
 /**
+ * Create a new central manager
+ *
+ * @param identifier the restore identifier.
+ * @param peripheralClass the subclass of RZBPeripheral to use
+ * @param queue the dispatch queue for the central to use. The main queue will be used if queue is nil.
+ *              It is important that the dispatch queue be a serial queue
+ * @param options An optional dictionary containing initialization options for a core bluetooth central manager. For available options, see Core Bluetooth Central Manager Initialization Options.
+ */
+- (instancetype)initWithIdentifier:(NSString *)identifier peripheralClass:(Class)peripheralClass queue:(dispatch_queue_t __nullable)queue options:(nullable NSDictionary<NSString *,id> *)options;
+
+/**
  * Expose the backing CBManagerState. See RZBluetoothErrorForState to generate an
  * error object representing the non-functioning terminal states.
  */
@@ -61,6 +72,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * This block will be triggered when restored with an array of RZBPeripheral objects.
  * You can also use NSNotificationCenter to watch for notifications named RZBCentralManagerRestorePeripheralNotification.
+ *
+ * To support state restoriation, you need to enable the 'Uses Bluetooth LE accessories' background mode.
  */
 @property (nonatomic, copy) RZBRestorationBlock restorationHandler;
 
@@ -90,6 +103,11 @@ NS_ASSUME_NONNULL_BEGIN
  * Retrieve already-connected peripherals advertising the given service UUIDs.
  */
 - (NSArray<RZBPeripheral *> *)retrieveConnectedPeripheralsWithServices:(NSArray<CBUUID *> *)serviceUUIDs;
+
+/**
+ * Retrieve list of known peripherals by their identifiers.
+ */
+- (NSArray<RZBPeripheral *> *)retrievePeripheralsWithIdentifiers:(NSArray<NSUUID *> *)identifiers;
 
 /**
  * This is the CoreBluetooth central manager that backs this central manager.

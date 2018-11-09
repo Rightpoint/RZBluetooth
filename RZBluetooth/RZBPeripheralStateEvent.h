@@ -21,5 +21,6 @@ typedef NS_ENUM(NSUInteger, RZBPeripheralStateEvent) {
     RZBPeripheralStateEventConnectSuccess,
     RZBPeripheralStateEventConnectFailure,
     RZBPeripheralStateEventDisconnected,
+    RZBPeripheralStateEventUserCancelled,
 };
 

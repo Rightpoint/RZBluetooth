@@ -600,4 +600,14 @@ static NSString *const RZBTestString = @"StringValue";
     XCTAssertEqual(connectedPeripherals.count, 0);
 }
 
+- (void)testRetrievePeripherals
+{
+    NSArray<RZBPeripheral*>* peripherals = [self.centralManager retrievePeripheralsWithIdentifiers:@[NSUUID.pUUID]];
+    XCTAssertNotNil(peripherals);
+    XCTAssertEqual(peripherals.count, 1);
+    XCTAssertEqual(peripherals.firstObject.identifier, NSUUID.pUUID);
+    
+    XCTAssertEqualObjects([self.invocationLog argumentAtIndex:0 forSelector:@selector(retrievePeripheralsWithIdentifiers:)], @[NSUUID.pUUID]);
+}
+
 @end

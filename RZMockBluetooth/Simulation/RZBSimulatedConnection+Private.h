@@ -11,6 +11,7 @@
 @interface RZBSimulatedConnection ()
 
 - (instancetype)initWithIdentifier:(NSUUID *)identifier
+                    peripheralName:(NSString *)peripheralName
                  peripheralManager:(RZBMockPeripheralManager *)peripheralManager
                            central:(RZBSimulatedCentral *)central;
 
