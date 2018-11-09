@@ -86,7 +86,7 @@
         [self.peripheralManager fakeNotifyState:NO central:(id)self.central characteristic:characteristic];
     }
     [self.subscribedCharacteristics removeAllObjects];
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS && __IPHONE_OS_VERSION_MIN_REQUIRED > __IPHONE_9_0
     self.peripheral.state = CBPeripheralStateDisconnecting;
 #endif
     typeof(self) weakSelf = self;
