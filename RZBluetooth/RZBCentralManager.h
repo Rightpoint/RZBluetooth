@@ -1,6 +1,6 @@
 //
 //  RZCentralManager.h
-//  UMTSDK
+//  RZBluetooth
 //
 //  Created by Brian King on 7/22/15.
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
