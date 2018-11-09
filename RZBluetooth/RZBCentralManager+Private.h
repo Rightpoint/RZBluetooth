@@ -17,9 +17,6 @@
 
 @property (nonatomic, copy) RZBScanBlock activeScanBlock;
 
-- (CBService *)serviceForUUID:(CBUUID *)serviceUUID
-                 onPeripheral:(CBPeripheral *)peripheral;
-
 - (CBPeripheral *)corePeripheralForUUID:(NSUUID *)peripheralUUID;
 
 @end

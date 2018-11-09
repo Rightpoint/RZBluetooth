@@ -185,18 +185,6 @@
     return peripheral;
 }
 
-- (CBService *)serviceForUUID:(CBUUID *)serviceUUID onPeripheral:(CBPeripheral *)peripheral
-{
-    NSParameterAssert(serviceUUID);
-    NSParameterAssert(peripheral);
-    for (CBService *service in peripheral.services) {
-        if ([service.UUID isEqual:serviceUUID]) {
-            return service;
-        }
-    }
-    return nil;
-}
-
 /**
  * Complete the first command matching the criteria with the specified objects.
  * If selector is not NULL, a warning will be printed if no matching command

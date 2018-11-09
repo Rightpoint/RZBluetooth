@@ -183,12 +183,23 @@
     // If anything here is nil, there is no completion block, which is fine.
     [self setNotifyBlock:nil forCharacteristicUUID:characteristicUUID serviceUUID:serviceUUID];
 
-    RZBNotifyCharacteristicCommand *cmd = [[RZBNotifyCharacteristicCommand alloc] initWithUUIDPath:path];
-    cmd.notify = NO;
-    [cmd addCallbackBlock:^(CBCharacteristic *c, NSError *error) {
-        completion(c, error);
-    }];
-    [self.dispatch dispatchCommand:cmd];
+    // Disable the notify characteristic on the peripheral if the peripheral is
+    // connected. If not connected, trigger completion.
+    if (self.corePeripheral.state == CBPeripheralStateConnected) {
+        RZBNotifyCharacteristicCommand *cmd = [[RZBNotifyCharacteristicCommand alloc] initWithUUIDPath:path];
+        cmd.notify = NO;
+        [cmd addCallbackBlock:^(CBCharacteristic *c, NSError *error) {
+            completion(c, error);
+        }];
+        [self.dispatch dispatchCommand:cmd];
+    }
+    else {
+        dispatch_async(self.dispatch.queue, ^() {
+            CBService *service = [self.corePeripheral rzb_serviceForUUID:serviceUUID];
+            CBCharacteristic *characteristic = [service rzb_characteristicForUUID:characteristicUUID];
+            completion(characteristic, nil);
+        });
+    }
 }
 
 - (void)writeData:(NSData *)data
