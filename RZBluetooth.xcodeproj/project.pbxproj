@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F7C50E821F640ED00AA93A5 /* RZBPeripheralTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7C50E721F640ED00AA93A5 /* RZBPeripheralTests.m */; };
 		15930BC51D1C2032009C269C /* RZBUserInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = ABEA8FC11BF2740200543BC3 /* RZBUserInteraction.m */; };
 		15930BC61D1C2032009C269C /* RZBDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4135FB1B71AB91002F450F /* RZBDeviceInfo.m */; };
 		15930BC71D1C2032009C269C /* RZBCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = AB45C4BA1B6BF88B00CC0166 /* RZBCommand.m */; };
@@ -177,6 +178,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0F7C50E721F640ED00AA93A5 /* RZBPeripheralTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZBPeripheralTests.m; sourceTree = "<group>"; };
 		15930BDA1D1C2032009C269C /* libRZBluetooth-OSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRZBluetooth-OSX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		956C53431DBED3C90086E07B /* RZMockBluetooth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RZMockBluetooth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9598DB491ECD03EC002932CE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -438,6 +440,7 @@
 				AB45C4D41B6BF8AB00CC0166 /* RZBCommandTests.m */,
 				AB45C4D51B6BF8AB00CC0166 /* RZBUUIDPathTests.m */,
 				ABCF15071C04D443002DA9BE /* RZBPeripheralManagerTests.m */,
+				0F7C50E721F640ED00AA93A5 /* RZBPeripheralTests.m */,
 				ABCD83811B73DD2600DA1162 /* RZBSimulatedTests.m */,
 				AB4136031B71BC3D002F450F /* RZBProfileDeviceInfoTests.m */,
 				ABCD83831B73DE5D00DA1162 /* RZBProfileBatteryTests.m */,
@@ -806,6 +809,7 @@
 				AB14AF1D1CA5DF1800D1436D /* PacketUUID.swift in Sources */,
 				AB45C5471B6C09FD00CC0166 /* RZBInvocationLog.m in Sources */,
 				ABCF15081C04D443002DA9BE /* RZBPeripheralManagerTests.m in Sources */,
+				0F7C50E821F640ED00AA93A5 /* RZBPeripheralTests.m in Sources */,
 				AB45C4E41B6BF8AB00CC0166 /* RZTestCommands.m in Sources */,
 				AB14AF191CA5DC2000D1436D /* Packet.swift in Sources */,
 				AB45C4E01B6BF8AB00CC0166 /* RZBCommandTests.m in Sources */,
