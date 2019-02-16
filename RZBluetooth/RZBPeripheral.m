@@ -59,7 +59,8 @@
 }
 
 - (void)clearNotifyBlocks {
-    for (NSString* key in self.notifyBlockByUUIDs) {
+    NSArray<NSString *> *keys = self.notifyBlockByUUIDs.allKeys;
+    for (NSString* key in keys) {
         [self clearNotifyBlockForKey:key];
     }
 }
