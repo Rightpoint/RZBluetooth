@@ -151,6 +151,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0F659177213734F100A3122A /* RZBluetoothTest.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = RZBluetoothTest.podspec; sourceTree = "<group>"; };
 		15930BDA1D1C2032009C269C /* libRZBluetooth-OSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRZBluetooth-OSX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB056E461CBBD55E00145E87 /* RZBSimulationObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBSimulationObjectTests.m; sourceTree = "<group>"; };
 		AB0E299B1B7E19E100A1ADA9 /* RZBPeripheral+RZBHeartRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RZBPeripheral+RZBHeartRate.h"; sourceTree = "<group>"; };
@@ -329,6 +330,7 @@
 			children = (
 				AB45C5481B6C0B8900CC0166 /* README.md */,
 				ABCD83AB1B7ACD5900DA1162 /* RZBluetooth.podspec */,
+				0F659177213734F100A3122A /* RZBluetoothTest.podspec */,
 				AB45C49B1B6BF70B00CC0166 /* RZBluetooth */,
 				AB45C4E51B6BF8BA00CC0166 /* RZMockBluetooth */,
 				AB45C4A81B6BF70B00CC0166 /* RZBluetoothTests */,

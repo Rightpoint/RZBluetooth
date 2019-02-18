@@ -8,19 +8,19 @@
 
 @import XCTest;
 
-#import "RZBCentralManager.h"
-#import "RZBPeripheral.h"
-#import "RZBScanInfo.h"
+#import "RZBluetooth/RZBCentralManager.h"
+#import "RZBluetooth/RZBPeripheral.h"
+#import "RZBluetooth/RZBScanInfo.h"
 
-#import "RZBMockCentralManager.h"
-#import "RZBMockPeripheralManager.h"
+#import "RZBluetooth/RZBMockCentralManager.h"
+#import "RZBluetooth/RZBMockPeripheralManager.h"
 
-#import "RZBSimulatedDevice.h"
-#import "RZBSimulatedCentral.h"
-#import "RZBSimulatedConnection.h"
-#import "RZBSimulatedCallback.h"
+#import "RZBluetooth/RZBSimulatedDevice.h"
+#import "RZBluetooth/RZBSimulatedCentral.h"
+#import "RZBluetooth/RZBSimulatedConnection.h"
+#import "RZBluetooth/RZBSimulatedCallback.h"
 
-#import "NSError+RZBMock.h"
+#import "RZBluetooth/NSError+RZBMock.h"
 
 /**
  *  The RZBSimulatedTestCase is a convience class to assist testing bluetooth code.
