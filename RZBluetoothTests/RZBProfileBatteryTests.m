@@ -7,10 +7,6 @@
 //
 
 #import "RZBSimulatedTestCase.h"
-#import "RZBPeripheral+RZBBattery.h"
-#import "RZBSimulatedDevice+RZBBatteryLevel.h"
-#import "CBUUID+RZBPublic.h"
-#import "RZBLog.h"
 
 @interface RZBProfileBatteryTests : RZBSimulatedTestCase
 

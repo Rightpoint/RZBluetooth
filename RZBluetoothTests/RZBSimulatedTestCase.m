@@ -11,7 +11,6 @@
 #import "RZBSimulatedTestCase.h"
 #import "NSRunLoop+RZBWaitFor.h"
 #import "RZBluetooth/RZBCentralManager+Private.h"
-#import "RZBluetooth/RZBLog.h"
 
 @implementation RZBSimulatedTestCase
 
