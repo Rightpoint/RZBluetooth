@@ -8,7 +8,7 @@
 
 @import XCTest;
 
-#import "RZBUUIDPath.h"
+#import "RZBluetooth/RZBUUIDPath.h"
 
 @interface RZBUUIDPathTests : XCTestCase
 

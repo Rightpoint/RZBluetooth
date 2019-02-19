@@ -6,7 +6,7 @@
 //  Copyright © 2016 Raizlabs. All rights reserved.
 //
 
-#import "RZBDefines.h"
+#import "RZBluetooth/RZBDefines.h"
 
 #define RZBAssertCommandCount(cnt) XCTAssert(self.centralManager.dispatch.commands.count == cnt, @"Expected %tu commands, saw %tu", cnt, self.centralManager.dispatch.commands.count)
 #define RZBAssertHasCommand(cmdClass, UUIDPath, isExec) RZBAssertHasCommands(cmdClass, UUIDPath, isExec, 1)

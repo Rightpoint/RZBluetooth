@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 @import CoreBluetooth;
-#import "RZMockBluetooth.h"
+#import "RZBluetooth/RZMockBluetooth.h"
 
 @interface RZBSimulationObjectTests : XCTestCase
 

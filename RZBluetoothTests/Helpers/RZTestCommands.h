@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
 //
 
-#import "RZBCommand.h"
+#import "RZBluetooth/RZBCommand.h"
 
 @interface RZBPTestCommand : RZBCommand
 @property (strong, nonatomic) NSUUID *peripheralUUID;

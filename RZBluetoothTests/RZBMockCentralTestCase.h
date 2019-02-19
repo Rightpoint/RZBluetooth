@@ -8,12 +8,12 @@
 
 @import XCTest;
 
-#import "RZBluetooth.h"
-#import "RZMockBluetooth.h"
+#import "RZBluetooth/RZBluetooth.h"
+#import "RZBluetooth/RZMockBluetooth.h"
 
-#import "RZBCommand.h"
+#import "RZBluetooth/RZBCommand.h"
 #import "XCTestCase+Helpers.h"
-#import "RZBCentralManager+Private.h"
+#import "RZBluetooth/RZBCentralManager+Private.h"
 #import "RZBInvocationLog.h"
 #import "RZBTestDefines.h"
 

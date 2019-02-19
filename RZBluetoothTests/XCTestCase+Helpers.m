@@ -7,7 +7,7 @@
 //
 
 #import "XCTestCase+Helpers.h"
-#import "RZBCommandDispatch.h"
+#import "RZBluetooth/RZBCommandDispatch.h"
 
 
 @implementation XCTestCase (Helpers)
