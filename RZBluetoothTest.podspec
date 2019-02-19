@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
   s.name         = "RZBluetoothTest"
   s.version      = "1.2.2"
-  s.summary      = "A Core Bluetooth helper library to simplify the development and testing of Core Bluetooth applications."
+  s.summary      = "A Core Bluetooth helper library to simplify unit testing with XCTest and RZBluetooth mocks."
 
   s.description  = <<-DESC
 RZBluetooth is a Core Bluetooth helper with 3 primary goals:
