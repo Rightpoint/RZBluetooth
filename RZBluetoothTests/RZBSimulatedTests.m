@@ -13,6 +13,7 @@
 @property (nonatomic, assign) NSUInteger connectCount;
 @property (nonatomic, assign) NSUInteger connectFailureCount;
 @property (nonatomic, assign) NSUInteger disconnectCount;
+@property (nonatomic, assign) NSUInteger cancelCount;
 
 @end
 
@@ -29,6 +30,9 @@
             break;
         case RZBPeripheralStateEventDisconnected:
             self.disconnectCount++;
+            break;
+        case RZBPeripheralStateEventUserCancelled:
+            self.cancelCount++;
             break;
     }
 }
@@ -139,7 +143,8 @@
     self.connection.connectable = NO;
 
     [peripheral connectWithCompletion:^(NSError *error) {
-        XCTAssertNil(error);
+        XCTAssertNotNil(error);
+        XCTAssert([error code] == RZBluetoothConnectionCancelled);
         [connectCallback fulfill];
     }];
     [self waitForQueueFlush];
@@ -163,6 +168,7 @@
     self.disconnectCount = 0;
     self.connectCount = 0;
     self.connectFailureCount = 0;
+    self.cancelCount = 0;
     RZBPeripheral *p = [self.centralManager peripheralForUUID:self.connection.identifier];
     XCTAssert(p.state == CBPeripheralStateDisconnected);
     self.connection.connectable = NO;
@@ -187,7 +193,7 @@
             self.connection.connectable = NO;
         }
         [self waitForQueueFlush];
-        XCTAssert(self.disconnectCount == i + 1);
+        XCTAssert((self.disconnectCount + self.cancelCount) == i + 1);
     }
     [self waitForQueueFlush];
     XCTAssert(p.state == CBPeripheralStateDisconnected);

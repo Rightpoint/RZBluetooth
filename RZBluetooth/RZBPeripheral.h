@@ -40,6 +40,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (retain, readonly, nullable) NSString *name;
 
 /**
+ This block will be triggered whenever the peripheral connection state changes. 
+ Use this as an alternative to RZBPeripheralConnectionDelegate
+ */
+@property (nonatomic, copy) RZBConnectionBlock connectionEventHandler;
+
+/**
  *  The state of the backing Core Bluetooth peripheral.
  */
 @property (nonatomic, readonly) CBPeripheralState state;
@@ -73,6 +79,14 @@ NS_ASSUME_NONNULL_BEGIN
  * will initiate a connection if needed, so this method is not needed.
  */
 - (void)connectWithCompletion:(RZBErrorBlock __nullable)completion;
+
+/**
+ Attempt reconnection for the provided event. 
+ Use this to maintain a connection with your peripheral.
+
+ @param event the event to attempt reconnection for
+ */
+- (void)attemptReconnectionForEvent:(RZBPeripheralStateEvent) event;
 
 /**
  * Read a characteristic and trigger the completion block.
@@ -186,6 +200,15 @@ characteristicUUID:(CBUUID *)characteristicUUID
  * @note This bool is set to NO when cancelConnection is called.
  */
 @property (nonatomic) BOOL maintainConnection;
+
+
+/**
+ * This will make it so that the `onUpdate` callback when you enable notify for a 
+ * characteristic get's called an additional time with the error RZBluetoothNotifyUnsubscribed
+ * when the notification is cancelled due to a disconnect or clear notification. 
+ * Defaults to NO
+ */
+@property (nonatomic) BOOL notifyUnsubscription;
 
 /**
  * This method drives RZBPeripheralConnectionDelegate and the maintainConnection behavior.

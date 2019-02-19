@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Raizlabs/RZBluetooth.png)](https://travis-ci.org/Raizlabs/RZBluetooth)
+[![CircleCI](https://img.shields.io/circleci/project/github/Raizlabs/RZBluetooth/master.svg)](https://circleci.com/gh/Raizlabs/RZBluetooth)
 [![Version](https://img.shields.io/cocoapods/v/RZBluetooth.svg?style=flat)](http://cocoapods.org/pods/RZBluetooth)
 [![License](https://img.shields.io/cocoapods/l/RZBluetooth.svg?style=flat)](http://cocoapods.org/pods/RZBluetooth)
 [![Platform](https://img.shields.io/cocoapods/p/RZBluetooth.svg?style=flat)](http://cocoapods.org/pods/RZBluetooth)
@@ -152,9 +152,9 @@ Availability Interactions are a set of actions that should be performed every ti
     }
     else {
         // The device is disconnected. maintainConnection will attempt a connection event
-	// immediately after this. This default maintainConnection behavior may not be
-	// desired for your application. A backoff timer or other behavior could be
-	// implemented here.
+        // immediately after this. This default maintainConnection behavior may not be
+        // desired for your application. A backoff timer or other behavior could be
+        // implemented here.
     }
 }
 
@@ -308,15 +308,15 @@ Examples:
 RZBEnableMock(YES);
 
 // Obtain the existing application CBCentralManager, which is really an RZBMockCentralManager since mocking is enabled.
-CBCentralManager<RZBMockedCentralManager> *centralManager = ...;
+CBCentralManager *centralManager = [[CBCentralManager alloc] init];
 
 // Create a fake peripheral
 self.fakePeripheral = [[RZBSimulatedDevice alloc] init];
 
 // Setup the simulated central and the simulated connection
-self.central = [[RZBSimulatedCentral alloc] initWithMockCentralManager:centralManager];
-NSUUID *identifier = [NSUUID UUID]; // Or a persisted value
-[central addSimulatedDeviceWithIdentifier:identifier 
+self.central = [[RZBSimulatedCentral alloc] initWithMockCentralManager:centralManager.mock];
+
+[central addSimulatedDeviceWithIdentifier:[NSUUID UUID]
                         peripheralManager:self.fakePeripheral.peripheralManager];
 self.connection = [central connectionForIdentifier:identifier]
 
@@ -350,5 +350,5 @@ Few recommendations:
 
  - Enable simulation with a 2 finger triple tap.
  - Save Simulation state in `NSUserDefaults` and configure on app start.
- - Use `UIAlertController`s to easily configure arbitrary properties.
+ - Use `UIAlertController`s to simplify configure arbitrary properties.
  - Create multiple peripherals to debug scanning.

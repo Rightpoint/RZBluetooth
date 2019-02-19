@@ -1,6 +1,6 @@
 //
 //  RZBCentralManagerCallbackTests.m
-//  UMTSDK
+//  RZBluetooth
 //
 //  Created by Brian King on 7/27/15.
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
@@ -191,22 +191,44 @@ static NSString *const RZBTestString = @"StringValue";
     XCTAssertTrue(completed);
 }
 
-- (void)testNotify
+-(void)testNotify
+{
+    [self notifyHelper:NO disconnectOrUnsubscribe:NO];
+}
+
+-(void)testNotifyAndDisconnect
+{
+    [self notifyHelper:YES disconnectOrUnsubscribe:NO];
+}
+
+-(void)testNotifyAndUnsubscribe
+{
+    [self notifyHelper:YES disconnectOrUnsubscribe:YES];
+}
+
+-(void)notifyHelper:(BOOL)errorOnUnsubscribe disconnectOrUnsubscribe:(BOOL)disconnectOrUnsubscribe
 {
     RZBPeripheral *peripheral = [self.centralManager peripheralForUUID:NSUUID.pUUID];
+    peripheral.notifyUnsubscription = errorOnUnsubscribe;
     RZBMockPeripheral *mockPeripheral = [self.mockCentralManager peripheralForUUID:NSUUID.pUUID];
     NSMutableArray *values = [NSMutableArray array];
+    __block NSError* notifyError = nil;
     __block BOOL completed = NO;
     [self.mockCentralManager fakeStateChange:CBManagerStatePoweredOn];
-
+    
     [peripheral enableNotifyForCharacteristicUUID:CBUUID.cUUID
-                                     serviceUUID:CBUUID.sUUID
-                                        onUpdate:^(CBCharacteristic *c, NSError *error) {
-                                            [values addObject:[[NSString alloc] initWithData:c.value encoding:NSUTF8StringEncoding]];
-                                        } completion:^(CBCharacteristic *c, NSError *error) {
-                                            completed = YES;
-                                        }];
-
+                                      serviceUUID:CBUUID.sUUID
+                                         onUpdate:^(CBCharacteristic *c, NSError *error) {
+                                             if (error) {
+                                                 notifyError = error;
+                                             }
+                                             else {
+                                                 [values addObject:[[NSString alloc] initWithData:c.value encoding:NSUTF8StringEncoding]];
+                                             }
+                                         } completion:^(CBCharacteristic *c, NSError *error) {
+                                             completed = YES;
+                                         }];
+    
     RZBAssertHasCommand(RZBNotifyCharacteristicCommand, RZBUUIDPath.cUUIDPath, NO);
 
     [self ensureAndCompleteConnectionTo:NSUUID.pUUID];
@@ -228,8 +250,23 @@ static NSString *const RZBTestString = @"StringValue";
         [mockPeripheral fakeCharacteristic:c updateValue:[value dataUsingEncoding:NSUTF8StringEncoding] error:nil];
     }
     [self waitForQueueFlush];
-
     XCTAssertEqualObjects(values, updateValues);
+    XCTAssertNil(notifyError);
+
+    if (errorOnUnsubscribe) {
+        if (disconnectOrUnsubscribe) {
+            [self.mockCentralManager fakeDisconnectPeripheralWithUUID:NSUUID.pUUID error:nil];
+        }
+        else {
+            [mockPeripheral fakeCharacteristic:c notify:NO error:nil];
+        }
+        [self waitForQueueFlush];
+
+        XCTAssert([notifyError.domain isEqualToString:RZBluetoothErrorDomain] && notifyError.code == RZBluetoothNotifyUnsubscribed);
+    }
+    else {
+        XCTAssertNil(notifyError);
+    }
 }
 
 - (void)testCentralStateErrorGeneration

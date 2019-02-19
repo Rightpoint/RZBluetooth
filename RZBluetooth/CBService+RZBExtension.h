@@ -10,6 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface CBPeripheral (RZBExtension)
+
+- (CBService * __nullable)rzb_serviceForUUID:(CBUUID *)serviceUUID;
+
+@end
+
 @interface CBService (RZBExtension)
 
 - (CBCharacteristic * __nullable)rzb_characteristicForUUID:(CBUUID *)characteristicUUID;

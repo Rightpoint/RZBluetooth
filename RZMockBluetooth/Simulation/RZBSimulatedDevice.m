@@ -302,7 +302,7 @@
 
     RZBPeripheralManagerStateBlock stateChange = self.onStateChange;
     if (stateChange) {
-        stateChange(peripheral.state);
+        stateChange((RZBPeripheralManagerState)peripheral.state);
     }
 
     _operationQueue.suspended = (peripheral.state != RZBPeripheralManagerStatePoweredOn);

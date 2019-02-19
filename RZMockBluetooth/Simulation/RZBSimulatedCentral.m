@@ -67,8 +67,14 @@
 
 - (void)addSimulatedDeviceWithIdentifier:(NSUUID *)peripheralUUID peripheralManager:(RZBMockPeripheralManager *)peripheralManager
 {
+    [self addSimulatedDeviceWithIdentifier:peripheralUUID peripheralName:@"Simulated Device" peripheralManager:peripheralManager];
+}
+
+- (void)addSimulatedDeviceWithIdentifier:(NSUUID *)peripheralUUID peripheralName:(NSString *)name peripheralManager:(RZBMockPeripheralManager *)peripheralManager
+{
     NSAssert([self connectionForIdentifier:peripheralUUID] == nil, @"%@ is already registered", peripheralUUID);
     RZBSimulatedConnection *connection = [[RZBSimulatedConnection alloc] initWithIdentifier:peripheralUUID
+                                                                             peripheralName:name
                                                                           peripheralManager:peripheralManager
                                                                                     central:self];
     [self.connections addObject:connection];

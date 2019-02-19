@@ -15,6 +15,7 @@
 @implementation RZBSimulatedConnection
 
 - (instancetype)initWithIdentifier:(NSUUID *)identifier
+                    peripheralName:(NSString *)peripheralName
                  peripheralManager:(RZBMockPeripheralManager *)peripheralManager
                            central:(RZBSimulatedCentral *)central
 {
@@ -28,6 +29,7 @@
         _peripheralManager = peripheralManager;
         _peripheralManager.mockDelegate = self;
         _peripheral = [central.mockCentralManager peripheralForUUID:identifier];
+        _peripheral.name = peripheralName;
         _readRequests = [NSMutableArray array];
         _writeRequests = [NSMutableArray array];
         _subscribedCharacteristics = [NSMutableArray array];
@@ -84,7 +86,7 @@
         [self.peripheralManager fakeNotifyState:NO central:(id)self.central characteristic:characteristic];
     }
     [self.subscribedCharacteristics removeAllObjects];
-#if TARGET_OS_IOS
+#if TARGET_OS_IOS && __IPHONE_OS_VERSION_MIN_REQUIRED > __IPHONE_9_0
     self.peripheral.state = CBPeripheralStateDisconnecting;
 #endif
     typeof(self) weakSelf = self;

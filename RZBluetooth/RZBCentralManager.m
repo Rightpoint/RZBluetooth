@@ -1,6 +1,6 @@
 //
 //  RZCentralManager.m
-//  UMTSDK
+//  RZBluetooth
 //
 //  Created by Brian King on 7/22/15.
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
@@ -89,7 +89,7 @@
 
 - (CBManagerState)state
 {
-    return self.coreCentralManager.state;
+    return (CBManagerState)self.coreCentralManager.state;
 }
 
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs
@@ -172,24 +172,17 @@
     RZBPeripheral *peripheral = [self.peripheralsByUUID objectForKey:peripheralUUID];
     if (peripheral == nil) {
         CBPeripheral *corePeripheral = [self corePeripheralForUUID:peripheralUUID];
+        // If the CBPeripheral is nil, the passed in UUID is not a valid reference
+        // in the system anymore. See header-doc for more details.
+        if (corePeripheral == nil) {
+            return nil;
+        }
         peripheral = [[self.peripheralClass alloc] initWithCorePeripheral:corePeripheral
                                                            centralManager:self];
         [self.peripheralsByUUID setObject:peripheral forKey:peripheralUUID];
     }
 
     return peripheral;
-}
-
-- (CBService *)serviceForUUID:(CBUUID *)serviceUUID onPeripheral:(CBPeripheral *)peripheral
-{
-    NSParameterAssert(serviceUUID);
-    NSParameterAssert(peripheral);
-    for (CBService *service in peripheral.services) {
-        if ([service.UUID isEqual:serviceUUID]) {
-            return service;
-        }
-    }
-    return nil;
 }
 
 /**
@@ -231,7 +224,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:RZBCentralManagerStateChangeNotification
                                                         object:self];
     if (self.centralStateHandler) {
-        self.centralStateHandler(central.state);
+        self.centralStateHandler((CBManagerState)central.state);
     }
     switch (central.state) {
         case CBManagerStateUnknown:
@@ -319,7 +312,7 @@
     RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), central, RZBLogIdentifier(corePeripheral), error);
     RZBPeripheral *peripheral = [self peripheralForCorePeripheral:corePeripheral];
 
-    [self completeFirstCommandOfClass:[RZBCancelConnectionCommand class]
+    BOOL didUserCancel = [self completeFirstCommandOfClass:[RZBCancelConnectionCommand class]
                      matchingUUIDPath:RZBUUIDP(corePeripheral.identifier)
                            withObject:corePeripheral
                                 error:error];
@@ -332,9 +325,12 @@
     for (RZBCommand *command in commands) {
         [self.dispatch completeCommand:command withObject:nil error:error];
     }
+
     // Clear out any onUpdate blocks
-    [peripheral.notifyBlockByUUIDs removeAllObjects];
-    [peripheral connectionEvent:RZBPeripheralStateEventDisconnected error:error];
+    [peripheral clearNotifyBlocks];
+    RZBPeripheralStateEvent state = didUserCancel ? RZBPeripheralStateEventUserCancelled : RZBPeripheralStateEventDisconnected;
+    
+    [peripheral connectionEvent:state error:error];
 }
 
 #pragma mark CBPeripheralDelegate
@@ -417,16 +413,23 @@
                                 error:error];
 }
 
-- (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
+- (void)peripheral:(CBPeripheral *)corePeripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), RZBLogIdentifier(peripheral), RZBLogUUID(characteristic), error);
+    RZBLogDelegate(@"%@ - %@ %@ %@", NSStringFromSelector(_cmd), RZBLogIdentifier(corePeripheral), RZBLogUUID(characteristic), error);
     RZBLogDelegateValue(@"Notify=%@", characteristic.isNotifying ? @"YES" : @"NO");
 
-    RZBUUIDPath *path = RZBUUIDP(peripheral.identifier, characteristic.service.UUID, characteristic.UUID);
-    [self completeFirstCommandOfClass:[RZBNotifyCharacteristicCommand class]
-                     matchingUUIDPath:path
-                           withObject:characteristic
-                                error:error];
+    RZBUUIDPath *path = RZBUUIDP(corePeripheral.identifier, characteristic.service.UUID, characteristic.UUID);
+    BOOL complete = [self completeFirstCommandOfClass:[RZBNotifyCharacteristicCommand class]
+                                     matchingUUIDPath:path
+                                           withObject:characteristic
+                                                error:error];
+    
+    if (!complete && !characteristic.isNotifying) {
+        RZBPeripheral *peripheral = [self peripheralForCorePeripheral:corePeripheral];
+        for (CBService* service in peripheral.services) {
+            [peripheral setNotifyBlock:nil forCharacteristicUUID:characteristic.UUID serviceUUID:service.UUID];
+        }
+    }
 }
 
 @end

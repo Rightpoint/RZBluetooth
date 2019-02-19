@@ -1,6 +1,6 @@
 //
-//  RZBTestCentralManager.h
-//  UMTSDK
+//  RZBMockCentralManager.h
+//  RZBluetooth
 //
 //  Created by Brian King on 7/23/15.
 //  Copyright (c) 2015 Raizlabs. All rights reserved.
@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(assign) CBManagerState state;
 @property(strong) NSDictionary *options;
 @property(strong) NSMutableDictionary *peripheralsByUUID;
+@property(nonatomic, assign, readonly) BOOL isScanning;
 @property(assign) NSUInteger fakeActionCount;
 
 - (instancetype)initWithDelegate:(id<CBCentralManagerDelegate>)delegate queue:(dispatch_queue_t)queue options:(NSDictionary *)options;

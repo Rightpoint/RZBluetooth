@@ -8,7 +8,7 @@
 
 @import CoreBluetooth;
 
-#import "RZBUUIDPath.h"
+#import "RZBluetooth/RZBUUIDPath.h"
 
 /**
  * This category is a bucket for assorted NSUUID, CBUUID, and RZBUUIDPath objects.
