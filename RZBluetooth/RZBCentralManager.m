@@ -17,17 +17,22 @@
 #import "RZBLog+Private.h"
 #import "RZBPeripheralStateEvent.h"
 #import <TargetConditionals.h>
+#import <objc/runtime.h>
 
 @implementation RZBCentralManager
+
++ (BOOL)isBackgroundModeSupported
+{
+    NSArray *backgroundModes = [[NSBundle mainBundle] infoDictionary][@"UIBackgroundModes"];
+    return [backgroundModes containsObject:@"bluetooth-central"];
+}
 
 + (NSDictionary *)optionsForIdentifier:(NSString *)identifier
 {
 #if TARGET_OS_OSX
 	return @{};
 #elif TARGET_OS_IPHONE
-    NSArray *backgroundModes = [[NSBundle mainBundle] infoDictionary][@"UIBackgroundModes"];
-
-    BOOL backgroundSupport = [backgroundModes containsObject:@"bluetooth-central"];
+    BOOL backgroundSupport = [self isBackgroundModeSupported];
     if (backgroundSupport == NO) {
         RZBLog(RZBLogLevelConfiguration, @"Background central support is not enabled. Add 'bluetooth-central' to UIBackgroundModes to enable background support");
     }
@@ -35,6 +40,16 @@
 #else
 	#warning Unsupported Platform
 #endif
+}
+
+- (BOOL)respondsToSelector:(SEL)aSelector
+{
+#if TARGET_OS_IPHONE
+    if (sel_isEqual(aSelector, @selector(centralManager:willRestoreState:))) {
+        return [[self class] isBackgroundModeSupported];
+    }
+#endif
+    return [super respondsToSelector:aSelector];
 }
 
 - (instancetype)init
@@ -49,14 +64,23 @@
 
 - (instancetype)initWithIdentifier:(NSString *)identifier peripheralClass:(Class)peripheralClass queue:(dispatch_queue_t __nullable)queue;
 {
+    return [self initWithIdentifier:identifier peripheralClass:peripheralClass queue:queue options:nil];
+}
+
+- (instancetype)initWithIdentifier:(NSString *)identifier peripheralClass:(Class)peripheralClass queue:(dispatch_queue_t __nullable)queue options:(NSDictionary<NSString *,id> *)options
+{
     NSParameterAssert(identifier);
     self = [super init];
     if (self) {
         _peripheralClass = peripheralClass ?: [RZBPeripheral class];
-        NSDictionary *options = [self.class optionsForIdentifier:identifier];
+        
+        NSMutableDictionary *mergedOptions = [[self.class optionsForIdentifier:identifier] mutableCopy];
+        if (options != nil) {
+            [mergedOptions addEntriesFromDictionary:options];
+        }
         _coreCentralManager = [[CBCentralManager alloc] initWithDelegate:self
                                                                    queue:queue
-                                                                 options:options];
+                                                                 options:mergedOptions];
         _dispatch = [[RZBCommandDispatch alloc] initWithQueue:queue context:self];
         _peripheralsByUUID = [NSMutableDictionary dictionary];
     }
@@ -100,12 +124,14 @@
 
 - (NSArray<RZBPeripheral *> *)retrieveConnectedPeripheralsWithServices:(NSArray<CBUUID *> *)serviceUUIDs
 {
-    NSMutableArray<RZBPeripheral *> *result = [NSMutableArray array];
     NSArray<CBPeripheral *> *connectedPeripherals = [self.coreCentralManager retrieveConnectedPeripheralsWithServices:serviceUUIDs];
-    for (CBPeripheral *p in connectedPeripherals) {
-        [result addObject:[self peripheralForCorePeripheral:p]];
-    }
-    return result;
+    return [self peripheralsForCorePeripherals:connectedPeripherals];
+}
+
+- (NSArray<RZBPeripheral *> *)retrievePeripheralsWithIdentifiers:(NSArray<NSUUID *> *)identifiers
+{
+    NSArray<CBPeripheral *> *peripherals = [self.coreCentralManager retrievePeripheralsWithIdentifiers:identifiers];
+    return [self peripheralsForCorePeripherals:peripherals];
 }
 
 #pragma mark - Lookup Helpers
@@ -117,6 +143,14 @@
     CBPeripheral *peripheral = [peripherals lastObject];
     peripheral.delegate = self;
     return peripheral;
+}
+
+- (NSArray<RZBPeripheral* > *)peripheralsForCorePeripherals:(NSArray<CBPeripheral*>*) peripherals {
+    NSMutableArray<RZBPeripheral *> *result = [NSMutableArray array];
+    for (CBPeripheral *p in peripherals) {
+        [result addObject:[self peripheralForCorePeripheral:p]];
+    }
+    return result;
 }
 
 - (RZBPeripheral *)peripheralForCorePeripheral:(CBPeripheral *)corePeripheral

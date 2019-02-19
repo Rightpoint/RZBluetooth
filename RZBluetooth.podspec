@@ -17,6 +17,7 @@ RZBluetooth is a Core Bluetooth helper with 3 primary goals:
   s.author       = { "Brian King" => "brianaking@gmail.com" }
   s.osx.deployment_target = "10.10"
   s.ios.deployment_target = "8.0"
+  s.watchos.deployment_target = "4.0"
   s.source       = { :git => "https://github.com/Raizlabs/RZBluetooth.git", :tag => s.version }
   s.requires_arc = true
 

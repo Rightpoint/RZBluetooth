@@ -47,7 +47,7 @@ const int    kOUIDShift             = 40;
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%06X-%010llX", self.ouid, self.manufacturerId];
+    return [NSString stringWithFormat:@"%06X-%010llX", (unsigned int)self.ouid, self.manufacturerId];
 }
 
 - (NSData *)characteristicValue

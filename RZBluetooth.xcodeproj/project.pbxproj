@@ -216,6 +216,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D59C33B820101CC40056401E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -320,6 +329,7 @@
 		ABEA8FC01BF2740200543BC3 /* RZBUserInteraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZBUserInteraction.h; sourceTree = "<group>"; };
 		ABEA8FC11BF2740200543BC3 /* RZBUserInteraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBUserInteraction.m; sourceTree = "<group>"; };
 		ABEA8FC31BF28D6A00543BC3 /* RZBUserInteractionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBUserInteractionTests.m; sourceTree = "<group>"; };
+		D59C33BC20101CC40056401E /* libRZBluetooth-watchos.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRZBluetooth-watchos.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -412,6 +422,7 @@
 				AB45C4A41B6BF70B00CC0166 /* RZBluetoothTests.xctest */,
 				AB45C5051B6BF8D300CC0166 /* libRZMockBluetooth.a */,
 				15930BDA1D1C2032009C269C /* libRZBluetooth-OSX.a */,
+				D59C33BC20101CC40056401E /* libRZBluetooth-watchos.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -686,6 +697,7 @@
 				AB45C4A31B6BF70B00CC0166 /* RZBluetoothTests */,
 				AB45C5041B6BF8D300CC0166 /* RZMockBluetooth */,
 				15930BC31D1C2032009C269C /* RZBluetooth-OSX */,
+				D59C33A520101CC40056401E /* RZBluetooth-watchos */,
 			);
 		};
 /* End PBXProject section */
@@ -791,6 +803,29 @@
 				ABCD837A1B71D1F900DA1162 /* RZBMockPeripheralManager.m in Sources */,
 				AB45C53E1B6C064F00CC0166 /* NSError+RZBMock.m in Sources */,
 				AB4135F01B718C94002F450F /* RZBSimulatedCentral.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D59C33A620101CC40056401E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D59C33A720101CC40056401E /* RZBUserInteraction.m in Sources */,
+				D59C33A820101CC40056401E /* RZBDeviceInfo.m in Sources */,
+				D59C33A920101CC40056401E /* RZBCommand.m in Sources */,
+				D59C33AA20101CC40056401E /* RZBUUIDPath.m in Sources */,
+				D59C33AB20101CC40056401E /* RZBCentralManager.m in Sources */,
+				D59C33AC20101CC40056401E /* CBUUID+RZBPublic.m in Sources */,
+				D59C33AD20101CC40056401E /* RZBErrors.m in Sources */,
+				D59C33AE20101CC40056401E /* RZBScanInfo.m in Sources */,
+				D59C33AF20101CC40056401E /* RZBCentralManager+CommandHelper.m in Sources */,
+				D59C33B020101CC40056401E /* RZBLog.m in Sources */,
+				D59C33B120101CC40056401E /* RZBHeartRateMeasurement.m in Sources */,
+				D59C33B220101CC40056401E /* RZBPeripheral+RZBBattery.m in Sources */,
+				D59C33B320101CC40056401E /* RZBPeripheral+RZBHeartRate.m in Sources */,
+				D59C33B420101CC40056401E /* RZBPeripheral.m in Sources */,
+				D59C33B520101CC40056401E /* RZBCommandDispatch.m in Sources */,
+				D59C33B620101CC40056401E /* CBService+RZBExtension.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1005,6 +1040,28 @@
 			};
 			name = Release;
 		};
+		D59C33BA20101CC40056401E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "watchsimulator watchos";
+			};
+			name = Debug;
+		};
+		D59C33BB20101CC40056401E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "watchsimulator watchos";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1049,6 +1106,15 @@
 			buildConfigurations = (
 				AB45C5171B6BF8D300CC0166 /* Debug */,
 				AB45C5181B6BF8D300CC0166 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D59C33B920101CC40056401E /* Build configuration list for PBXNativeTarget "RZBluetooth-watchos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D59C33BA20101CC40056401E /* Debug */,
+				D59C33BB20101CC40056401E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
