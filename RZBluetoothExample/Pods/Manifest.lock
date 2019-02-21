@@ -4,7 +4,7 @@ PODS:
   - RZBluetooth/Core (2.0.0)
   - RZBluetooth/Mock (2.0.0):
     - RZBluetooth/Core
-  - RZBluetoothTest (1.2.2):
+  - RZBluetoothTest (2.0.0):
     - RZBluetooth/Mock
 
 DEPENDENCIES:
@@ -20,7 +20,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   RZBluetooth: 3a552332c5ee43d7d33fe306e9cf760b5939b30e
-  RZBluetoothTest: fd6b55f85a7b8b841b037660086486a9ed352699
+  RZBluetoothTest: 9aa0c156466406861c813585ae14739719a472da
 
 PODFILE CHECKSUM: 223cbea66265599b85ff6d3b3f9dbdb44ff98c2b
 
