@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 Pod::Spec.new do |s|
   s.name         = "RZBluetoothTest"
-  s.version      = "1.2.2"
+  s.version      = "2.0.0"
   s.summary      = "A Core Bluetooth helper library to simplify unit testing with XCTest and RZBluetooth mocks."
 
   s.description  = <<-DESC
