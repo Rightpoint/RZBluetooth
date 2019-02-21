@@ -18,6 +18,8 @@
 		AB55E5841B7E4911009781B8 /* ScanListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB55E5831B7E4911009781B8 /* ScanListViewController.m */; };
 		AB7E1D591B7E7F8900D69159 /* HeartRateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7E1D571B7E7F8900D69159 /* HeartRateViewController.m */; };
 		AB7E1D5A1B7E7F8900D69159 /* HeartRateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB7E1D581B7E7F8900D69159 /* HeartRateViewController.xib */; };
+		C36DE729A44257AF22AAD32F /* libPods-RZBluetoothExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22DC15581B33817B8D013E73 /* libPods-RZBluetoothExampleTests.a */; };
+		C9721867221D945C00641309 /* RZBluetoothExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9721866221D945C00641309 /* RZBluetoothExampleTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,12 +30,21 @@
 			remoteGlobalIDString = AB55E5561B7E47F9009781B8;
 			remoteInfo = RZBluetoothExample;
 		};
+		C9721869221D945C00641309 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AB55E54F1B7E47F9009781B8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AB55E5561B7E47F9009781B8;
+			remoteInfo = RZBluetoothExample;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		22DC15581B33817B8D013E73 /* libPods-RZBluetoothExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RZBluetoothExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3169CA3C2D5B2980052A8DF2 /* libPods-RZBluetoothExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RZBluetoothExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		52F5A3AFF6811E2C5B71E9A9 /* Pods-RZBluetoothExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RZBluetoothExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-RZBluetoothExample/Pods-RZBluetoothExample.release.xcconfig"; sourceTree = "<group>"; };
 		65F2DC6972B3C12060F2A04B /* libPods-RZBluetoothExampleUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RZBluetoothExampleUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		761E240D10FA3BE96B79494E /* Pods-RZBluetoothExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RZBluetoothExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RZBluetoothExampleTests/Pods-RZBluetoothExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8360952A98FA31784DC4BCF6 /* Pods-RZBluetoothExampleUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RZBluetoothExampleUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RZBluetoothExampleUITests/Pods-RZBluetoothExampleUITests.release.xcconfig"; sourceTree = "<group>"; };
 		98E5FFAFAA33FF3FE7A91F21 /* Pods-RZBluetoothExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RZBluetoothExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RZBluetoothExample/Pods-RZBluetoothExample.debug.xcconfig"; sourceTree = "<group>"; };
 		AB55E5571B7E47F9009781B8 /* RZBluetoothExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RZBluetoothExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,6 +66,10 @@
 		AB7E1D571B7E7F8900D69159 /* HeartRateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeartRateViewController.m; sourceTree = "<group>"; };
 		AB7E1D581B7E7F8900D69159 /* HeartRateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeartRateViewController.xib; sourceTree = "<group>"; };
 		ACBA63BF16E3154C58626A6A /* Pods-RZBluetoothExampleUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RZBluetoothExampleUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RZBluetoothExampleUITests/Pods-RZBluetoothExampleUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		C9721864221D945C00641309 /* RZBluetoothExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RZBluetoothExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9721866221D945C00641309 /* RZBluetoothExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZBluetoothExampleTests.m; sourceTree = "<group>"; };
+		C9721868221D945C00641309 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D57585F9862C01F2F63097B9 /* Pods-RZBluetoothExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RZBluetoothExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RZBluetoothExampleTests/Pods-RZBluetoothExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +89,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C9721861221D945C00641309 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C36DE729A44257AF22AAD32F /* libPods-RZBluetoothExampleTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -82,6 +105,7 @@
 			children = (
 				65F2DC6972B3C12060F2A04B /* libPods-RZBluetoothExampleUITests.a */,
 				3169CA3C2D5B2980052A8DF2 /* libPods-RZBluetoothExample.a */,
+				22DC15581B33817B8D013E73 /* libPods-RZBluetoothExampleTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -91,6 +115,7 @@
 			children = (
 				AB55E5591B7E47F9009781B8 /* RZBluetoothExample */,
 				AB55E5761B7E47F9009781B8 /* RZBluetoothExampleUITests */,
+				C9721865221D945C00641309 /* RZBluetoothExampleTests */,
 				AB55E5581B7E47F9009781B8 /* Products */,
 				EB5CF2004E5E82BA41206798 /* Pods */,
 				799ACB0C1FF0CADA17491654 /* Frameworks */,
@@ -102,6 +127,7 @@
 			children = (
 				AB55E5571B7E47F9009781B8 /* RZBluetoothExample.app */,
 				AB55E5731B7E47F9009781B8 /* RZBluetoothExampleUITests.xctest */,
+				C9721864221D945C00641309 /* RZBluetoothExampleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -144,6 +170,15 @@
 			path = RZBluetoothExampleUITests;
 			sourceTree = "<group>";
 		};
+		C9721865221D945C00641309 /* RZBluetoothExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				C9721866221D945C00641309 /* RZBluetoothExampleTests.m */,
+				C9721868221D945C00641309 /* Info.plist */,
+			);
+			path = RZBluetoothExampleTests;
+			sourceTree = "<group>";
+		};
 		EB5CF2004E5E82BA41206798 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +186,8 @@
 				8360952A98FA31784DC4BCF6 /* Pods-RZBluetoothExampleUITests.release.xcconfig */,
 				98E5FFAFAA33FF3FE7A91F21 /* Pods-RZBluetoothExample.debug.xcconfig */,
 				52F5A3AFF6811E2C5B71E9A9 /* Pods-RZBluetoothExample.release.xcconfig */,
+				761E240D10FA3BE96B79494E /* Pods-RZBluetoothExampleTests.debug.xcconfig */,
+				D57585F9862C01F2F63097B9 /* Pods-RZBluetoothExampleTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -195,6 +232,25 @@
 			productReference = AB55E5731B7E47F9009781B8 /* RZBluetoothExampleUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		C9721863221D945C00641309 /* RZBluetoothExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C972186D221D945C00641309 /* Build configuration list for PBXNativeTarget "RZBluetoothExampleTests" */;
+			buildPhases = (
+				A7A05635E42CC0DFAE0560FD /* [CP] Check Pods Manifest.lock */,
+				C9721860221D945C00641309 /* Sources */,
+				C9721861221D945C00641309 /* Frameworks */,
+				C9721862221D945C00641309 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C972186A221D945C00641309 /* PBXTargetDependency */,
+			);
+			name = RZBluetoothExampleTests;
+			productName = RZBluetoothExampleTests;
+			productReference = C9721864221D945C00641309 /* RZBluetoothExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -216,6 +272,11 @@
 						CreatedOnToolsVersion = 7.0;
 						TestTargetID = AB55E5561B7E47F9009781B8;
 					};
+					C9721863221D945C00641309 = {
+						CreatedOnToolsVersion = 9.4.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = AB55E5561B7E47F9009781B8;
+					};
 				};
 			};
 			buildConfigurationList = AB55E5521B7E47F9009781B8 /* Build configuration list for PBXProject "RZBluetoothExample" */;
@@ -233,6 +294,7 @@
 			targets = (
 				AB55E5561B7E47F9009781B8 /* RZBluetoothExample */,
 				AB55E5721B7E47F9009781B8 /* RZBluetoothExampleUITests */,
+				C9721863221D945C00641309 /* RZBluetoothExampleTests */,
 			);
 		};
 /* End PBXProject section */
@@ -254,6 +316,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C9721862221D945C00641309 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -269,6 +338,24 @@
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-RZBluetoothExampleUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A7A05635E42CC0DFAE0560FD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RZBluetoothExampleTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -317,6 +404,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C9721860221D945C00641309 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9721867221D945C00641309 /* RZBluetoothExampleTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -324,6 +419,11 @@
 			isa = PBXTargetDependency;
 			target = AB55E5561B7E47F9009781B8 /* RZBluetoothExample */;
 			targetProxy = AB55E5741B7E47F9009781B8 /* PBXContainerItemProxy */;
+		};
+		C972186A221D945C00641309 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AB55E5561B7E47F9009781B8 /* RZBluetoothExample */;
+			targetProxy = C9721869221D945C00641309 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -480,6 +580,54 @@
 			};
 			name = Release;
 		};
+		C972186B221D945C00641309 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 761E240D10FA3BE96B79494E /* Pods-RZBluetoothExampleTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = RZBluetoothExampleTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.raizlabs.RZBluetoothExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RZBluetoothExample.app/RZBluetoothExample";
+			};
+			name = Debug;
+		};
+		C972186C221D945C00641309 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D57585F9862C01F2F63097B9 /* Pods-RZBluetoothExampleTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = RZBluetoothExampleTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.raizlabs.RZBluetoothExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RZBluetoothExample.app/RZBluetoothExample";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -506,6 +654,15 @@
 			buildConfigurations = (
 				AB55E5801B7E47F9009781B8 /* Debug */,
 				AB55E5811B7E47F9009781B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C972186D221D945C00641309 /* Build configuration list for PBXNativeTarget "RZBluetoothExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C972186B221D945C00641309 /* Debug */,
+				C972186C221D945C00641309 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -6,5 +6,11 @@ end
 target "RZBluetoothExampleUITests" do
     pod 'RZBluetooth', :path => "../"
     pod 'RZBluetooth/Mock', :path => "../"
-    pod 'RZBluetooth/Test', :path => "../"
+    pod 'RZBluetoothTest', :path => "../"
+end
+
+target "RZBluetoothExampleTests" do
+    pod 'RZBluetooth', :path => "../"
+    pod 'RZBluetooth/Mock', :path => "../"
+    pod 'RZBluetoothTest', :path => "../"
 end
