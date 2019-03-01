@@ -130,7 +130,10 @@
                                          code:RZBluetoothConnectionCancelled
                                      userInfo:@{}];
 
-    for (RZBCommand *command in [self.dispatch commands]) {
+    RZBUUIDPath *path = RZBUUIDP(self.identifier);
+    NSArray *commands = [self.dispatch commandsOfClass:nil matchingUUIDPath:path];
+
+    for (RZBCommand *command in commands) {
         [self.dispatch completeCommand:command
                             withObject:nil error:error];
     }

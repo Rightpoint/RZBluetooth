@@ -167,6 +167,46 @@
     [self waitForExpectationsWithTimeout:5.0 handler:nil];
 }
 
+- (void)testCancelMultipleConnections
+{
+    // Set up first connection
+    XCTestExpectation *connected = [self expectationWithDescription:@"Peripheral will connect"];
+    RZBPeripheral *peripheral = [self.centralManager peripheralForUUID:self.connection.identifier];
+    [peripheral connectWithCompletion:^(NSError * _Nullable error) {
+        [connected fulfill];
+    }];
+
+    // Create a second connection
+    XCTestExpectation *secondConnected = [self expectationWithDescription:@"Peripheral will connect"];
+    NSUUID *secondIdentifier = [NSUUID UUID];
+    RZBSimulatedDevice *secondDevice = [[self.class.simulatedDeviceClass alloc] initWithQueue:self.mockCentralManager.queue
+                                                                                      options:@{}];
+    [self.central addSimulatedDeviceWithIdentifier:secondIdentifier
+                                 peripheralManager:(id)secondDevice.peripheralManager];
+    RZBPeripheral *secondPeripheral = [self.centralManager peripheralForUUID:secondIdentifier];
+    [secondPeripheral connectWithCompletion:^(NSError * _Nullable error) {
+        [secondConnected fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+
+    XCTAssert(peripheral.state == CBPeripheralStateConnected);
+    XCTAssert(secondPeripheral.state == CBPeripheralStateConnected);
+
+    // Disconnect peripherals
+    XCTestExpectation *disconnected = [self expectationWithDescription:@"Peripheral will disconnect"];
+    [peripheral cancelConnectionWithCompletion:^(NSError * _Nullable error) {
+        [disconnected fulfill];
+    }];
+    XCTestExpectation *secondDisconnected = [self expectationWithDescription:@"Peripheral will disconnect"];
+    [secondPeripheral cancelConnectionWithCompletion:^(NSError * _Nullable error) {
+        [secondDisconnected fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+
+    XCTAssert(peripheral.state == CBPeripheralStateDisconnected);
+    XCTAssert(secondPeripheral.state == CBPeripheralStateDisconnected);
+}
+
 - (void)testMaintainConnection
 {
     self.disconnectCount = 0;
